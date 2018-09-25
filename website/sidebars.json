@@ -10,7 +10,6 @@
       "analytix/analytix-admin-guide"    
     ],
     "Analytix User Guides": [
-      "analytix/analytix-using-accesspoint",
       "analytix/analytix-salesflash-userguide"
       
     ],
@@ -18,6 +17,12 @@
       "analytix/analytix-salesflash-developerguide",
       "analytix/analytix-balance-to-gl",
       "analytix/analytix-exchange-rate"
+    ], 
+    "Analytix Support Docs": [
+      "analytix/analytix-using-accesspoint",
+      "support/qlikview-license-management",
+      "support/qlikview-bookmark-management",
+      "support/qlikview-reduce-data"
     ]
   },
   "bi": {
@@ -30,8 +35,7 @@
     ]
   },
   "support": {
-    "Support Answers": [
-      "support/analytix-support", 
+    "Support Answers": [ 
       "support/bi-support"
     ]
   }

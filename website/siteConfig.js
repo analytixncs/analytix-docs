@@ -19,7 +19,7 @@ const siteConfig = {
   title: 'Newscycle Solutions - Analytix Docs' /* title for your website */,
   tagline: 'Analytix Documentation',
   url: './' /* your website url */,
-  baseUrl: '/analytix-docs/' /* base url for your project */,
+  baseUrl: '/' /* base url for your project */,
   projectName: 'analytix-docs',
   onPageNav: 'separate',
   headerLinks: [
