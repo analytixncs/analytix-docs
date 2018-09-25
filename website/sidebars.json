@@ -1,0 +1,38 @@
+{
+  "analytix": {
+    "Analytix Intro": [
+      "analytix/analytix-bi-overview"
+    ],
+    "Analytix Setup/Main": [
+      "analytix/analytix-preinstall-checklist", 
+      "analytix/analytix-install",
+      "analytix/analytix-setup",
+      "analytix/analytix-admin-guide"    
+    ],
+    "Analytix User Guides": [
+      "analytix/analytix-using-accesspoint",
+      "analytix/analytix-salesflash-userguide"
+      
+    ],
+    "Analytix Developer Guides": [
+      "analytix/analytix-salesflash-developerguide",
+      "analytix/analytix-balance-to-gl",
+      "analytix/analytix-exchange-rate"
+    ]
+  },
+  "bi": {
+    "BI Maintenance": [
+      "bi/bi-database-core-mapping",
+      "bi/bi-auditors"
+    ],
+    "BI Resources": [
+      "bi/bi-resources"
+    ]
+  },
+  "support": {
+    "Support Answers": [
+      "support/analytix-support", 
+      "support/bi-support"
+    ]
+  }
+}

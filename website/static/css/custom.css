@@ -1,0 +1,55 @@
+/* your custom css */
+.resource-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.resource-container__group {
+  text-align: left;
+  margin-left: 30px;
+  min-width: 250px;
+}
+
+.resource-container__group a {
+  display: block;
+  background-color: whitesmoke;
+  padding: 5px 20px;
+}
+.resource-container__group ul {
+  border: 1px solid gray;
+  background-color: white;
+}
+
+.resource-container__list li > a:hover {
+  background-color: white;
+}
+.resource-container__list li {
+  border-bottom: 1px solid gray;
+}
+.resource-container__list li:last-child {
+  border-bottom: 0;
+}
+
+.navItemActive {
+    background: lightyellow;
+    border: 1px dashed lightblue !important;
+    font-weight: bold;
+    padding-left: 10px !important;
+}
+
+
+@media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
+}
+
+@media only screen and (min-width: 1024px) {
+}
+
+@media only screen and (max-width: 1023px) {
+}
+
+@media only screen and (min-width: 1400px) {
+}
+
+@media only screen and (min-width: 1500px) {
+}

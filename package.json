@@ -1,0 +1,16 @@
+{
+  "name": "docsite",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Mark McCoid",
+  "license": "MIT",
+  "scripts": {
+    "doc": "npx docusaurus-init",
+    "build": "webpack",
+    "dev-server": "webpack-dev-server"
+  },
+  "dependencies": {
+    "docusaurus-init": "^1.0.1",
+    "npx": "^10.0.1"
+  }
+}
