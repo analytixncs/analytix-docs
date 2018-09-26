@@ -18,7 +18,7 @@ There are a few other fields that are available pertaining to Foreign Currency.
 
 - **EXCHANGERATEID_ADBASE**
 - **Flag_IsCurrencyNative** - "TRUE" - native currency, "FALSE" - NOT native currency
-- **ForeignCurrency_ExchangeRate **- Currency Exchange rate from the fnExcahngeRate table.
+- **ForeignCurrency_ExchangeRate**- Currency Exchange rate from the fnExcahngeRate table.
 - **ForeignCurrency_Name** - Currency Name from the fnCurrency table in Core.
 - **ForeignCurrency_String** - the currency symbol
 

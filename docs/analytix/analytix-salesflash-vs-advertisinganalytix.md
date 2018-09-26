@@ -1,35 +1,12 @@
 ---
-id: bi-support
-title: BI Support
-sidebar_label: BI Support Answers
+id: analytix-salesflash-vs-advertisinganalytix
+title: SalesFlash versus AdvertisingAnalytix
+sidebar_label: SalesFlash versus AdvertisingAnalytix
 ---
 
-[Optional Header]: # "BI Support"
+[Optional Header]: # "SalesFlash versus AdvertisingAnalytix"
 
-- [ChargeType in fctInsertChargeSummary](#chargetype-in-fctinsertchargesummary)
-- [Comparing AdvertisingAnalytix to SalesFlash](#comparing-advertisinganalytix-to-salesflash)
 
-##  ChargeType in fctInsertChargeSummary
-
-### CREDIT vs REV CR
-
-- **CREDIT** – Shows only credits that were targeted to an ad or insertion.  These include credits that Invoice Generator created because of a Trans ID in *rtChargeEntryElem* as well as credits is *aoChargeAdjust* (These are credits a user creates to target the GL of the credit to match the revenue GL for order). 
-
-  Also those credits in *aoPrepayment* apply are marked as ChargeType CREDIT.  (The *aoPrepaymentapply* table is where we store the prepayment data for an order.)
-
-- **REV CR** (Revenue Credit) – Shows credits that were “physically” used to “pay” down an order.
-
-  So when viewing CREDIT transactions we are seeing credits that are created and then applied to a specific order or insertion by the user.
-
-  The REV CR transactions are credits that applied to an order to reduce its cost.  This can happen through balance utility, ad booker or any other application that applies existing credits to an order.
-
-  In Analytix we exclude all REV CR charges because including them will, in some cases, cause double dipping.  This happens when a credit is created and applied to a specific order and that order is already paid.  When this happens, a CREDIT transaction is created in BI and then when that credit is actually applied to pay down an order a REV CR transaction is created.
-
-  So, when we view all CREDIT charge types in BI, we see all credits targeted to specific orders, however we will not ever see credit that were created on a customers account.  These credits will show up as REV CR charge types when they are applied to an order
-
-- **CHARGE** - Indicates that this record is a part of the charge that the rating engine has determined for this ad.
-
-- **DEBIT** - Indicates a Debit that has been applied to this ad.
 
 ## Comparing AdvertisingAnalytix to SalesFlash
 

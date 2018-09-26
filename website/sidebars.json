@@ -15,11 +15,15 @@
     ],
     "Analytix Developer Guides": [
       "analytix/analytix-salesflash-developerguide",
+      "analytix/analytix-training-aggr-function",
+      "analytix/analytix-training-set-analysis",
       "analytix/analytix-balance-to-gl",
       "analytix/analytix-exchange-rate"
     ], 
     "Analytix Support Docs": [
       "analytix/analytix-using-accesspoint",
+      "analytix/analytix-salesflash-vs-advertisinganalytix",
+      "analytix/analytix-help-advanced-search",
       "support/qlikview-license-management",
       "support/qlikview-bookmark-management",
       "support/qlikview-reduce-data"
@@ -32,11 +36,9 @@
     ],
     "BI Resources": [
       "bi/bi-resources"
-    ]
-  },
-  "support": {
-    "Support Answers": [ 
-      "support/bi-support"
+    ],
+    "BI Support Docs": [
+      "support/bi-chargetypes"
     ]
   }
 }

@@ -8,9 +8,26 @@ sidebar_label: Salesflash Developer Guide
 
 
 
+---
+
+- [SalesFlash Overview](#salesflash-overview)
+- [Foreign Currency / Exchange Rate](#foreign-currency-/-exchange-rate)
+- [Advertising Sheet](#advertising-sheet)
+  - [Churn Button](#churn-button)
+  - [Dynamic YTD Button](#dynamic-ytd-button)
+- []
+
+---
+
 <div style="page-break-after: always;"></div>
 
-## Salesflash Overview
+## SalesFlash Overview
+
+The SalesFlash application's focus is on bringing together invoices, adjustments and booked but not yet invoiced ads.  The data's primary grain is the GL Account associated with the transaction.  
+
+There are tools in SalesFlash that will allow sites to further summarize their data by create GL Groupings based on the GL Account numbers.
+
+---
 
 ## Foreign Currency / Exchange Rate
 
@@ -24,7 +41,7 @@ There are a few other fields that are available pertaining to Foreign Currency.
 
 - **EXCHANGERATEID_ADBASE**
 - **Flag_IsCurrencyNative** - "TRUE" - native currency, "FALSE" - NOT native currency
-- **ForeignCurrency_ExchangeRate **- Currency Exchange rate from the fnExcahngeRate table.
+- **ForeignCurrency_ExchangeRate**- Currency Exchange rate from the fnExcahngeRate table.
 - **ForeignCurrency_Name** - Currency Name from the fnCurrency table in Core.
 - **ForeignCurrency_String** - the currency symbol
 
@@ -45,6 +62,188 @@ Get more details in [Analytix Exchange Rate](./anlaytix-exchange-rate) Document.
 ## Advertising Sheet
 
 The Advertising sheet contains a number of reports focused on what we thought Sales Reps and Advertising Managers would want to see.  However, these groupings are just a way to separate reports and it doesn't mean that others won't find these reports useful.
+
+### Churn Button
+
+The Churn reports offer users either a yearly or monthly churn.  These definitions are strict and would be difficult to modify on a site by site basis.
+
+1. Yearly Churn - Compares data on a Year over Year basis, using the *Select A Year* field to determine the "Current" Year and the "Previous" Year
+2. Monthly Churn - Compares data from the selected Month to the month previous to it.  Note this is not a YOY month compare.  As an example, a monthly churn could be compare August 2018 to July 2018.
+
+#### Yearly Churn
+
+To create churn type expression for Analytix we need to be able to compare revenue by AccountNumber for each year.
+
+In the end we will have four expressions as defined below:
+
+1. **Inactive:** Current Year Revenue=0 AND Previous Year Revenue = 0.
+2. **Active:** Current Year Revenue<>0 AND Previous Year Revenue< >0.
+
+2. **Lost:** Current Year Revenue=0 AND Previous Year Revenue <> 0.
+
+3. **New:** Current Year Revenue<>0 AND Previous Year Revenue = 0.
+
+**New**:
+
+```
+COUNT(DISTINCT //We only want to count distinct Accounts
+
+//This will find all accounts in the current year whose sum of revenue is NOT equal to zero 
+
+{<ACCOUNTNUMBER_ADBASE=({"=SUM({$<Posting_CalendarYear={$(=$(SelectYear))}>} $(NetRevenue))<>0"}) 
+
+* //This is the intersection operator.  It will take the result sets from the set above and below and intersect them.
+
+//We cannot say =0 here since this will not count those accounts that had NO ad orders.  So we take All Accounts and use the Minus (-) operator to remove those accounts that had revenue in the previous year from the list.
+
+(ACCOUNTNUMBER_ADBASE-{"=SUM({$<Posting_CalendarYear={$(=$(SelectYear)-1)}>} $(NetRevenue))<>0"})
+
+>} ACCOUNTNUMBER_ADBASE)
+```
+
+**Inactive:**
+
+```
+COUNT(DISTINCT {<ACCOUNTNUMBER_ADBASE=(ACCOUNTNUMBER_ADBASE -{"=SUM({$<Posting_CalendarYear={$(=$(SelectYear))}>} $(NetRevenue))<>0"}) *                                                                (ACCOUNTNUMBER_ADBASE-{"=SUM({$<Posting_CalendarYear={$(=$(SelectYear)-1)}>} $(NetRevenue))<>0"})
+
+>} ACCOUNTNUMBER_ADBASE)
+```
+
+**Active:**
+
+```
+COUNT(DISTINCT {<ACCOUNTNUMBER_ADBASE={"=SUM({$<Posting_CalendarYear={$(=$(SelectYear))}>} $(NetRevenue))<>0"}*                                       {"=SUM({$<Posting_CalendarYear={$(=$(SelectYear)-1)}>} $(NetRevenue))<>0"}>} ACCOUNTNUMBER_ADBASE)
+```
+
+**Lost:**
+
+```
+COUNT(DISTINCT {<ACCOUNTNUMBER_ADBASE=(ACCOUNTNUMBER_ADBASE-{"=SUM({$<Posting_CalendarYear={$(=$(SelectYear))}>} $(NetRevenue))<>0"}) *
+
+({"=SUM({$<Posting_CalendarYear={$(=$(SelectYear)-1)}>} $(NetRevenue))<>0"})
+
+>} ACCOUNTNUMBER_ADBASE)
+```
+
+To make all of this easier to reason about in the calculated dimension, we use two variables to encapsulate the Current Year (`$(vChurnCurrYear)`) and Previous Year (`$(vChurnPrevYear)`) Revenue
+
+```
+=IF( ($(vChurnCurrYear) > 0 ) AND ( $(vChurnPrevYear) = 0), 'New Customers',
+	IF( ($(vChurnCurrYear) = 0 ) AND ( $(vChurnPrevYear) = 0 ), 'Inactive Customers',
+		IF( ($(vChurnCurrYear) = 0 ) AND ( $(vChurnPrevYear) > 0 ),  'Lost Customers',
+			IF( ($(vChurnCurrYear) - $(vChurnPrevYear)) / $(vChurnPrevYear) > 0, 'Increased Rev Customers',
+				IF( ( ($(vChurnCurrYear) - $(vChurnPrevYear)) / $(vChurnPrevYear) < 0 ) AND ( ($(vChurnCurrYear) - $(vChurnPrevYear)) / $(vChurnPrevYear) > -1 ), 'Reduced Rev Customers', 'OTHER')
+				)
+			)
+		)
+	)
+```
+
+
+
+#### Monthly Churn
+
+Churn by month allows the end user to select the “current” month to start the churn comparison.
+
+So, if the month chosen is Nov. 2018, the churn calculations will look at Nov. 2018 and Oct. 2018.
+
+The first thing we need is a Month/Year table that is not associated with any other tables.  Add the following code to the QVW Script:
+
+```
+//===========================================================//
+//-- Create fields for use with the Monthly Churn charts on 
+//-- the Advertising tab -> Churn
+//-- NOTE: it doesn't matter that we are pulling this info from the
+//--   insert date table
+//-- It is only important in the variables. In the variables we will be using
+//-- posting or insert date to compare based on user selection.
+//===========================================================//
+
+MonthYearSelection:
+LOAD 
+	Dual(QVD_Month & '-' & QVD_Calendar_Year, (QVD_Calendar_Year*100) + QVD_Month_OfYear_Number) as DynamicMonthYear%,
+	Dual(Month(AddMonths(QVD_CalendarDate, -1)) & '-' & Year(AddMonths(QVD_CalendarDate, -1)), (Year(AddMonths(QVD_CalendarDate, -1))*100) + Month(AddMonths(QVD_CalendarDate, -1))) as DynamicMonthYearPrev%
+FROM ..\QVD\dmDate.qvd (qvd)
+Where QVD_Calendar_Year >= Year(Today())-1 AND QVD_Calendar_Year <= Year(Today())+1;
+
+Let SelectMonthYear = '=NUM([DynamicMonthYear%])';
+Let SelectMonthYearPrev = '=NUM([DynamicMonthYearPrev%])';
+```
+
+I have chosen to only load three years for the user to select from – “Prev, Curr and Curr + 1”
+
+Notice that I am creating two variables to hold the information:
+
+**SelectMonthYear** – Actual Month/Year selected
+**SelectMonthYearPrev** – Previous Month/Year based on the selected Month/Year
+
+Note that in these variables I am storing the number equivalent which is YYYYMM.
+
+#### Other Variables needed for Monthly Churn
+
+These are other variables that are used in the Monthly Churn charts.
+
+**vChurnDynCurrMonth**
+
+```
+IF(IsNull(
+AGGR(SUM({$<Insert_MonthOfYearNumber=
+	{$(=Mid('$(SelectMonthYear)',5,2))},
+	Insert_CalendarYear={$(=Mid('$(SelectMonthYear)',1,4))}>} $(NetRevenue)), AccountNumber_AdBase)),
+	0,
+AGGR(SUM({$
+	<Insert_MonthOfYearNumber={$(=Mid('$(SelectMonthYear)',5,2))},
+	Insert_CalendarYear={$(=Mid('$(SelectMonthYear)',1,4))}>
+	} 
+	$(NetRevenue)), 
+AccountNumber_AdBase))
+```
+
+**vChurnDynPrevMonth**
+
+```
+IF(IsNull(
+AGGR(SUM({$<Insert_MonthOfYearNumber=
+	{$(=Mid('$(SelectMonthYearPrev)',5,2))},
+	Insert_CalendarYear={$(=Mid('$(SelectMonthYearPrev)',1,4))}>} $(NetRevenue)), AccountNumber_AdBase)),
+	0,
+AGGR(SUM({$
+	<Insert_MonthOfYearNumber={$(=Mid('$(SelectMonthYearPrev)',5,2))},
+	Insert_CalendarYear={$(=Mid('$(SelectMonthYearPrev)',1,4))}>
+	} 
+	$(NetRevenue)), 
+AccountNumber_AdBase))
+
+```
+
+You can then use the above two variables in your chart's dimension field.  Here is an example:
+
+```
+=
+IF(($(vChurnDynCurrMonth) - $(vChurnDynPrevMonth))/$(vChurnDynPrevMonth) = -1, 
+'Lost Customers',
+	IF(	($(vChurnDynCurrMonth) - $(vChurnDynPrevMonth))	/ $(vChurnDynPrevMonth) > 0,
+	'Increased Rev Customers',
+		IF(($(vChurnDynCurrMonth) - $(vChurnDynPrevMonth))/$(vChurnDynPrevMonth) < 0
+		AND ($(vChurnDynCurrMonth) - $(vChurnDynPrevMonth))/$(vChurnDynPrevMonth) > -1, 
+		'Reduced Rev Customers',
+			IF(($(vChurnDynCurrMonth) > 0 AND $(vChurnDynPrevMonth) = 0), 
+			'New Customers',
+				IF(($(vChurnDynCurrMonth) = 0 AND $(vChurnDynPrevMonth) = 0), 
+				'Inactive Customers','OTHER')
+				)
+			)
+		)
+	)
+```
+
+
+
+---
+
+
+
+
 
 ### Dynamic YTD Button
 

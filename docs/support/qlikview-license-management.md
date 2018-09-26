@@ -2,7 +2,6 @@
 id: qlikview-license-management
 title: Qlikview License Management
 sidebar_label: Qlikview License (CALs) Management
-
 ---
 
 [Optional Header]: # "Qlikview License Management"
@@ -11,34 +10,24 @@ sidebar_label: Qlikview License (CALs) Management
 
 ---
 
-- [Clearing CAL Data from QMC](#clearing-cal-data-from-qmc)
+- [Qlikview Licensing Options](#qlikview-licensing-options)
 - [Assigning Document CALs and Full Use (Named User) CALs](#assigning-document-cals-and-full-use-(named-user)-cals)
+- [Clearing CAL Data from QMC](#clearing-cal-data-from-qmc)
+- [Options](#options)
 
 ---
 
-## Clearing CAL Data from QMC
+##  Qlikview Licensing Options
 
-This is an extreme measure in that you are removing the CAL license pgo file.  However, shared information will be retained in the **.shared** files. 
+- **Standard User CAL (Client Access License)** – This is a named user license, giving one user the right to access as many of our Analytix Applications as they want.  
+  Currently we have 4 primary Analytix applications: Advertising Analytix, Sales Flash, AR Analytix, Contract Analytix. 
+  Standard User CALs can also be **leased**.  Which at its most basic means that a user with a standard CAL can license a the Qlikview developer application.  
 
-To clear all CAL data from the system, start the QMC and go to **System\Setup\Qlikview Servers\Folders** tab:
+  > Every site must have at least one Standard User CAL 
 
-![1536243947527](../assets/support_1536243947527.png)
+- **Document User CAL (Client Access License)** – This is a named user license, giving one user the right to access only **ONE** named document.  For example, if Rep A has a doc license, the Qlikview administrator would need to go into the QV admin area and assign this Document CAL to a User and a Single document.
 
-Look for the Root Folder location (see circled path above) and open up a Windows Explorer at this location.
-
-You should see a number of **\*.pgo** files.
-
-![1536244081111](../assets/support_1536244081111.png)
-
-Next stop all Qlikview Services and then delete the **CalData.pgo** file.  
-
-When you look at the license screen in the QMC, you should see an empty list of in the **Assigned CALs** area by going to **System\Licenses\QlikView OEM Server\Client Access Licenses(CALs)\Assigned CALs**
-
-![1536244729773](../assets/support_1536244729773.png)
-
-------
-
-<div style="page-break-after: always;"></div>
+---
 
 ## Assigning Document CALs and Full Use (Named User) CALs
 
@@ -100,6 +89,34 @@ Follow these steps:
 3. When done make sure to click on the Apply button.
 
 Follows these steps for each document that you are assigning Document CALs to.
+
+---
+
+<div style="page-break-after: always;"></div>
+
+## Clearing CAL Data from QMC
+
+This is an extreme measure in that you are removing the CAL license pgo file.  However, shared information will be retained in the **.shared** files. 
+
+To clear all CAL data from the system, start the QMC and go to **System\Setup\Qlikview Servers\Folders** tab:
+
+![1536243947527](../assets/support_1536243947527.png)
+
+Look for the Root Folder location (see circled path above) and open up a Windows Explorer at this location.
+
+You should see a number of **\*.pgo** files.
+
+![1536244081111](../assets/support_1536244081111.png)
+
+Next stop all Qlikview Services and then delete the **CalData.pgo** file.  
+
+When you look at the license screen in the QMC, you should see an empty list of in the **Assigned CALs** area by going to **System\Licenses\QlikView OEM Server\Client Access Licenses(CALs)\Assigned CALs**
+
+![1536244729773](../assets/support_1536244729773.png)
+
+------
+
+<div style="page-break-after: always;"></div>
 
 ### Options
 

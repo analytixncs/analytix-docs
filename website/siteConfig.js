@@ -25,7 +25,7 @@ const siteConfig = {
   headerLinks: [
     {doc: 'analytix/analytix-bi-overview', label: 'Analytix'},
     {doc: 'bi/bi-resources', label: 'BI'},
-    {doc: 'support/analytix-support', label: 'Support'},
+    //{doc: 'support/analytix-support', label: 'Support'},
     //{doc: 'doc4', label: 'API'},
     //{page: 'help', label: 'Help'},
   ],

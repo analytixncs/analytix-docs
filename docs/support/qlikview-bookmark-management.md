@@ -2,7 +2,6 @@
 id: qlikview-bookmark-management
 title: Qlikview Bookmark Management
 sidebar_label: Qlikview Bookmark Management
-
 ---
 
 [Optional Header]: # "Qlikview Bookmark Management"
