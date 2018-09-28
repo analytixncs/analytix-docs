@@ -1,0 +1,1901 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>BI Database Core Mapping · Newscycle Solutions - Analytix Docs</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="[Optional Header]: # &quot;BI Database Core Mapping&quot;"/><meta property="og:title" content="BI Database Core Mapping · Newscycle Solutions - Analytix Docs"/><meta property="og:type" content="website"/><meta property="og:url" content=".//index.html"/><meta property="og:description" content="[Optional Header]: # &quot;BI Database Core Mapping&quot;"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible doc separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/newscycle-circle.png" alt="Newscycle Solutions - Analytix Docs"/><h2 class="headerTitleWithLogo">Newscycle Solutions - Analytix Docs</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/docs/analytix/analytix-bi-overview.html" target="_self">Analytix</a></li><li class="siteNavGroupActive"><a href="/docs/bi/bi-resources.html" target="_self">BI</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>BI Maintenance</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup navGroupActive"><h3>BI Maintenance</h3><ul><li class="navListItem navListItemActive"><a class="navItem navItemActive" href="/docs/bi/bi-database-core-mapping.html">BI Database Core Mapping</a></li><li class="navListItem"><a class="navItem" href="/docs/bi/bi-auditors.html">Running The BI Auditors</a></li></ul></div><div class="navGroup navGroupActive"><h3>BI Resources</h3><ul><li class="navListItem"><a class="navItem" href="/docs/bi/bi-resources.html">BI Resources</a></li></ul></div><div class="navGroup navGroupActive"><h3>BI Support Docs</h3><ul><li class="navListItem"><a class="navItem" href="/docs/support/bi-chargetypes.html">BI ChargeTypes Explained</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1>BI Database Core Mapping</h1></header><article><div><span><ul>
+<li><p><a href="#the-bi-database"><strong>The BI Database</strong></a></p></li>
+<li><p><a href="#adorder-data-mart"><strong>AdOrder Data Mart</strong></a></p>
+<ul>
+<li><a href="#fctadorder">fctAdOrder</a></li>
+</ul></li>
+<li><p><a href="#insertion-data-mart"><strong>Insertion Data Mart</strong></a></p></li>
+<li><p><a href="#chargetypes-in-the-advertising-data-mart"><strong>ChargeTypes in the Advertising Data Mart</strong></a></p></li>
+<li><p><a href="#spread-logic-in-the-advertising-data-mart"><strong>Spread Logic in the Advertising Data Mart</strong></a></p>
+<ul>
+<li><a href="#fctinsertion">fctInsertion</a></li>
+<li><a href="#fctinsertchargesummary">fctInsertChargeSummary</a></li>
+<li><a href="#fctinsertchargedetail">fctInsertChargeDetail</a></li>
+<li><a href="#fctsalescomm">fctSalesComm</a></li>
+</ul></li>
+<li><p><a href="#gl-data-mart"><strong>GL Data Mart</strong></a></p></li>
+<li><p><a href="#gl-relationship-to-advertising-side-of-bi"><strong>GL Relationship to Advertising Side of BI</strong></a></p></li>
+<li><p><a href="#calculating-linage-from-fctgl"><strong>Calculating Linage from fctGL</strong></a></p></li>
+<li><p><a href="#joining-fctapply-to-fctarsummary"><strong>Joining fctApply to fctARSummary</strong></a></p>
+<ul>
+<li><a href="#fctarsummary">fctARSummary</a></li>
+<li><a href="#fctgl">fctGL</a></li>
+<li><a href="#fctpreapply">fctPreApply</a></li>
+<li><a href="#fctapply">fctApply</a></li>
+</ul></li>
+<li><p><a href="#contract-data-mart"><strong>Contract Data Mart</strong></a></p></li>
+<li><p><a href="#contract-information"><strong>Contract Information</strong></a></p>
+<ul>
+<li><a href="#fctcontract">fctContract</a></li>
+<li><a href="#fctcontractfulfillment">fctContractFulfillment</a></li>
+</ul></li>
+<li><p><a href="#tables"><strong>Dimension Tables</strong></a></p>
+<ul>
+<li><a href="#dmadproduct">dmAdProduct</a></li>
+<li><a href="#dmuser">dmUser</a></li>
+<li><a href="#dmclient">dmClient</a></li>
+<li><a href="#dmrelationshipagency">dmRelationshipAgency.</a></li>
+<li><a href="#dmrelationshipparent">dmRelationshipParent</a></li>
+<li><a href="#bridgemulticlient">bridgeMultiClient</a></li>
+<li><a href="#dmdate">dmDate</a></li>
+<li><a href="#dmadorderbools">dmAdOrderBools</a></li>
+<li><a href="#dmadorderstatus">dmAdOrderStatus</a></li>
+<li><a href="#dmadpromotion">dmAdPromotion</a></li>
+<li><a href="#dmadorderdetail">dmAdOrderDetail 49</a></li>
+<li><a href="#dmcompany">dmCompany</a></li>
+<li><a href="#bridgemultispecials">bridgeMultiSpecials</a></li>
+<li><a href="#dmspecias">dmSpecias</a></li>
+<li><a href="#bridgemultimaterials">bridgeMultiMaterials</a></li>
+<li><a href="#dmmaterialcharge">dmMaterialCharge</a></li>
+<li><a href="#dmlocation">dmLocation</a></li>
+<li><a href="#bridgeorderroles">bridgeOrderRoles</a></li>
+<li><a href="#dmadinsertbools">dmAdInsertBools</a></li>
+<li><a href="#dmadcontent">dmAdContent</a></li>
+<li><a href="#dmaddetail">dmAdDetail</a></li>
+<li><a href="#dmlayoutinfo">dmLayoutInfo</a></li>
+<li><a href="#dmlogos">dmLogos</a></li>
+<li><a href="#bridgelogos">bridgeLogos</a></li>
+<li><a href="#dmadlineage">dmAdLineage</a></li>
+<li><a href="#bridgeprpdistribution">bridgePRPDistribution</a></li>
+<li><a href="#dmprpdistribution">dmPRPDistribution</a></li>
+<li><a href="#dmglaccounts">dmGLAccounts</a></li>
+<li><a href="#dmcausereason">dmCauseReason</a></li>
+<li><a href="#dmcollections">dmCollections</a></li>
+<li><a href="#dmbusinessarea">dmBusinessArea</a></li>
+<li><a href="#dmdigitalmediacampaign">dmDigitalMediaCampaign</a></li>
+<li><a href="#dmdigitalmediaflight">dmDigitalMediaFlight</a></li>
+<li><a href="#dmdigitalmediaunit">dmDigitalMediaUnit</a></li>
+<li><a href="#dmglinvoicedetail">dmGLInvoiceDetail</a></li>
+<li><a href="#dmgltransaction">dmGLTransaction</a></li>
+<li><a href="#dmcontractdetails">dmContractDetails</a></li>
+<li><a href="#dmcontracttemplate">dmContractTemplate</a></li>
+<li><a href="#dmcontractbools">dmContractBools</a></li>
+<li><a href="#dmrateholder">dmRateHolder 66</a></li>
+<li><a href="#bridgecontractclient">bridgeContractClient 67</a></li>
+<li><a href="#bridgereppercentage">bridgeRepPercentage</a></li>
+<li><a href="#bridgeclientalias">bridgeClientAlias</a></li>
+<li><a href="#dmclientalias">dmClientAlias</a></li>
+</ul></li>
+</ul>
+<h1><a class="anchor" aria-hidden="true" id="the-bi-database"></a><a href="#the-bi-database" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>The BI Database</h1>
+<p>The BI database is designed using dimensional database modeling principles.  By designing the database in this way we have created a database that presents data in a way that is easy to understand which makes it easy to query and get the data out.</p>
+<p>A dimensional model is based on a star schema format.</p>
+<p><img src="..\assets\bi_core_mapping-clip_image002.jpg" alt="img"></p>
+<p>The diagram above demonstrates why it is called a star schema.</p>
+<p>There is usually one central table called a <strong>Fact Table</strong>.  The fact table stores the transactions of the business.  In the BI database we prefix these table names with FCT.</p>
+<p>The tables surrounding the fact table and joining to it are called <strong>Dimension Tables</strong>.  The dimensions describe the transactions that are in the fact table.  In the BI database we prefix these table names with DM.</p>
+<p>In addition to the Fact and Dimension tables there are also some <strong>Helper Tables</strong> called Bridge tables.  Their names are prefixed with the word BRIDGE.</p>
+<p>For example, if the fact table held Insertion transactions, then the dimensions would describe those transactions.  Things like Products, Insert Dates, Customer, etc.</p>
+<p>As you view the BI database you will notice that is split into four data marts.</p>
+<ul>
+<li>Ad Order</li>
+<li>Insertion</li>
+<li>Contracts</li>
+<li>GL</li>
+</ul>
+<p>A single dimension table may be linked to multiple fact tables in different data marts.  This can allow interaction between the data marts.</p>
+<p>As you navigate through the BI database here are a few rules that will help you understand how it is set up:</p>
+<ol>
+<li><p>Fact tables have the prefix of FCT before their table name.  So the AdOrder fact table is called <strong>fctAdOrder</strong></p></li>
+<li><p>Dimension tables have the prefix of DM before their table name. So the AdProduct dimension is called <strong>dmAdProduct.</strong></p></li>
+<li><p>If the field ends in _ID, it is a link to a dimension table in the BI database.  To find which dimension, look at the word before the <em>ID and add a dm to the beginning.  For example, Insert</em><strong>Date</strong>_ID.  If I take the word before the _ID (Date) and add dm to it, I get <strong>dmDate.</strong>  This is the dimension table that the Insert_Date_ID is linking to.</p>
+<blockquote>
+<p>NOTE:  Fields ending in _ID can not be used in queries to join to similar Core IDs.  They may represent the same entity, but the number will be different. For example, Company_ID in fctInsertion is not the same ID number as CompanyID in aoAdOrder.  Again, they may point to the same Company, but the IDs will be different.</p>
+</blockquote></li>
+<li><p>If the field ends in _AdBase, it is a link to an ID in the Core database.  In this document, in the Core description field we will have the following text to indicate that this is a Core ID:  Link to CORE 🡒
+This means that you may use these fields to actually join to fields in the      Core database.
+For example, the AdOrderId_AdBase field in fctAdOrder can be used to join      to aoAdOrder as follows:
+SELECT *
+FROM fctAdOrder, aoAdOrder
+WHERE      fctAdOrder.AdOrderId_AdBase = aoAdOrder.ID</p></li>
+</ol>
+<ol start="5">
+<li><p>Most of the fields in the Fact tables will be ID fields linking to other dimensions.</p></li>
+<li><p>Most of the data marts will not have only one fact table, but will have multiple fact tables that are linked together to fully describe the transactions for that data mart.</p></li>
+</ol>
+<hr>
+<h1><a class="anchor" aria-hidden="true" id="adorder-data-mart"></a><a href="#adorder-data-mart" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>AdOrder Data Mart</h1>
+<p>The Ad Order data mart has the following tables:</p>
+<p><strong>Fact tables</strong></p>
+<ul>
+<li><a href="#fctAdOrder">fctAdorder</a></li>
+</ul>
+<p><strong>Dimensions</strong></p>
+<ul>
+<li><a href="#dmClient">dmClient</a></li>
+<li><a href="#dmRelationshipParent">dmRelationshipParent</a></li>
+<li><a href="#dmDate">dmRelationshipAgency</a></li>
+<li><a href="#dmAdOrderBools">dmAdOrderBools</a></li>
+<li><a href="#dmAdOrderStatus">dmOrderStatus</a></li>
+<li><a href="#dmDate_1">dmDate</a></li>
+<li><a href="#dmUser">dmUser</a></li>
+<li><a href="#dmAdPromotion">dmAdPromotion</a></li>
+<li><a href="#dmAdOrderDetail">dmAdOrderDetail</a></li>
+<li><a href="#dmCompany">dmCompany</a></li>
+<li><a href="#dmLocation">dmLocation</a></li>
+<li><a href="#dmSpecials">dmSpecials</a></li>
+<li><a href="#dmMaterialCharge">dmMaterialCharge</a></li>
+</ul>
+<p><strong>Helper Tables</strong></p>
+<ul>
+<li><a href="#bridgeMultiMaterials">bridgeMultiMaterials</a></li>
+<li><a href="#bridgeMultiClient_1">bridgeMultiClient</a></li>
+<li><a href="#bridgeMultiSpecials">bridgeMultiSpecials</a></li>
+<li><a href="#bridgeOrderRoles">bridgeOrderRoles</a></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="fctadorder"></a><a href="#fctadorder" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>fctAdOrder</h2>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>AdOrderID_AdBase</td><td>Link to CORE 🡒  aoAdOrder.ID</td></tr>
+<tr><td>Create_Date_ID</td><td>Link to <a href="#dmDate_1">dmDate</a> 🡒  aoAdOrder.CreateDate</td></tr>
+<tr><td>ADOrderNumber</td><td>aoAdOrder.AdOrderNumber</td></tr>
+<tr><td>GroupMultiClient_ID</td><td>Link to <a href="#bridgeMultiClient_1">BridgeMultiClient</a>.GroupMultiClient_ID   The <a href="#bridgeMultiClient_1">bridgeMultiClient</a>   table allows an insertion to be linked to more than just the Primary Orderer   and Payer.</td></tr>
+<tr><td>Household_ID</td><td>Link to dmHousehold.ID   The Household table was designed to be used to store the   history of address changes of a customer. Currently it is populated, but not   used in any of our reports or Analytix.</td></tr>
+<tr><td>PrimaryPayer_Client_ID</td><td>Link to <a href="#dmClient">dmClient</a>.ID   AoOrderCustomers where PrimaryPayerFlag is TRUE</td></tr>
+<tr><td>PrimaryPayer_Location_ID</td><td>Link to <a href="#dmLocation">dmLocation</a>   Address information linked to the Primary Payer above.</td></tr>
+<tr><td>PrimaryOrderer_Client_ID</td><td>Link to <a href="#dmClient">dmClient</a>   AoOrderCustomers where PrimaryOrdererFlag is TRUE</td></tr>
+<tr><td>PrimaryOrderer_Location_ID</td><td>Link to <a href="#dmLocation">dmLocation</a>   Address information linked to the Primary Orderer above.</td></tr>
+<tr><td>Commissionedrep_User_ID</td><td>Link to <a href="#dmUser">dmUser</a> 🡒  Sold By Rep in AdBooker, aoAdOrder.SellerID</td></tr>
+<tr><td>OrderTaker_User_ID</td><td>Link to <a href="#dmUser">dmUser</a> 🡒  aoAdOrder.RepID</td></tr>
+<tr><td>CreditApprover_User_ID</td><td>Link to <a href="#dmUser">dmUser</a> 🡒   aoAdOrder.CreditOverID</td></tr>
+<tr><td>KillUser_User_ID</td><td>Link to <a href="#dmUser">dmUser</a> 🡒  aoAdOrder.KillID</td></tr>
+<tr><td>Killed_Date_ID</td><td>Link to <a href="#dmDate">dmDate</a> 🡒  aoAdOrder.KillDate</td></tr>
+<tr><td>Expired_Date_ID</td><td>Link to <a href="#dmDate_1">dmDate</a> 🡒  aoAdOrder.ExpireDate</td></tr>
+<tr><td>FirstInsert_Date_ID</td><td>Link to <a href="#dmDate_1">dmDate</a> 🡒  aoAdOrder.RunDateFirst</td></tr>
+<tr><td>LastInsert_Date_ID</td><td>Link to <a href="#dmDate_1">dmDate</a> 🡒  aoAdOrder.RunDateLast</td></tr>
+<tr><td>Modified_Date_ID</td><td>Link to <a href="#dmDate_1">dmDate</a> 🡒  aoAdOrder.LastEditDate</td></tr>
+<tr><td>OrderTaken_Date_ID</td><td>Link to <a href="#dmDate_1">dmDate</a> 🡒  Always set to the date that the record was added to BI</td></tr>
+<tr><td>Expedited_Date_ID</td><td>Link to <a href="#dmDate_1">dmDate</a> 🡒  aoAdOrder.DateExpedited</td></tr>
+<tr><td>CreditApproved_Date_ID</td><td>Link to <a href="#dmDate_1">dmDate</a> 🡒  aoAdOrder.CreditOverTime</td></tr>
+<tr><td>AdOrderBools_ID</td><td>Link to <a href="#dmAdOrderBools">dmAdOrderBools</a></td></tr>
+<tr><td>AdOrderStatus_ID</td><td>Link to <a href="#dmAdOrderStatus">dmAdOrderStatus</a></td></tr>
+<tr><td>AdPromotion_ID</td><td>Link to <a href="#dmAdPromotion">dmAdPromotion</a></td></tr>
+<tr><td>Company_ID</td><td>Link to <a href="#dmCompany">dmCompany</a>   Derived from aoAdOrder.CompanyID</td></tr>
+<tr><td>GroupMultiSpecials_ID</td><td>Link to <a href="#bridgeMultiSpecials">bridgeMulitSpecials</a></td></tr>
+<tr><td>ProductOfOrigin_AdProduct_ID</td><td>aoAdOrder.ProductOfOriginID</td></tr>
+<tr><td>AdOrderDetail_ID</td><td>Link to <a href="#dmAdOrderDetail">dmAdOrderDetail</a></td></tr>
+<tr><td>GroupOrderRoles_ID</td><td>Link to <a href="#bridgeOrderRoles">bridgeOrderRoles</a></td></tr>
+<tr><td>GroupMultiMaterials_ID</td><td>Link to <a href="#bridgeMultiMaterials">bridgeMultiMaterials</a></td></tr>
+<tr><td>GroupRepPercentage_ID</td><td>Link to <a href="#bridgeRepPercentage">bridgeRepPercentage</a></td></tr>
+<tr><td>CreateTime</td><td>Time portion of the Create Date.  Stored as number of seconds past Midnight.</td></tr>
+<tr><td>KilledTime</td><td>Time portion of the Kill Date.  Stored as number of seconds past Midnight.</td></tr>
+<tr><td>ModifiedTime</td><td>Time portion of the Modified Date.  Stored as number of seconds past Midnight.</td></tr>
+<tr><td>TotalInsertions</td><td>aoAdOrder.RunDateCountTotal</td></tr>
+<tr><td>PONumber</td><td>aoOrderCustomers.PONumber</td></tr>
+<tr><td>AdOrder_Counter</td><td>1 if a valid adorder , 0 if a “fake” ad order. To find a   count of ads you would use the following query:    SELECT SUM(AdOrder_Counter)    FROM fctAdOrder</td></tr>
+<tr><td>TotalCreditDebitAmount</td><td>All Credits and Debits for Order totaled.   See <a href="#fctInsertion">Here</a> for Credit/Debit   Info</td></tr>
+<tr><td>TotalAdAmount</td><td>Total Amount for rows in rtChargeEntryElem with a charge   category of Insertion Charge</td></tr>
+<tr><td>TotalPreprintAmount</td><td>Total Amount for rows in rtChargeEntryElem with a charge   category of Preprint Charge</td></tr>
+<tr><td>TotalColorAmount</td><td>Total Amount for rows in rtChargeEntryElem with a charge   category of Color Charge</td></tr>
+<tr><td>TotalMaterialAmount</td><td>Total Amount for rows in rtChargeEntryElem with a charge   category of Material Charge</td></tr>
+<tr><td>TotalTypographicalAmount</td><td>Total Amount for rows in rtChargeEntryElem with a charge   category of Typographical Charge</td></tr>
+<tr><td>TotalDiscountAmount</td><td>Total Amount for rows in rtChargeEntryElem with a charge   category of Discount Charge</td></tr>
+<tr><td>TotalSpecialDiscount</td><td>Total Amount for rows in rtChargeEntryElem with a charge   category of Special Discount Charge</td></tr>
+<tr><td>TotalPremiumAmount</td><td>Total Amount for rows in rtChargeEntryElem with a charge   category of Premium Charge</td></tr>
+<tr><td>TotalTaxAmount</td><td>Total Amount for rows in rtChargeEntryElem with a charge   category of Tax Charge</td></tr>
+<tr><td>TotalCNTadjustmentAmount</td><td>Total Amount for rows in rtChargeEntryElem with a charge   category of Discount, Contract Discount, or Contract Adjustment</td></tr>
+<tr><td>TotalAGYCommissionAmount</td><td>Total Amount for rows in rtChargeEntryElem with a charge   category of Discount, Agency Commission Discount, Adjustment Charge or Agency   Commission Adjustment.</td></tr>
+<tr><td>TotalRoundingAmount</td><td>Total Amount for rows in rtChargeEntryElem with a charge   category of Discount or General Rounding Charge</td></tr>
+<tr><td>TotalNetAmount</td><td>Total Amount for all rows in rtChargeEntryElem for give   Ad.</td></tr>
+<tr><td>PriceRangeName</td><td>aoAdOrder.PriceRange</td></tr>
+<tr><td>PlacedByName</td><td>aoOrderCustomers.PlacedBy</td></tr>
+<tr><td>BlindBoxNumber</td><td>aoAdOrder.BlindBoxID 🡒  aoBlindBox</td></tr>
+<tr><td>OriginalPriceQoute</td><td>aoAdOrder.OriginalPriceQuote   The original price when the order was first saved</td></tr>
+<tr><td>LastPopulateDate</td><td>Date that the BI Populate last “touched” this record.  Used primarily in Analytix to allow for   incremental updates.</td></tr>
+</tbody>
+</table>
+<h1><a class="anchor" aria-hidden="true" id="insertion-data-mart"></a><a href="#insertion-data-mart" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Insertion Data Mart</h1>
+<p>The Insertion data mart has the following tables:</p>
+<p><strong>Fact tables</strong></p>
+<ul>
+<li><a href="#fctInsertion">fctInsertion</a></li>
+<li><a href="#fctInsertChargeSummary">fctInsertChargeSummary</a></li>
+<li><a href="#fctInsertChargeDetail">fctInsertChargeDetail</a></li>
+<li><a href="#fctSalesComm">fctSalesComm</a></li>
+</ul>
+<p><strong>Dimensions</strong></p>
+<ul>
+<li><a href="#dmClient">dmClient</a></li>
+<li><a href="#dmRelationshipParent">dmRelationshipParent</a></li>
+<li><a href="#dmDate">dmRelationshipAgency</a></li>
+<li><a href="#dmAdInsertBools">dmAdInsertBools</a></li>
+<li><a href="#dmDate">dmDate</a></li>
+<li><a href="#dmUser">dmUser</a></li>
+<li><a href="#dmCompany">dmCompany</a></li>
+<li><a href="#dmLocation">dmLocation</a></li>
+<li><a href="#dmAdContent">dmAdContent</a></li>
+<li><a href="#dmAdDetail">dmAdDetail</a></li>
+<li><a href="#dmAdProduct">dmAdProduct</a></li>
+<li><a href="#dmLayoutInfo">dmLayoutInfo</a></li>
+<li><a href="#dmLogos">dmLogos</a></li>
+<li><a href="#dmAdLineage">dmAdLineage</a></li>
+<li><a href="#dmPRPDistribution">dmPRPDistribution</a></li>
+<li><a href="#dmMaterialCharge">dmMaterialCharge</a></li>
+<li><a href="#dmGLAccounts">dmGLAccounts</a></li>
+<li><a href="#dmSpecials">dmSpecials</a></li>
+<li><a href="#dmCauseReason">dmCauseReason</a></li>
+<li><a href="#dmBusinessArea">dmBusinessArea</a></li>
+<li><a href="#dmDigitalMediaCampaign">dmDigitalMediaCampaign</a></li>
+<li><a href="#dmDigitalMediaFlight">dmDigitalMediaFlight</a></li>
+<li><a href="#dmDigitalMediaUnit">dmDigitalMediaUnit</a></li>
+</ul>
+<p><strong>Helper Tables</strong></p>
+<ul>
+<li><a href="#bridgeMultiClient_1">bridgeMultiClient</a></li>
+<li><a href="#bridgeLogos">bridgeLogos</a></li>
+<li><a href="#dmPRPDistribution">bridgePRPDistribution</a></li>
+</ul>
+<p>There are three fact tables in this data mart.  Below is how you will join them together.</p>
+<p><img src="../assets/bi_core_mapping-clip_image003.png" alt="img"></p>
+<p>Here is the SQL.</p>
+<p>SELECT   FCTINSERTION.ID,</p>
+<pre><code class="hljs">     FCTINSERTCHARGESUMMARY.INSERTION_ID,
+
+     FCTINSERTCHARGESUMMARY.ID,
+
+     FCTINSERTCHARGEDETAIL.INSERTCHARGESUMMARY_ID
+</code></pre>
+<p>FROM   FCTINSERTION, FCTINSERTCHARGESUMMARY, FCTINSERTCHARGEDETAIL</p>
+<p>WHERE   (FCTINSERTION.ID = FCTINSERTCHARGESUMMARY.INSERTION_ID)</p>
+<pre><code class="hljs">     AND (FCTINSERTCHARGESUMMARY.ID =
+
+             FCTINSERTCHARGEDETAIL.INSERTCHARGESUMMARY_ID)
+</code></pre>
+<h1><a class="anchor" aria-hidden="true" id="chargetypes-in-the-advertising-data-mart"></a><a href="#chargetypes-in-the-advertising-data-mart" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>ChargeTypes in the Advertising Data Mart</h1>
+<p>When credits are loaded into the advertising side of BI they can fall into one of two CHARGETYPE buckets.  CHARGETYPE is a field in the <em>fctInsertChargeSummary</em> table.</p>
+<p><strong>CREDIT</strong> – Shows only credits that were targeted to an ad or insertion.  These include credits that Invoice Generator created because of a Trans ID in <em>rtChargeEntryElem</em> as well as credits is <em>aoChargeAdjust</em> (These are credits a user creates to target the GL of the credit to match the revenue GL for order).<br>
+Also those credits in <em>aoPrepayment</em> apply are marked as ChargeType CREDIT.  (The <em>aoPrepaymentapply</em> table is where we store the prepayment data for an order.)</p>
+<p><strong>REV CR</strong> (Revenue Credit) – Shows credits that were “physically” used to “pay” down an order.</p>
+<p>So when viewing CREDIT transactions we are seeing credits that are created and then applied to a specific order or insertion by the user.</p>
+<p>The REV CR transactions are credits that applied to an order to reduce its cost.  This can happen through balance utility, ad booker or any other application that applies existing credits to an order.</p>
+<p>In Analytix we exclude all REV CR charges because including them will, in some cases, cause double dipping.  This happens when a credit is created and applied to a specific order and that order is already paid.  When this happens, a CREDIT transaction is created in BI and then when that credit is actually applied to pay down an order a REV CR transaction is created.</p>
+<p>So, when we view all CREDIT charge types in BI, we see all credits targeted to specific orders, however we will not ever see credit that were created on a customers account.  These credits will show up as REV CR charge types when they are applied to an order.</p>
+<p>The other two charge types are:</p>
+<p><strong>CHARGE</strong> – indicates that this record is a part of the charge that the rating engine has determined for this ad.</p>
+<p><strong>DEBIT</strong> – indicates a Debit that has been applied to this ad.</p>
+<h1><a class="anchor" aria-hidden="true" id="spread-logic-in-the-advertising-data-mart"></a><a href="#spread-logic-in-the-advertising-data-mart" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Spread Logic in the Advertising Data Mart</h1>
+<p>Certain revenue that is stored in the BI database will be spread across other insertions and charge types within an ad.  This spread algorithm was designed to spread an amount, like order level charges and credits across all other charges and distribute a weighted amount to each.</p>
+<p>The reason for this was so that and order level charge would not show up all on one day when querying for revenue.</p>
+<p>For example, if you have an Ad that runs for 10 days and costs $100 dollars a day.  You would have 10 insertion rows in fctInsertion and 10 rows in fctInsertChargeSummary showing $100 for each day.</p>
+<table>
+<thead>
+<tr><th></th><th><strong>Ad Charge</strong></th><th><strong>Order   Level Charge Not Spread</strong></th><th><strong>Day Total</strong></th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Day   1</strong></td><td>$          100.00</td><td>$100</td><td>$              200.00</td></tr>
+<tr><td><strong>Day   2</strong></td><td>$          100.00</td><td></td><td>$              100.00</td></tr>
+<tr><td><strong>Day   3</strong></td><td>$          100.00</td><td></td><td>$              100.00</td></tr>
+<tr><td><strong>Day   4</strong></td><td>$          100.00</td><td></td><td>$              100.00</td></tr>
+<tr><td><strong>Day   5</strong></td><td>$          100.00</td><td></td><td>$              100.00</td></tr>
+<tr><td><strong>Day   6</strong></td><td>$          100.00</td><td></td><td>$              100.00</td></tr>
+<tr><td><strong>Day   7</strong></td><td>$          100.00</td><td></td><td>$              100.00</td></tr>
+<tr><td><strong>Day   8</strong></td><td>$          100.00</td><td></td><td>$              100.00</td></tr>
+<tr><td><strong>Day   9</strong></td><td>$          100.00</td><td></td><td>$              100.00</td></tr>
+<tr><td><strong>Day   10</strong></td><td>$          100.00</td><td></td><td>$              100.00</td></tr>
+<tr><td><strong>Ad   Total</strong></td><td></td><td></td><td><strong>$             1,100.00</strong></td></tr>
+<tr><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td><strong>Ad Charge</strong></td><td><strong>Order   Level Charge  Spread</strong></td><td><strong>Day Total</strong></td></tr>
+<tr><td><strong>Day   1</strong></td><td>$          100.00</td><td>$10</td><td>$              110.00</td></tr>
+<tr><td><strong>Day   2</strong></td><td>$          100.00</td><td>$10</td><td>$              110.00</td></tr>
+<tr><td><strong>Day   3</strong></td><td>$          100.00</td><td>$10</td><td>$              110.00</td></tr>
+<tr><td><strong>Day   4</strong></td><td>$          100.00</td><td>$10</td><td>$              110.00</td></tr>
+<tr><td><strong>Day   5</strong></td><td>$          100.00</td><td>$10</td><td>$              110.00</td></tr>
+<tr><td><strong>Day   6</strong></td><td>$          100.00</td><td>$10</td><td>$              110.00</td></tr>
+<tr><td><strong>Day   7</strong></td><td>$          100.00</td><td>$10</td><td>$              110.00</td></tr>
+<tr><td><strong>Day   8</strong></td><td>$          100.00</td><td>$10</td><td>$                110.00</td></tr>
+<tr><td><strong>Day   9</strong></td><td>$          100.00</td><td>$10</td><td>$              110.00</td></tr>
+<tr><td><strong>Day   10</strong></td><td>$          100.00</td><td>$10</td><td>$              110.00</td></tr>
+<tr><td><strong>Ad   Total</strong></td><td></td><td></td><td><strong>$             1,100.00</strong></td></tr>
+</tbody>
+</table>
+<p>Look at the spreadsheets above.  The first shows how the ad would look if we didn’t spread the order level charge and the second shows how it looks when we spread the charge.  You can see that the ad total is the same on both, but if you were to query just day 1 of the ad, you get different results.</p>
+<p>Here is how the algorithm figures the weights:</p>
+<p>Assume we are spreading a $50 Order Level charge across an ad with 3 revenue entries</p>
+<table>
+<thead>
+<tr><th>Amount To Spread</th><th>50</th><th></th><th></th><th></th><th></th></tr>
+</thead>
+<tbody>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td><strong>Date</strong></td><td><strong>Amount</strong></td><td><strong>Calc   Weight   Line Amt/Total Amt</strong></td><td><strong>Calced   Weight</strong></td><td><strong>%   Needed of Amt To Spread</strong></td><td><strong>Spread   Amt</strong></td></tr>
+<tr><td>4/1/2009</td><td>$     10.00</td><td>10/30</td><td>0.333333</td><td>33%</td><td>16.67</td></tr>
+<tr><td>4/2/2009</td><td>$     15.00</td><td>15/30</td><td>0.500000</td><td>50%</td><td>25.00</td></tr>
+<tr><td>4/3/2009</td><td>$      5.00</td><td>5/30</td><td>0.166667</td><td>17%</td><td>8.33</td></tr>
+<tr><td><strong>Total</strong></td><td><strong>$     30.00</strong></td><td></td><td><strong>1.000000</strong></td><td><strong>100%</strong></td><td><strong>50</strong></td></tr>
+</tbody>
+</table>
+<ol>
+<li>Add      all the revenue amounts together that we are going to spread the order      level charge across.  (Amount      Column)</li>
+<li>Divide      each line item amount by the total amount to get a weighted percentage of      how much of the spread amount to allocate to this line item.</li>
+<li>Multiply      the Spread Amount by the calculated percentage found in step 2 to get the      spread amount allocation.</li>
+</ol>
+<h2><a class="anchor" aria-hidden="true" id="fctinsertion"></a><a href="#fctinsertion" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>fctInsertion</h2>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>fctAdOrder_ID</td><td>Link to <a href="#fctAdOrder">fctAdorder</a>.ID</td></tr>
+<tr><td>Insert_Date_ID</td><td>Link to <a href="#dmDate">dmDate</a>.ID.     Date that this insertion ran.  Derived from aoAdRunDates.</td></tr>
+<tr><td>AdOrderID_AdBase</td><td>Link to CORE 🡒  aoAdOrder.ID</td></tr>
+<tr><td>RunScheduleID_AdBase</td><td>Link to CORE 🡒  aoAdRunSchedule.ID</td></tr>
+<tr><td>PRPScheduleID_AdBase</td><td>Link to CORE 🡒  AoPrpRunSchedule.ID</td></tr>
+<tr><td>PrimaryOrderer_Client_ID</td><td>Link to <a href="#dmClient">dmClient</a>.ID   AoOrderCustomers where PrimaryOrdererFlag is TRUE</td></tr>
+<tr><td>PrimaryOrderer_Location_ID</td><td>Link to <a href="#dmLocation">dmLocation</a>.ID   Address information linked to the Primary Orderer above.</td></tr>
+<tr><td>PrimaryPayer_Client_ID</td><td>Link to <a href="#dmClient">dmClient</a>.ID   AoOrderCustomers where PrimaryPayerFlag is TRUE</td></tr>
+<tr><td>PrimaryPayer_Location_ID</td><td>Link to <a href="#dmLocation">dmLocation</a>.ID   Address information linked to the Primary Payer above.</td></tr>
+<tr><td>GroupMultiClient_ID</td><td>Link to <a href="#bridgeMultiClient_1">BridgeMultiClient</a>.GroupMultiClient_ID   The bridgeMultiClient table allows an insertion to be   linked to more than just the Primary Orderer and Payer.</td></tr>
+<tr><td>Household_ID</td><td>Link to dmHousehold.ID   The Household table was designed to be used to store the   history of address changes of a customer. Currently it is populated, but not   used in any of our reports or Analytix.</td></tr>
+<tr><td>AdProduct_ID</td><td>Link to <a href="#dmAdProduct">dmAdProduct</a>.ID</td></tr>
+<tr><td>Billing_Date_ID</td><td>NULL (Not Populated)</td></tr>
+<tr><td>Modified_Date_ID</td><td>Link to <a href="#dmDate_1">dmDate</a>   🡒  aoAdOrder.LastEditDate</td></tr>
+<tr><td>CommissionedRep_User_ID</td><td>Link to <a href="#dmUser">dmUser</a> 🡒  Sold By Rep in AdBooker</td></tr>
+<tr><td>AdContent_ID</td><td>Link to <a href="#dmAdContent">dmAdContent</a></td></tr>
+<tr><td>AdDetail_ID</td><td>Link to <a href="#dmAdDetail">dmAdDetail</a></td></tr>
+<tr><td>AdInsertBools_ID</td><td>Link to <a href="#dmAdInsertBools">dmAdInsertBools</a></td></tr>
+<tr><td>Agency_Client_ID</td><td>NULL (Not Populated)</td></tr>
+<tr><td>LayoutInfo_ID</td><td>Link to <a href="#dmLayoutInfo">dmLayoutInfo</a></td></tr>
+<tr><td>Company_ID</td><td>Link to <a href="#dmCompany">dmCompany</a>   Derived from aoAdOrder.CompanyID</td></tr>
+<tr><td>AdLineage_ID</td><td>Link to <a href="#dmAdLineage">dmAdLineage</a></td></tr>
+<tr><td>GroupDistributionCode_ID</td><td>No longer Used</td></tr>
+<tr><td>AdNumber</td><td>aoAdInfo.AdNumber</td></tr>
+<tr><td>JointAdNumber</td><td>aoAdOrder.JointAdNumber</td></tr>
+<tr><td>NumColumns</td><td>aoAdContent.NumColumns</td></tr>
+<tr><td>AdWidth</td><td>aoAdContent.AdWidth</td></tr>
+<tr><td>AdDepth</td><td>aoAdContent.AdDepth</td></tr>
+<tr><td>AdDepthAgates</td><td>Calculated using AdDepth</td></tr>
+<tr><td>AdDepthMillimeters</td><td>Calculated using AdDepth</td></tr>
+<tr><td>AdDepthInches</td><td>Calculated using AdDepth</td></tr>
+<tr><td>ColumnAgates</td><td>NumColumns * AdDepthAgates</td></tr>
+<tr><td>ColumnMillimeters</td><td>NumColumns * AdDepthMillimeters</td></tr>
+<tr><td>ColumnInches</td><td>NumColumns * AdDepthInches</td></tr>
+<tr><td>NumLines</td><td>aoAdContent.NumLines</td></tr>
+<tr><td>WordCount</td><td>aoAdContent.WordCount</td></tr>
+<tr><td>InsertTime</td><td>Time portion of the Insert Date.  Stored as number of Seconds past Midnight</td></tr>
+<tr><td>Preprint_Count</td><td>Total number of Preprints for this insertion</td></tr>
+<tr><td>Preprint_Count_Expected</td><td>aoPreprintInfo.CountExpected</td></tr>
+<tr><td>Preprint_Dealers_Count</td><td>Total Dealer Count</td></tr>
+<tr><td>Preprint_Subs_Count</td><td>Total Subscriptions Count</td></tr>
+<tr><td>Preprint_Nonsubs_Count</td><td>Total Nonsubs Count</td></tr>
+<tr><td>Preprint_DirectMail_Count</td><td>Total Direct Mail Count</td></tr>
+<tr><td>NumberOfTearsheets</td><td>Number of Tear sheets requested/sent</td></tr>
+<tr><td>Insertion_Counter</td><td>1 if a valid insertion , 0 if a “fake” insertion.  Fake insertions are sometimes used by the   populator.  One example would be a   material charge without any insertions.    To show this in the BI database, we need to create a “fake” insertion   record.</td></tr>
+<tr><td>Revenue</td><td>Total Revenue for this insertion as found in   rtChargeEntryElem</td></tr>
+<tr><td>AdjRevenue</td><td>Adjustment Revenue, i.e. Charge Type of Credit or Debit,   that apply to this insertion.</td></tr>
+<tr><td>Tax</td><td>Tax Revenue that applies to this insertion.  ChargeCategory of TaxCharge</td></tr>
+<tr><td>AdjTax</td><td>Charges out of AdjRevenue that have a ChargeCategory of   TaxCharge</td></tr>
+<tr><td>Initial_RunSchedule_Count</td><td>aoAdRunSchedule.InitialInsertionsOrdered</td></tr>
+<tr><td>SAU_ColumnInches</td><td>Calculation is as follows:   DepthInch = theAdDepth / 1440;   WidthInch = theAdWidth / 1440;   SauWidth = WidthInch / 1.833;   <strong>SAU_ColumnInches</strong> =   SauWidth * DepthInch;</td></tr>
+<tr><td>GroupLogos_ID</td><td>Link to <a href="#bridgeLogos">bridgeLogos</a></td></tr>
+<tr><td>ExternalAdNumber</td><td>aoAdInfo.ExternalAdNumber</td></tr>
+<tr><td>ExternalPRPNumber</td><td>aoPreprintInfo.ExternalNumber</td></tr>
+<tr><td>PickupNumber</td><td>aoAdInfo.PickupNumber</td></tr>
+<tr><td>DoubleTruckColumns</td><td>aoPageType.AdditionalCols</td></tr>
+<tr><td>ColumnInchesText</td><td>Column Inches for the text of an Ad</td></tr>
+<tr><td>ColumnMillimetersText</td><td>Column Millimeters for the text of an Ad</td></tr>
+<tr><td>ColumnAgatesText</td><td>Column Agates for the text of an Ad</td></tr>
+<tr><td>ColumnInchesGraphics</td><td>Column Inches for the graphics of an Ad</td></tr>
+<tr><td>ColumnMillimetersGraphics</td><td>Column Millimeters for the graphics of an Ad</td></tr>
+<tr><td>ColumnAgatesGraphics</td><td>Column Agates for the graphics of an Ad</td></tr>
+<tr><td>ColumnInchesBorder</td><td>Column Inches for the border of an Ad</td></tr>
+<tr><td>ColumnMillimetersBorder</td><td>Column Millimeters for the border of an Ad</td></tr>
+<tr><td>ColumnAgatesBorder</td><td>Column Agates for the border of an Ad</td></tr>
+<tr><td>GroupPRPDistribution_ID</td><td>Link to <a href="#bridgePRPDistribution">bridgePRPDistribution</a></td></tr>
+<tr><td>DigitalMediaCampaign_ID</td><td>Link to <a href="#dmDigitalMediaCampaign">dmDigitalMediaCampaign</a></td></tr>
+<tr><td>DigitalMediaFlight_ID</td><td>Link to <a href="#dmDigitalMediaFlight">dmDigitalMediaFlight</a></td></tr>
+<tr><td>FlightScheduleID_AdBase</td><td>aoInFlight.ID</td></tr>
+<tr><td>DigitalMediaUnit_ID</td><td>Link to <a href="#dmDigitalMediaUnit">dmDigitalMediaUnit</a></td></tr>
+<tr><td>DigitalMediaQtyDelivered</td><td>aoInFlight.QuantityDelivered</td></tr>
+<tr><td>LastPopulateDate</td><td>Date that the BI Populate last “touched” this record.  Used primarily in Analytix to allow for   incremental updates.</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="fctinsertchargesummary"></a><a href="#fctinsertchargesummary" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>fctInsertChargeSummary</h2>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>Posting_Date_ID</td><td>Link to <a href="#dmDate_1">dmDate</a></td></tr>
+<tr><td>Insertion_ID</td><td>Link to <a href="#fctInsertion_">fctInsertion</a>.ID</td></tr>
+<tr><td>ChargeCategory</td><td>Type of charge see the rtChargeEntryElem Excel Spreadsheet   for full details.   AdInsertCharge   PreprintAdInsert   ColorItem   MaterialItem   MiscelaneousItemCharge   TypographicalItem   Premium   Discount   MessageOnly   ContractAdjustment   TaxCharge   AdjustmentCharge   InternetCharge</td></tr>
+<tr><td>SpecialChargeCategory</td><td>NULL (Not Populated)</td></tr>
+<tr><td>Amount_InsertSummary</td><td>rtChargeEntryElem.Amount – based on the Charge Category   for the insertion this insert summary record is linked to.</td></tr>
+<tr><td>ChargeType</td><td>CHARGE   CREDIT   REV CR   DEBIT   <a href="#ChargeTypes_in_the">See above for details</a></td></tr>
+<tr><td>InvoiceNumber</td><td>fnTransactions.TransNum</td></tr>
+<tr><td>IsInsertion_Flag</td><td>Set to TRUE if the Category Code represents an insertion   charge as opposed to a discount charge, typography charge, etc.</td></tr>
+<tr><td>LastPopulateDate</td><td>Date that the BI Populate last “touched” this record.  Used primarily in Analytix to allow for   incremental updates.</td></tr>
+<tr><td>Doc_Date_ID</td><td>Link to <a href="#dmDate_1">dmDate</a> 🡒  fnTransactions.DocDate</td></tr>
+</tbody>
+</table>
+<h1></h1>
+<h2><a class="anchor" aria-hidden="true" id="fctinsertchargedetail"></a><a href="#fctinsertchargedetail" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>fctInsertChargeDetail</h2>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>ChargeSubCategory</td><td>Type of Detail charge. See <a href="./bi-resources">rtChargeEntryElem Excel Spreadsheet</a> for details.</td></tr>
+<tr><td>SpecialChargeSubCategory</td><td>NULL (Not Populated)</td></tr>
+<tr><td>InsertChargeSummary_ID</td><td>Link to <a href="#fctInsertChargeSummary">fctInsertChargeSummary</a>.ID</td></tr>
+<tr><td>Payer_Client_ID</td><td>Link to <a href="#dmClient">dmClient</a>🡒  rtChargeEntryElem.PayorID</td></tr>
+<tr><td>CauseReason_ID</td><td>Link to <a href="#dmCauseReason">dmCauseReason</a></td></tr>
+<tr><td>Specials_ID</td><td>Link to <a href="#dmSpecials">dmSpecials</a></td></tr>
+<tr><td>UserDefMaterialCharge_ID</td><td>Link to <a href="#dmMaterialCharge">dmMaterialCharge</a></td></tr>
+<tr><td>GLAccounts_ID</td><td>Link to <a href="#dmGLAccounts">dmGLAccounts</a></td></tr>
+<tr><td>AdOrderID_AdBase</td><td>Link to CORE 🡒  aoAdOrder.ID</td></tr>
+<tr><td>RTChargeID_AdBase</td><td>Link to CORE 🡒  rtChargeEntryElem.ID</td></tr>
+<tr><td>AOPrePaymentApplyID_AdBase</td><td>Link to CORE 🡒  aoPrePaymentApply.ID</td></tr>
+<tr><td>AOChargeAdjustID_AdBase</td><td>Link to CORE 🡒  aoChargeAdjust.ID</td></tr>
+<tr><td>AOCreditDebitID_AdBase</td><td>Link to CORE àaoCreditDebit.ID</td></tr>
+<tr><td>AOPaymentApplyID_AdBase</td><td>Link to CORE 🡒  aoPaymentApply.ID</td></tr>
+<tr><td>Amount_InsertDetail</td><td>Amount of Charge</td></tr>
+<tr><td>Spread_Flag</td><td>TRUE if this row is the result of a spread.</td></tr>
+<tr><td>InvoicedAlready_Flag</td><td>Indicates whether the charge  has been invoiced or not.</td></tr>
+<tr><td>AppliedOnChargeSubCategory</td><td>rtChargeEntryElem.AppliedOnCategorySubcode translated to   SubCategory name in the Rate Code Breakouts.xls spreadsheet.</td></tr>
+<tr><td>NumUnits</td><td>Number of Units used in rating.   rtChargeEntryElem.NumUnits</td></tr>
+<tr><td>UnitType</td><td>Unit type for number of units above.   rtChargeEntryElem.UnitUnit</td></tr>
+<tr><td>RateInfo_ID</td><td>Link to dmRateInfo</td></tr>
+<tr><td>ContractID_AdBase</td><td>Link to CORE 🡒  rtChargeEntryElem.ContractID</td></tr>
+<tr><td>LastPopulateDate</td><td>Date that the BI Populate last “touched” this record.  Used primarily in Analytix to allow for   incremental updates.</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="fctsalescomm"></a><a href="#fctsalescomm" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>fctSalesComm</h2>
+<p>The fctSalesComm table contains the BI version of the core table AoInsertionSalesComm.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>Insertion_Id</td><td>Link to <a href="#fctInsertion_">fctInsertion</a>.ID</td></tr>
+<tr><td>AdOrderId_AdBase</td><td>Link to CORE 🡒  aoInsertionSalesComm.AdOrderId</td></tr>
+<tr><td>SaleRrep_User_ID</td><td>Link to <a href="#dmUser">dmUser</a>   aoInsertionSalesComm.SalesRepId</td></tr>
+<tr><td>SalesCommId_AdBase</td><td>Link to CORE 🡒  aoInsertionSalesComm.Id</td></tr>
+<tr><td>Percentage</td><td>aoInsertionSalesComm.Percentage   Percent associated with this sales rep</td></tr>
+<tr><td>DefaultEntry</td><td>aoInsertionSalesComm.DefaultEntryFlag   True if entry was added by default due to no business   areas</td></tr>
+<tr><td>UserEntry</td><td>aoInsertionSalesComm.UserEntryFlag   True if entry is user entered (not derived from business   area)</td></tr>
+<tr><td>BusinessAreaId_AdBase</td><td>Link to CORE 🡒  aoInsertionSalesComm.BusinessAreaId</td></tr>
+<tr><td>SalesTeamId_AdBase</td><td>aoInsertionSalesComm.SalesTeamId</td></tr>
+</tbody>
+</table>
+<h1></h1>
+<h1><a class="anchor" aria-hidden="true" id="gl-data-mart"></a><a href="#gl-data-mart" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>GL Data Mart</h1>
+<p>The GL data mart has the following tables:</p>
+<p><strong>Fact tables</strong></p>
+<ul>
+<li><a href="#fctARSummary">fctARSummary</a></li>
+<li><a href="#fctGL">fctGL</a></li>
+<li><a href="#fctPreApply">fctPreApply</a></li>
+<li><a href="#fctApply">fctApply</a></li>
+</ul>
+<p><strong>Dimensions</strong></p>
+<ul>
+<li><a href="#dmClient">dmClient</a></li>
+<li><a href="#dmRelationshipParent">dmRelationshipParent</a></li>
+<li><a href="#dmDate">dmRelationshipAgency</a></li>
+<li><a href="#dmCollections">dmCollections</a></li>
+<li><a href="#dmDate_1">dmDate</a></li>
+<li><a href="#dmUser">dmUser</a></li>
+<li><a href="#dmCompany">dmCompany</a></li>
+<li><a href="#dmLocation">dmLocation</a></li>
+<li><a href="#dmCauseReason">dmCauseReason</a></li>
+<li><a href="#dmGLAccounts">dmGLAccounts</a></li>
+<li><a href="#dmGLInvoiceDetail">dmGLInvoiceDetail</a></li>
+<li><a href="#dmGLTransaction">dmGLTransaction</a></li>
+</ul>
+<p><strong>Helper Tables</strong></p>
+<ul>
+<li><a href="#bridgeMultiClient_1">bridgeMultiClient</a></li>
+</ul>
+<h1><a class="anchor" aria-hidden="true" id="gl-relationship-to-advertising-side-of-bi"></a><a href="#gl-relationship-to-advertising-side-of-bi" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>GL Relationship to Advertising Side of BI</h1>
+<p>There are times when you may want to try and get information from some GL tables and also some information from the advertising side.</p>
+<p>This is possible, but you must understand how these two data marts can be joined.</p>
+<p>Before trying to join these two data marts, look at the field list in fctGL.  We understood the need for Advertising information on the GL (things like Product info and linage) and have added many of these field to fctGL already.</p>
+<p>If you find that you must join these data marts together, realize that you will only be able to join tables to pull attributes of an order or insertion.</p>
+<p>This is to say that there is NOT a one to one relationship between the rows in fctGL and fctInsertion or even a single charge on the advertising side.  One insertion is made up of multiple charges on the advertising side and when these charges are invoiced they are grouped together into GL Buckets and rows are written to fctGL.</p>
+<h1><a class="anchor" aria-hidden="true" id="calculating-linage-from-fctgl"></a><a href="#calculating-linage-from-fctgl" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Calculating Linage from fctGL</h1>
+<p>When calculating linage from fctGL you must only sum rows that have the insertion counter set to 1.</p>
+<p><strong>Example Query</strong></p>
+<p>SELECT TransactionNumber,</p>
+<pre><code class="hljs">   SUM(ColumnInches)
+</code></pre>
+<p>FROM fctGL</p>
+<p>WHERE Insertion_Counter = 1</p>
+<p>GROUP BY TransactionNumber</p>
+<h1><a class="anchor" aria-hidden="true" id="joining-fctapply-to-fctarsummary"></a><a href="#joining-fctapply-to-fctarsummary" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Joining fctApply to fctARSummary</h1>
+<p>fctApply contains information that link payments and credits to the invoices and debits that they are associated with.</p>
+<p><strong>Example Query</strong></p>
+<p>SELECT  InvoicesDebits.TransactionNumber,</p>
+<pre><code class="hljs">    CreditsPayments.TransactionNumber,
+
+    fctApply.amountapplied,
+
+    fctApply.applieddate
+</code></pre>
+<p>FROM fctARSummary InvoicesDebits,</p>
+<pre><code class="hljs"> fctApply,
+
+ fctARSummary CreditsPayments
+</code></pre>
+<p>WHERE InvoicesDebits.id = fctApply.InvoiceDebit_ARsummary_ID</p>
+<p>AND CreditsPayments.id = fctApply.CreditPayment_ARsummary_ID</p>
+<h2><a class="anchor" aria-hidden="true" id="fctarsummary"></a><a href="#fctarsummary" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>fctARSummary</h2>
+<p>fctARSummary contains one row for every Invoice, Debit, Credit and Payment in the Core database.  So many of these fields have a different source depending on the type of transaction.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>Realized_date_Id</td><td>Link to <a href="#dmDate_1">dmDate</a>   <strong>Invoices/Debits</strong>   – fnTransactions.TransDate    <strong>Payments/Credits</strong>   – aoCreditDebit.EffectiveDate</td></tr>
+<tr><td>Causereason_Id</td><td>Link to <a href="#dmCauseReason">dmCauseReason</a>   aoCustomerCD</td></tr>
+<tr><td>ARPayer_client_Id</td><td>Link to <a href="#dmClient_">dmClient</a>    <strong>Invoices/Debits</strong>   – fnTransactions.CustomerAcctId 🡒  Customer   <strong>Payments/Credits</strong> –   aoCreditDebit.CustomerID 🡒Customer</td></tr>
+<tr><td>AROrderer_client_Id</td><td>Link to <a href="#dmClient_">dmClient</a>   <strong>Invoices/Debits</strong>   – fnTransactions.AdvertisorAcctId 🡒  Customer   <strong>Payments/Credits</strong> –   aoCreditDebit.AdvOrPayor 🡒Customer</td></tr>
+<tr><td>AROrderer_location_Id</td><td>Link to <a href="#dmLocation">dmLocation</a></td></tr>
+<tr><td>ARPayer_location_Id</td><td>Link to <a href="#dmLocation">dmLocation</a></td></tr>
+<tr><td>glTrans_ID</td><td>Link to <a href="#dmGLTransaction">dmGLTransaction</a>   Indicates the type of transaction - Credit, Debit, Payment   or Invoice</td></tr>
+<tr><td>Company_ID</td><td>Link to <a href="#dmCompany">dmCompany</a>   <strong>Invoice/Debits</strong>   -fnTransactions.ProcessCompany   <strong>Payment</strong> –   aoPayments.CompanyID   <strong>Credit</strong> –   aoCustomerCD.CompanyID</td></tr>
+<tr><td>TransactionNumber</td><td><strong>Invoices/Debits</strong>   – fnTransactions.TransNum   <strong>Credits/Payments</strong>   –aoCreditDebit.TransNumber</td></tr>
+<tr><td>StatementNumber</td><td><strong>Invoices/Debits –</strong> fnTransactions.StatementNumber</td></tr>
+<tr><td>AdOrderNumber</td><td><strong>Credit/Debits</strong> -   AoCustomerCD.ApplyAdOrderId   <strong>Invoices</strong> –   fnTransactions.RefNumber</td></tr>
+<tr><td>aoCreditDebitId_AdBase</td><td><strong>Debits/Credits/Payments</strong>   🡒  AoCreditDebit.ID</td></tr>
+<tr><td>GLInvoiceDetail_ID</td><td>Link to <a href="#dmGLInvoiceDetail">dmGLInvoiceDetail</a></td></tr>
+<tr><td>Enteredby_User_ID</td><td>Link to <a href="#dmUser">dmUser</a>    <strong>Debits/ Credits</strong>   – aoCustomerCD.CreatingUser   <strong>Invoices</strong> –    <strong>Payments</strong> –   aoPayments.CreatingUser</td></tr>
+<tr><td>CommissionedRep_User_ID</td><td>Link to <a href="#dmUser">dmUser</a>    <strong>Payments</strong> –   aoPayments.CreatingUser   <strong>Debits/ Credits</strong>   – aoCustomerCD.SalesRep</td></tr>
+<tr><td>fnTransactionId_AdBase</td><td><strong>Invoices/Debit</strong>   - fnTransactions.ID</td></tr>
+<tr><td>groupRepPercentage_ID</td><td>Link to bridgeRepPercentage.groupRepPercentage_ID</td></tr>
+<tr><td>Amount_ARSummary</td><td><strong>Payments</strong> –   aoCreditDebit.Amount * -1   <strong>Credits</strong> –   AbsoluteValue(aoCreditDebit.Amount) * -1   <strong>Invoices/Debits</strong>   – fnTransactions.InvTotalCost</td></tr>
+<tr><td>TotalAmountApplied</td><td><strong>Payments –</strong>   aoCreditDebit.Amount - aoPayments_AmountNotApplied   <strong>Credits –</strong>    aoCreditDebit.Amount – aoCustomerCD.AmountNotApplied   <strong>Invoices/Debits</strong>   –   fnTransactions.InvAmountPaid</td></tr>
+<tr><td>FullyAppliedOrPaid_Flag</td><td>Boolean indicating if a Debit or Invoice is unpaid or a   Credit or Payment has not been fully applied   If Amount_ARSummary = TotalAmountApplied then set to TRUE</td></tr>
+<tr><td>ARSummary_Counter</td><td>Counter field; always equal to 1</td></tr>
+<tr><td>Collections_Date_ID</td><td>Link to <a href="#dmDate_1">dmDate</a>    fnTransactions.DateSentToCollections</td></tr>
+<tr><td>Collections_ID</td><td>Link to <a href="#dmCollections">dmCollections</a></td></tr>
+<tr><td>Closed_Date_ID</td><td>Link to <a href="#dmDate_1">dmDate</a>    aoCreditDebit.ClosedDate</td></tr>
+<tr><td>Amount_Writeoff</td><td>fnTransactions.WriteoffAmount</td></tr>
+<tr><td>Amount_Collections</td><td>Collections amount   fnTransactions.CollectionsAmount</td></tr>
+<tr><td>Amount_BadDebt</td><td>Bad debt amount   aoCreditDebit.BadDebtAmount</td></tr>
+<tr><td>LastPopulateDate</td><td>Date that the BI Populate last “touched” this record.  Used primarily in Analytix to allow for   incremental updates.</td></tr>
+<tr><td>BatchNumber</td><td>FnBatchInstance logical name (payment, credit only)   Invoices/Debits – 1   Payments/Credits – FnBatchInstance.LogicalName</td></tr>
+<tr><td>DisputeInvoiceId_AdBase</td><td><strong>Credits –</strong> AoCustomerCD.DisputedInvoiceId</td></tr>
+<tr><td>Doc_Date_ID</td><td>Link to <a href="#dmDate_1">dmDate</a>    fnTransactions.DocDate</td></tr>
+<tr><td>ReferenceNumber</td><td>Reference number from AoPayments</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="fctgl"></a><a href="#fctgl" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>fctGL</h2>
+<p>One row for each transaction made against a GL Account.  These can be Credits, Debits, Invoices or Payments.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>Realized_Date_ID</td><td>Link to <a href="#dmDate_1">dmDate</a>   <strong>Invoices/Debits</strong>   – fnTransactions.TransDate    <strong>Payments/Credits</strong>   – aoCreditDebit.EffectiveDate</td></tr>
+<tr><td>Client_ID</td><td>Link to <a href="#dmClient_">dmClient</a>   <strong>Invoices/Debits</strong>   – fnTransactions.CustomerAcctId 🡒  Customer   <strong>Payments/Credits</strong> –   aoCreditDebit.CustomerID 🡒Customer</td></tr>
+<tr><td>Location_ID</td><td>Link to <a href="#dmLocation">dmLocation</a></td></tr>
+<tr><td>GLAccounts_ID</td><td>Link to <a href="#dmGLAccounts">dmGLAccounts</a>   <strong>Invoices/Debits</strong>   – fnTransLineDist.AccountId   <strong>Payments/Credits</strong> –   aoTransactionAcctMap.AccountId</td></tr>
+<tr><td>Causereason_ID</td><td>Link to <a href="#dmCauseReason">dmCauseReason</a>   aoCustomerCD</td></tr>
+<tr><td>TransactionNumber</td><td><strong>Invoices/Debits</strong>   – fnTransactions.TransNum   <strong>Credits/Payments</strong>   –aoCreditDebit.TransNumber</td></tr>
+<tr><td>GLTrans_ID</td><td>Link to <a href="#dmGLTransaction">dmGLTransaction</a>   Indicates the type of transaction - Credit, Debit, Payment   or Invoice</td></tr>
+<tr><td>GLLineItemId_AdBase</td><td><strong>Invoices/Debits</strong>   – fnTransLineDist.ID   <strong>Payments/Credits</strong> –   AoTransactionAcctMap.ID</td></tr>
+<tr><td>Company_ID</td><td>Link to <a href="#dmCompany">dmCompany</a>   <strong>Invoice/Debits</strong>   -fnTransactions.ProcessCompany   <strong>Payment</strong> –   aoPayments.CompanyID   <strong>Credit</strong> –   aoCustomerCD.CompanyID</td></tr>
+<tr><td>DebitCreditCode</td><td>Indicates Accounting Credits and Debits   CR = Credit; DR = Debit</td></tr>
+<tr><td>TransAmount</td><td>// Trans amount.       float64_m   theTransAmount, theAmount, theCreditAmount, theDebitAmount;       if ( (   theFunctionCode == ARPopulatePayment_e ) \</td><td>\</td><td>( theFunctionCode ==   ARPopulateCredit_e ) )       {           theAmount =   theAoTransactionAcctMap_p-&gt;get_theAmount();           theCreditAmount   = theAoTransactionAcctMap_p-&gt;get_theCreditAmount();             theDebitAmount = theAoTransactionAcctMap_p-&gt;get_theDebitAmount();       }       else       {           if (   theFnTransLineDstDetail_p != NULL )                 theAmount = theFnTransLineDstDetail_p-&gt;get_theAmount();           else                 theAmount = theFnTransLineDist_p-&gt;get_theAmount();             theCreditAmount = theFnTransLineDist_p-&gt;get_theCreditAmount();             theDebitAmount = theFnTransLineDist_p-&gt;get_theDebitAmount();       }           // Convert   positive credits to debits, negative debits to credits, etc.       if (   theFnTransLineDstDetail_p != NULL )       {             theTransAmount = -( theAmount );       }       else       {           if( (   theDebitAmount == 0.0 ) &amp;&amp; ( theCreditAmount == 0.0 ) &amp;&amp; (   theAmount != 0.0 ) )           {               if(   theAmount &lt; 0.00 )                     theDebitAmount = fabs( theAmount );               else                     theCreditAmount = fabs( theAmount );           }           if(   theDebitAmount &lt; 0.0 )           {               theCreditAmount   = fabs( theDebitAmount );                 theDebitAmount = 0.0;           }           if(   theCreditAmount &lt; 0.0 )           {                 theDebitAmount = fabs( theCreditAmount );                 theCreditAmount = 0.0;           }                 theTransAmount = theDebitAmount - theCreditAmount;       }</td></tr>
+<tr><td>GL_Counter</td><td>Counter field; always equal to 1</td></tr>
+<tr><td>ARSummary_ID</td><td>Link to <a href="#fctARSummary">fctARSummary</a>.ID</td></tr>
+<tr><td>Apply_ID</td><td>Link to <a href="#fctApply">fctApply</a>.ID</td></tr>
+<tr><td>Insert_Date_ID</td><td>Link to <a href="#dmDate_1">dmDate</a></td></tr>
+<tr><td>RunScheduleId_adbase</td><td>Link to CORE 🡒  AoAdRunSchedule.ID</td></tr>
+<tr><td>PRPScheduleId_adbase</td><td>Link to CORE 🡒  AoPrpRunSchedule.ID</td></tr>
+<tr><td>Insertion_Counter</td><td>Used here to determine which rows to use in a linage   calculation.  <a href="#Calculating_Linage_from">See here for details.</a></td></tr>
+<tr><td>NumColumns</td><td>aoAdContent.NumColumns</td></tr>
+<tr><td>AdWidth</td><td>aoAdContent.AdWidth</td></tr>
+<tr><td>AdDepth</td><td>aoAdContent.AdDepth</td></tr>
+<tr><td>AdDepthAgates</td><td>Calculated using AdDepth</td></tr>
+<tr><td>AdDepthMillimeters</td><td>Calculated using AdDepth</td></tr>
+<tr><td>AdDepthInches</td><td>Calculated using AdDepth</td></tr>
+<tr><td>ColumnAgates</td><td>NumColumns * AdDepthAgates</td></tr>
+<tr><td>ColumnMillimeters</td><td>NumColumns * AdDepthMillimeters</td></tr>
+<tr><td>ColumnInches</td><td>NumColumns * AdDepthInches</td></tr>
+<tr><td>NumLines</td><td>aoAdContent.NumLines</td></tr>
+<tr><td>WordCount</td><td>aoAdContent.WordCount</td></tr>
+<tr><td>Preprint_Count</td><td>Total number of Preprints for this insertion</td></tr>
+<tr><td>Initial_Runschedule_Count</td><td>aoAdRunSchedule.InitialInsertionsOrdered</td></tr>
+<tr><td>Preprint_Count_Expected</td><td>aoPreprintInfo.CountExpected</td></tr>
+<tr><td>Preprint_Dealers_Count</td><td>Total Dealer Count</td></tr>
+<tr><td>Preprint_Subs_Count</td><td>Total Subscriptions Count</td></tr>
+<tr><td>Preprint_Nonsubs_Count</td><td>Total Nonsubs Count</td></tr>
+<tr><td>Preprint_DirectMail_Count</td><td>Total Direct Mail Count</td></tr>
+<tr><td>SAU_ColumnInches</td><td>SAU column inches</td></tr>
+<tr><td>AdProduct_ID</td><td>Link to dmAdProduct</td></tr>
+<tr><td>AdContent_ID</td><td>Link to dmAdContent</td></tr>
+<tr><td>AdInsertbools_ID</td><td>Link to dmAdInsertBools</td></tr>
+<tr><td>GLType</td><td>The GL type.  (See   FnGLTypeEnumType enum.)</td></tr>
+<tr><td>AdDetail_ID</td><td>Link to dmAdDetail</td></tr>
+<tr><td>LineType</td><td>Line type</td></tr>
+<tr><td>DoubleTruckColumns</td><td>aoPageType.AdditionalCols</td></tr>
+<tr><td>ColumnInchesText</td><td>Column Inches for the text of an Ad</td></tr>
+<tr><td>ColumnMillimetersText</td><td>Column Millimeters for the text of an Ad</td></tr>
+<tr><td>ColumnAgatesText</td><td>Column Agates for the text of an Ad</td></tr>
+<tr><td>ColumnInchesGraphics</td><td>Column Inches for the graphics of an Ad</td></tr>
+<tr><td>ColumnMillimetersGraphics</td><td>Column Millimeters for the graphics of an Ad</td></tr>
+<tr><td>ColumnAgatesGraphics</td><td>Column Agates for the graphics of an Ad</td></tr>
+<tr><td>ColumnInchesBorder</td><td>Column Inches for the border of an Ad</td></tr>
+<tr><td>ColumnMillimetersBorder</td><td>Column Millimeters for the border of an Ad</td></tr>
+<tr><td>ColumnAgatesBorder</td><td>Column Agates for the border of an Ad</td></tr>
+<tr><td>FlightScheduleId_AdBase</td><td>Link to CORE 🡒  AoInFlight.ID</td></tr>
+<tr><td>AdLineage_ID</td><td>Link to <a href="#dmAdLineage">dmAdLineage</a>.</td></tr>
+<tr><td>AdDepthCentimeters</td><td>Ad Depth in Centimeters</td></tr>
+<tr><td>ColumnCentimeters</td><td>Column Centimeters</td></tr>
+<tr><td>LastPopulateDate</td><td>Date that the BI Populate last “touched” this record.  Used primarily in Analytix to allow for   incremental</td></tr>
+</tbody>
+</table>
+<h1></h1>
+<h2><a class="anchor" aria-hidden="true" id="fctpreapply"></a><a href="#fctpreapply" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>fctPreApply</h2>
+<p>One row is created each time a payment has an AoPrepaymentApply record belonging to it.  Pre payment rows are created when a payment or credit is applied to an order which has not yet been invoiced.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>AdOrderId_AdBase</td><td>Link to CORE 🡒  aoPrePaymentApply.AdOrderID   Ad Order ID prepay is associated with.</td></tr>
+<tr><td>CreditPayment_ARSummary_ID</td><td><a href="#fctARSummary">fctARSummary</a> ID if credit or   payment. Link to fctARSummary</td></tr>
+<tr><td>AppliedDate</td><td>aoPrePaymentApply.DateApplied</td></tr>
+<tr><td>AmountApplied</td><td>aoPrePaymentApply.ApplyAmount</td></tr>
+<tr><td>AmountPosted</td><td>aoPrePaymentApply.AmountPosted</td></tr>
+<tr><td>TaxPortion</td><td>aoPrePaymentApply.TaxPortion</td></tr>
+<tr><td>Applied_Counter</td><td>Counter field; always equal to 1</td></tr>
+</tbody>
+</table>
+<h1></h1>
+<h2><a class="anchor" aria-hidden="true" id="fctapply"></a><a href="#fctapply" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>fctApply</h2>
+<p>One row is created each time an invoice has a credit, debit or payment applied to it.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>Invoicedebit_ARSummary_ID</td><td>Link to <a href="#fctARSummary">fctARSummary</a>.ID   This links to an Invoice or Debit record in   fctARSummary.  <a href="#Joining_fctApply_to">See here for details.</a></td></tr>
+<tr><td>CreditPayment_ARSummary_ID</td><td>Link to <a href="#fctARSummary">fctARSummary</a>.ID   This links to an Credit or Payment record in   fctARSummary.  <a href="#Joining_fctApply_to">See here for details.</a></td></tr>
+<tr><td>AdOrderId_AdBase</td><td>Link to CORE 🡒  aoPaymentApply.AdOrderId</td></tr>
+<tr><td>AppliedDate</td><td>aoPaymentApply.AppliedDate</td></tr>
+<tr><td>AmountApplied</td><td>aoPaymentApply.Amount</td></tr>
+<tr><td>Applied_Counter</td><td>Counter field; always equal to 1</td></tr>
+</tbody>
+</table>
+<h1></h1>
+<h1><a class="anchor" aria-hidden="true" id="contract-data-mart"></a><a href="#contract-data-mart" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Contract Data Mart</h1>
+<p>The Contract data mart has the following tables:</p>
+<p><strong>Fact tables</strong></p>
+<ul>
+<li><a href="#fctContract">fctContract</a></li>
+<li><a href="#fctContractFulfillment">fctContractFulfillment</a></li>
+</ul>
+<p><strong>Dimensions</strong></p>
+<ul>
+<li><a href="#dmClient">dmClient</a></li>
+<li><a href="#dmContractDetails">dmContractDetails</a></li>
+<li><a href="#dmContractTemplate">dmContractTemplate</a></li>
+<li><a href="#dmContractBools">dmContractBools</a></li>
+<li><a href="#dmRateHolder">dmRateHolder</a></li>
+<li><a href="#dmUser">dmUser</a></li>
+<li><a href="#dmCompany">dmCompany</a></li>
+</ul>
+<p><strong>Helper Tables</strong></p>
+<ul>
+<li><a href="#bridgeMultiClient_1">bridgeMultiClient</a></li>
+<li><a href="#bridgeContractClient">brdigeContractClient</a></li>
+</ul>
+<h1><a class="anchor" aria-hidden="true" id="contract-information"></a><a href="#contract-information" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Contract Information</h1>
+<p>There are times when you may want to try and get information from some GL tables and also some information from the advertising side.</p>
+<h2><a class="anchor" aria-hidden="true" id="fctcontract"></a><a href="#fctcontract" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>fctContract</h2>
+<p>One row for each contract instance.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>ContractDetails_ID</td><td>Link to dmContractDetails.ID</td></tr>
+<tr><td>ContractSignup_Date_ID</td><td>Link to dmDate   coContractInstance.SignupDate</td></tr>
+<tr><td>ContractTemplate_Id</td><td>Link to dmContractTemplate.ID</td></tr>
+<tr><td>groupContractClient_ID</td><td>bridgeContractClient.groupContractClient_ID    Business Group Key link to the businesses that are part of   the contract; Link to</td></tr>
+<tr><td>CcontractStart_Date_ID</td><td>Link to dmDate.ID   coContractInstance.StartDate</td></tr>
+<tr><td>ContractEnd_Date_ID</td><td>Link to dmDate.ID   coContractInstance.EndDate</td></tr>
+<tr><td>GracePeriod_Date_ID</td><td>Link to dmDate.ID   coContractInstance.GracePeriodEndDate</td></tr>
+<tr><td>EarlyExpire_Date_ID</td><td>Link to dmDate.ID   coContractInstance.EarlyExpireDate</td></tr>
+<tr><td>ContractBools_ID</td><td>Link to dmContractBools.ID</td></tr>
+<tr><td>RateHolder_ID</td><td>Link to dmRateHolder.ID</td></tr>
+<tr><td>ContractSalesrep_User_ID</td><td>Link to dmUser.ID   coContractInstance.SalesRepOverride</td></tr>
+<tr><td>Company_ID</td><td>Link to dmCompany.ID   coContractTemplate.CompanyID</td></tr>
+<tr><td>TotalFulfillmentUnits1</td><td>Accumulated units towards fulfillment of VAR1</td></tr>
+<tr><td>TotalFulfillmentUnits2</td><td>Accumulated units towards fulfillment of VAR2</td></tr>
+<tr><td>PercentFulfilled1</td><td>TotalFulfillmentUnits1 / theFulfillmentGoal1</td></tr>
+<tr><td>PercentFulfilled2</td><td>TotalFulfillmentUnits2 / theFulfillmentGoal2</td></tr>
+<tr><td>AmountExpectedToDate</td><td>Not populated 🡒  Set to 0</td></tr>
+<tr><td>PercentExpectedToDate</td><td>Not populated 🡒  Set to 0</td></tr>
+<tr><td>Contract_Counter</td><td>Counter field; always equal to 1</td></tr>
+<tr><td>PerfTrendAmount</td><td>coContractInstance.PerfTrendAmount   Short Rate/Rebate amount projected</td></tr>
+<tr><td>PerfTrendLastChecked_Date_ID</td><td>Link to dmDate.ID   coContractInstance.PerfTrendLastChecked</td></tr>
+<tr><td>PerfTrendLastCheckedTime</td><td>Number of minutes past 12 AM   coContractInstance.PerfTrendLastChecked</td></tr>
+<tr><td>PerfStopNowAmount</td><td>coContractInstance.PerfTrendStopNowAmount   Short Rate/Rebate amount if contract stopped now</td></tr>
+<tr><td>PerfStopLastChecked_Date_ID</td><td>Link to dmDate.ID   coContractInstance.PerfTrendStopNowLastChecked</td></tr>
+<tr><td>PerfstopLastCheckedTime</td><td>Number of minutes past 12 AM   coContractInstance.PerfTrendStopNowLastChecked</td></tr>
+<tr><td>LastPopulateDate</td><td>Date that the BI Populate last “touched” this record.  Used primarily in Analytix to allow for   incremental</td></tr>
+<tr><td>Refaccount_Client_ID</td><td>Link to dmClient.ID   coContractInstance.RefAccountId</td></tr>
+<tr><td>Refuser_User_ID</td><td>Link to dmUser.ID   coContractInstance.RefUserId</td></tr>
+<tr><td>Createdate_Date_ID</td><td>Link to dmDate.ID   coContractInstance.CreateDate</td></tr>
+<tr><td>Createuser_User_ID</td><td>Link to dmUser.ID   coContractInstance.CreateUserId</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="fctcontractfulfillment"></a><a href="#fctcontractfulfillment" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>fctContractFulfillment</h2>
+<p>One row for each Ad Insertion that is to be counted towards fulfillment of the contract.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>AdOrderId_AdBase</td><td>Link to CORE 🡒  coFulfillmentRec.RefAdOrder</td></tr>
+<tr><td>RunscheduleId_AdBase</td><td>Link to CORE 🡒  coFulfillmentRec.RefAdRunSchedule</td></tr>
+<tr><td>CofulfillmentRecId_AdBase</td><td>Link to CORE 🡒  coFulfillmentRec.Id</td></tr>
+<tr><td>Insert_Date_ID</td><td>Link to <a href="#dmDate_1">dmDate</a>.ID   Link to CORE 🡒  coFulfillmentRec.EffectiveDate</td></tr>
+<tr><td>ContractDetails_ID</td><td>Link to <a href="#dmContractDetails">dmContractDetails</a>.ID</td></tr>
+<tr><td>AdNumber</td><td>aoAdInfo.AdNumber   If Preprint then   aoPreprintInfo.PreprintNumber</td></tr>
+<tr><td>AppliedFulfillmentUnits1</td><td>coFulfillmentRec.Var1Fulfillment</td></tr>
+<tr><td>AppliedFulfillmentUnits2</td><td>coFulfillmentRec.Var2Fulfillment</td></tr>
+<tr><td>Company_ID</td><td>Link <a href="#dmCompany">dmCompany</a>.ID</td></tr>
+<tr><td>ContractFulfillment_Counter</td><td>Counter field; always equal to 1</td></tr>
+<tr><td>aocreditdebitId_AdBase</td><td>Link to CORE 🡒  aoCreditDebit.Id   From coFulfillmentRec.CreditDebitId</td></tr>
+<tr><td>CauseReason_ID</td><td>Link to <a href="#dmCauseReason">dmCauseReason</a>.ID</td></tr>
+<tr><td>LastPopulateDate</td><td>Date that the BI Populate last “touched” this record.  Used primarily in Analytix to allow for   incremental</td></tr>
+<tr><td>prpScheduleId_AdBase</td><td>Link to CORE 🡒  coFulfillmentRec.RefPRPRunschedule</td></tr>
+</tbody>
+</table>
+<h1><a class="anchor" aria-hidden="true" id="dimension-tables"></a><a href="#dimension-tables" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Dimension Tables</h1>
+<h2><a class="anchor" aria-hidden="true" id="dmadproduct"></a><a href="#dmadproduct" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmAdProduct</h2>
+<p>The dmAdProduct table contains various product related attributes for the ad insertion.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>ProductAlias</td><td>rtAliasProduct.Name</td></tr>
+<tr><td>ProductName</td><td>aoProducts.Name</td></tr>
+<tr><td>ProductDescription</td><td>aoProducts.Description</td></tr>
+<tr><td>ProductCategory</td><td>ProductCategory.Name</td></tr>
+<tr><td>WebCategory</td><td>NULL (Not Populated)</td></tr>
+<tr><td>AdType</td><td>aoAdType.Name OR   aoPrePrintTypes.Name for Preprints</td></tr>
+<tr><td>AdSubType</td><td>aoAdSubType.Name</td></tr>
+<tr><td>PlacementAlias</td><td>rtAliasPlacement.Name</td></tr>
+<tr><td>PlacementName</td><td>aoPlacements.Name</td></tr>
+<tr><td>PlacementDescription</td><td>aoPlacements.Description</td></tr>
+<tr><td>PositionAlias</td><td>aoPositionAlias.Name</td></tr>
+<tr><td>PositionName</td><td>aoAdPositions.Name</td></tr>
+<tr><td>PositionDescription</td><td>aoAdPositions.Description</td></tr>
+<tr><td>Edition</td><td>aoAdRunSchedule.EditionID 🡒  aoEditions.Name</td></tr>
+<tr><td>Zone</td><td>aoAdRunSchedule.ZoneID 🡒  aoZones.Name</td></tr>
+<tr><td>PositionID_AdBase</td><td>aoAdPositions.ID</td></tr>
+<tr><td>EditionID_AdBase</td><td>aoEditions.ID</td></tr>
+<tr><td>ZoneID_AdBase</td><td>aoZones.ID</td></tr>
+<tr><td>CheckSum</td><td>Internal BI Populator Use</td></tr>
+<tr><td>ProductID_AdBase</td><td>aoProducts.ID</td></tr>
+<tr><td>AdTypeID_AdBase</td><td>aoAdType.ID OR   aoPrePrintTypes.ID for Preprints</td></tr>
+<tr><td>AdSubTypeID_AdBase</td><td>aoAdSubType.ID</td></tr>
+<tr><td>PlacementID_AdBase</td><td>aoPlacements.ID</td></tr>
+<tr><td>AdCategory</td><td>aoPlacCategory.Name</td></tr>
+<tr><td>ProductCompany_ID</td><td>Link to <a href="#dmCompany">dmCompany</a>   aoProductDef.Company.CompanyID 🡒  ShCompanies.Name</td></tr>
+<tr><td>DivisionName</td><td>aoProductDef.DivisionID 🡒  CfDivision.Name</td></tr>
+<tr><td>UseWithCrossSellFlag</td><td>aoProductDef.UseWithCrossSellFlag</td></tr>
+<tr><td>SubClass3ID_AdBase</td><td>aoAdRunSchedule.Level3ID 🡒  aoSubClassLevel3.ID</td></tr>
+<tr><td>SubClass3Name</td><td>aoAdRunSchedule.Level3ID 🡒  aoSubClassLevel3.Name</td></tr>
+<tr><td>SubClass3Description</td><td>aoAdRunSchedule.Level3ID 🡒  aoSubClassLevel3.Description</td></tr>
+<tr><td>SubClass4ID_AdBase</td><td>aoAdRunSchedule.Level4ID 🡒  aoSubClassLevel4.ID</td></tr>
+<tr><td>SubClass4Name</td><td>aoAdRunSchedule.Level4ID 🡒  aoSubClassLevel4.Name</td></tr>
+<tr><td>SubClass4Description</td><td>aoAdRunSchedule.Level4ID 🡒  aoSubClassLevel4.Description</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="dmuser"></a><a href="#dmuser" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmUser</h2>
+<p>The dmUser table contains information from the UsrUsers table and related tables describing the Sales Reps and other users of the AdBase system.</p>
+<p><strong>Reps in BI</strong></p>
+<p>There are many links from various BI tables to the <a href="#dmUser">dmUser</a> table.  This covers reps like Order Taker User, Credit Approver User, etc.  However, there are two main types of Sales Reps within BI that are used most often.</p>
+<ul>
+<li>Primary      Rep – This is the sales rep that is associated with a customer.  This rep is set in Customer Manager.  This rep is found in <a href="#dmClient">dmClient</a>.PrimarySalesRep_User_ID</li>
+<li>Sold      By Rep – This sales rep is set in Ad Booker when an order is placed.  This rep usually defaults to the primary      rep, but can be changed by the person entering the order.  This rep is found in      fctInsertion.Commissionedrep_User_ID.</li>
+</ul>
+<p>Both of the above reps are located in the dmUser table.  For example, let’s say we have a user “JDoe” in the dmUser table.  This User can be a Primary Rep for a number of customers and at the time he can also be listed as a Sold By Rep for a number of ads that exist in the database.</p>
+<p>A setting in System Admin 🡒 Tools/System Level Information 🡒Other Settings tab called “Update Existing dmUser Entry” is used to control what happens when a user is moved to a new sales team, region, territory or company.</p>
+<p>![img](file:///C:/Users/MARK~1.MCC/AppData/Local/Temp/msohtmlclip1/01/clip_image005.gif)![img](file:///C:/Users/MARK~1.MCC/AppData/Local/Temp/msohtmlclip1/01/clip_image007.jpg)</p>
+<p><strong>Option 1</strong></p>
+<p>When this option is checked, any change made to the sales rep’s Team, Region, Territory or Company within system admin is reflected by updating the existing row in the dmUser table.</p>
+<p><strong>Option 2</strong></p>
+<p>If this option is not checked, then when a change is made to a sales rep’s Team, Region, Territory or Company a new row is created in dmUser for that sales rep, but his old row still exists.</p>
+<p><strong>What Does This Mean</strong></p>
+<p>These options effect how the Sold By rep’s transactions are able to be reported.</p>
+<p>Every transaction (ad taken) has a Sold By sales rep attached to it.  This is a field that is set in Ad Booker.</p>
+<p>Option 1 will effectively let the Sold By sales rep’s transactions “move” with him when he moves to a new sales team, territory or region.</p>
+<p><strong>For Example:</strong></p>
+<p>Rep JDoe is on Team Alpha in ’07 and in Dec ’07 he sold 10 ads in which he was the rep in the Sold By field in Ad Booker.  If we were to run a report for Dec ’07 for Team Alpha, Rep JDoe’s sales would be included in the total.</p>
+<p>If in Jan ’08 Rep JDoe was moved to Team Beta and Option 1 was set in System Admin, the same report, Dec ’07 for Team Alpha, Rep JDoe’s sales would NO longer be included in the total.</p>
+<p>However if Option 2 was selected in System Admin, the above report would be the same both before and after Rep JDoe was moved to Team Beta.</p>
+<p>Be aware the Rep JDoe always is the Sold By rep on the ads.  This just allows you to choose what Team, Region, Territory or Company those ads should show up in.</p>
+<p>Here are the dmUser fields.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>UserLinkId</td><td>NULL (Not Populated)</td></tr>
+<tr><td>UserNumber</td><td>UsrUsers.UserID</td></tr>
+<tr><td>UserLoginName</td><td>UsrUsers.LoginName</td></tr>
+<tr><td>User_Client_ID</td><td>NULL (Not Populated)</td></tr>
+<tr><td>Namefirst_User</td><td>UsrUsers.UserFName</td></tr>
+<tr><td>Namelast_User</td><td>UsrUsers.UserLName</td></tr>
+<tr><td>Address1_User</td><td>UsrUsers.Address1</td></tr>
+<tr><td>City_User</td><td>UsrUsers.City</td></tr>
+<tr><td>State_User</td><td>UsrUsers.StateID 🡒  StateName.StateName_A</td></tr>
+<tr><td>Zipcode_User</td><td>UsrUsers.Zip</td></tr>
+<tr><td>Country_User</td><td>UsrUsers.CountryID 🡒  CountryName.CountryName_A</td></tr>
+<tr><td>Salesteam_User</td><td>UsrUsers.SalesTeamNameID 🡒  SalesTeamName.TeamName</td></tr>
+<tr><td>Salesregion_User</td><td>UsrUsers.SalesRegionID 🡒  SalesRegionName.RegionName</td></tr>
+<tr><td>Salesterritory_User</td><td>UsrUsers.SalesTerritoryID 🡒  SalesTerritoryName.TerritoryName</td></tr>
+<tr><td>Company_ID</td><td>Link to dmCompany 🡒  derived from UsrUsers.CompanyID</td></tr>
+<tr><td>Userstart_Date_ID</td><td>Link to <a href="#dmDate">dmDate</a> 🡒  Set to the date that the record was loaded into BI. Always the same as   Userstop_Date_ID</td></tr>
+<tr><td>Userstop_Date_ID</td><td>Link to <a href="#dmDate">dmDate</a> 🡒  Set to the date that the record was loaded into BI.  Always the same as Userstart_Date_ID</td></tr>
+<tr><td>Currentrecord_Flag</td><td>Always set to ‘TRUE’</td></tr>
+<tr><td>Manager_User_ID</td><td>Link to dmUser.  This   links to the user in dmUser associated with the UsrUsers.SupervisorID in   core.</td></tr>
+<tr><td>DivisionName</td><td>UsrUsers.DivisionID 🡒  cfDivision.Name</td></tr>
+<tr><td>SalesIdentifier</td><td>UsrUsers.SalesIdentifier</td></tr>
+</tbody>
+</table>
+<h2></h2>
+<h2><a class="anchor" aria-hidden="true" id="dmclient"></a><a href="#dmclient" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmClient</h2>
+<p>The dmClient table contains attributes related to customers.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>AccountNumber_Adbase</td><td>Customer.AccountNumber 🡒  Client s AdBase Account number</td></tr>
+<tr><td>Prefix</td><td>NULL (Not Populated)</td></tr>
+<tr><td>NameFirst</td><td>Customer.Name2</td></tr>
+<tr><td>Namelast_BSN</td><td>Customer.Name1</td></tr>
+<tr><td>NameMiddle</td><td>NULL (Not Populated)</td></tr>
+<tr><td>Suffix</td><td>NULL (Not Populated)</td></tr>
+<tr><td>Title</td><td>NULL (Not Populated)</td></tr>
+<tr><td>BirthDate</td><td>NULL (Not Populated)</td></tr>
+<tr><td>Gender</td><td>NULL (Not Populated)</td></tr>
+<tr><td>Ethnicity</td><td>NULL (Not Populated)</td></tr>
+<tr><td>PrimaryPhoneNumber</td><td>Customer.PrimaryTelephone   Format for loading is 9999999999.  If length is 7</td></tr>
+<tr><td>PrimaryPhoneExtension</td><td>Customer.PrimaryExtension   Format for loading is 999999. No padding</td></tr>
+<tr><td>SecondaryPhoneNumber</td><td>Customer.SecondaryTelephone   Format for loading is 9999999999.  If length is 7</td></tr>
+<tr><td>SecondaryPhoneExtension</td><td>Customer.SecondaryExtension   Format for loading is 999999. No padding</td></tr>
+<tr><td>FaxNumber</td><td>Customer.PrimaryFax   Format for loading is 9999999999.  If length is 7</td></tr>
+<tr><td>CellNumber</td><td>NULL (Not Populated)</td></tr>
+<tr><td>PrimaryEmail</td><td>Customer.EmailAddress   Converted to lowercase on load</td></tr>
+<tr><td>SecondaryEmail</td><td>NULL (Not Populated)</td></tr>
+<tr><td>Salesregion_Client</td><td>Customer.SalesRegionID 🡒  SalesRegionName.RegionName</td></tr>
+<tr><td>Salesterritory_Client</td><td>Customer.SalesTerritoryID 🡒  SalesTerritoryName.TerritoryName</td></tr>
+<tr><td>Customertype_Client</td><td>Customer.TypeID 🡒  CustomerType.Name</td></tr>
+<tr><td>CustomerGroup</td><td>Customer.GroupID 🡒  CustomerGroup.Name</td></tr>
+<tr><td>CustomerCategory</td><td>Customer.CategoryID 🡒  CustomerCategory.Name</td></tr>
+<tr><td>CustomerTrade</td><td>Customer.TradeID 🡒  CustomerTrade.Name</td></tr>
+<tr><td>CustomerPriority</td><td>Customer.PriorityID 🡒  CustomerPriority.Name</td></tr>
+<tr><td>CustomerStatus</td><td>Customer.StatusID 🡒  CustomerStatus.Name</td></tr>
+<tr><td>EmailSolicitok_Flag</td><td>NULL (Not Populated)</td></tr>
+<tr><td>EmailSolicitDate</td><td>NULL (Not Populated)</td></tr>
+<tr><td>PrimarySalesrep_User_ID</td><td>Link to <a href="#dmUser">dmUser</a> 🡒  Customer.PrimarySalespersonID   Primary sales rep for this customer; Link to dmUser Table</td></tr>
+<tr><td>Business_Flag</td><td>Customer.CompanyFlag</td></tr>
+<tr><td>Agency_Flag</td><td>Customer.AgencyFlag   This business customer is an agency</td></tr>
+<tr><td>Activeclient_Flag</td><td>NULL (Not Populated)</td></tr>
+<tr><td>CreditRisk</td><td>CustomerCreditInfo.CreditRiskID   The credit risk that has been assigned to this customer by   the newspaper.</td></tr>
+<tr><td>CreditLimit</td><td>CustomerCreditInfo.CreditLimit   Maximum credit limit available for this customer</td></tr>
+<tr><td>CreditStopped_Flag</td><td>CustomerCreditInfo.CreditStoppedFlag   TRUE - this customer s credit line has been stopped. FALSE   - this customer s credit line has NOT been stopped</td></tr>
+<tr><td>CreditReviewDate</td><td>CustomerCreditInfo.CreditReviewDate</td></tr>
+<tr><td>InCollections_Flag</td><td>CustomerCreditInfo.InCollections   Customer is currently in collections</td></tr>
+<tr><td>CollectionsAgency</td><td>CustomerCreditInfo.CollectorsID   Name of collector</td></tr>
+<tr><td>LoginName</td><td>Customer.WebLoginName</td></tr>
+<tr><td>DoNotSolicit_Flag</td><td>Customer.DoNotSolicitFlag</td></tr>
+<tr><td>DoNotSolicitPhone1_Flag</td><td>Customer.DoNotSolicitPhone1</td></tr>
+<tr><td>DoNotSolicitPhone2_Flag</td><td>Customer.DoNotSolicitPhone2</td></tr>
+<tr><td>DoNotSolicitFax_Flag</td><td>Customer.DoNotSolicitFax</td></tr>
+<tr><td>BookingStatus</td><td>Customer.BookingStatusCode   Booking status</td></tr>
+<tr><td>Creditrep_User_ID</td><td>Link to <a href="#dmUser">dmUser</a>    CustomerCreditRep.PrimaryCreditRep</td></tr>
+<tr><td>PreviousCreditRep_User_ID</td><td>Link to <a href="#dmUser">dmUser</a></td></tr>
+<tr><td>Incollections_Date_ID</td><td>Link to <a href="#dmDate">dmDate</a>   CustomerCreditInfo.InCollectionsDate</td></tr>
+<tr><td>CollectionInfo</td><td>CustomerCreditInfo.CollectionInfo</td></tr>
+<tr><td>OutCollections_Date_ID</td><td>Link to <a href="#dmDate">dmDate</a>   CustomerCreditInfo.OutCollectionsDate</td></tr>
+<tr><td>Collections_ID</td><td>Link to <a href="#dmCollections">dmCollections</a></td></tr>
+<tr><td>Salesteam_Client</td><td>Customer.SalesTeamID 🡒  SalesTeamName.TeamName</td></tr>
+<tr><td>Company_ID</td><td>Link to <a href="#dmCompany">dmCompany</a>   Customer.CompanyID</td></tr>
+<tr><td>Creation_Date_ID</td><td>Link to <a href="#dmDate">dmDate</a>   Customer.CreationDate</td></tr>
+<tr><td>TaxExempt_Flag</td><td>CustomerBillingInfo.TaxExemptFlag   TRUE or FALSE</td></tr>
+<tr><td>WriteOffExempt_Flag</td><td>CustomerBillingInfo.WriteOffExemptionFlag   TRUE or FALSE</td></tr>
+<tr><td>DemandFeeExempt_Flag</td><td>CustomerBillingInfo.DunningLetterExemptionFlag   TRUE or FALSE</td></tr>
+<tr><td>SplitBillingexempt_Flag</td><td>CustomerBillingInfo.SplitBillingFeeExemptionFlag   TRUE or FALSE</td></tr>
+<tr><td>InvoiceFeeExempt_Flag</td><td>CustomerBillingInfo.InvoiceFeeExemptionFlag   TRUE or FALSE</td></tr>
+<tr><td>FeesAdjusted_Flag</td><td>CustomerBillingInfo.AdjustmentsIncludeInvoiceFee   TRUE or FALSE</td></tr>
+<tr><td>CommissionEligible_Flag</td><td>TRUE or FALSE</td></tr>
+<tr><td>FinanceChargeExempt_Flag</td><td>TRUE or FALSE</td></tr>
+<tr><td>DunningLettersExempt_Flag</td><td>CustomerBillingInfo.DunningLetterExemptionFlag   TRUE or FALSE</td></tr>
+<tr><td>PORequired_Flag</td><td>Customer.PurchaseOrderRequiredFlag   TRUE or FALSE</td></tr>
+<tr><td>PrintInvoice_Flag</td><td>CustomerBillingInfo.PrintInvoiceFlag   TRUE or FALSE</td></tr>
+<tr><td>PrintConsInvoice_Flag</td><td>CustomerBillingInfo.PrintConsolidatedInvoiceFlag   TRUE or FALSE</td></tr>
+<tr><td>PrintCreditBalance_Flag</td><td>CustomerBillingInfo.PrintCreditBalancesFlag   TRUE or FALSE</td></tr>
+<tr><td>SendInvoiceParent_Flag</td><td>CustomerBillingInfo.InvoiceToParentFlag   TRUE or FALSE</td></tr>
+<tr><td>SendInvoiceChild_Flag</td><td>CustomerBillingInfo.InvoiceToChildFlag   TRUE or FALSE</td></tr>
+<tr><td>NoAutoReinstate_Flag</td><td>CustomerBillingInfo.AutoReinstate   TRUE or FALSE</td></tr>
+<tr><td>CollectionsExempt_Flag</td><td>CustomerBillingInfo.CollectionExemptionFlag   TRUE or FALSE</td></tr>
+<tr><td>PayAsOrderer_Flag</td><td>CustomerBillingInfo.AllowOrdererPayment   TRUE or FALSE</td></tr>
+<tr><td>CreditStatusType</td><td>CustomerCreditInfo.CreditStatusType   Credit status type (see CreditStatusEnumType.h)</td></tr>
+<tr><td>ICNumber</td><td>Customer.ICNumber   Identity Card Number</td></tr>
+<tr><td>GroupClientAlias_ID</td><td>Link to bridgeClientAlias</td></tr>
+<tr><td>SecondarySalesrep_User_ID</td><td>Link to <a href="#dmUser">dmUser</a>   Customer.SecondarySalespersonID</td></tr>
+<tr><td>AttentionTo</td><td>Customer.AttentionTo</td></tr>
+<tr><td>Creating_User_ID</td><td>Link to <a href="#dmUser">dmUser</a>   Examines Audit Trail to see if an entry can be found that   constitutes the user who added the customer.    If so, it is put here.</td></tr>
+<tr><td>OrganizationId</td><td>Customer.FederalID</td></tr>
+<tr><td>TaxId</td><td>Customer.TaxID</td></tr>
+<tr><td>PayStatusCode</td><td>Payment status code</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="dmrelationshipagency"></a><a href="#dmrelationshipagency" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmRelationshipAgency</h2>
+<p>The dmRelationshipAgency table contains links Agencies with their clients.  Each row in the dmRelationshipAgency table contains a number of links back to dmClient for the various clients that make up the relationship.</p>
+<p>In the dmRelationshipAgency table you will have one column <strong>agency_client_id</strong> that will link to dmClient and describes the parent Agency for the <strong>client_client_id</strong> which also links back to dmClient and will describe the client that is a child to the agency.  See the query below for an example of these joins.</p>
+<p>The dmRelationshipAgency table also contains 4 grandparent levels.  The first grandparent level would be the client that is the parent of the agency in the given record, the 2nd level grandparent would be the parent of the parent of the agency and so on.</p>
+<p><strong>Sample Query:</strong></p>
+<p>SELECT Agency.NameLast_BSN,</p>
+<pre><code class="hljs"> AgencyClient.NameLast_BSN,
+
+ dmRelationshipAgency.*
+</code></pre>
+<p>FROM dmClient Agency,</p>
+<pre><code class="hljs"> dmRelationshipAgency,
+
+ dmClient AgencyClient
+</code></pre>
+<p>WHERE AgencyClient.id = dmRelationshipAgency.client_client_id</p>
+<p>AND dmRelationshipAgency.agency_client_id = Agency.ID</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>RelationshipId_AdBase</td><td>Link to CORE 🡒  Relationship.ID</td></tr>
+<tr><td>Agency_Client_ID</td><td>Link to <a href="#dmClient_">dmClient</a>.ID   This is the Agency Link</td></tr>
+<tr><td>Client_Client_ID</td><td>Link to <a href="#dmClient_">dmClient</a>.ID   This is the child to the Agency</td></tr>
+<tr><td>RelationshipDesc</td><td>Relationship.RelationshipDesc</td></tr>
+<tr><td>CreditRep_User_ID</td><td>Link to <a href="#dmUser">dmUser</a>.ID</td></tr>
+<tr><td>PreviousCreditRep_User_ID</td><td>Link to <a href="#dmUser">dmUser</a>.ID</td></tr>
+<tr><td>CreditStopped_Flag</td><td>TRUE or FALSE</td></tr>
+<tr><td>BookingStatus</td><td>Booking status</td></tr>
+<tr><td>SalesRep_User_ID</td><td>Link to <a href="#dmUser">dmUser</a>.ID</td></tr>
+<tr><td>gp_Client_ID</td><td>Link to <a href="#dmClient_">dmClient</a>.ID</td></tr>
+<tr><td>g2p_Client_ID</td><td>Link to <a href="#dmClient_">dmClient</a>.ID</td></tr>
+<tr><td>g3p_Client_ID</td><td>Link to <a href="#dmClient_">dmClient</a>.ID</td></tr>
+<tr><td>g4p_Client_ID</td><td>Link to <a href="#dmClient_">dmClient</a>.ID</td></tr>
+</tbody>
+</table>
+<h2></h2>
+<h2><a class="anchor" aria-hidden="true" id="dmrelationshipparent"></a><a href="#dmrelationshipparent" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmRelationshipParent</h2>
+<p>The dmRelationshipParent table contains links Agencies with their clients.  Each row in the dmRelationshipParent table contains a number of links back to dmClient for the various clients that make up the relationship.</p>
+<p>In the dmRelationshipParent table you will have one column <strong>parent_client_id</strong> that will link to dmClient and describes the parent for the <strong>client_client_id</strong> which also links back to dmClient and will describe the client that is a child to the parent.  See the query below for an example of these joins.</p>
+<p>The dmRelationshipParent table also contains 4 grandparent levels.  The first grandparent level would be the client that is the parent of the parent in the given record, the 2nd level grandparent would be the parent of the parent of the parent and so on.</p>
+<p><strong>Sample Query:</strong></p>
+<p>SELECT Agency.NameLast_BSN,</p>
+<pre><code class="hljs"> AgencyClient.NameLast_BSN,
+
+ dmRelationshipAgency.*
+</code></pre>
+<p>FROM dmClient Agency,</p>
+<pre><code class="hljs"> dmRelationshipAgency,
+
+ dmClient AgencyClient
+</code></pre>
+<p>WHERE AgencyClient.id = dmRelationshipAgency.client_client_id</p>
+<p>AND dmRelationshipAgency.agency_client_id = Agency.ID</p>
+<p><strong>Sample Query:</strong></p>
+<p>SELECT Parent.NameLast_BSN,</p>
+<pre><code class="hljs"> ParentClient.NameLast_BSN,
+
+ dmRelationshipParent.*
+</code></pre>
+<p>FROM dmClient Parent,</p>
+<pre><code class="hljs"> dmRelationshipParent,
+
+ dmClient ParentClient
+</code></pre>
+<p>WHERE ParentClient.id = dmRelationshipParent.child_client_id</p>
+<p>AND dmRelationshipParent.Parent_client_id = Parent.ID</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>RelationshipId_AdBase</td><td>Link to CORE 🡒  Relationship.ID</td></tr>
+<tr><td>Parent_Client_ID</td><td>Link to <a href="#dmClient_">dmClient</a>.ID   This is the Agency Link</td></tr>
+<tr><td>Child_Client_ID</td><td>Link to <a href="#dmClient_">dmClient</a>.ID   This is the child to the Agency</td></tr>
+<tr><td>RelationshipDesc</td><td>Relationship.RelationshipDesc</td></tr>
+<tr><td>CreditRep_User_ID</td><td>Link to <a href="#dmUser">dmUser</a>.ID</td></tr>
+<tr><td>PreviousCreditRep_User_ID</td><td>Link to <a href="#dmUser">dmUser</a>.ID</td></tr>
+<tr><td>CreditStopped_Flag</td><td>TRUE or FALSE</td></tr>
+<tr><td>BookingStatus</td><td>Booking status</td></tr>
+<tr><td>SalesRep_User_ID</td><td>Link to <a href="#dmUser">dmUser</a>.ID</td></tr>
+<tr><td>gp_Client_ID</td><td>Link to <a href="#dmClient_">dmClient</a>.ID</td></tr>
+<tr><td>g2p_Client_ID</td><td>Link to <a href="#dmClient_">dmClient</a>.ID</td></tr>
+<tr><td>g3p_Client_ID</td><td>Link to <a href="#dmClient_">dmClient</a>.ID</td></tr>
+<tr><td>g4p_Client_ID</td><td>Link to <a href="#dmClient_">dmClient</a>.ID</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="bridgemulticlient"></a><a href="#bridgemulticlient" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>bridgeMultiClient</h2>
+<p>Normally, you will link to the dmClient table via the fact table fields such as PrimaryOrderer_Client_ID or PrimaryPayer_Client_ID.  However, if you want a list of all clients that were part of the customers for a given ad.</p>
+<p><strong>Sample Query:</strong></p>
+<p>SELECT fctInsertion.id,</p>
+<pre><code class="hljs"> fctInsertion.adnumber,
+
+ dmClient.accountNumber_adbase,
+
+ bridgeMultiClient.*
+</code></pre>
+<p>FROM dmclient,</p>
+<pre><code class="hljs"> bridgeMultiClient,
+
+ fctinsertion
+</code></pre>
+<p>WHERE fctInsertion.groupMultiClient_ID = bridgeMultiClient.groupMultiClient_ID</p>
+<p>AND bridgeMultiClient.client_id = dmClient.id</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>groupMultiClient_ID</td><td>Link to <a href="#fctInsertion_">fctInsertion</a>.groupMultiClient_ID   OR any other table that has a groupMultiClient_ID link.</td></tr>
+<tr><td>Client_ID</td><td>Link to <a href="#dmClient_">dmClient</a>.ID</td></tr>
+<tr><td>AdvertiserType</td><td>If aoOrderCustomers.PayedBy = 1 then        ‘Payer’   Else       ‘Orderer’</td></tr>
+<tr><td>IsPayer_Flag</td><td>If aoOrderCustomers.PayedBy = 1 then        ‘TRUE’   Else       ‘FALSE’</td></tr>
+<tr><td>IsOrderer_Flag</td><td>If aoOrderCustomers.OrderedBy = 1 then        ‘TRUE’   Else       ‘FALSE’</td></tr>
+<tr><td>PercentagePaid</td><td>aoOrderCustomers.PayPercent</td></tr>
+<tr><td>PercentageOrdered</td><td>aoOrderCustomers.OrderPercent</td></tr>
+<tr><td>PercentagePaid_Space</td><td>aoOrderCustomers.PercentOverrideSpaceCharge</td></tr>
+<tr><td>PercentagePaid_Color</td><td>aoOrderCustomers.PercentOverrideColorCharge</td></tr>
+<tr><td>PercentagePaid_Other</td><td>aoOrderCustomers.PercentOverrideOtherCharge</td></tr>
+<tr><td>AmountPaid</td><td>aoOrderCustomers.PayAmount</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="dmdate"></a><a href="#dmdate" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmDate</h2>
+<p>Each row in the dmDate table holds a single date and describes the date fully.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>CalendarDate</td><td>Date Field</td></tr>
+<tr><td>Day_OfWeek_Text</td><td>Full Text - MONDAY, TUESDAY, etc.</td></tr>
+<tr><td>Day_OfWeek_Number</td><td>1-7.  In accordance   with international standard ISO-8601 1=Monday</td></tr>
+<tr><td>Day_OfMonth</td><td>Day number in month. 1-31</td></tr>
+<tr><td>Day_OfYear</td><td>Day number in year 1-365</td></tr>
+<tr><td>Month_NumberOfDays</td><td>Contains number of days in month. 28-31</td></tr>
+<tr><td>Month_OfYear_Text</td><td>Full Text - January, February, etc.</td></tr>
+<tr><td>Month_OfYear_Number</td><td>1-12</td></tr>
+<tr><td>MonthEnd_Date</td><td>Date that the last day of the month falls on.     Date Field</td></tr>
+<tr><td>MonthEnd_Flag</td><td>Indicates whether this date is the last day of the month.   TRUE or FALSE</td></tr>
+<tr><td>Week_OfYear</td><td>Indicates the week number in the year. 1-52</td></tr>
+<tr><td>WeekDay_Flag</td><td>Monday through Friday = TRUE   Saturday or Sunday = FALSE.</td></tr>
+<tr><td>WeekEnd_Date</td><td>Week ending date for the week that this date falls into.   Date Field</td></tr>
+<tr><td>Holiday_Flag</td><td>Currently Not Used – Always set to FALSE.</td></tr>
+<tr><td>Year_Calendar</td><td>Calendar year that this date fall into.     Format is YYYY</td></tr>
+<tr><td>Year_Fiscal</td><td>Indicates which fiscal year this date fall in.   Format is YYYY</td></tr>
+<tr><td>Year_FiscalStartDate</td><td>The start date of the fiscal year   Date Field</td></tr>
+<tr><td>Year_FiscalEndDate</td><td>The end date of the fiscal year   Date Field</td></tr>
+<tr><td>Quarter_Calendar_Text</td><td>Text description of the calendar quarter that this date   falls in.  FIRST, SECOND, etc</td></tr>
+<tr><td>Quarter_Calendar_Number</td><td>Number indicating the calendar quarter that this date   falls in.  1-4</td></tr>
+<tr><td>Quarter_Fiscal_Text</td><td>Text description of the fiscal quarter that this date   falls in.  FIRST, SECOND, etc</td></tr>
+<tr><td>Quarter_Fiscal_Number</td><td>Number description of the fiscal quarter that this date   falls in.  1-4</td></tr>
+<tr><td>Period_StartDate</td><td>Start date of period in which this date falls.  The BI Populator looks in the   fnAccountingPeriod table to see if the CalendarDate falls into a period range   in the table.  If it does, it will   return the Start Date of the period.   Date Field</td></tr>
+<tr><td>Period_EndDate</td><td>End date of period in which this date falls.   The BI Populator looks in the fnAccountingPeriod table to   see if the CalendarDate falls into a period range in the table.  If it does, it will return the End Date of   the period.   Date Field</td></tr>
+<tr><td>Period_OfYear_Text</td><td>Text description of the period that this date falls in.    fnAccountingPeriod.Name for the period that this Calendar   Date falls into.</td></tr>
+<tr><td>Period_OfYear_Number</td><td>Numeric value of the period that this date falls in,    1-12</td></tr>
+<tr><td>PeriodEnd_Flag</td><td>Indicates if this date is a period end date. TRUE or FALSE.      Based on the EndDate in fnAccoutingPeriod.</td></tr>
+<tr><td>Holidays_ID</td><td>NULL (Not Populated)</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="dmadorderbools"></a><a href="#dmadorderbools" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmAdOrderBools</h2>
+<p>Within BI we chose to store many of the common Flag (True/False) type fields in separate tables.   dmAdOrderBools holds flags that pertain to the Ad Order level.</p>
+<p>All flags in the bools table are either TRUE or FALSE.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>DoNotPaginate_Flag</td><td>aoAdOrder.LayoutRequiredFlag</td></tr>
+<tr><td>DoNotBill_Flag</td><td>aoAdOrder.BillingRequiredFlag</td></tr>
+<tr><td>DoNotProduce_Flag</td><td>aoAdOrder.ProductionRequiredFlag</td></tr>
+<tr><td>InvoicedAlready_Flag</td><td>Will only be set to TRUE if ALL of the insertions for the   order have been invoiced.   The lowest level of this flag is found in the   fctInsertChargeDetail table.</td></tr>
+<tr><td>IsConfidential_Flag</td><td>aoAdOrder.ConfidentialFlag</td></tr>
+<tr><td>Rebill_Flag</td><td>aoAdOrder.RebillSourceFlag</td></tr>
+<tr><td>Renewal_Flag</td><td>aoAdOrder.Renewal</td></tr>
+<tr><td>Quote_Flag</td><td>aoAdOrder.QuoteFlag</td></tr>
+<tr><td>QuoteToOrder_Flag</td><td>aoAdOrder.QuoteToOrderFlag</td></tr>
+<tr><td>QuoteExpired_Flag</td><td>aoAdOrder.QuoteExpiredFlag</td></tr>
+<tr><td>CallbackCompleted_Flag</td><td>aoAdOrder.CallbackCompleted</td></tr>
+<tr><td>Incomplete_Flag</td><td>aoAdOrder.IncompleteFlag</td></tr>
+<tr><td>Checksum</td><td>BI Populator System Field   Check sum of this record</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="dmadorderstatus"></a><a href="#dmadorderstatus" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmAdOrderStatus</h2>
+<p>The dmAdOrderStatus table contains Order Status and the current Queue for a given AdOrder.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>OrderStatus</td><td>aoAdOrder.OrderStatusID 🡒  aoAdOrderStatus.Name</td></tr>
+<tr><td>CurrentQueue</td><td>aoAdOrder.CurrentQueue</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="dmadpromotion"></a><a href="#dmadpromotion" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmAdPromotion</h2>
+<p>The promotion linked to the Ad Order.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>PromoName</td><td>aoPromotions.Name</td></tr>
+<tr><td>PromoDesc</td><td>aoPromotions.Description</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="dmadorderdetail"></a><a href="#dmadorderdetail" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmAdOrderDetail</h2>
+<p>Miscellaneous ad order attributes.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>KillReasonName</td><td>aoAdOrder.KillID 🡒  shKillReasons.Name   Kill reason name, if ad order is killed</td></tr>
+<tr><td>PaymentMethod</td><td>aoOrderCustomers.PaymentMethod</td></tr>
+<tr><td>DivisionName</td><td>aoAdOrder.DivisionID 🡒  cfDivision.Name</td></tr>
+<tr><td>CrosssellType</td><td>aoAdOrder.CrossSellType   Decoded into text by BI Populator</td></tr>
+<tr><td>CatClusterId_AdBase</td><td>aoAdOrder.CatClusterID</td></tr>
+<tr><td>CatClusterName</td><td>aoAdOrder.CatClusterID 🡒  aoCatCluster.Name</td></tr>
+<tr><td>CatClusterDesc</td><td>aoAdOrder.CatClusterID 🡒  aoCatCluster.Description</td></tr>
+<tr><td>CatcodeId_AdBase</td><td>aoAdOrder.CatCodeID</td></tr>
+<tr><td>CatcodeName</td><td>aoAdOrder.CatCodeID 🡒  aoCatCode.Name</td></tr>
+<tr><td>CatcodeDesc</td><td>aoAdOrder.CatCodeID 🡒  aoCatCode.Description</td></tr>
+<tr><td>Checksum</td><td>BI Populator System Field   Check sum of this record</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="dmcompany"></a><a href="#dmcompany" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmCompany</h2>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>CompanyName</td><td>aoAdOrder.CompanyID 🡒  shCompanies.Name</td></tr>
+<tr><td>Address1_Company</td><td>shCompanies.AddrLine1</td></tr>
+<tr><td>Address2_Company</td><td>shCompanies.AddrLine2</td></tr>
+<tr><td>Address3_Company</td><td>shCompanies.AddrLine3</td></tr>
+<tr><td>City_Company</td><td>shCompanies.City</td></tr>
+<tr><td>State_Company</td><td>shCompanies.State</td></tr>
+<tr><td>Zipcode_Company</td><td>shCompanies.ZipCode</td></tr>
+<tr><td>CompanyCode</td><td>shCompanies.CompanyCode</td></tr>
+<tr><td>Description</td><td>shCompanies.Description</td></tr>
+<tr><td>Primary_Flag</td><td>shCompanies.IsMasterCompany   TRUE or FALSE</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="bridgemultispecials"></a><a href="#bridgemultispecials" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>bridgeMultiSpecials</h2>
+<p>Links multiple specials to an Ad Order.</p>
+<p><strong>Sample Query:</strong></p>
+<p>SELECT  fctAdOrder.AdOrderNumber,</p>
+<pre><code class="hljs">    bridgeMultiSpecials.*,
+
+    dmSpecials.*
+</code></pre>
+<p>FROM    fctAdOrder,</p>
+<pre><code class="hljs">    bridgeMultiSpecials,
+
+    dmSpecials
+</code></pre>
+<p>WHERE  fctAdOrder.groupMultiSpecials_ID = bridgeMultiSpecials.groupMultiSpecials_ID</p>
+<p>AND     bridgeMultiSpecials.Specials_ID = dmSpecials.ID</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>GroupMultiSpecials_ID</td><td>Link to <a href="#fctAdOrder">fctAdOrder</a>   See query above</td></tr>
+<tr><td>Specials_ID</td><td>Link to dmSpecials.ID</td></tr>
+<tr><td>SpecialsAmount</td><td>Calculated from the RTCharge records that are marked as</td></tr>
+<tr><td>SpecialPriceReasonName</td><td>aoSpecialPrice.ReasonID 🡒  cfspPriceReasons.Name</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="dmspecials"></a><a href="#dmspecials" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmSpecials</h2>
+<p><strong>Sample Query:</strong></p>
+<p>SELECT  fctAdOrder.AdOrderNumber,</p>
+<pre><code class="hljs">    bridgeMultiSpecials.*,
+
+    dmSpecials.*
+</code></pre>
+<p>FROM    fctAdOrder,</p>
+<pre><code class="hljs">    bridgeMultiSpecials,
+
+    dmSpecials
+</code></pre>
+<p>WHERE  fctAdOrder.groupMultiSpecials_ID = bridgeMultiSpecials.groupMultiSpecials_ID</p>
+<p>AND     bridgeMultiSpecials.Specials_ID = dmSpecials.ID</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>SpecialPremiumName</td><td>rtPremSpecial.SpecialPremiumNameId 🡒  rtSpecialPremiumType.Name</td></tr>
+<tr><td>SpecialDiscountName</td><td>rtDiscSpecial.SpecialDiscountNameId 🡒  rtSpecialDiscType.Name</td></tr>
+<tr><td>SpecialNotes</td><td>aoSpecialPrice.SpecialNotes</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="bridgemultimaterials"></a><a href="#bridgemultimaterials" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>bridgeMultiMaterials</h2>
+<p>This table will allow us to link a single Ad order to multiple materials that are included in the order.</p>
+<p><strong>Sample Query:</strong></p>
+<p>SELECT  fctAdOrder.AdOrderNumber,</p>
+<pre><code class="hljs">    bridgeMultiMaterials.*,
+
+    dmMaterialCharge.*
+</code></pre>
+<p>FROM    fctAdOrder,</p>
+<pre><code class="hljs">    bridgeMultiMaterials,
+
+    dmMaterialCharge
+</code></pre>
+<p>WHERE  fctAdOrder.groupMultiMaterials_ID = bridgeMultiMaterials.groupMultiMaterials_ID</p>
+<p>AND     bridgeMultiMaterials.MaterialCharge_ID = dmMaterialCharge.ID</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>groupMultiMaterials_ID</td><td>Link to fctAdOrder</td></tr>
+<tr><td>MaterialCharge_ID</td><td>Link to dmMaterialCharge</td></tr>
+<tr><td>MaterialQuantity</td><td>Total units for all materials attached to this order.  aoOrderMaterials.MaterialUnits</td></tr>
+<tr><td>MaterialtotalAmount</td><td>Total cost for all materials attached to this order.  aoOrderMaterials.MaterialPriceUnit *   MaterialQuantity</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="dmmaterialcharge"></a><a href="#dmmaterialcharge" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmMaterialCharge</h2>
+<p>The dmMaterialCharge table contains information pertaining to any material charges for a given AdOrder.</p>
+<p><strong>Sample Query:</strong></p>
+<p>SELECT  fctAdOrder.AdOrderNumber,</p>
+<pre><code class="hljs">    bridgeMultiMaterials.*,
+
+    dmMaterialCharge.*
+</code></pre>
+<p>FROM    fctAdOrder,</p>
+<pre><code class="hljs">    bridgeMultiMaterials,
+
+    dmMaterialCharge
+</code></pre>
+<p>WHERE  fctAdOrder.groupMultiMaterials_ID = bridgeMultiMaterials.groupMultiMaterials_ID</p>
+<p>AND     bridgeMultiMaterials.MaterialCharge_ID = dmMaterialCharge.ID</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>MaterialName</td><td>aoAdMaterials.Name</td></tr>
+<tr><td>MaterialAmount</td><td>aoOrderMaterials.MaterialPriceUnit</td></tr>
+<tr><td>glAccounts_Id</td><td>Link to <a href="#dmGLAccounts">dmglAccounts</a>.ID</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="dmlocation"></a><a href="#dmlocation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmLocation</h2>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>PreDirection</td><td>NULL (Not Populated)</td></tr>
+<tr><td>HouseNumber</td><td>NULL (Not Populated)</td></tr>
+<tr><td>StreetName</td><td>NULL (Not Populated)</td></tr>
+<tr><td>StreetSuffix</td><td>NULL (Not Populated)</td></tr>
+<tr><td>PostDirection</td><td>NULL (Not Populated)</td></tr>
+<tr><td>UnitDesig</td><td>NULL (Not Populated)</td></tr>
+<tr><td>Address1</td><td>Customer.PrimaryAddress1</td></tr>
+<tr><td>Address2</td><td>Customer.PrimaryAddress2</td></tr>
+<tr><td>Address3</td><td>Customer.PrimaryAddress3</td></tr>
+<tr><td>SecondaryNumber</td><td>NULL (Not Populated)</td></tr>
+<tr><td>Zipcode</td><td>Customer.PrimaryZipCode (First 5 digits)</td></tr>
+<tr><td>Zip4</td><td>Customer.PrimaryZipCode (Last 4 digits)</td></tr>
+<tr><td>City</td><td>Customer.PrimaryCity</td></tr>
+<tr><td>County</td><td>NULL (Not Populated)</td></tr>
+<tr><td>State</td><td>Customer.Primary StateID 🡒  StateName.StateName_A</td></tr>
+<tr><td>Country</td><td>Customer.PrimaryCountryCode</td></tr>
+<tr><td>Latitude</td><td>Always Set to 0.0</td></tr>
+<tr><td>Longitude</td><td>Always Set to 0.0</td></tr>
+<tr><td>OKToMail_Flag</td><td>NULL (Not Populated)</td></tr>
+<tr><td>Lot</td><td>NULL (Not Populated)</td></tr>
+<tr><td>LotOrder</td><td>NULL (Not Populated)</td></tr>
+<tr><td>CheckDigit</td><td>NULL (Not Populated)</td></tr>
+<tr><td>Dpbc</td><td>NULL (Not Populated)</td></tr>
+<tr><td>CarrierRoute</td><td>NULL (Not Populated)</td></tr>
+<tr><td>WalkSequence</td><td>NULL (Not Populated)</td></tr>
+<tr><td>Microvision_Id</td><td>NULL (Not Populated)</td></tr>
+<tr><td>UnitType</td><td>NULL (Not Populated)</td></tr>
+<tr><td>InsertZone</td><td>NULL (Not Populated)</td></tr>
+<tr><td>Geomatch</td><td>NULL (Not Populated)</td></tr>
+<tr><td>LocationType</td><td>NULL (Not Populated)</td></tr>
+<tr><td>CheckSum</td><td>BI Populator System Field   Check sum of this record</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="bridgeorderroles"></a><a href="#bridgeorderroles" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>bridgeOrderRoles</h2>
+<p>Links multiple order roles to an Ad Order.  Used in conjunction with groupOrderRoles.</p>
+<p>fctAdOrder 🡒bridgeOrderRoles
+bridgeOrderRoles 🡒dmClient</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>groupOrderRoles_ID</td><td>Link to <a href="#fctAdOrder">fctAdOrder</a></td></tr>
+<tr><td>OrderRole_Client_ID</td><td>Link to <a href="#dmClient_">dmClient</a></td></tr>
+<tr><td>OrderRolesLinkId_AdBase</td><td>Link to CORE 🡒  aoOrderRolesLink.ID</td></tr>
+<tr><td>OrderRolesName</td><td>aoOrderRoles.Name</td></tr>
+<tr><td>OrderRolesDescription</td><td>aoOrderRoles.Description</td></tr>
+<tr><td>OrderRole</td><td>aoOrderRoles.OrderRole   Order role as defined in OrderRoleEnumType.</td></tr>
+<tr><td>IsInactiveFlag</td><td>aoOrderRoles.IsInactiveFlag   TRUE = Order Role entry is inactive</td></tr>
+<tr><td>OrderRolesId_AdBase</td><td>Link to CORE 🡒  aoOrderRoles.ID</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="dmadinsertbools"></a><a href="#dmadinsertbools" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmAdInsertBools</h2>
+<p>Within BI we chose to store many of the common Flag (True/False) type fields in separate tables.   dmAdInsertBools holds flags that pertain to the Ad Insertion level.</p>
+<p>All flags in the bools table are either TRUE or FALSE.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>HasBorder_Flag</td><td>aoAdContent.HasBorder</td></tr>
+<tr><td>HasBackground_Flag</td><td>aoAdContent.HasBackground</td></tr>
+<tr><td>IsReversed_Flag</td><td>aoAdContent.IsReversed</td></tr>
+<tr><td>IsCouponAd_Flag</td><td>aoAdInfo.CouponAd</td></tr>
+<tr><td>ProdRelease_Flag</td><td>aoAdInfo.ProdRelease</td></tr>
+<tr><td>RateOverride_Flag</td><td>aoAdRunSchedule.RateOverride</td></tr>
+<tr><td>AdVerified_Flag</td><td>aoAdRunSchedule.Verified</td></tr>
+<tr><td>IsDoubletruck_Flag</td><td>aoAdInfo.DoubletruckFlag</td></tr>
+<tr><td>IsPublished_Flag</td><td>rtChargeEntryElem.PublishedFlag   Loops through all charges for an insertion.  If all have PublishedFlag set to True (1)   this field is set to TRUE else it is set to FALSE</td></tr>
+<tr><td>IsInvoicedAlready_Flag</td><td>rtChargeEntryElem.InvoicedAlreadyFlag   Loops through all charges for an insertion.  If all have InvoicedAlreadyFlag set to True   (1) this field is set to TRUE else it is set to FALSE</td></tr>
+<tr><td>IsTillforbid_Flag</td><td>aoAdRunSchedule.IsTillForbid</td></tr>
+<tr><td>IsStandby_Flag</td><td>aoAdRunSchedule.IsStandBy</td></tr>
+<tr><td>SortTextOverride_Flag</td><td>aoAdRunSchedule.SortOverride</td></tr>
+<tr><td>OnlineProduct_Flag</td><td>aoProductDef.IsOnlineProduct</td></tr>
+<tr><td>DoNotPaginate_Flag</td><td>aoAdInfo.LayoutRequiredFlag</td></tr>
+<tr><td>IsPreprint_Flag</td><td>If the BI Populator has a pointer to a preprint we know   this is a preprint and set the flag to TRUE.</td></tr>
+<tr><td>ExcludeContractFulfill_Flag</td><td>aoAdRUnSchedule. DenyContracFulfillFlag</td></tr>
+<tr><td>OddShaped_Flag</td><td>aoAdInfo.OddShapedFlag</td></tr>
+<tr><td>checksum</td><td>BI Populator System Field   Check sum of this record</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="dmadcontent"></a><a href="#dmadcontent" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmAdContent</h2>
+<p>The dmAdContent table contains numerical attributes that describe the insertion in question.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>NumBoldWords</td><td>aoAdContent.NumBoldWords</td></tr>
+<tr><td>NumItalicWords</td><td>aoAdContent.NumItalicWords</td></tr>
+<tr><td>NumUnderlinedWords</td><td>aoAdContent.NumUnderlinedWords</td></tr>
+<tr><td>NumCenteredLines</td><td>aoAdContent.NumCenteredLines</td></tr>
+<tr><td>TotalGraphicDepth</td><td>aoAdContent.TotalGraphicDepth</td></tr>
+<tr><td>NumEmailAddress</td><td>aoAdContent.NumEmailAddress</td></tr>
+<tr><td>NumURL</td><td>aoAdContent.NumURL</td></tr>
+<tr><td>NumRules</td><td>aoAdContent.NumRules</td></tr>
+<tr><td>NumGraphics</td><td>aoAdContent.NumGraphics</td></tr>
+<tr><td>NumBoldLines</td><td>aoAdContent.NumBoldLines</td></tr>
+<tr><td>NumItalicLines</td><td>aoAdContent.NumItalicLines</td></tr>
+<tr><td>NumUnderlineLines</td><td>aoAdContent.NumUnderlineLines</td></tr>
+<tr><td>PointSize0to6</td><td>aoAdContent.PointSize0to6</td></tr>
+<tr><td>PointSize6to7</td><td>aoAdContent.PointSize6to7</td></tr>
+<tr><td>PointSize7to8</td><td>aoAdContent.PointSize7to8</td></tr>
+<tr><td>PointSize8to10</td><td>aoAdContent.PointSize8to10</td></tr>
+<tr><td>PointSize10to12</td><td>aoAdContent.PointSize10to12</td></tr>
+<tr><td>PointSize12to16</td><td>aoAdContent.PointSize12to16</td></tr>
+<tr><td>PointSize16to20</td><td>aoAdContent.PointSize16to20</td></tr>
+<tr><td>PointSize20to24</td><td>aoAdContent.PointSize20to24</td></tr>
+<tr><td>PointSizeGreaterThan24</td><td>aoAdContent.PointSizeGreaterThan24</td></tr>
+<tr><td>Color_Preprint</td><td>aoPreprintColors.Name</td></tr>
+<tr><td>Paper_Preprint</td><td>aoPreprintPaperTypes.Name</td></tr>
+<tr><td>Sides_Preprint</td><td>aoPreprintInfo.Sides</td></tr>
+<tr><td>PageCount_Preprint</td><td>aoPreprintInfo.PageCount</td></tr>
+<tr><td>Weight_Preprint</td><td>aoPreprintInfo.Weight</td></tr>
+<tr><td>Location_Preprint</td><td>aoPRPRunSchedule.LocationID 🡒  shPreprintLocation.Name</td></tr>
+<tr><td>NumPILines</td><td>aoAdContent.NumPILines   Total number of lines w/ PI font in ad.</td></tr>
+<tr><td>TotalPIDepth</td><td>aoAdContent.TotalPIDepth   Total depth of all pi characters specified in twips.</td></tr>
+<tr><td>NumColorLines</td><td>aoAdContent.NumColorLines   Total number of lines w/ Color in ad.</td></tr>
+<tr><td>TotalColorDepth</td><td>aoAdContent.TotalColorDepth   Total depth of all color specifiec in twips.</td></tr>
+<tr><td>IsPIBorder</td><td>aoAdContent.IsPIBorder   Border is a pi font character</td></tr>
+<tr><td>BorderStyle</td><td>aoAdContent.BorderStyle   Style of border.</td></tr>
+<tr><td>BorderThickness</td><td>aoAdContent.BorderThickness   Thickness of border</td></tr>
+<tr><td>BorderJoinStyle</td><td>aoAdContent.BorderJoinStyle   Join style of border.</td></tr>
+<tr><td>BorderColor</td><td>aoAdContent.BorderColor   Color of border</td></tr>
+<tr><td>BorderSetting</td><td>aoAdContent.BorderSetting   Border setting (normal, shadow,etc)</td></tr>
+<tr><td>TotalBorderRuleDepth</td><td>aoAdContent.TotalBorderRuleDepth   Total depth of border in twips</td></tr>
+<tr><td>TotalBorderMarginDepth</td><td>aoAdContent.TotalBorderMarginDepth   Total depth of margins in twips</td></tr>
+<tr><td>Checksum</td><td>BI Populator System Field   Check sum of this record</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="dmaddetail"></a><a href="#dmaddetail" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmAdDetail</h2>
+<p>The dmAdDetail table contains various attributes about the insertion.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>AdCaption</td><td>aoAdOrder.InvoiceText</td></tr>
+<tr><td>ColorName</td><td>aoAdContent.ColorTypeId 🡒  aoColors.Name</td></tr>
+<tr><td>Colorcount</td><td>aoColors.ColorCount</td></tr>
+<tr><td>Colortype</td><td>aoColors.ColorType   Decoded to a text value.</td></tr>
+<tr><td>GroupBuyName</td><td>aoAdRunSchedule.GroupBuyID</td></tr>
+<tr><td>GroupOfProductsName</td><td>BI Populator internal process determines this value.</td></tr>
+<tr><td>CustomerType_addetail</td><td>aoOrderCustomers.CustomerTypeId 🡒  CustomerType.Name</td></tr>
+<tr><td>SortText</td><td>aoAdRunSchedule.SortText</td></tr>
+<tr><td>AdSource_AdDetail</td><td>aoAdOrder.OrderSource 🡒  aoOrderSource.Name</td></tr>
+<tr><td>InvoiceText_AdDetail</td><td>aoAdRunSchedule.InvoiceText</td></tr>
+<tr><td>PackageName</td><td>aoAdOrder.cfPackageBuyId àcfPackageBuy.Name</td></tr>
+<tr><td>SchedAttributeName</td><td>aoAdRunSchedule.SchedAttributeId 🡒  aoSchedAttribute.Name</td></tr>
+<tr><td>ProdMethodName</td><td>aoAdInfo.ProdMethodId 🡒  aoProdMethod.Name</td></tr>
+<tr><td>ProdMethodInternalType</td><td>aoProdMethod.InternalType converted to a text value.</td></tr>
+<tr><td>Checksum</td><td>BI Populator System Field   Check sum of this record</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="dmlayoutinfo"></a><a href="#dmlayoutinfo" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmLayoutInfo</h2>
+<p>The dmLayoutInfo table contains information about where the ad was physically placed in the paper.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>InsertDate</td><td>anEditorialInsert.InsertDate   Date Field</td></tr>
+<tr><td>MastheadName</td><td>anEditorialInsert.MastHeadName</td></tr>
+<tr><td>xPosition</td><td>anEditorialInsert.xPosition</td></tr>
+<tr><td>yPosition</td><td>anEditorialInsert.yPosition</td></tr>
+<tr><td>AdSource</td><td>anEditorialInsert.AdSource</td></tr>
+<tr><td>PageNumber</td><td>anEditorialInsert.PageNumber</td></tr>
+<tr><td>EPSPath</td><td>anEditorialInsert.EPSPath</td></tr>
+<tr><td>Section</td><td>anEditorialInsert.Section</td></tr>
+<tr><td>EditorialinsertId_adbase</td><td>CORE AnEditorialInsert.Id</td></tr>
+<tr><td>Checksum</td><td>BI Populator System Field   Check sum of this record   NOTE:Checksum not used in this table for populating.</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="dmlogos"></a><a href="#dmlogos" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmLogos</h2>
+<p>The dmLogos table contains information for a given graphic ad logo.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>LogoName</td><td>GraphicAdLogo.Description</td></tr>
+<tr><td>LogoGroupName</td><td>GraphicLogoGroup.LogoGroupName</td></tr>
+<tr><td>LogoGroupAbrev</td><td>GraphicLogoGroup.LogoGroupAbbreviation</td></tr>
+<tr><td>Placeholder_Flag</td><td>GraphicAdLogo.PlaceholdFlag   TRUE or FALSE</td></tr>
+<tr><td>ExternalName</td><td>GraphicAdLogo.ExternalName</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="bridgelogos"></a><a href="#bridgelogos" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>bridgeLogos</h2>
+<p>This table will allow us to link a single Ad order to multiple logos used in the ad.</p>
+<p><strong>Sample Query:</strong></p>
+<p>SELECT fctInsertion.adnumber,</p>
+<pre><code class="hljs"> bridgeLogos.*,
+
+ dmLogos.*
+</code></pre>
+<p>FROM fctInsertion,</p>
+<pre><code class="hljs"> dmLogos,
+
+ bridgeLogos
+</code></pre>
+<p>WHERE fctInsertion.grouplogos_id = bridgeLogos.grouplogos_id</p>
+<p>AND bridgeLogos.logos_id = dmLogos.id</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>groupLogos_ID</td><td>Link to fctInsertion.groupLogos_ID</td></tr>
+<tr><td>Logos_ID</td><td>Link to <a href="#dmLogos">dmLogos</a>.ID</td></tr>
+<tr><td>FirstDayLogo_Flag</td><td>aoAdContentGraphics.FirstDayLogoId</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="dmadlineage"></a><a href="#dmadlineage" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmAdLineage</h2>
+<p>The dmLogos table contains information for a given graphic ad logo.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>AgateLineDef</td><td>aoColumnDef.AgateLineDef</td></tr>
+<tr><td>UserDefinedUnitName</td><td>aoAdContent.UserUnitId àAoUserUnitDefs.Name</td></tr>
+<tr><td>UserDefinedReportSize</td><td>aoAdContent.UserUnitId àAoUserUnitDefs.ReportingPageSize</td></tr>
+<tr><td>AdType_UnitMeasure</td><td>Unit of measure (inches, centimeters, etc.)</td></tr>
+<tr><td>PaginationStyle</td><td>aoAdTypeDefinition</td></tr>
+<tr><td>PageTypeName</td><td>aoPageType.Name</td></tr>
+<tr><td>PageTypeNumColumns</td><td>aoPageType.ColumnCount</td></tr>
+<tr><td>PageTypeWidth</td><td>aoPageType.PageWidth</td></tr>
+<tr><td>PageTypeDepth</td><td>aoPageType.PageDepth</td></tr>
+<tr><td>PageTypeWidthInches</td><td>Convert aoPageType.PageWidth to Inches</td></tr>
+<tr><td>PageTypeDepthInches</td><td>Convert aoPageType.PageDepth to Inches</td></tr>
+<tr><td>PageTypeSAUConversion</td><td>aoPageType.SAUConversion</td></tr>
+<tr><td>Checksum</td><td>BI Populator System Field   Check sum of this record</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="bridgeprpdistribution"></a><a href="#bridgeprpdistribution" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>bridgePRPDistribution</h2>
+<p>Links Preprint distribution values to an Insertion.  Used in conjunction with groupPrpDistribution.</p>
+<p><strong>Sample Query:</strong></p>
+<p>SELECT fctInsertion.adNumber,</p>
+<pre><code class="hljs"> bridgePRPDistribution.*,
+
+ dmPRPDistribution.*
+</code></pre>
+<p>FROM fctInsertion,</p>
+<pre><code class="hljs"> bridgePRPDistribution,
+
+ dmPRPDistribution
+</code></pre>
+<p>WHERE fctInsertion.groupPRPDistribution_ID = bridgePRPDistribution.groupPRPDistribution_ID</p>
+<p>AND bridgePRPDistribution.PRPDistribution_ID = dmPRPDistribution.ID</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>groupPRPDistribution_ID</td><td>Link to fctInsertion.groupPrpDistribution_ID</td></tr>
+<tr><td>PRPDistribution_ID</td><td>Link to dmPrpDistribution.ID</td></tr>
+<tr><td>SubscriberCount</td><td>Subscriber Count</td></tr>
+<tr><td>NonSubscriberCount</td><td>Non-subscriber Count</td></tr>
+<tr><td>DealerCount</td><td>Dealer Count</td></tr>
+<tr><td>DirectMailCount</td><td>Direct Mail Count</td></tr>
+</tbody>
+</table>
+<h2></h2>
+<h2><a class="anchor" aria-hidden="true" id="dmprpdistribution"></a><a href="#dmprpdistribution" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmPRPDistribution</h2>
+<p>The dmPrpDistribution table contains information pertaining to pre print zone codes, unit codes, distribution codes, and dealer codes.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>ZoneCodeId_AdBase</td><td>Link to CORE 🡒  aoPRPDistCodeLink.ZoneId</td></tr>
+<tr><td>ZoneCode</td><td>Zone Code</td></tr>
+<tr><td>UnitCodeId_AdBase</td><td>Link to CORE 🡒  aoPRPDistCodeLink.UnitId</td></tr>
+<tr><td>UnitCode</td><td>Unit Code</td></tr>
+<tr><td>DistCodeId_AdBase</td><td>Link to CORE 🡒  aoPRPDistCodeLink.DistCodeId</td></tr>
+<tr><td>DistributionCode</td><td>Distribution Code</td></tr>
+<tr><td>DealerCodeId_AdBase</td><td>Link to CORE 🡒  aoPRPDealerCodeLink.DealerCodeId</td></tr>
+<tr><td>DealerCode</td><td>Dealer Code</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="dmglaccounts"></a><a href="#dmglaccounts" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmGLAccounts</h2>
+<p>The dmGLAccounts table contains GL Accounts.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>GLNumber</td><td>fnAccounts.Name</td></tr>
+<tr><td>GLName</td><td>fnAccounts.Description</td></tr>
+<tr><td>GLAccountClass</td><td>fnAccounts.AccountClass   Decoded to text</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="dmcausereason"></a><a href="#dmcausereason" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmCauseReason</h2>
+<p>The dmCauseReason table describes the Cause and/or Reason for a Credit or Debit.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>CauseName</td><td>aoAdjusmentCauses.Name</td></tr>
+<tr><td>ReasonName</td><td>aoAdjusmentReasons.Name</td></tr>
+<tr><td>IsCauseCommissionable_Flag</td><td>aoAdjusmentCauses.AppliesToCommission</td></tr>
+<tr><td>IsReasonCommissionable_Flag</td><td>aoAdjusmentReasons.AppliesToCommission</td></tr>
+<tr><td>IsAdjCommissionable_Flag</td><td>aoCustomerCD.AffectCommission</td></tr>
+<tr><td>AdjustmentSubdetail</td><td>aoCreditDebit.SubDetail   Decoded to text</td></tr>
+<tr><td>CauseDescription</td><td>aoAdjusmentCauses.Description</td></tr>
+<tr><td>ReasonDescription</td><td>aoAdjusmentReasons.Description</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="dmcollections"></a><a href="#dmcollections" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmCollections</h2>
+<p><strong>This table is currently NOT being populated.</strong>  It will only have the “null” initialization row populated.  This table links to the <a href="#dmClient">dmClient</a> table.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>Collections_Flag</td><td></td></tr>
+<tr><td>Collections_Agency</td><td></td></tr>
+<tr><td>BadDebt_Flag</td><td></td></tr>
+<tr><td>WriteOff_Flag</td><td></td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="dmbusinessarea"></a><a href="#dmbusinessarea" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmBusinessArea</h2>
+<p>This table links to the <a href="#dmClient">dmClient</a> table.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>Advertiser_Client_ID</td><td>BusinessArea.CustomerAccountId</td></tr>
+<tr><td>Payor_Client_ID</td><td>BusinessArea.PayorId</td></tr>
+<tr><td>CustTypeId_AdBase</td><td>Link to CORE 🡒  BusinessArea.CustomerTypeId</td></tr>
+<tr><td>CustTypeName</td><td>BusinessArea.CustomerTypeId 🡒  CustomerType.Name</td></tr>
+<tr><td>ProductId_AdBase</td><td>Link to CORE 🡒  BusinessArea.ProductId</td></tr>
+<tr><td>Productname</td><td>BusinessArea.ProductId 🡒  aoProducts.Name</td></tr>
+<tr><td>ProdCategoryId_AdBase</td><td>Link to CORE 🡒  BusinessArea.ProductCategoryId</td></tr>
+<tr><td>ProdCategoryName</td><td>BusinessArea.ProductCategoryId 🡒  ProductCategory.Name</td></tr>
+<tr><td>AdTypeId_AdBase</td><td>Link to CORE 🡒  BusinessArea.AdTypeId</td></tr>
+<tr><td>AdTypeName</td><td>BusinessArea.AdTypeId 🡒  aoAdType.Name</td></tr>
+<tr><td>PlacementId_AdBase</td><td>Link to CORE 🡒  BusinessArea.PlacementId</td></tr>
+<tr><td>PlacementName</td><td>BusinessArea.PlacementId 🡒  aoPlacements.Name</td></tr>
+<tr><td>PositionId_AdBase</td><td>Link to CORE 🡒  BusinessArea.PositionId</td></tr>
+<tr><td>PositionName</td><td>BusinessArea.PositionId 🡒  aoAdPositions.Name</td></tr>
+<tr><td>PlacCategoryId_AdBase</td><td>Link to CORE 🡒  BusinessArea.PlacCategoryId</td></tr>
+<tr><td>PlacCategoryName</td><td>BusinessArea.PlacCategoryId 🡒  aoPlacCategory.Name</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="dmdigitalmediacampaign"></a><a href="#dmdigitalmediacampaign" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmDigitalMediaCampaign</h2>
+<p>Stores information relating to campaigns related to internet ads.  Links to fctInsertion.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>aoINCampaignId_AdBase</td><td>Link to CORE 🡒  aoINCampaign.ID</td></tr>
+<tr><td>CampaignNumber</td><td>aoINCampaign.CampaignNumber</td></tr>
+<tr><td>CampaignName</td><td>aoINCampaign.CampaignName</td></tr>
+<tr><td>CampaignTypeId_AdBase</td><td>Link to CORE 🡒  aoINCampaign.CampaignTypeId</td></tr>
+<tr><td>CampaignType</td><td>aoINCampaign.CampaignTypeId 🡒  CfInCampaignType.Name</td></tr>
+<tr><td>CampaignCatId_AdBase</td><td>aoINCampaign.CampaignCatId</td></tr>
+<tr><td>CampaignCategory</td><td>aoINCampaign.CampaignCatId 🡒  CfInCampaignCategory.Name</td></tr>
+<tr><td>CampaignStart_Date_ID</td><td>Link to <a href="#dmDate_1">dmDate</a>   aoINCampaign.StartDate</td></tr>
+<tr><td>CampaignEnd_Date_ID</td><td>Link to <a href="#dmDate_1">dmDate</a>   aoINCampaign.EndDate</td></tr>
+<tr><td>ViewType</td><td>aoINCampaign.ViewType</td></tr>
+<tr><td>Weight</td><td>aoINCampaign.Weight</td></tr>
+<tr><td>Completion</td><td>aoINCampaign.Completion</td></tr>
+<tr><td>PriorityLevel</td><td>aoINCampaign.Priority</td></tr>
+<tr><td>DailyDeliveryRate</td><td>aoINCampaign.DailyDeliveryRate</td></tr>
+<tr><td>Reach</td><td>aoINCampaign.Reach</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="dmdigitalmediaflight"></a><a href="#dmdigitalmediaflight" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmDigitalMediaFlight</h2>
+<p>Stores information relating to Flights related to internet ads.  Links to fctInsertion.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>aoINFlightGroupId_AdBase</td><td>Link to CORE 🡒  aoINFlightGroup.Id</td></tr>
+<tr><td>AoINFlightId_AdBase</td><td>Link to CORE 🡒  aoINFlight.ID</td></tr>
+<tr><td>FlightGroupName</td><td>aoINFlightGroup.GroupName</td></tr>
+<tr><td>Site</td><td>aoINFlight.SiteId 🡒  aoProducts.Name</td></tr>
+<tr><td>Section</td><td>aoINFlight.SectionId 🡒  cfInSection.Name</td></tr>
+<tr><td>Page</td><td>aoINFlight.PageId 🡒  cfInPage.Name</td></tr>
+<tr><td>ManualRateFlag</td><td>aoINFlight.UseManualRate</td></tr>
+<tr><td>UnitOfRate</td><td>aoINFlight.ManRateUOR</td></tr>
+<tr><td>UnitPrice</td><td>aoINFlight.ManRateCostPer</td></tr>
+<tr><td>FlightInvoiceNote</td><td>aoINFlightGroup.InvoiceNotes</td></tr>
+<tr><td>Flightstart_Date_ID</td><td>Link to <a href="#dmDate_1">dmDate</a>   aoINFlightGroup.StartDate</td></tr>
+<tr><td>Flightend_Date_ID</td><td>Link to <a href="#dmDate_1">dmDate</a>   aoINFlightGroup.EndDate</td></tr>
+<tr><td>QuantityRequested</td><td>aoINFlightGroup.QuantityRequested</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="dmdigitalmediaunit"></a><a href="#dmdigitalmediaunit" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmDigitalMediaUnit</h2>
+<p>Stores information relating to Units related to internet ads.  Links to fctInsertion.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>INCampaignUnitId_AdBase</td><td>Link to CORE 🡒  alINCampaignUnit.Id</td></tr>
+<tr><td>UnitName</td><td>aoINCampaignUnit.InternetUnitId 🡒  CfInUnitType.Name</td></tr>
+<tr><td>Width</td><td>aoINCampaignUnit.InternetUnitId 🡒  CfInUnitType.Width</td></tr>
+<tr><td>Height</td><td>aoINCampaignUnit.InternetUnitId 🡒  CfInUnitType.Height</td></tr>
+<tr><td>MaxFileSize</td><td>aoINCampaignUnit.InternetUnitId 🡒  CfInUnitType.MaxFileSize</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="dmglinvoicedetail"></a><a href="#dmglinvoicedetail" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmGLInvoiceDetail</h2>
+<p>One row for each transaction made against a GL Account.  These can be Credits, Debits, Invoices or Payments.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>InvoiceText</td><td>Payments -- aoPayments.InvoiceText.InvoiceText   Credit/Debit – aoCustomerCD.InvoiceText</td></tr>
+<tr><td>InvoiceNote</td><td>Payments -- aoPayments.Notes   Credit/Debit – aoCustomerCD.Notes</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="dmgltransaction"></a><a href="#dmgltransaction" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmGLTransaction</h2>
+<p>Contains the different transaction types for GL entries (Invoice, Credit, Debit, Payment)</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>GLTransType</td><td>Credit, Debit, Payment or Invoice</td></tr>
+<tr><td>PaymentMethod</td><td>aoPayments.PaymentMethod   Method of Payment</td></tr>
+<tr><td>CreditCardType</td><td>Name of Credit Card (Discover, etc)</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="dmcontractdetails"></a><a href="#dmcontractdetails" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmContractDetails</h2>
+<p>The dmContractDetails table contains contract details.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>ContractId_AdBase</td><td>Link to CORE 🡒  coContractInstance.ID</td></tr>
+<tr><td>InstanceName</td><td>coContractInstance.Name</td></tr>
+<tr><td>ContractStatus</td><td>coContractInstance.Status</td></tr>
+<tr><td>FulfillmentStatus</td><td>coContractInstance.FulfillmentStatus</td></tr>
+<tr><td>LevelSignedUpTo</td><td>coContractInstance.LevelSignedUpTo   Original level this customer agreed to reach for the terms   of this contract.</td></tr>
+<tr><td>CurrentLevel</td><td>coContractInstance.CurrentLevel   Current level that applies to this contract. This level   may be different from LevelSignedUpTo if fulfillment is better or worse than   expected.</td></tr>
+<tr><td>FulfillmentGoal1</td><td>coDiscountLevel.Var1LowerLimit   <strong>OR</strong>    coRateLevel.Var1LowerLimit   Depending on type of Contract   Amount of units that must be met to satisfy contract for   VAR1</td></tr>
+<tr><td>FulfillmentGoal2</td><td>coDiscountLevel.Var2LowerLimit   <strong>OR</strong>    coRateLevel.Var2LowerLimit   Depending on type of Contract   Amount of units that must be met to satisfy contract for   VAR2</td></tr>
+<tr><td>ExternalFulfillment1</td><td>coContractInstance.Var1ExternalFulfillment</td></tr>
+<tr><td>ExternalFulfillment2</td><td>coContractInstance.Var2ExternalFulfillment</td></tr>
+<tr><td>AdditionalReq1</td><td>coContractInstance.Var1AdditionalReq</td></tr>
+<tr><td>AdditionalReq2</td><td>coContractInstance.Var2AdditionalReq</td></tr>
+<tr><td>ContractNotes</td><td>coContractInstance.Notes</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="dmcontracttemplate"></a><a href="#dmcontracttemplate" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmContractTemplate</h2>
+<p>The dmContractTemplate table contains contract information.  Specifically related to the coContractTemplate table in AdBase.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>TemplateName</td><td>coContractTemplate.Name</td></tr>
+<tr><td>ContractType</td><td>coContractTemplate.ContractLevelType</td></tr>
+<tr><td>ContractDuration</td><td>coContractTemplate.DurationLength</td></tr>
+<tr><td>FulfillmentUnitsDesc1</td><td>coContractTemplate.Variable1UnitType   Unit type on which orders for this contract are to be   evaluated.</td></tr>
+<tr><td>ReviewPeriod1</td><td>coContractTemplate.Period1UnitType   Period of time for which the contract should be evaluated</td></tr>
+<tr><td>LinesPerDollar1</td><td>coContractTemplate.Var1LinesPerDollar    For inserts the   number of lines to be defined per dollar</td></tr>
+<tr><td>FulfillmentUnitsDesc2</td><td>coContractTemplate.Variable2UnitType   Unit type on which orders for this contract are to be   evaluated.</td></tr>
+<tr><td>ReviewPeriod2</td><td>coContractTemplate.Period2UnitType   Period of time for which the contract should be evaluated</td></tr>
+<tr><td>LinesPerDollar2</td><td>coContractTemplate.Var2LinesPerDollar   For inserts the number of lines to be defined per dollar</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="dmcontractbools"></a><a href="#dmcontractbools" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmContractBools</h2>
+<p>The dmContractBools table contains boolean values describing a given contract.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>AutoRenew_Flag</td><td>coContractInstance.AutoRenewFlag   Indicates if contract will auto renew</td></tr>
+<tr><td>ColorOnly_Flag</td><td>coContractInstance.   Indicates if contract is for color only</td></tr>
+<tr><td>RateHolder_Flag</td><td>coContractInstance.   Indicates if contract is a rate holder</td></tr>
+<tr><td>IssueShortRate_Flag</td><td>coContractInstance.IssueShortRateFlag   Indicates that contract will short rate at end if   necessary</td></tr>
+<tr><td>IssueRebate_Flag</td><td>coContractInstance.IssueRebateFlag   Indicates that contract will rebate at end if necessary</td></tr>
+<tr><td>RenewAtEarnedLevel_Flag</td><td>coContractInstance.RenewAtEarnedLevelFlag   Indicates that contract will renew at the earned   level.  Can only be true if   RenewAtEarnedLevelFlag is true.</td></tr>
+<tr><td>RateGuarantee_Flag</td><td>coContractInstance.RateGuaranteeFlag   Indicates that contract s rates are guaranteed based on   startup date.  If a rate change happens   during contract period</td></tr>
+<tr><td>AdvanceLevelAsEarned_Flag</td><td>coContractInstance.AdvancedLevelAsEarnedFlag   Indicates that contract s level will increase as if it   exceeds its signup level</td></tr>
+<tr><td>ExcludeFulfill_Internal_Flag</td><td>Exclude fulfillment generated internally by the Mactive   system</td></tr>
+<tr><td>ExcludeFulfill_Var1ext_Flag</td><td>Exclude fulfillment from ‘VAR1ExternalFulfillment’</td></tr>
+<tr><td>ExcludeFulfill_Var2ext_Flag</td><td>Exclude fulfillment from ‘VAR2ExternalFulfillment’</td></tr>
+<tr><td>CheckSum</td><td>BI Populator System Field   Check sum of this record</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="dmrateholder"></a><a href="#dmrateholder" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmRateHolder</h2>
+<p>The dmRateHolder table contains information about a contract if it is a rate holder.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>RunSunday_Flag</td><td>coContractTemplate.RunSunday   Indicates that Sunday is a required run date for a rate holder</td></tr>
+<tr><td>RunMonday_Flag</td><td>coContractTemplate.RunMonday   Indicates that Monday is a required run date for a rate   holder</td></tr>
+<tr><td>RunTuesday_Flag</td><td>coContractTemplate.RunTuesday   Indicates that Tuesday is a required run date for a rate   holder</td></tr>
+<tr><td>RunWednesday_Flag</td><td>coContractTemplate.RunWednesday   Indicates that Wednesday is a required run date for a rate   holder</td></tr>
+<tr><td>RunThursday_Flag</td><td>coContractTemplate.RunThursday   Indicates that Thursday is a required run date for a rate   holder</td></tr>
+<tr><td>RunFriday_Flag</td><td>coContractTemplate.RunFriday   Indicates that FrIday is a required run date for a rate   holder</td></tr>
+<tr><td>RunSaturday_Flag</td><td>coContractTemplate.RunSaturday   Indicates that Saturday is a required run date for a rate   holder</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="bridgecontractclient"></a><a href="#bridgecontractclient" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>bridgeContractClient</h2>
+<p>The bridgeContractClient table allows multiple clients to be associated with a give contract.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>groupContractClient_ID</td><td>Link to <a href="#fctContract">fctContract</a>.groupContractClient_ID</td></tr>
+<tr><td>OrdererClient_ID</td><td>Link to <a href="#dmClient_">dmClient</a>.ID</td></tr>
+<tr><td>PayorClient_ID</td><td>Link to <a href="#dmClient_">dmClient</a>.ID</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="bridgereppercentage"></a><a href="#bridgereppercentage" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>bridgeRepPercentage</h2>
+<p>Links multiple sales rep percentages to an Ad Order</p>
+<p>fctAdOrder.groupRepPercentage_ID 🡒bridgeRepPercentage.groupRepPercentage_ID
+bridgeRepPercentage.SalesRep_ID 🡒dmUser.ID</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>groupRepPercentage_ID</td><td>Link to <a href="#fctAdOrder">fctAdOrder</a>.groupRepPercentage_ID</td></tr>
+<tr><td>SalesRep_ID</td><td>Link to <a href="#dmUser">dmUser</a>.ID</td></tr>
+<tr><td>Percentage</td><td>Percentage for this sales rep</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="bridgeclientalias"></a><a href="#bridgeclientalias" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>bridgeClientAlias</h2>
+<p>Links client aliases to a Client.</p>
+<p>dmClient 🡒bridgeClientAlias
+bridgeClientAlias 🡒dmClientAlias</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>groupClientAlias_Id</td><td>Link to <a href="#dmClient_">dmClient</a>.groupClientAlias_ID</td></tr>
+<tr><td>ClientAlias_Id</td><td>Link to <a href="#dmClientAlias">dmClientAlias</a>.ID</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="dmclientalias"></a><a href="#dmclientalias" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmClientAlias</h2>
+<p>The dmClientAlias table contains information pertaining to customer aliases.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>CustomerAliasId_AdBase</td><td>CustomerAlias.AliasId</td></tr>
+<tr><td>AliasName</td><td>CustomerAlias.Name</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="dmrateinfo"></a><a href="#dmrateinfo" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmRateInfo</h2>
+<p>The dmRateInfo table contains rate information for records in fctInsertChargeDetail.</p>
+<table>
+<thead>
+<tr><th><strong>BI Field Name</strong></th><th><strong>CORE Field/Logic</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>RateName</td><td>rtChargeEntryElem.RateTableId 🡒  rtRate.ID rtRate.RateNameId 🡒rtRateName.Name</td></tr>
+<tr><td>RateDescription</td><td>rtRateName.Description</td></tr>
+<tr><td>TaxSchedulename</td><td>rtTaxScheduleName.Name</td></tr>
+<tr><td>TaxSchedDescription</td><td>rtTaxScheduleName.Description</td></tr>
+</tbody>
+</table>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-next button" href="/docs/bi/bi-auditors.html">Running the BI Auditors →</a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#fctadorder">fctAdOrder</a></li><li><a href="#fctinsertion">fctInsertion</a></li><li><a href="#fctinsertchargesummary">fctInsertChargeSummary</a></li><li><a href="#fctinsertchargedetail">fctInsertChargeDetail</a></li><li><a href="#fctsalescomm">fctSalesComm</a></li><li><a href="#fctarsummary">fctARSummary</a></li><li><a href="#fctgl">fctGL</a></li><li><a href="#fctpreapply">fctPreApply</a></li><li><a href="#fctapply">fctApply</a></li><li><a href="#fctcontract">fctContract</a></li><li><a href="#fctcontractfulfillment">fctContractFulfillment</a></li><li><a href="#dmadproduct">dmAdProduct</a></li><li><a href="#dmuser">dmUser</a></li><li><a href="#dmclient">dmClient</a></li><li><a href="#dmrelationshipagency">dmRelationshipAgency</a></li><li><a href="#dmrelationshipparent">dmRelationshipParent</a></li><li><a href="#bridgemulticlient">bridgeMultiClient</a></li><li><a href="#dmdate">dmDate</a></li><li><a href="#dmadorderbools">dmAdOrderBools</a></li><li><a href="#dmadorderstatus">dmAdOrderStatus</a></li><li><a href="#dmadpromotion">dmAdPromotion</a></li><li><a href="#dmadorderdetail">dmAdOrderDetail</a></li><li><a href="#dmcompany">dmCompany</a></li><li><a href="#bridgemultispecials">bridgeMultiSpecials</a></li><li><a href="#dmspecials">dmSpecials</a></li><li><a href="#bridgemultimaterials">bridgeMultiMaterials</a></li><li><a href="#dmmaterialcharge">dmMaterialCharge</a></li><li><a href="#dmlocation">dmLocation</a></li><li><a href="#bridgeorderroles">bridgeOrderRoles</a></li><li><a href="#dmadinsertbools">dmAdInsertBools</a></li><li><a href="#dmadcontent">dmAdContent</a></li><li><a href="#dmaddetail">dmAdDetail</a></li><li><a href="#dmlayoutinfo">dmLayoutInfo</a></li><li><a href="#dmlogos">dmLogos</a></li><li><a href="#bridgelogos">bridgeLogos</a></li><li><a href="#dmadlineage">dmAdLineage</a></li><li><a href="#bridgeprpdistribution">bridgePRPDistribution</a></li><li><a href="#dmprpdistribution">dmPRPDistribution</a></li><li><a href="#dmglaccounts">dmGLAccounts</a></li><li><a href="#dmcausereason">dmCauseReason</a></li><li><a href="#dmcollections">dmCollections</a></li><li><a href="#dmbusinessarea">dmBusinessArea</a></li><li><a href="#dmdigitalmediacampaign">dmDigitalMediaCampaign</a></li><li><a href="#dmdigitalmediaflight">dmDigitalMediaFlight</a></li><li><a href="#dmdigitalmediaunit">dmDigitalMediaUnit</a></li><li><a href="#dmglinvoicedetail">dmGLInvoiceDetail</a></li><li><a href="#dmgltransaction">dmGLTransaction</a></li><li><a href="#dmcontractdetails">dmContractDetails</a></li><li><a href="#dmcontracttemplate">dmContractTemplate</a></li><li><a href="#dmcontractbools">dmContractBools</a></li><li><a href="#dmrateholder">dmRateHolder</a></li><li><a href="#bridgecontractclient">bridgeContractClient</a></li><li><a href="#bridgereppercentage">bridgeRepPercentage</a></li><li><a href="#bridgeclientalias">bridgeClientAlias</a></li><li><a href="#dmclientalias">dmClientAlias</a></li><li><a href="#dmrateinfo">dmRateInfo</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/newscycle-circle.png" alt="Newscycle Solutions - Analytix Docs" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/analytixsetup.html">Getting Started With Analytix</a><a href="/docs/bi-auditors.html">BI Docs</a></div><div><h5>Newscycle Solutions</h5><a href="http://newscycle.com/" target="_blank">Newscycle Website</a><a href="https://twitter.com/NEWSCYCLE_News?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor" target="_blank">Twitter</a></div><div><h5>More</h5><a href="/blog">Blog</a></div></section><a href="https://newscyclesolutions.com" target="_blank"><img src="/img/NewscycleLogo.png" alt="Newscycle Solutions" width="226" height="42" style="margin:1em auto;display:block;width:226px"/></a><section class="copyright">Copyright © 2018 Newscycle Solutions.</section></footer></div></body></html>

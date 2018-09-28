@@ -1,0 +1,371 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Analytix Administrator&#x27;s Guide · Newscycle Solutions - Analytix Docs</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="---"/><meta property="og:title" content="Analytix Administrator&#x27;s Guide · Newscycle Solutions - Analytix Docs"/><meta property="og:type" content="website"/><meta property="og:url" content=".//index.html"/><meta property="og:description" content="---"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible doc separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/newscycle-circle.png" alt="Newscycle Solutions - Analytix Docs"/><h2 class="headerTitleWithLogo">Newscycle Solutions - Analytix Docs</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/docs/analytix/analytix-bi-overview.html" target="_self">Analytix</a></li><li class=""><a href="/docs/bi/bi-resources.html" target="_self">BI</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Analytix Setup/Main</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup navGroupActive"><h3>Analytix Intro</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-bi-overview.html">Analytix and BI Overview</a></li></ul></div><div class="navGroup navGroupActive"><h3>Analytix Setup/Main</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-preinstall-checklist.html">Analytix Pre Install Checklist</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-install.html">Analytix Install/Upgrade Guide</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-setup.html">Analytix Setup</a></li><li class="navListItem navListItemActive"><a class="navItem navItemActive" href="/docs/analytix/analytix-admin-guide.html">Analytix Admin Guide</a></li></ul></div><div class="navGroup navGroupActive"><h3>Analytix User Guides</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-salesflash-userguide.html">Salesflash User Guide</a></li></ul></div><div class="navGroup navGroupActive"><h3>Analytix Developer Guides</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-salesflash-developerguide.html">Salesflash Developer Guide</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-training-aggr-function.html">AGGR Function Training</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-training-set-analysis.html">The Power of Set Analysis</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-balance-to-gl.html">Balancing Analytix to Core</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-exchange-rate.html">Exchange Rate / Foreign Currency in Analytix</a></li></ul></div><div class="navGroup navGroupActive"><h3>Analytix Support Docs</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-using-accesspoint.html">Using AccessPoint</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-salesflash-vs-advertisinganalytix.html">SalesFlash versus AdvertisingAnalytix</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-help-advanced-search.html">Advanced Search</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-license-management.html">Qlikview License (CALs) Management</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-bookmark-management.html">Qlikview Bookmark Management</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-reduce-data.html">Remove Data from Qlikview App</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1>Analytix Administrator&#x27;s Guide</h1></header><article><div><span><hr>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#adding-dynamic-date-fields-to-charts">Adding Dynamic Date Fields to Charts</a>
+<ul>
+<li><a href="#dynamic-year-and-monthperiod-dimensions">Dynamic Year and Month/Period Dimensions</a></li>
+</ul></li>
+<li><a href="#variable-editor">Variable Editor</a>
+<ul>
+<li><a href="#variable-editor-features">Variable Editor Features</a></li>
+<li><a href="#editingcreating-a-variable">Editing/Creating a Variable</a></li>
+<li><a href="#exporting-to-analytix">Exporting to Analytix</a>
+<ul>
+<li><a href="#export-variables-to-xml">Export Variables to XML</a></li>
+<li><a href="#reload-variables-into-source-qvw">Reload Variables into SOURCE… QVW</a></li>
+</ul></li>
+<li><a href="#gl-buckets">GL Buckets</a></li>
+<li><a href="#dynamic-date-selection">Dynamic Date Selection</a></li>
+<li><a href="#sheet-visibility">Sheet Visibility</a></li>
+<li><a href="#inputbox">InputBox</a></li>
+<li><a href="#button-lists">Button Lists</a></li>
+<li><a href="#formula-modifiers">Formula Modifiers</a></li>
+</ul></li>
+<li><a href="#group-editor">Group Editor</a>
+<ul>
+<li><a href="#working-with-the-group-editor">Working with the Group Editor</a></li>
+<li><a href="#editing-a-group">Editing a Group</a></li>
+<li><a href="#deleting-fields-and-groups">Deleting Fields and Groups</a></li>
+<li><a href="#adding-new-groups">Adding New Groups</a></li>
+<li><a href="#searching-groups">Searching Groups</a></li>
+<li><a href="#exporting-groups">Exporting Groups</a></li>
+<li><a href="#loading-groups-into-analytix-applications">Loading Groups into Analytix Applications</a></li>
+<li><a href="#extra-list-boxes-on-selection-criteria-tab-using-groups">Extra List Boxes on Selection Criteria tab using Groups</a></li>
+</ul></li>
+<li><a href="#creating-reusable-formulas-for-your-charts">Creating Reusable Formulas for your Charts</a>
+<ul>
+<li><a href="#using-the-formulasxls-spreadsheet">Using the Formulas.xls Spreadsheet</a></li>
+<li><a href="#building-expressions-with-formulas-and-modifiers">Building Expressions with Formulas and Modifiers</a>
+<ul>
+<li><a href="#method-1">Method 1</a></li>
+<li><a href="#method-2">Method 2</a></li>
+</ul></li>
+</ul></li>
+</ul>
+<div style="page-break-after: always;"></div>
+<h2><a class="anchor" aria-hidden="true" id="introduction"></a><a href="#introduction" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Introduction</h2>
+<p>The Newscycle Solutions Analytix applications have a number of unique properties and conventions that we have used to achieve a dynamic and flexible architecture.</p>
+<p>This guide will help the Power User or Administrator of the Analytix system to understand how to work with the Analytix applications to update expressions or add new expressions that use all the power that is contained within.</p>
+<p>To best use this guide, the reader should have an understanding of the Qlikview program, as well as an understanding of how to create charts and build expressions in Qlikview.</p>
+<div style="page-break-after: always;"></div>
+<h2><a class="anchor" aria-hidden="true" id="adding-dynamic-date-fields-to-charts"></a><a href="#adding-dynamic-date-fields-to-charts" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Adding Dynamic Date Fields to Charts</h2>
+<p>SalesFlash.qvw allows you to switch between Fiscal and Calendar years as well as switching between Posting, Insert and Create dates.  When you make these changes, the year and month/period fields change to reflect your selection.</p>
+<p>Below explains how to add these fields to charts so that the charts obey the selection of Fiscal/Calendar and Posting/Insert/Create dates.</p>
+<h3><a class="anchor" aria-hidden="true" id="dynamic-year-expression"></a><a href="#dynamic-year-expression" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Dynamic Year Expression</h3>
+<p>When you create a chart and you want to do a Year over Year comparison you will need to create an expression for each year you want to compare.</p>
+<p>Here is an example expression:</p>
+<p><code>SUM( {&lt;$(=$(vFiscalOrCalendarYear)) = {$(=$(SelectYear))}&gt;} $(NetRevenue))</code></p>
+<p><code>$(=$(vFiscalOrCalendarYear))</code> will insert the correct year field based on your selections of Fiscal or Calendar on the Main tab and Insert/Posting/Create on the Selection Criteria tab or in the Quick Select ribbon.</p>
+<p><strong>NOTE:</strong> You can also use Formula Modifiers that are loaded from the Variables.xml file (Create/Edit Variables with the Variable Editor application) to make writing year over year expressions easier.
+<strong>Example:</strong> <code>SUM({&lt;$(mod_CY)&gt;} $(NetRevenue))</code></p>
+<h3><a class="anchor" aria-hidden="true" id="dynamic-year-and-month-period-dimensions"></a><a href="#dynamic-year-and-month-period-dimensions" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Dynamic Year and Month/Period Dimensions</h3>
+<p>To create dimensions that will dynamically change based on you dates selection use the formulas below.</p>
+<p>Dynamic Year field -&gt;<code>$(=$(vFiscalOrCalendarYear))</code></p>
+<p>Dynamic Month/Period field -&gt; <code>$(=$(vFiscalOrCalendarMonthPeriod))</code></p>
+<p>Dynamic Month/Period Label -&gt; <code>='$(vFiscalOrCalendarMonthPeriodLabel)'</code></p>
+<div style="page-break-after: always;"></div>
+<h2><a class="anchor" aria-hidden="true" id="variable-editor"></a><a href="#variable-editor" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Variable Editor</h2>
+<p>Variables allow you to control many functions within Analytix.  We have created many default and system variables.</p>
+<p>All variables used in each Analytix can be seen and edited in the Variable Editor.  This allows us (and you) to add variables to use without changing the code, thus making variable creation available to our users while still allowing them to upgrade without losing these variables.</p>
+<p>The Variable Editor is in <em>include\VariableEditor</em> folder and can be started by double clicking on the <strong><em>variable-editor.exe</em></strong> file.</p>
+<p>Once launched, you will see:</p>
+<p><img src="../assets/ADMINGUIDE_VarEditor1.png" alt=""></p>
+<p>Available Analytix applications are listed in the left-hand menu.  Clicking on one of these items will display that application’s variables.</p>
+<p><img src="../assets/ADMINGUIDE_VarEditor2.png" alt=""></p>
+<h3><a class="anchor" aria-hidden="true" id="variable-editor-features"></a><a href="#variable-editor-features" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Variable Editor Features</h3>
+<ol>
+<li>Each Variable belongs to a group and they are shown grouped by those groups.  You can filter by a specific group using the drop-down at the top of the screen:</li>
+</ol>
+<p><img src="../assets/ADMINGUIDE_VarEditor3.png" alt=""></p>
+<ol start="2">
+<li>Hovering over a variable name will cause a description of that variable to show in a pop up box.</li>
+</ol>
+<p><img src="../assets/ADMINGUIDE_VarEditor4.png" alt=""></p>
+<ol start="3">
+<li>Clicking on a variable name will show you full details on that variable and give you the option to ‘Edit’, ‘Delete’ or ‘Close’ the window.</li>
+</ol>
+<p><img src="../assets/ADMINGUIDE_VarEditor5.png" alt=""></p>
+<ol start="4">
+<li>Some Variables are “locked”.  These are system variables and should not be changed.</li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="editing-creating-a-variable"></a><a href="#editing-creating-a-variable" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Editing/Creating a Variable</h3>
+<p>Whether you are editing an existing variable or are adding a new variable, these are the fields that you will need to have:</p>
+<ol>
+<li><strong>Name</strong> – The actual variable name that will be loaded into the Analytix application.
+2.<strong>Group</strong> – Groups your variable.  You may want to keep User Created Variable in a group like ‘User Created’.
+3.<strong>Description</strong> – This is a short description that will appear in the tool tip when hovering over a variable name.
+4.<strong>Expression</strong> – The expression assigned to the variable when loaded.
+5.<strong>Notes</strong> – Description of what the variable is used for.
+6.<strong>Locked</strong> – Indicates if this field is locked.  Mainly use for system variables.</li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="exporting-to-analytix"></a><a href="#exporting-to-analytix" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Exporting to Analytix</h3>
+<p>Changing variables in the Variable Editor does not affect the Analytix application directly.  There are two steps that need to happen to have your changes to variables show up in Analytix.</p>
+<ol>
+<li>You need to export the application variable XML file.
+2.You need to reload Analytix with the “Reload Variables” switch turned on.</li>
+</ol>
+<h4><a class="anchor" aria-hidden="true" id="export-variables-to-xml"></a><a href="#export-variables-to-xml" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Export Variables to XML</h4>
+<p>Exporting the application variable XML file is done within the variable editor.  Simply click on the “Export” link in the header and then choose the application that you want to export the variable file of.</p>
+<p><img src="../assets/ADMINGUIDE_VarEditor6.png" alt=""></p>
+<p>When you click on the “Create XML for …” link you will be prompted with the following:</p>
+<p><img src="../assets/ADMINGUIDE_VarEditor7.png" alt=""></p>
+<p>Choose “Save to Server”.</p>
+<p>This will create or overwrite the application’s XML file in the “\include\spreadsheets” directory.</p>
+<h4><a class="anchor" aria-hidden="true" id="reload-variables-into-source-qvw"></a><a href="#reload-variables-into-source-qvw" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Reload Variables into SOURCE… QVW</h4>
+<p>You are now ready to proceed with reloading the SOURCE file with the “Reload Variables” switch on.</p>
+<p>This example will use <strong>SOURCE_SalesFlash.qvw</strong>, but all the SOURCE files will look and behave the same.</p>
+<p>This step must be done on the Analytix server using Qlikview Developer.</p>
+<ol>
+<li><p>Start Qlikview Developer and open the <strong>SOURCE_SalesFlash.qvw</strong> file.  The SOURCE files are usually located in a directory like “C:\Analytix\SOURCE...”</p></li>
+<li><p>Once open, you will be on the Main sheet and will see several switches.  “Reload Variables” should be at the top.  Click on it to turn it on:</p></li>
+</ol>
+<p><img src="../assets/ADMINGUIDE_VarEditor8.png" alt=""></p>
+<ol start="3">
+<li><p>Reload the QVW file by going to the File menu and then choosing Reload.  For large files this could take 30-60 minutes.</p></li>
+<li><p>When finished, choose File/Save.  Note, the Reload Variable switch WILL be off and that is how we want it.</p></li>
+<li><p>Choose File/Exit.</p></li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="gl-buckets"></a><a href="#gl-buckets" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>GL Buckets</h3>
+<p>The GL Buckets that are in the GLMapping.xls spreadsheet will get their names from the variables in the “GL Buckets” group.</p>
+<p>To assign a name that you will see in Analytix to your GL Buckets,</p>
+<ol>
+<li>Open the Variable Editor and choose the <strong>SalesFlash</strong> application.</li>
+<li>Filter by the “GL Buckets” group list.
+​
+<img src="../assets/ADMINGUIDE_VarEditor9.png" alt=""></li>
+<li>Next, click on the GL Bucket that you want to name, click on the “Edit” button and <strong>ONLY</strong> change its <strong>Expression</strong> entry to the name you want this bucket to be identified by in Sales Flash.
+​
+<img src="../assets/ADMINGUIDE_VarEditor10.png" alt=""></li>
+<li>Click “Save”.  Then update any of the other GL Buckets that you are using in the GL Mapping spreadsheet.</li>
+<li>Lastly don’t forget to export your <strong>SalesFlash</strong> XML file.</li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="dynamic-date-selection"></a><a href="#dynamic-date-selection" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Dynamic Date Selection</h3>
+<p>There are only two Dynamic Date Selection variables that you could change; these are:</p>
+<ol>
+<li><strong>vSC_DateType</strong>– This variable allows you to define the default date type that will be shown on the Selection Criteria page and in the Quick Select ribbon date tabs.  The default is <strong>POSTING</strong>, which will show the posting date list boxes.  Your other options are <strong>INSERT</strong> and <strong>CREATE</strong> which will show the Insert date or Create date respectively.
+​
+<img src="../assets/ADMINGUIDE_VarEditor11.png" alt=""></li>
+<li><strong>vFiscalOrCalendarFlag</strong>– Sets the default date year type when the application is started.  The default is Calendar.  Your only other option is Fiscal.  Put a <strong>0 for Calendar</strong> and a <strong>1 for Fiscal</strong>. If you are going to use fiscal, make sure that you have the <strong>AccountingPeriods.xls</strong> spreadsheet filled out.</li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="sheet-visibility"></a><a href="#sheet-visibility" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Sheet Visibility</h3>
+<p>Determines whether a sheet will be shown or not.  This gives the site the power to hide our default sheets that come with the application. 1 in the Expression columns will show the sheet; 0 will hide it.</p>
+<p>The <strong>vShowAdvancedSheets</strong> variable is unique in that is controls 4 sheets with one variable.  The 4 sheets it controls are:</p>
+<ol>
+<li>Reference Charts</li>
+<li>Tables &amp; Fields</li>
+<li>Formulas</li>
+<li>Formula Creator</li>
+</ol>
+<p>The default is to keep these tabs off.  On the main tab, the user will have the option to turn these on during the session.  I recommend leaving this variable (<strong>vShowAdvancedSheets</strong>) set to 0.</p>
+<h3><a class="anchor" aria-hidden="true" id="inputbox"></a><a href="#inputbox" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>InputBox</h3>
+<p>The input box variables will set the default value for any input boxes that are used in the application.  For example, the SalesFlash application has two:</p>
+<ol>
+<li><strong>vinputTopNNN</strong> – this variable is used on the <em>Advertising sheet -&gt; Winners/Losers</em> button.  It allows the user to set the initial number of top/bottom performers to show.  The default is 25.
+2.<strong>vinputactiveDays</strong> – this variable is used on the <em>Advertising sheet -&gt; Inactive customers</em> button.  It shows the initial number of days without a transaction to be deemed an inactive customer.  The default is 30.</li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="button-lists"></a><a href="#button-lists" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Button Lists</h3>
+<p>Many sheets in the Analytix application have buttons down the left side of the screen.  Below you see the button list on the left and notice that this button list is on the Advertising sheet.</p>
+<p><img src="../assets/ADMINGUIDE_VarEditor12.png" alt=""></p>
+<p>We use a variable to keep track of which button on the left is active.</p>
+<p>For each Analytix application there is a “Button Lists” variable keeping track of the active button on a given sheet.</p>
+<p>The format of the variable is vbtnsSheetName.   The “vbtns” is the prefix and then the “SheetName” will be the name of the sheet that the variable is used on.  In the image above the variable being used is <strong>vbtnsAdvertising</strong>.</p>
+<p>If you create your own sheet and want to have a button list, you will need to add a variable to control that sheet’s button list.</p>
+<p>For example, let’s say you create a new sheet called “Custom Reports” and you wanted to have your own button list on it.  You would first need to add a variable in the Variable Editor.</p>
+<p>Do this by clicking on the “Add New Variable” link in the navigation bar of the Variable Editor.</p>
+<p>This is what the final form might look like before you save the variable:</p>
+<p><img src="../assets/ADMINGUIDE_VarEditor13.png" alt=""></p>
+<p>We have chosen the Application that the variable will be created for, put it in the “Button Lists” group and given it the name <strong>vbtnsCustomReports</strong>.</p>
+<p>The &quot;Description&quot; gives a bit of text explaining what thevariable is for.</p>
+<p>The “Expression” is 1, indicating that the default activebutton will be 1.</p>
+<p>“Notes” are just informational.</p>
+<p>Click Save and make sure to Export the XML file and reload the SOURCE QVW so the new variable will be available in your application.</p>
+<h3><a class="anchor" aria-hidden="true" id="formula-modifiers"></a><a href="#formula-modifiers" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Formula Modifiers</h3>
+<p>Formula modifiers are used to help ease the creation of expressions.  They are all prefixed with “mod_”.
+The current formula modifiers are:</p>
+<ol>
+<li><strong>mod_CY</strong> – <em>Current  Year modifier</em>.  Used when you want an expression to only return data for the current year. Note: Current Year is based upon what the user has selected in the “Select A Year” variable.
+2.<strong>mod_PY</strong>  – <em>Previous Year modifier</em>.  Used when you want an expression to only return data for the previous year. Note: Previous Year is based upon what the user has selected in the “Select A Year” variable.
+3.<strong>mod_YTD</strong> &amp; <strong>mod_Prev_YTD</strong> – <em>Year to Date modifier</em>.  Used when you want an expression to only return data for dates that fall into the YTD range.</li>
+</ol>
+<p>You can use the Formula Modifiers when you are creating expressions.  They are designed to be used within a Set Analysis function.  Here is an example to get revenue for the current year.</p>
+<p><code>SUM({&lt;$(mod_CY)&gt;} $(NetRevenue))</code></p>
+<p>Notice how we have enclosed the formula modifier in the set analysis modifier section.  You can then chain the mod_CY or mod_PY with the mod_YTD or mod_Prev_YTD by separating them with a comma:</p>
+<p><code>SUM({&lt;$(mod_CY), $(mod_Prev_YTD)&gt;} $(NetRevenue))</code></p>
+<div style="page-break-after: always;"></div>
+<h2><a class="anchor" aria-hidden="true" id="group-editor"></a><a href="#group-editor" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Group Editor</h2>
+<p>Groups can be used in charts to create standard drill down functionality or a cyclic group.  Essentially this gives you the ability to “stack” multiple dimensions in a single column.</p>
+<p>The groups are defined using the Group Editor.</p>
+<p>The Group Editor is in include\GroupEditor folder</p>
+<p>The Group Editor is in <em>include\GroupEditor</em> folder and can be started by double clicking on the <strong><em>group-editor.exe</em></strong> file.</p>
+<h3><a class="anchor" aria-hidden="true" id="working-with-the-group-editor"></a><a href="#working-with-the-group-editor" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Working with the Group Editor</h3>
+<p><img src="../assets/ADMINGUIDE_GroupEditor1.png" alt=""></p>
+<p>Available applications are listed on the left-hand menu.  Clicking on one of these items will display that application’s groups.</p>
+<p>Analytix comes with several standard groups already defined, which you may edit to fit your needs.  You may add your own site specific groups to utilize in your own charts.</p>
+<p>When you click on an application’s name, you will see the current groups for that application show up in the right-hand pane.</p>
+<p><img src="../assets/ADMINGUIDE_GroupEditor2.png" alt=""></p>
+<p>Each of the groups “cards” show you all the information about a group can be edited directly.</p>
+<p><img src="../assets/ADMINGUIDE_GroupEditor3.png" alt=""></p>
+<p>The group &quot;card&quot; contains the following columns:</p>
+<ol>
+<li><strong>Group Name</strong> – This is the name that you will use to access the group in Qlikview when building a chart. The naming convention is to prefix cyclic groups with “<em>c</em>” and drill down groups with “<em>d</em>”.
+2.<strong>Group Fields</strong> – This is the field in the data model that will be part of the group.  Note, there is a Label which is what the user will see and then the actual field from the data model.
+3.<strong>Group Type</strong> – Defines the group type.  Either “Cyclic” or “Drill”.
+4.<strong>Group Description</strong> – Any description that you have about the group</li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="editing-a-group"></a><a href="#editing-a-group" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Editing a Group</h3>
+<p>To edit the Group Name, Group Type or Group Description simply click on the field.  You will be presented with an editable field.  Enter the new information, and click “Save”.</p>
+<p><img src="../assets/ADMINGUIDE_GroupEditor4.png" alt=""></p>
+<p>Once you click save, the change is saved for the group.</p>
+<p>To add a new Group Field, simply click on the “Add Field” button and enter a Label and Field to use in the group.</p>
+<p>The field order determines in what order the fields will appear in the group in Analytix.  You may rearrange the order of the fields by grabbing the gray handle and dragging and dropping the field in the position you want it in.</p>
+<p><img src="../assets/ADMINGUIDE_GroupEditor5.png" alt=""></p>
+<h3><a class="anchor" aria-hidden="true" id="deleting-fields-and-groups"></a><a href="#deleting-fields-and-groups" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Deleting Fields and Groups</h3>
+<p>You will notice that when you hover over a field a small “x” is displayed in the left-hand side of that field.  Clicking on this “x” will delete the field.  Note that you will not be prompted, the field will be immediately deleted.</p>
+<p>When hovering over a Group card, you will see an “x” in the upper right hand corner of the card.  If you click on this, you will be prompted to confirm the deletion of the group.</p>
+<p><img src="../assets/ADMINGUIDE_GroupEditor6.png" alt=""></p>
+<h3><a class="anchor" aria-hidden="true" id="adding-new-groups"></a><a href="#adding-new-groups" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Adding New Groups</h3>
+<p>To add a new group, click on the “Add New Group” button in the right-hand corner of the application.</p>
+<p><img src="../assets/ADMINGUIDE_GroupEditor7.png" alt=""></p>
+<p>This will create an empty Group card.  You can Edit the Name, Type and Description by clicking on those fields and you can add fields by clicking on the Add Field button.</p>
+<p><img src="../assets/ADMINGUIDE_GroupEditor8.png" alt=""></p>
+<p>Make sure to change the group name and add at least one field.</p>
+<p>The naming convention is to prefix cyclic the group name with “_c_” and drill down groups with “_d_”.</p>
+<h3><a class="anchor" aria-hidden="true" id="searching-groups"></a><a href="#searching-groups" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Searching Groups</h3>
+<p>You can use the search bar to search through Groups or Fields and Group Type.</p>
+<p><img src="../assets/ADMINGUIDE_GroupEditor9.png" alt=""></p>
+<p>Simply start typing and the groups shown will immediately filter to your search criteria.</p>
+<h3><a class="anchor" aria-hidden="true" id="exporting-groups"></a><a href="#exporting-groups" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Exporting Groups</h3>
+<p>Making changes in the Group Editor does not update the groups in your Analytix applications.  Getting the groups to your Analytix Application takes two steps, the first being the export of the group XML file for the given application.</p>
+<p>Click on the “Export” option in the Group Editor Navigation bar.  You will see a list of the Analytix Applications:</p>
+<p><img src="../assets/ADMINGUIDE_GroupEditor10.png" alt=""></p>
+<p>Next, click on the “Create XML …” button for the application whose groups you have updated.</p>
+<p>You will be prompted with the following:</p>
+<p><img src="../assets/ADMINGUIDE_GroupEditor11.png" alt=""></p>
+<p>Choose “Save to Server”.</p>
+<p>This will create or overwrite the application’s XML file in the “\include\spreadsheets” directory.</p>
+<h3><a class="anchor" aria-hidden="true" id="loading-groups-into-analytix-applications"></a><a href="#loading-groups-into-analytix-applications" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Loading Groups into Analytix Applications</h3>
+<p>Once you have exported the group XML for the application, you must then load those groups into the Analytix application in question.</p>
+<p>This must be done in the Qlikview developer application.</p>
+<ol>
+<li><p>Open the QVW file for the applications whose groups have changed.  This will be the QVW file in the QVW directory.  For example, <em>\QVW\SalesFlash.qvw</em>.</p></li>
+<li><p>Reload the QVW file you opened in step 1.  Choose <strong>“File/Reload”</strong>. This action will load the Group XML file that was exported.</p></li>
+<li><p>Once the reload is finished, go to the <strong>“System Settings”</strong> tab, click on <strong>“Remove All Groups”</strong> and then <strong>“Create Groups”</strong>.</p></li>
+</ol>
+<p><img src="../assets/ADMINGUIDE_GroupEditor12.png" alt=""></p>
+<ol start="4">
+<li>Verify that your groups were added by going to “<strong>Settings/Document Properties…</strong>”, then clicking on the “<strong>Groups</strong>” tab.</li>
+</ol>
+<p><img src="../assets/ADMINGUIDE_GroupEditor13.png" alt=""></p>
+<ol start="5">
+<li><p>Navigate to the tab you want users to see when they open this Analytix Application (usually this is the Selection Criteria tab).</p></li>
+<li><p>Reload the QVW file again.  <strong>“File/Reload”</strong></p></li>
+<li><p>Save the QVW file.  <strong>“File/Save”</strong></p></li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="extra-list-boxes-on-selection-criteria-tab-using-groups"></a><a href="#extra-list-boxes-on-selection-criteria-tab-using-groups" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Extra List Boxes on Selection Criteria tab using Groups</h3>
+<p>If there are some fields not on the Selection Criteria screen that you would like to add, you can use the Group Editor application to add special groups that will be interpreted in the Analytix application as a new list box.</p>
+<p>To accomplish this, we created three new list boxes on the &quot;Selection Criteria | Other&quot; tab.</p>
+<ul>
+<li>LB-SC-Other-CustomLB_1</li>
+<li>LB-SC-Other-CustomLB_2</li>
+<li>LB-SC-Other-CustomLB_3</li>
+</ul>
+<p><img src="../assets/ADMINGUIDE_GroupEditor14.png" alt=""></p>
+<p>In the above example, the list box labeled “Ad Sub Type” is using the first of these dynamic groups.  The others will only show if a corresponding group has been created in the Group Editor.</p>
+<p>The group must be named as follows:</p>
+<ol>
+<li>%_c_CustomLB_1
+2.%_c_CustomLB_2
+3.%_c_CustomLB_3</li>
+</ol>
+<p>Here is an example definition:</p>
+<p><img src="../assets/ADMINGUIDE_GroupEditor15.png" alt=""></p>
+<p><strong>Note:</strong> You do not need to have any of these defined or you could only have one defined.</p>
+<h2><a class="anchor" aria-hidden="true" id="creating-reusable-formulas-for-your-charts"></a><a href="#creating-reusable-formulas-for-your-charts" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Creating Reusable Formulas for your Charts</h2>
+<h3><a class="anchor" aria-hidden="true" id="using-the-formulasxls-spreadsheet"></a><a href="#using-the-formulasxls-spreadsheet" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Using the Formulas.xls Spreadsheet</h3>
+<p>The <strong>formulas.xls</strong> file provide a way for you to create reusable expressions for your chart objects in the Analytix applications.  By defining commonly used expressions as formulas you get the benefit of not only making sure that everyone is using the same expression, but also if you ever need to change the expression definition, you simply update the <strong>formulas.xls</strong> spreadsheet and after the next reload of Analytix all the charts using that formula will be updated.</p>
+<p>There are several default formulas that are used within the base Analytix applications.</p>
+<p>Note that there is a separate tab for each of the Analytix applications.</p>
+<p><img src="../assets/ADMINGUIDE_Formulas1.png" alt=""></p>
+<p>The way this works is that each Analytix application will read the formulas.xls file and create variables for each formula that you define.  You can then use those variables as your expressions.</p>
+<p>The three columns are:</p>
+<ol>
+<li><strong>FormulaName</strong> – This will become the variable name to be used in your expression.  The default is to preface the name with an underscore (_).  This makes it easier to find in the expression editor.
+.   <strong>Formula</strong> – This is the actual expression that will be used.  Keep in mind that this formula must conform to Qlik expression standards.
+.   <strong>FormulaDescription</strong> – This is the description of the formula.  It is only used to help you and others keep track of what your formulas are being used for.</li>
+</ol>
+<p>You may notice some variables used in the construction of the default formulas like <code>$(mod_CY)</code>.  Any variable prefaced with <strong>“mod”</strong> has been defined in the <strong>Variable Editor</strong> and is used to modify the expression.  The default items that are included are:</p>
+<ul>
+<li><strong>mod_CY</strong> – This is the current year modifier.  If you want your expression to only return transactions that happened in the current year (based on Select A Year variable), use this modifier. For SalesFlash, it will take into account the type of date being used by the user (Insert, Posting or Create)
+<strong>mod_PY</strong> – This is the pervious year modifier. If you want your expression to only return transactions that happened in the previous year (based on Select A Year variable), use this modifier. For SalesFlash, it will take into account the type of date being used by the user (Insert, Posting or Create)
+​   <strong>mod_YTD</strong> – This is the “Year to Date” modifier.  This modifier will make it so that only transactions that fall into the current year to date will show. For SalesFlash, it will take into account the type of date being used by the user (Insert, Posting or Create)
+​   <strong>mod_Prev_YTD</strong> – This is the “Previous Year to Date” modifier.  This modifier will only return transactions that have the Previous YTD flag set to TRUE.  For SalesFlash, it will take into account the type of date being used by the user (Insert, Posting or Create)</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="building-expressions-with-formulas-and-modifiers"></a><a href="#building-expressions-with-formulas-and-modifiers" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Building Expressions with Formulas and Modifiers</h3>
+<p>The most common formulas are already built for you in the <strong>Formulas.xls</strong> spreadsheet.  They begin with an underscore (_).</p>
+<p>Below are the formulas available in SalesFlash.</p>
+<table>
+<thead>
+<tr><th>FormulaName</th><th>FormulaDescription</th></tr>
+</thead>
+<tbody>
+<tr><td>_NetRevenue</td><td>Net Revenue  with no modifiers - Sums Credits, Debits, Invoices, Debits and Charges</td></tr>
+<tr><td>_NetRevenue_CY</td><td>Current  Year Net Revenue using SelectYear Variable</td></tr>
+<tr><td>_NetRevenue_PY</td><td>Previous  Year Net Revenue using SelectYear Variable</td></tr>
+<tr><td>_NetRevenue_CY_YTD</td><td>Current  Year Net Revenue using SelectYear Variable and Checking for YTD</td></tr>
+<tr><td>_NetRevenue_PY_YTD</td><td>Previous  Year Net Revenue using SelectYear Variable and Checking for YTD</td></tr>
+<tr><td>_Linage</td><td>Linage  with no modifiers</td></tr>
+<tr><td>_Linage_CY</td><td>Current  Year Linage using SelectYear Variable</td></tr>
+<tr><td>_Linage_PY</td><td>Previous  Year Linage using SelectYear Variable</td></tr>
+<tr><td>_Linage_CY_YTD</td><td>Current  Year Linage using SelectYear Variable and Checking for YTD</td></tr>
+<tr><td>_Linage_PY_YTD</td><td>Previous  Year Linage using SelectYear Variable and Checking for YTD</td></tr>
+</tbody>
+</table>
+<p>As you can see from the table above we have several formulas defined already, but you can create your own if you like.  You can add them to the <strong>Formulas.xls</strong> spreadsheet on the tab for the application you want the formula to show up in.</p>
+<p>Simply add a formula name (preface with an underscore so it is easy to find in the expression editor).  Then add the Formula and Formula description.</p>
+<p><img src="../assets/ADMINGUIDE_Formulas2.png" alt=""></p>
+<p>Notice how each “_NetRevenue…” formula builds based on the base formula of “_NetRevenue”.  If you were ever to change the definition of the “_NetRevenue” formula, you would need to update each row in the spreadsheet that was based on “_NetRevenue”.</p>
+<p>If you did not want to add an expression to the formulas.xls spreadsheet, but instead just wanted to create it in Analytix, you can still leverage the formulas.</p>
+<p>There are two ways to do this.  Each method has its benefits.</p>
+<h4><a class="anchor" aria-hidden="true" id="method-1"></a><a href="#method-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Method 1</h4>
+<p>This is the easiest method.  You simply build your own expression.  You can use the formulas as starting points.  To see all the formulas for the application that you are in, go to the main tab and turn on “Show Advanced Sheets”.</p>
+<p>This will unhide the “Formulas” sheet.  On it you will see all the formulas.  Simply right click on the “Formula” column that you want to use and copy the cell value.</p>
+<p><img src="../assets/ADMINGUIDE_Formulas3.png" alt=""></p>
+<p>You can now use this in your expression editor and modify it as you see fit.</p>
+<p>If you want to use Set Analysis, simply replace the <code>{$}</code> with your preferred Set Analysis.  If you want to use the modifiers defined in the variables spreadsheet, replace the <code>{$}</code>with <code>&lt;$(mod_CY)&gt;</code> or any other modifier you choose.</p>
+<p>Note that the way the modifiers are set up, you can chain them together and add more Set Analysis code.</p>
+<p>For example, if you wanted Net Revenue for the current year but only for product X, you could do this:</p>
+<p><code>SUM({&lt;$(mod_CY), ProductName={'X'}&gt;} AMOUNT)</code></p>
+<h4><a class="anchor" aria-hidden="true" id="method-2"></a><a href="#method-2" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Method 2</h4>
+<p>This method is more difficult, but will automatically update if you change the formula it is based on.</p>
+<p>This method will only work with the non-modified or Base formulas such as “_NetRevenue” and “_Linage”.  These formulas have a special placeholder in their set analysis <code>{$}</code>.</p>
+<p>You can use this to build your own formula using the modifiers.</p>
+<p>The example I'm going to show you is already a formula of its own &quot;_NetRevenue_CY_YTD&quot;, but this will show you how to build formulas if you create new modifiers.</p>
+<p>As stated, it is probably easier to simply copy the base formula out of the <strong>formulas.xls</strong> spreadsheet and build the expression without all the stuff below, however if you were to ever update the base formula like &quot;_NetRevenue&quot;, your expressions that were created using Method 1 would not get the new update.</p>
+<p>You will be using the Replace function to replace the $ in the base formula and put in the modifiers that are desired.</p>
+<p><code>$(=Replace('$(_NetRevenue)','$', '&lt;$(mod_CY), $(mod_YTD)&gt;'))</code></p>
+<p>You can also add your own set analysis in addition to the modifiers:</p>
+<p><code>$(=Replace('$(_NetRevenue)','$', '&lt;$(mod_CY), $(mod_YTD), ProductName={&quot;Dayton Daily News&quot;}&gt;'))</code></p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/analytix/analytix-setup.html">← Analytix Setup</a><a class="docs-next button" href="/docs/analytix/analytix-salesflash-userguide.html">Salesflash User Guide →</a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#introduction">Introduction</a></li><li><a href="#adding-dynamic-date-fields-to-charts">Adding Dynamic Date Fields to Charts</a><ul class="toc-headings"><li><a href="#dynamic-year-expression">Dynamic Year Expression</a></li><li><a href="#dynamic-year-and-month-period-dimensions">Dynamic Year and Month/Period Dimensions</a></li></ul></li><li><a href="#variable-editor">Variable Editor</a><ul class="toc-headings"><li><a href="#variable-editor-features">Variable Editor Features</a></li><li><a href="#editing-creating-a-variable">Editing/Creating a Variable</a></li><li><a href="#exporting-to-analytix">Exporting to Analytix</a></li><li><a href="#gl-buckets">GL Buckets</a></li><li><a href="#dynamic-date-selection">Dynamic Date Selection</a></li><li><a href="#sheet-visibility">Sheet Visibility</a></li><li><a href="#inputbox">InputBox</a></li><li><a href="#button-lists">Button Lists</a></li><li><a href="#formula-modifiers">Formula Modifiers</a></li></ul></li><li><a href="#group-editor">Group Editor</a><ul class="toc-headings"><li><a href="#working-with-the-group-editor">Working with the Group Editor</a></li><li><a href="#editing-a-group">Editing a Group</a></li><li><a href="#deleting-fields-and-groups">Deleting Fields and Groups</a></li><li><a href="#adding-new-groups">Adding New Groups</a></li><li><a href="#searching-groups">Searching Groups</a></li><li><a href="#exporting-groups">Exporting Groups</a></li><li><a href="#loading-groups-into-analytix-applications">Loading Groups into Analytix Applications</a></li><li><a href="#extra-list-boxes-on-selection-criteria-tab-using-groups">Extra List Boxes on Selection Criteria tab using Groups</a></li></ul></li><li><a href="#creating-reusable-formulas-for-your-charts">Creating Reusable Formulas for your Charts</a><ul class="toc-headings"><li><a href="#using-the-formulasxls-spreadsheet">Using the Formulas.xls Spreadsheet</a></li><li><a href="#building-expressions-with-formulas-and-modifiers">Building Expressions with Formulas and Modifiers</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/newscycle-circle.png" alt="Newscycle Solutions - Analytix Docs" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/analytixsetup.html">Getting Started With Analytix</a><a href="/docs/bi-auditors.html">BI Docs</a></div><div><h5>Newscycle Solutions</h5><a href="http://newscycle.com/" target="_blank">Newscycle Website</a><a href="https://twitter.com/NEWSCYCLE_News?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor" target="_blank">Twitter</a></div><div><h5>More</h5><a href="/blog">Blog</a></div></section><a href="https://newscyclesolutions.com" target="_blank"><img src="/img/NewscycleLogo.png" alt="Newscycle Solutions" width="226" height="42" style="margin:1em auto;display:block;width:226px"/></a><section class="copyright">Copyright © 2018 Newscycle Solutions.</section></footer></div></body></html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Qlikview Bookmark Management · Newscycle Solutions - Analytix Docs</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="[Optional Header]: # &quot;Qlikview Bookmark Management&quot;"/><meta property="og:title" content="Qlikview Bookmark Management · Newscycle Solutions - Analytix Docs"/><meta property="og:type" content="website"/><meta property="og:url" content=".//index.html"/><meta property="og:description" content="[Optional Header]: # &quot;Qlikview Bookmark Management&quot;"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible doc separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/newscycle-circle.png" alt="Newscycle Solutions - Analytix Docs"/><h2 class="headerTitleWithLogo">Newscycle Solutions - Analytix Docs</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/docs/analytix/analytix-bi-overview.html" target="_self">Analytix</a></li><li class=""><a href="/docs/bi/bi-resources.html" target="_self">BI</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Analytix Support Docs</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup navGroupActive"><h3>Analytix Intro</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-bi-overview.html">Analytix and BI Overview</a></li></ul></div><div class="navGroup navGroupActive"><h3>Analytix Setup/Main</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-preinstall-checklist.html">Analytix Pre Install Checklist</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-install.html">Analytix Install/Upgrade Guide</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-setup.html">Analytix Setup</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-admin-guide.html">Analytix Admin Guide</a></li></ul></div><div class="navGroup navGroupActive"><h3>Analytix User Guides</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-salesflash-userguide.html">Salesflash User Guide</a></li></ul></div><div class="navGroup navGroupActive"><h3>Analytix Developer Guides</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-salesflash-developerguide.html">Salesflash Developer Guide</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-training-aggr-function.html">AGGR Function Training</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-training-set-analysis.html">The Power of Set Analysis</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-balance-to-gl.html">Balancing Analytix to Core</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-exchange-rate.html">Exchange Rate / Foreign Currency in Analytix</a></li></ul></div><div class="navGroup navGroupActive"><h3>Analytix Support Docs</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-using-accesspoint.html">Using AccessPoint</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-salesflash-vs-advertisinganalytix.html">SalesFlash versus AdvertisingAnalytix</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-help-advanced-search.html">Advanced Search</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-license-management.html">Qlikview License (CALs) Management</a></li><li class="navListItem navListItemActive"><a class="navItem navItemActive" href="/docs/support/qlikview-bookmark-management.html">Qlikview Bookmark Management</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-reduce-data.html">Remove Data from Qlikview App</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1>Qlikview Bookmark Management</h1></header><article><div><span><hr>
+<ul>
+<li><a href="#exporting-and-importing-bookmarks-using-ie-plugin">Exporting and Importing Bookmarks using IE Plugin</a></li>
+<li><a href="#removing-user-objects">Removing User Objects</a></li>
+</ul>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="exporting-and-importing-bookmarks-using-ie-plugin"></a><a href="#exporting-and-importing-bookmarks-using-ie-plugin" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Exporting and Importing Bookmarks using IE Plugin</h2>
+<h3><a class="anchor" aria-hidden="true" id="exporting-bookmarks"></a><a href="#exporting-bookmarks" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Exporting Bookmarks</h3>
+<p>Start by going to the Bookmarks menu and choosing More…</p>
+<p><img src="../assets/support_1536257756100.png" alt="1536257756100"></p>
+<p>This will bring up the bookmarks dialog.  Go to the <strong>Document Bookmarks</strong> tab and click on the <strong>“Export”</strong> button.</p>
+<p><img src="../assets/support_1536257803866.png" alt="1536257803866"></p>
+<p>This will bring up the Export Bookmarks dialog. Here it will allow you to choose which bookmarks to export.</p>
+<blockquote>
+<p>The <strong>Export</strong> button is only available on the <em>Document Bookmarks</em> tab, however, it will bring up a dialog that shows all bookmarks available to export.  These will include the bookmarks that you have created PLUS all of the shared bookmarks.  Unfortunately, there is no easy way to uncheck everything and just check your own bookmarks.  Also, if you have not prefixed your bookmarks with your intials, they may be hard to fine.</p>
+<p>Be aware, that if you export all of the bookmarks, when you import them, the <em>shared</em> bookmarks will become your bookmarks.</p>
+</blockquote>
+<p>Click on each one that you want to export and click OK.</p>
+<p><img src="../assets/support_1536257826640.png" alt="1536257826640"></p>
+<p>This will bring up a Save As dialog. Enter a destination and name for your bookmark file (Remember where it is, you will need it when you import!!) and click OK.  The file will be create with an <strong>*.BM.xml</strong> extension</p>
+<p>You are done exporting bookmarks.</p>
+<div style="page-break-after: always;"></div>
+<h3><a class="anchor" aria-hidden="true" id="importing-bookmarks"></a><a href="#importing-bookmarks" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Importing Bookmarks</h3>
+<p>Start by going to the Bookmarks menu and choosing More…</p>
+<p><img src="../assets/support_1536257756100.png" alt="1536257756100"></p>
+<p>This will bring up the bookmarks dialog.  Go to the <strong>User Bookmarks</strong> tab and click on the <strong>“Import”</strong> button.</p>
+<p><img src="../assets/support_1536259191816.png" alt="1536259191816"></p>
+<p>Choose the bookmark file you want to import and click OK.  It will have an extension of <strong>*.BM.xml</strong>.</p>
+<p>This will bring up the <em>Import Bookmarks</em> dialog. Here it will allow you to choose which bookmarks to import. Click on each one that you want to import and click on Import.  If you want to deselect a bookmark, hold the control key and click on the bookmark to deselect.</p>
+<p>Once you have the bookmarks you want to move selected, click on the import button.  This will not import them yet, but will move them to the <strong>Current Bookmarks</strong> area.</p>
+<p><img src="../assets/support_1536258752814.png" alt="1536258752814"></p>
+<p>If you would like to rename any of the bookmarks before importing them, simply hight the bookmark to rename, then click on the <strong>Rename button</strong>.  Once finished, click on OK to import the bookmarks.</p>
+<p><img src="../assets/support_1536258890978.png" alt="1536258890978"></p>
+<p>What you have done is import all of the selected bookmarks into your <strong>User Bookmarks</strong> area.  These bookmarks are stored on the local computer you are running Analytix on.  The desired outcome is to have these bookmarks stored on the server, under your user.</p>
+<p>This is easily accomplished.  Make sure you are on the <strong>User Bookmarks</strong> tab, then click on the <strong>&quot;Move Local User Bookmarks to Server&quot;</strong> link.</p>
+<blockquote>
+<p>When you move bookmarks to the server, it is all or none.  You cannot just pick certain bookmarks.  This is ok because having all a user's bookmarks on the server makes it so they can be accessed from any computer.</p>
+</blockquote>
+<p><img src="../assets/support_1536259062137.png" alt="1536259062137"></p>
+<p>Your bookmarks will be removed from the local repository to the server repository.</p>
+<hr>
+<div style="page-break-after: always;"></div>
+<h2><a class="anchor" aria-hidden="true" id="removing-user-objects"></a><a href="#removing-user-objects" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Removing User Objects</h2>
+<p>It seems like an easy task to remove a cloned object from an Analytix file. Simply Right click on the object and select Remove.</p>
+<p><img src="../assets/support_1536261981874.png" alt="1536261981874"></p>
+<p>This will remove the object from the sheet, but the underlying cloned object still will exist in your Server Object Pane.</p>
+<p>So, to really fully remove an cloned object from the application you need to click on the “Server Objects icon” <img src="../assets/support_twoheadedicon.png" alt="1536262030211">or press <strong>F2</strong> to open up the <strong>Server Objects Pane</strong>.</p>
+<p>Once in the <strong>Server Objects Pane</strong>, find the object that you want to remove permanently.</p>
+<blockquote>
+<p>You can only remove items from the “My Objects” section.</p>
+</blockquote>
+<p>Right click on the object you want to remove and select Remove.</p>
+<p><img src="../assets/support_1536262165067.png" alt="1536262165067"></p>
+<p>You will be prompted if you want to remove the object. Removing an object will also remove any instances of that object on your sheets. But that’s OK, because you want to get rid of it!</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/support/qlikview-license-management.html">← Qlikview License Management</a><a class="docs-next button" href="/docs/support/qlikview-reduce-data.html">Remove Data from Qlikview App →</a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#exporting-and-importing-bookmarks-using-ie-plugin">Exporting and Importing Bookmarks using IE Plugin</a><ul class="toc-headings"><li><a href="#exporting-bookmarks">Exporting Bookmarks</a></li><li><a href="#importing-bookmarks">Importing Bookmarks</a></li></ul></li><li><a href="#removing-user-objects">Removing User Objects</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/newscycle-circle.png" alt="Newscycle Solutions - Analytix Docs" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/analytixsetup.html">Getting Started With Analytix</a><a href="/docs/bi-auditors.html">BI Docs</a></div><div><h5>Newscycle Solutions</h5><a href="http://newscycle.com/" target="_blank">Newscycle Website</a><a href="https://twitter.com/NEWSCYCLE_News?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor" target="_blank">Twitter</a></div><div><h5>More</h5><a href="/blog">Blog</a></div></section><a href="https://newscyclesolutions.com" target="_blank"><img src="/img/NewscycleLogo.png" alt="Newscycle Solutions" width="226" height="42" style="margin:1em auto;display:block;width:226px"/></a><section class="copyright">Copyright © 2018 Newscycle Solutions.</section></footer></div></body></html>

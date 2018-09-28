@@ -1,0 +1,1 @@
+xcopy /E /Y ".\build\analytix-docs\*.*" "..\..\analytix-docs-build"

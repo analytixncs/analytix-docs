@@ -1,0 +1,230 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>AGGR Function Training · Newscycle Solutions - Analytix Docs</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="[Optional Header]: # &quot;AGGR Function Training&quot;"/><meta property="og:title" content="AGGR Function Training · Newscycle Solutions - Analytix Docs"/><meta property="og:type" content="website"/><meta property="og:url" content=".//index.html"/><meta property="og:description" content="[Optional Header]: # &quot;AGGR Function Training&quot;"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible doc separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/newscycle-circle.png" alt="Newscycle Solutions - Analytix Docs"/><h2 class="headerTitleWithLogo">Newscycle Solutions - Analytix Docs</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/docs/analytix/analytix-bi-overview.html" target="_self">Analytix</a></li><li class=""><a href="/docs/bi/bi-resources.html" target="_self">BI</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Analytix Developer Guides</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup navGroupActive"><h3>Analytix Intro</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-bi-overview.html">Analytix and BI Overview</a></li></ul></div><div class="navGroup navGroupActive"><h3>Analytix Setup/Main</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-preinstall-checklist.html">Analytix Pre Install Checklist</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-install.html">Analytix Install/Upgrade Guide</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-setup.html">Analytix Setup</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-admin-guide.html">Analytix Admin Guide</a></li></ul></div><div class="navGroup navGroupActive"><h3>Analytix User Guides</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-salesflash-userguide.html">Salesflash User Guide</a></li></ul></div><div class="navGroup navGroupActive"><h3>Analytix Developer Guides</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-salesflash-developerguide.html">Salesflash Developer Guide</a></li><li class="navListItem navListItemActive"><a class="navItem navItemActive" href="/docs/analytix/analytix-training-aggr-function.html">AGGR Function Training</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-training-set-analysis.html">The Power of Set Analysis</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-balance-to-gl.html">Balancing Analytix to Core</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-exchange-rate.html">Exchange Rate / Foreign Currency in Analytix</a></li></ul></div><div class="navGroup navGroupActive"><h3>Analytix Support Docs</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-using-accesspoint.html">Using AccessPoint</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-salesflash-vs-advertisinganalytix.html">SalesFlash versus AdvertisingAnalytix</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-help-advanced-search.html">Advanced Search</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-license-management.html">Qlikview License (CALs) Management</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-bookmark-management.html">Qlikview Bookmark Management</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-reduce-data.html">Remove Data from Qlikview App</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1>AGGR Function Training</h1></header><article><div><span><hr>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#aggr-function-breakdown">AGGR Function Breakdown</a></li>
+<li><a href="#average-customer-order">Average Customer Order</a></li>
+<li><a href="#using-multiple-dimensions-in-the-aggr-function">Using Multiple Dimensions in the AGGR Function</a></li>
+<li><a href="#using-aggr()-as-a-calculated-dimension">Using AGGR() as a Calculated Dimension</a></li>
+<li><a href="#a-useful-aggr()-dimension-example">A Useful AGGR() Dimension Example</a></li>
+<li><a href="#use-aggr()-to-create-a-list-box">Use AGGR() to Create a List Box</a></li>
+<li><a href="#other-cool-stuff-you-can-do-with-aggr()">Other Cool Stuff You Can Do With AGGR()</a></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="introduction"></a><a href="#introduction" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Introduction</h2>
+<p>The AGGR() function allows you to perform what Qlikview calls “Advanced Aggregations”.  What this amounts to is being able to aggregate (Sum, Count, etc) values within an expression by another field.</p>
+<p>To aggregate means to do something to a set of values, usually summing or counting them.</p>
+<p>If you are familiar with SQL, you can think of the AGGR function as allowing you to before a Group By statement on your Expression/Query.</p>
+<p>Here is the definition of the AGGR() function from the Qlikview help file:</p>
+<blockquote>
+<p>There is a special function for advanced aggregations:</p>
+<p><strong>AGGR ( [ distinct | nodistinct ] [{set_expression}] expression {, dimension} )</strong></p>
+<p>Returns a set of values of <em>expression</em> calculated over <em>dimensions</em>. The result can be compared to the expression column of a 'local chart', evaluated in the context where the <strong>aggr</strong> function resides. Each <em>dimension</em> must be a single field. It cannot be an expression (calculated dimension).</p>
+<p>If the <em>expression</em> argument is preceded by the <strong>nodistinct</strong> qualifier, each combination of dimension values may generate more than one return value, depending on underlying data structure. If the <em>expression</em> argument is preceded by the <strong>distinct</strong> qualifier or if no qualifier is used at all, each combination of dimension values will generate only one return value.</p>
+<p>By default, the aggregation function will aggregate over the set of possible records defined by the selection. An alternative set of records can be defined by a set expression.</p>
+<p>By using this function in calculated dimensions it is possible to achieve nested chart aggregation in multiple levels.</p>
+<p>When used in chart expressions it is possible to achieve sum-of-rows totals in a pivot table.</p>
+<p><strong>Examples:</strong></p>
+<p><strong>aggr( sum(Sales), Country )</strong></p>
+<p><strong>aggr( nodistinct sum(Sales), Country )</strong></p>
+<p><strong>aggr( sum(Sales), Country, Region )</strong></p>
+<p><strong>count( aggr( sum(Sales), Country ))</strong></p>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="aggr-function-breakdown"></a><a href="#aggr-function-breakdown" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>AGGR Function Breakdown</h2>
+<p>Let’s first breakdown the parts of the function and how to set it up, then we will dive into how to put it to use.</p>
+<p>At its most basic level, there are only two parts to the function.</p>
+<ol>
+<li><p>The Expression 🡒 AGGR(<strong>TheExpression</strong>, TheDimension) – the expression is telling the AGGR() function what we are going to be aggregating  and how to aggregate it (sum it up, count it, etc).</p></li>
+<li><p>The Dimension 🡒  AGGR(TheExpression, <strong>TheDimension</strong>) – the dimension is telling the AGGR() function over what field we are to perform the aggregation.</p></li>
+</ol>
+<p>To further explain how a simple AGGR() function will work, let’s work with the following simple dataset.</p>
+<table>
+<thead>
+<tr><th><strong>CutomerName</strong></th><th><strong>Revenue</strong></th></tr>
+</thead>
+<tbody>
+<tr><td>Sears</td><td>5</td></tr>
+<tr><td>Sears</td><td>10</td></tr>
+<tr><td>Sears</td><td>15</td></tr>
+<tr><td>Apple</td><td>5</td></tr>
+<tr><td>Apple</td><td>30</td></tr>
+<tr><td>Microsoft</td><td>10</td></tr>
+<tr><td>Microsoft</td><td>30</td></tr>
+<tr><td>Microsoft</td><td>20</td></tr>
+</tbody>
+</table>
+<p>We want to know the Total Revenue for each Customer.  The AGGR() function we would write to achieve this is as follows:</p>
+<p><strong>AGGR(</strong>SUM(Revenue), CustomerName<strong>)</strong></p>
+<p>The above function would return an array of values back to Qlikview.  The revenue summed up for each customer.</p>
+<p>Next we will discuss how we use those returned values within a chart.</p>
+<p>In a Qlikview chart, the aggregation happens based on the dimensions in your chart.  So if you have a chart with a dimension of Sales Rep and an Expression Summing the Revenue you will get totals for each Sales Rep:</p>
+<p><img src="../assets/AGGRFUNCTION_image003.jpg" alt="img"></p>
+<p>Now, if we add another expression using the AGGR() function:</p>
+<p><strong>AGGR(</strong>SUM(Price), SalesRepID<strong>)</strong></p>
+<p><img src="../assets/AGGRFUNCTION_image005.jpg" alt="img"></p>
+<p>You notice we get the same answer.  I’m showing you this so that you understand what the AGGR() function is doing.  It is doing the same thing as the dimensions in a chart; defining the groups to aggregate over.</p>
+<p>The above example is not useful, it is just to show how the AGGR() function works.</p>
+<p>Let’s look at an example of how the AGGR() function will let you do something that would be much more difficult without it.</p>
+<div style="page-break-after: always;"></div>
+<h2><a class="anchor" aria-hidden="true" id="average-customer-order"></a><a href="#average-customer-order" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Average Customer Order</h2>
+<p>Let’s say that you want to find out the Average Order Amount.  You initial thought would be to use the AVG function to get this:</p>
+<p><img src="../assets/AGGRFUNCTION_image002.jpg" alt="img"></p>
+<p>But let’s look at the data model:</p>
+<p><img src="../assets/AGGRFUNCTION_image004.jpg" alt="img"></p>
+<p>Notice that the Price is not in the orders table, but in the OrderDetails table.  This means there can be multiple products per order.   Our expression AVG(Price) is actually giving us Average line item price.</p>
+<p>This is where the AGGR() function will save us.  Let’s look at the results using the following:</p>
+<p>AVG(AGGR(SUM(Price), OrderID))</p>
+<p><img src="../assets/AGGRFUNCTION_image006.jpg" alt="img"></p>
+<p>Here is a breakdown of what the AGGR() function is doing:</p>
+<p><img src="../assets/AGGRFUNCTION_Table1.png" alt=""></p>
+<p>First the AGGR() function sees that we want to get the SUM(Price) for each OrderID, which ends up being the Order Total.  An array of Order Totals is returned to the AVG function which sums up the returned values and divides that total by the number of OrderIDs (4).</p>
+<p>Here is another question that would be difficult to answer without the AGGR() function:</p>
+<p>What is the average number of products in the orders?</p>
+<p>For Qlikview to get this answer, it needs to Count the number of products in each order and then divide the sum of these counts by the number of orders.</p>
+<p>To do this, we simple need to use the AGGR() function:</p>
+<p>AVG(<strong>AGGR(</strong>COUNT(Product), OrderID)<strong>)</strong></p>
+<p>In this example, the AGGR() function is sending an array of the number of products in each order to the AVG function which then calculates the average based on the number of “counts” returned.</p>
+<p>Here is the result:</p>
+<p><img src="../assets/AGGRFUNCTION_image009.jpg" alt="img"></p>
+<p>When creating expressions with the AGGR() function we also need to be aware of the dimensions that we are using.  In the above chart we can see that the result we are getting is showing us the average number of products in all orders that John has sold.</p>
+<p>Let’s now look at what happens when we keep the same expression and add the Customer dimension.</p>
+<p><img src="../assets/AGGRFUNCTION_image011.jpg" alt="img"></p>
+<p>Notice that the average changed.  This is because now we are calculating the average over a different data set.  The data set is now broken out by customer and now the AVG function is acting on that dataset.</p>
+<p><img src="../assets/AGGRFUNCTION_Table2.png" alt=""></p>
+<div style="page-break-after: always;"></div>
+<h2><a class="anchor" aria-hidden="true" id="using-multiple-dimensions-in-the-aggr-function"></a><a href="#using-multiple-dimensions-in-the-aggr-function" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Using Multiple Dimensions in the AGGR Function</h2>
+<p>The last AVG example we are going to look at is the following question:</p>
+<p>What are the average number of orders per month?</p>
+<p>The initial thought would be the following expression:</p>
+<p>AVG(<strong>AGGR(</strong>Count(Distinct OrderID), Month<strong>)</strong>)</p>
+<p>Which give use the following:</p>
+<p><img src="../assets/AGGRFUNCTION_1537974547789.png" alt="1537974547789"></p>
+<p><img src="../assets/AGGRFUNCTION_1537974613851.png" alt="1537974613851"></p>
+<p>I’ve included the full data in a table so we can see that the answer our AGGR() function gives us is incorrect.</p>
+<p>This is because we are using Month to “Group” our counts by, but we have Sales Rep as our dimension in the chart.  You get the wrong answer because the month is in a One to Many relationship with the Sales Rep, meaning if we have a month, it could be associated with multiple sales reps.</p>
+<p>So, AGGR() comes to our rescue on this one by allowing us to “Group by” more than one dimension.</p>
+<p>To get the right answer we use the following expression:</p>
+<p>AVG(<strong>AGGR(</strong>Count(Distinct OrderID), <code>SalesRepID</code>, <code>Month</code><strong>)</strong>)</p>
+<p><img src="../assets/AGGRFUNCTION_1537974646976.png" alt="1537974646976"></p>
+<p>You are not limited to a set number of dimensions in the AGGR() function.  The important thing to understand is that the dimensions you use in your chart DO have an effect on any expressions using the AGGR() Function.  So be aware of this when constructing your charts.</p>
+<div style="page-break-after: always;"></div>
+<h2><a class="anchor" aria-hidden="true" id="using-aggr-as-a-calculated-dimension"></a><a href="#using-aggr-as-a-calculated-dimension" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Using AGGR() as a Calculated Dimension</h2>
+<p>Another great feature of the AGGR() function is that you can use it in a calculated dimension and actually aggregate items in a dimension field.</p>
+<p>Most of the time what you do in a dimension field with the AGGR() function could also be accomplished as an expression, but with it as a dimension, the column can be hidden by the user.</p>
+<p>First, let’s take a look at an easy example.  Let’s say you wanted a count of all ads for a customer as a dimension column.</p>
+<p><strong>AGGR(</strong>Count(DISTINCT AdOrderNumber), NameLast_BSN<strong>)</strong></p>
+<p>Here is what it look like in a chart:</p>
+<p><img src="../assets/AGGRFUNCTION_1537974925709.png" alt="1537974925709"></p>
+<p>So the AGGR() function is returning an array which consists of the count of Ad Order Numbers grouped by the customer name.</p>
+<p>We can see this more clearly if we just show the Sales Rep and our AGGR() function:</p>
+<p><img src="../assets/AGGR_FUNCTION1537974947626.png" alt="1537974947626"></p>
+<p>We still have three rows because that is what the AGGR() function is returning.  One thing to note is that if there were two customers that had the same number of orders, they would be included on the same line.</p>
+<p>The example below makes this example a bit easier to understand.</p>
+<p>You can see that if you are just looking at the AGGR() function you only see one row showing that some customer(s) have 2 Ad Orders.  When you expand the AGGR() function, you see that I have put the customer name as the next dimensions and can see that there are actually 3 customers with 2 orders.</p>
+<p><img src="../assets/AGGRFUNCTION_1537974977226.png" alt="1537974977226"></p>
+<p><img src="../assets/AGGRFUNCTION_1537974995934.png" alt="1537974995934"></p>
+<div style="page-break-after: always;"></div>
+<h2><a class="anchor" aria-hidden="true" id="a-useful-aggr-dimension-example"></a><a href="#a-useful-aggr-dimension-example" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>A Useful AGGR() Dimension Example</h2>
+<p>Here is what I think is a cool AGGR() function to use as a calculated dimension.</p>
+<p>How about getting the Last Activity date for a customer?  Meaning, when was the last time a customer placed an ad with you?  You could call it their <strong>Last Activity Date.</strong></p>
+<p>Here is the simple AGGR() function:</p>
+<p>DATE(<strong>AGGR(</strong>MAX({1} Insert_CalendarDate),AccountNumber_AdBase<strong>)</strong>)</p>
+<p>The expression <strong>MAX({1} Insert_CalendarDate)</strong> is saying to return the largest (MAX) Insert Calendar Date associated with our Ad Transactions.  The <strong>{1****}</strong> is Set Analysis that tells the expression to ignore any selections that may be active.</p>
+<p>Next, the AGGR() function is going to do this MAX calculation for each Account Number, thus returning the last insert date for each customer.</p>
+<p>We wrapped this with the Date() function to convert this into a proper looking date instead of a date serial number.</p>
+<p>Here is what it looks like in a chart:</p>
+<p><img src="../assets/AGGRFUNCTION_1537975060537.png" alt="1537975060537"></p>
+<p>This is pretty powerful, but we can make it even better!</p>
+<p>One thing you will notice if you do this on your own data is that some customers may have a Last Activity Date in the future.  This is because we books ads for future dates and they are valid insertions, but just have not happened yet.</p>
+<p>Some people may prefer to only show Last Activity Dates that are less than or equal to today’s date.  To do this we just need to modify our Set Analysis code.</p>
+<pre><code class="hljs">DATE(<span class="hljs-name">AGGR</span>(<span class="hljs-name">MAX</span>({<span class="hljs-number">1</span> &lt;Insert_CalendarDate = {<span class="hljs-string">"&lt;$(=today())"</span>}&gt;} 
+Insert_CalendarDate),AccountNumber_AdBase))
+</code></pre>
+<p>The extra Set Analysis, <code>&lt;Insert_CalendarDate = {&quot;&lt;$(=today())&quot;}&gt;</code>, is telling the expression to only look at Calendar Dates less than today’s date.</p>
+<p>You can refer to the Set Analysis documentation for more details, but with it, you can refine the above formula to your specifications.</p>
+<div style="page-break-after: always;"></div>
+<h2><a class="anchor" aria-hidden="true" id="use-aggr-to-create-a-list-box"></a><a href="#use-aggr-to-create-a-list-box" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Use AGGR() to Create a List Box</h2>
+<p>Another very useful way to use the AGGR() function is to use it to create a very cool list box.</p>
+<p>What if you wanted to have a list box that would let your users select all the Customers with 10 or more sales in the current month?</p>
+<pre><code class="hljs">=IF(
+ <span class="hljs-name">AGGR</span>(<span class="hljs-name">COUNT</span>({&lt;Insert_CalendarDate={<span class="hljs-string">"&gt;=$(=MonthStart(Today()))
+        &lt;=$(=MonthEnd(Today()))"</span>}&gt;}DISTINCT AdOrderNumber),
+  AccountNumber_AdBase)&gt;=10, 
+ '<span class="hljs-number">10</span> Or More Sales', 
+ 'Less than <span class="hljs-number">10</span> Sales')
+</code></pre>
+<p><img src="../assets/AGGRFUNCTION_1537975191241.png" alt="1537975191241"></p>
+<p>The above Set Analysis code works, but it is a bit complicated for what we wanted.  An easier way to get the same results would be to use the following:</p>
+<pre><code class="hljs">=<span class="hljs-built_in">IF</span>(
+AGGR(<span class="hljs-built_in">COUNT</span>({&lt;Insert_Month={$(=<span class="hljs-built_in">Month</span>(<span class="hljs-built_in">Today</span>()))}&gt;}DISTINCT AdOrderNumber),
+AccountNumber_AdBase)&gt;=<span class="hljs-number">10</span>, 
+ '<span class="hljs-number">10</span> <span class="hljs-built_in">Or</span> More Sales', 
+ 'Less than <span class="hljs-number">10</span> Sales')
+</code></pre>
+<p>The Set being returned by the Set Analysis code only includes transactions that have an insert day falling into the current month.</p>
+<p>One thing to note is that when I create one of these “Custom List Boxes”, I don’t use the list box control.  I prefer to use the <strong>Chart</strong> set as a <strong>straight table</strong>.</p>
+<p>This way you can also have an expression giving more information about the calculated dimension.</p>
+<p>In my example I put a count of the number of customers that fell into each group.</p>
+<p><img src="../assets/AGGRFUNCTION_1537975207056.png" alt="1537975207056"></p>
+<p>You can see that 4 customers had 10 or more sales and 7 had less than 10 sales.</p>
+<div style="page-break-after: always;"></div>
+<h2><a class="anchor" aria-hidden="true" id="other-cool-stuff-you-can-do-with-aggr"></a><a href="#other-cool-stuff-you-can-do-with-aggr" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Other Cool Stuff You Can Do With AGGR()</h2>
+<p>You can also use the AGGR() function as a calculated dimension to look inside and order and find out what orders are running certain combinations of products.</p>
+<p>For example, let’s say that you wanted to track upsells.  In the example below, we want to look at ads that either have Atex Home <strong>and</strong> Greenfield Times as Product Name or ads that have Atex Home <strong>and</strong> Car &amp; Driver for products.</p>
+<pre><code class="hljs">=IF(<span class="hljs-name">AGGR</span>(<span class="hljs-name">SUM</span>(<span class="hljs-name">DISTINCT</span>
+    IF(<span class="hljs-name">ProductName=</span>'Atex Home Magazines', <span class="hljs-number">1</span>,
+    IF(<span class="hljs-name">ProductName=</span>'The Greenfield Times', <span class="hljs-number">10</span>))),AdOrderNumber) = <span class="hljs-number">11</span>,
+Dual('Atex Home + Greenfield Times',<span class="hljs-number">1</span>),
+IF(<span class="hljs-name">AGGR</span>(<span class="hljs-name">SUM</span>(<span class="hljs-name">DISTINCT</span>
+    IF(<span class="hljs-name">ProductName=</span>'Atex Home Magazines', <span class="hljs-number">1</span>,
+    IF(<span class="hljs-name">ProductName=</span>'Car &amp; Driver', <span class="hljs-number">10</span>))),AdOrderNumber) = <span class="hljs-number">11</span>,
+Dual('Atex Home + Car &amp; Driver',<span class="hljs-number">2</span>),
+null())
+)
+</code></pre>
+<p><img src="../assets/AGGRFUNCTION_1537975278478.png" alt="1537975278478"></p>
+<p>Let’s break apart one of the AGGR() functions in the calculated dimension:</p>
+<pre><code class="hljs">AGGR(<span class="hljs-name">SUM</span>(<span class="hljs-name">DISTINCT</span>
+    IF(<span class="hljs-name">ProductName=</span>'Atex Home Magazines', <span class="hljs-number">1</span>,
+    IF(<span class="hljs-name">ProductName=</span>'The Greenfield Times', <span class="hljs-number">10</span>))),
+AdOrderNumber)
+</code></pre>
+<p>What this statement is doing is looking at each row of every order and checking to see what the ProductName is.  If it is ‘Atex Home Magazines’, then a 1 is returned, if it is ‘The Greenfield Times’ then a 10 is returned.</p>
+<p>Now, the AGGR is taking those 10’s and 1’s, using a distinct keyword, so at the most only one of each will be returned and then summing those up.</p>
+<p>So for each Ad Order, that AGGR() function is going to return a 1 (Atex Home); a 10 (Greenfield Times); an 11 (Both Atex Home and Greenfield Times) or NULL neither Atex Home or Greenfield times.</p>
+<p>You’ve probably noticed that we have wrapped that AGGR() function in an IF statement to check what this return value is and if it is equal to 11 (Both Atex Home and Greenfield Times) then we return the text ‘Atex Home + Greenfield Times’.</p>
+<pre><code class="hljs"><span class="hljs-function"><span class="hljs-title">IF</span><span class="hljs-params">(AGGR()</span></span> Function <span class="hljs-number">1</span> = <span class="hljs-number">11</span>,
+<span class="hljs-comment">//THEN</span>
+<span class="hljs-function"><span class="hljs-title">Dual</span><span class="hljs-params">(<span class="hljs-string">'Atex Home + Greenfield Times'</span>,<span class="hljs-number">1</span>)</span></span>,
+<span class="hljs-comment">//ELSE</span>
+   IF(AGGR() Function <span class="hljs-number">2</span> = <span class="hljs-number">11</span>,
+     <span class="hljs-comment">//THEN</span>
+      Dual(<span class="hljs-string">'Atex Home + Car &amp; Driver'</span>,<span class="hljs-number">2</span>),  
+<span class="hljs-comment">//ELSE</span>
+<span class="hljs-function"><span class="hljs-title">null</span><span class="hljs-params">()</span></span>))
+</code></pre>
+<p>Notice that this is set up as an IF…THEN…ELSE IF… THEN ….ELSE.</p>
+<p>What this means is that once an ad meets an IF criteria, it won’t be checked against any other IF statements.  So, even though an ad could definitely fall into multiple groups, the way we have constructed the above IF statement, won’t allow that to happen, which is probably a good thing.</p>
+<p>This example is just to get your brain thinking outside of the box with the AGGR() function.  It is an extremely powerful tool that will help you achieve that perfect report!</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/analytix/analytix-salesflash-developerguide.html">← Salesflash Developer Guide</a><a class="docs-next button" href="/docs/analytix/analytix-training-set-analysis.html">The Power of Set Analysis →</a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#introduction">Introduction</a></li><li><a href="#aggr-function-breakdown">AGGR Function Breakdown</a></li><li><a href="#average-customer-order">Average Customer Order</a></li><li><a href="#using-multiple-dimensions-in-the-aggr-function">Using Multiple Dimensions in the AGGR Function</a></li><li><a href="#using-aggr-as-a-calculated-dimension">Using AGGR() as a Calculated Dimension</a></li><li><a href="#a-useful-aggr-dimension-example">A Useful AGGR() Dimension Example</a></li><li><a href="#use-aggr-to-create-a-list-box">Use AGGR() to Create a List Box</a></li><li><a href="#other-cool-stuff-you-can-do-with-aggr">Other Cool Stuff You Can Do With AGGR()</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/newscycle-circle.png" alt="Newscycle Solutions - Analytix Docs" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/analytixsetup.html">Getting Started With Analytix</a><a href="/docs/bi-auditors.html">BI Docs</a></div><div><h5>Newscycle Solutions</h5><a href="http://newscycle.com/" target="_blank">Newscycle Website</a><a href="https://twitter.com/NEWSCYCLE_News?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor" target="_blank">Twitter</a></div><div><h5>More</h5><a href="/blog">Blog</a></div></section><a href="https://newscyclesolutions.com" target="_blank"><img src="/img/NewscycleLogo.png" alt="Newscycle Solutions" width="226" height="42" style="margin:1em auto;display:block;width:226px"/></a><section class="copyright">Copyright © 2018 Newscycle Solutions.</section></footer></div></body></html>

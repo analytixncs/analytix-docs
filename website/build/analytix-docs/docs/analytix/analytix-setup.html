@@ -1,0 +1,283 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Analytix Setup · Newscycle Solutions - Analytix Docs</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="---"/><meta property="og:title" content="Analytix Setup · Newscycle Solutions - Analytix Docs"/><meta property="og:type" content="website"/><meta property="og:url" content=".//index.html"/><meta property="og:description" content="---"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible doc separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/newscycle-circle.png" alt="Newscycle Solutions - Analytix Docs"/><h2 class="headerTitleWithLogo">Newscycle Solutions - Analytix Docs</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/docs/analytix/analytix-bi-overview.html" target="_self">Analytix</a></li><li class=""><a href="/docs/bi/bi-resources.html" target="_self">BI</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Analytix Setup/Main</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup navGroupActive"><h3>Analytix Intro</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-bi-overview.html">Analytix and BI Overview</a></li></ul></div><div class="navGroup navGroupActive"><h3>Analytix Setup/Main</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-preinstall-checklist.html">Analytix Pre Install Checklist</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-install.html">Analytix Install/Upgrade Guide</a></li><li class="navListItem navListItemActive"><a class="navItem navItemActive" href="/docs/analytix/analytix-setup.html">Analytix Setup</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-admin-guide.html">Analytix Admin Guide</a></li></ul></div><div class="navGroup navGroupActive"><h3>Analytix User Guides</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-salesflash-userguide.html">Salesflash User Guide</a></li></ul></div><div class="navGroup navGroupActive"><h3>Analytix Developer Guides</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-salesflash-developerguide.html">Salesflash Developer Guide</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-training-aggr-function.html">AGGR Function Training</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-training-set-analysis.html">The Power of Set Analysis</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-balance-to-gl.html">Balancing Analytix to Core</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-exchange-rate.html">Exchange Rate / Foreign Currency in Analytix</a></li></ul></div><div class="navGroup navGroupActive"><h3>Analytix Support Docs</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-using-accesspoint.html">Using AccessPoint</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-salesflash-vs-advertisinganalytix.html">SalesFlash versus AdvertisingAnalytix</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-help-advanced-search.html">Advanced Search</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-license-management.html">Qlikview License (CALs) Management</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-bookmark-management.html">Qlikview Bookmark Management</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-reduce-data.html">Remove Data from Qlikview App</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1>Analytix Setup</h1></header><article><div><span><hr>
+<ul>
+<li><a href="#setting-up-db-connection-files">Setting up DB Connection Files</a>
+<ul>
+<li><a href="#creating-db-connection-files">Creating DB Connection Files</a></li>
+<li><a href="#encrypting-biconnection-and-coreconnection-odbc-strings">Encrypting BIConnection and CoreConnection ODBC Strings</a></li>
+</ul></li>
+<li><a href="#qvd-maintenance-using-the-qvdallqvw-file">QVD Maintenance using the QVD_ALL.qvw file</a>
+<ul>
+<li><a href="#qvd-incremental-load-maintenance">QVD Incremental Load Maintenance</a>
+<ul>
+<li><a href="#setting-up-for-incremental-loads">Setting up for Incremental Loads</a></li>
+<li><a href="#out-of-sync-qvds">Out of Sync QVDs</a></li>
+<li><a href="#the-easy-way-to-resync-your-qvds">The EASY Way to “Resync” your QVDs</a></li>
+</ul></li>
+<li><a href="#dmdate-tab-settings">dmDate Tab Settings</a></li>
+<li><a href="#combinedrevenue-tab-settings">CombinedRevenue Tab Settings</a></li>
+<li><a href="#fielded-data">Fielded Data</a></li>
+<li><a href="#client-relationships">Client Relationships</a></li>
+</ul></li>
+<li><a href="#spreadsheets">Spreadsheets</a></li>
+<li><a href="#variable-editor">Variable Editor</a></li>
+<li><a href="#group-editor">Group Editor</a></li>
+<li><a href="#source-files">SOURCE Files</a>
+<ul>
+<li><a href="#source-file-switches">SOURCE File Switches</a></li>
+<li><a href="#custom-scripts">Custom Scripts</a></li>
+</ul></li>
+<li><a href="#change-user-export-preferences-in-analytix">Change User Export Preferences in Analytix</a></li>
+</ul>
+<div style="page-break-after: always;"></div>
+<h2><a class="anchor" aria-hidden="true" id="setting-up-db-connection-files"></a><a href="#setting-up-db-connection-files" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Setting up DB Connection Files</h2>
+<hr>
+<p>To let Analytix know which BI and CORE databases to pull its data from, you need to set up the <strong>BIConnection.txt</strong> and <strong>COREConnection.txt</strong> files which are located in the Analytix root directory.</p>
+<h3><a class="anchor" aria-hidden="true" id="creating-db-connection-files"></a><a href="#creating-db-connection-files" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Creating DB Connection Files</h3>
+<p>There are template text files for each kind of connection.</p>
+<p>The files consist of the following:</p>
+<pre><code class="hljs">ODBC CONNECT TO [BIodbc_name] (UserId is theUsername, Password is thePassword);
+<span class="hljs-keyword">SET</span> DatabaseVendor <span class="hljs-comment">=</span> <span class="hljs-comment">"ORACLE"</span>;
+<span class="hljs-comment">//SET DatabaseVendor = “SQLSERVER";</span>
+</code></pre>
+<p><img src="../assets/ASETUP_ConnectionFiles1.png" alt=""></p>
+<p>If your database is using NT Authentication you can justhave:</p>
+<p><code>ODBCCONNECT TO [**BIodbc_name**];</code></p>
+<p>You will also need to make sure the correct <strong>DatabaseVendor</strong> variable is set.  In the sample BIConnection.txt and
+COREConnection.txt files, the <strong>DatabaseVendor</strong> variable is set to ORACLE and the other line is commented out using “//”.</p>
+<p>If you’re database is housed on an Oracle server, you should leave only this line:</p>
+<p><code>SET DatabaseVendor = &quot;ORACLE&quot;;</code></p>
+<p>If you’re database is housed on a SQL Server database, then you should only have this line:</p>
+<p><code>SET DatabaseVendor = &quot;SQLSERVER&quot;;</code></p>
+<h3><a class="anchor" aria-hidden="true" id="encrypting-biconnection-and-coreconnection-odbc-strings"></a><a href="#encrypting-biconnection-and-coreconnection-odbc-strings" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Encrypting BIConnection and CoreConnection ODBC Strings</h3>
+<p>The BIConnection.txt and COREConnection.txt files contain an ODBC connection string.  You can easily update these files to point to any of your ODBC strings just by entering the DSN Name and then the username and password:</p>
+<p><code>ODBC CONNECT TO [BIodbc_name] (UserId is theUsername, Password is thePassword);</code></p>
+<p>However, if you do not want the username and password exposed in this text file you can create an encrypted, or as Qlikview calls it “Scrambled”, Connect User Credentials.</p>
+<p>Here is what you need to do:</p>
+<p>First you must check a setting in User Preferences that turns the scramble function on and off.  The default is to scramble, but please do a quick look and make sure this option is checked.</p>
+<p><img src="../assets/ASETUP_ScrambleConnection1.png" alt=""></p>
+<p>Go to User Preferences/General tab and make sure there is a check mark in the “Scramble Connect User Credentials”</p>
+<p>Now to scramble the Username and Password you must go into the Fat Client and:</p>
+<ol>
+<li><p>Create a new empty document.</p></li>
+<li><p>Then choose File/Edit Script</p></li>
+<li><p>Go to the end of the script and click on the &quot;Connect...&quot; button:
+​
+<img src="../assets/ASETUP_ScrambleConnection2.png" alt=""></p></li>
+<li><p>Choose your ODBC Connection, put in the username and password, click OK.</p></li>
+<li><p>It will then put an encrypted ODBC Connection statement in the script.</p>
+<p><img src="../assets/ASETUP_ScrambleConnection3.png" alt=""></p></li>
+<li><p>You can just copy this connection string and paste it into your <strong>BIConnection.txt</strong> file.</p></li>
+<li><p>Repeat the above steps for the Core Connection ODBC Connection information.</p></li>
+</ol>
+<div style="page-break-after: always;"></div>
+<h2><a class="anchor" aria-hidden="true" id="qvd-maintenance-using-the-qvd-allqvw-file"></a><a href="#qvd-maintenance-using-the-qvd-allqvw-file" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>QVD Maintenance using the QVD_ALL.qvw file</h2>
+<hr>
+<p>The QVD_ALL.qvw file is located in the QVD directory and it is the Analytix application responsible for loading all the QVD files needed by Analytix.</p>
+<p>QVD stands for Qlikview Data and can be thought of as a proprietary data store for the Analytix applications.</p>
+<p>There are a number of large tables that are needed in each of the Analytix applications and would normally require each application to read that table from the database, but instead of hitting the database multiple times we hit it once and load the appropriate QVD.  Then the Analytix applications access the QVD to get the data from that table.</p>
+<p>The main benefit is speed. The QVD file can be read by Qlikview 10X faster than reading the database.</p>
+<h3><a class="anchor" aria-hidden="true" id="qvd-settings-main-page"></a><a href="#qvd-settings-main-page" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>QVD Settings - Main Page</h3>
+<p>For the most part, the QVD_ALL.qvw file will work fine with the defaults, but there are a few setting that you will want to verify work for your site.</p>
+<p>On the main page there are a number of settings:</p>
+<ol>
+<li><p><strong>Rolling Periods</strong> – This setting will tell Analytix how much data you want to load.  The default is 48 rolling periods.</p>
+<p><img src="../assets/ASETUP_QVDMaint1.png" alt=""></p>
+<p><strong>NOTE:</strong> If you set the number of rolling periods to a number that would extend to dates that don’t exist in your dmDate table, errors will be caused and QVDs will not be build.</p></li>
+<li><p><strong>Select QVDs to Build &amp; AdBase Version</strong> – The defaults for both of these items should work fine for most sites.  If however, you only want to load certain QVDs for whatever reason or change the AdBase version, you can do this here.
+Simply choose the QVDs that you want to build and the AdBase version that you want to use and click on the “Set Load&gt;&gt;” button.  This will move the selected items into the boxes on the right.  If you are doing this in your production QVD_ALL.qvw, you must remember to reset the values so that everything loads properly when the full load happens.</p>
+<p><img src="../assets/ASETUP_QVDMaint2.png" alt=""></p></li>
+<li><p>**Incremental Load **– If you are running AdBase v3.0 or greater, Analytix can be set to populate the QVD files incrementally.  See below for details on using this feature.</p></li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="qvd-incremental-load-maintenance"></a><a href="#qvd-incremental-load-maintenance" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>QVD Incremental Load Maintenance</h3>
+<p>If you are running AdBase v3.0 or greater, Analytix can beset to populate the QVD files incrementally.</p>
+<p>QVDs are usually reloaded fully every time Analytix is refreshed.  For some QVD files this can mean reading millions of rows over again when only a few thousand may have changed.</p>
+<p>The incremental load tackles this problem by reading a new field that was added to the fact tables in BI. This field is <strong>LastPopulateDate</strong> and it lets Analytix know when a row was either added or updated.  We then use this information in Analytix to only load new rows into the existing QVD file as well as update those rows that were updated and remove rows from the QVD that were deleted from the database.</p>
+<p><strong>NOTE:</strong> Incremental loads will only save you time if your QVD_ALL is taking between 45 minutes to an hour to run.</p>
+<p>The following Analytix QVD files are able to use the incremental load feature.</p>
+<ul>
+<li>fctAdOrder.qvd</li>
+<li>fctInsertion.qvd</li>
+<li>fctInsertChargeSummary.qvd</li>
+<li>fctInsertChargeDetail.qvd</li>
+<li>fctARSummary.qvd</li>
+<li>fctGL.qvd</li>
+</ul>
+<p>Each of these files has two parameters that will allow you to control when an incremental load happens.</p>
+<p>The default is that the incremental load is turned off.</p>
+<h4><a class="anchor" aria-hidden="true" id="setting-up-for-incremental-loads"></a><a href="#setting-up-for-incremental-loads" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Setting up for Incremental Loads</h4>
+<p>To change the default settings of fully reloaded QVDs to Incremental you will go to the Main tab in the QVD_ALL.qvw application.</p>
+<p><img src="../assets/ASETUP_Incremental1.png" alt=""></p>
+<p>To set your QVDs to load incrementally, simply click on the“Turn Incremental Load ON” button.  This will set the reload flags to FALSE which indicates to the application to reload incrementally.</p>
+<p>Be aware that setting these flags to FALSE does not guarantee that your files will be incrementally loaded.  There are a couple of things that will affect this.</p>
+<ol>
+<li>If the QVD file itself does not exist in the QVD directory, then that file will be reloaded fully not incrementally.</li>
+<li>If the Reload Date for the QVD does not exist on its tab in QVD_ALL, then that file will be reloaded fully not incrementally.</li>
+</ol>
+<h4><a class="anchor" aria-hidden="true" id="out-of-sync-qvds"></a><a href="#out-of-sync-qvds" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Out of Sync QVDs</h4>
+<p>If you ever feel that your QVDs are out of sync or if have made any changes to the BI tables that might cause problems with the increment load and want to get a fresh, full reload click on the “Clear Reload Dates”button.  On the next reload of the QVD files,this will force them all to be fully reloaded. After this full reload your QVDs will automatically revert back to being loaded incrementally.</p>
+<p><img src="../assets/ASETUP_Incremental2.png" alt=""></p>
+<p>Now when the load runs, it will do a full rebuild of that QVD.</p>
+<h4><a class="anchor" aria-hidden="true" id="the-easy-way-to-resync-your-qvds"></a><a href="#the-easy-way-to-resync-your-qvds" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>The EASY Way to “Resync” your QVDs</h4>
+<p>If you feel that all QVDs need to be rebuilt.  The easiest way to make that happen is to delete all the QVD files in the QVD directory that have the extension .QVD.</p>
+<p>DO NOT Delete all the files, JUST the ones ENDING in .QVD.</p>
+<p><img src="../assets/ASETUP_Incremental3.png" alt=""></p>
+<p>This will force a full rebuild also.</p>
+<h3><a class="anchor" aria-hidden="true" id="dmdate-tab-settings"></a><a href="#dmdate-tab-settings" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>dmDate Tab Settings</h3>
+<p>The only option on the dmDate tab is “Use Account Periods”.</p>
+<p><img src="../assets/ASETUP_dmdate1.png" alt=""></p>
+<p>This option will use the <em>AccountingPeriods.xls</em> file in the <em>\Include\Spreadsheets</em> folder.  If you have a fiscal year or accounting periods that do not follow the calendar year, then you will need to keep this option on and update the <em>AccountingPeriods.xls</em>.</p>
+<p>If you do not use fiscal or accounting periods, you should still leave this option on, as the default information in the <em>AccountingPeriods.xls</em> spreadsheet has periods that match the months.</p>
+<h3><a class="anchor" aria-hidden="true" id="combinedrevenue-tab-settings"></a><a href="#combinedrevenue-tab-settings" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>CombinedRevenue Tab Settings</h3>
+<p>The <strong>“GL Rep from AdOrder”</strong> setting will override the rep that is in the <strong>fctARSummary</strong> table with the rep on the <strong>fctAdOrder</strong> table.  This can be useful if you are using rep setter to change the reps on orders that have already been invoiced and locked down.</p>
+<p>The default is OFF.</p>
+<p><img src="../assets/ASETUP_combinedrev1.png" alt=""></p>
+<h3><a class="anchor" aria-hidden="true" id="fielded-data"></a><a href="#fielded-data" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Fielded Data</h3>
+<p>The fielded data tab allows you to choose which fielded data items you want to load into Analytix.  Currently <strong>SalesFlash</strong> will be the only application that this fielded data will be loaded into.</p>
+<p>By default no fielded data will be loaded.</p>
+<p>To set fielded data up to load, go to the Fielded Data tab and turn the “Load Fielded Data” On:</p>
+<p><img src="../assets/ASETUP_fieldeddata1.png" alt=""></p>
+<p>This will display a list of all your available fielded data fields.  Simply click on the fields you want included and then click on “&lt;&lt; Set Load” to mark these fields to be loaded.</p>
+<p><img src="../assets/ASETUP_fieldeddata2.png" alt=""></p>
+<p><strong>NOTE:</strong> Only load the fielded data that you need.  The more you choose to load the slower it will make your reloads.</p>
+<h3><a class="anchor" aria-hidden="true" id="client-relationships"></a><a href="#client-relationships" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Client Relationships</h3>
+<p>There are a few options when loading the client relationships.  By default “Parent as Child” and “Non Parent as Child” are on.  Very rarely will you want to use “Grandparent as Child”.</p>
+<p><img src="../assets/ASETUP_ClientRelationships1.png" alt=""></p>
+<p><strong>Parent as Child</strong> - This setting allows you to include the parent/agency as a child of himself.
+In Analytix this will cause the parent/agency's sales to be included in totals when grouping or filtering by parents/agencies. Also, the Relationship_Type is coded as 'PSEUDO PARENT/CHILD'</p>
+<p><strong>Non Parent as Parent</strong> - Creates a Parent/child relationship for every client that isn't already in a P/C Relationship.  The P/C relationship created is with himself.
+Example: Cust1 is not a Parent OR a Child (i.e. is not in any relationship in AdBase).
+If this switch is set to ON, then ALL customers meeting this criteria (not being in a relationship) will have a relationship created with Cust1 as Parent and Cust1 as Child.
+Also, the Relationship_Type is coded as 'PSEUDO PARENT/CHILD'</p>
+<p><strong>Grandparent as Child</strong> - Creates a Grandparent/Parent/child relationship with the grandparent as the parent and child also.  The G/P/C relationship created is with himself.
+Thought is, if the Grandparent has transactions, they will not be seen in a report unless he is a parent/child of himself because we link the orders to the child records.</p>
+<div style="page-break-after: always;"></div>
+<h2><a class="anchor" aria-hidden="true" id="spreadsheets"></a><a href="#spreadsheets" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Spreadsheets</h2>
+<hr>
+<p>There are several spreadsheets that you can update to enhance the Analytix applications.  There are a few rules to follow when updating these spreadsheets to meet your needs.</p>
+<ol>
+<li><p><strong>Do not change</strong> the labels/headers.  This is the first row in the spreadsheet.</p>
+<p><img src="../assets/ASETUP_Spreadsheets1.png" alt=""></p></li>
+</ol>
+<ol start="2">
+<li><p><strong>Do not change</strong> the worksheet name.</p>
+<p><img src="../assets/ASETUP_Spreadsheets2.png" alt=""></p></li>
+</ol>
+<ol start="3">
+<li><strong>Do not change</strong> the file format.  If it is XLS, leave it as XLS, if it is XLSX, then leave it as XLSX.</li>
+</ol>
+<p>If any of the above rules are not followed, then Analytix will not load.</p>
+<p>Below are the spreadsheets and how they are used.  Not all spreadsheets need to be modified as they come with default values.</p>
+<ol>
+<li><p><strong>AccountingPeriods.xls</strong> – This spreadsheet allows you to setup your fiscal year and periods to be exactly as you want.  It maps every day of year with the following:</p>
+<ul>
+<li><strong>WeekOfYear</strong> – The week of the year</li>
+<li><strong>WeekOfYear_Year</strong> – This is the year associated with the week of year.  This is because sometimes the week of year will run into the following calendar year in some fiscal calendars.  Not used much as FiscalYear will perform the same function.</li>
+<li><strong>FiscalYear</strong> – The Fiscal Year.</li>
+<li><strong>Period</strong> – The numeric period.</li>
+<li><strong>PeriodText</strong> – A textual representation of the Period.  In most sites, this is the same as the Period.</li>
+<li><strong>PeriodStartDate</strong> – Start date of the period.</li>
+<li><strong>PeriodEndDate</strong> – End date of the period.</li>
+</ul>
+<p>The default spreadsheet maps the fiscal year and periods to the calendar months and years.  You can turn off the loading of this spreadsheet in the QVD_ALL.qvw application on the dmDate tab.  The default is on.
+If you have specific fiscal periods, please edit this spreadsheet to match your fiscal periods</p></li>
+<li><p><strong>Holidays.xls</strong> – This spreadsheet maps a calendar date to a Holiday.  It is prefilled with the common holidays from 2000-2020.  You may edit it and add any additional holidays that you would like.</p>
+<p><img src="../assets/ASETUP_Spreadsheets3.png" alt=""></p></li>
+<li><p><strong>GLMapping.xls</strong> - This spreadsheet is specific to the SalesFlash application.  It is very important and should be updated before you go live.
+​
+It allows you to map your GL Numbers to up to 6 groupings.  For example, you may have certain GLs that are a Print product and others that are Digital or Preprint.  You can use a grouping to map all those GLs to a new field in SalesFlash.</p>
+<p><img src="../assets/ASETUP_Spreadsheets4.png" alt=""></p>
+<p>The spreadsheet has a column called GLACCOUNTNUMBER, this is the column where you will put all of your GL Numbers.  Then you will see columns named GL_BUCKET_1 through GL_BUCKET_6.  These are your &quot;GL Breakouts&quot; or &quot;GL Groupings&quot;.
+​
+Do not change the header labels here.  You will update the names of these groupings in the <strong>VariableEditor</strong>.
+You do not need to use all six groupings.  Just fill in the groupings that you need.</p></li>
+<li><p><strong>SalesFlashBudget.xls</strong> – If you want to load budget information into SalesFlash, you will add it to this spreadsheet.  You will be able to track budget by GL Number and Period/Month.  You also have the option to put a forecast amount in the spreadsheet, however this is optional.
+​
+The loading of this spreadsheet is controlled in the SOURCE_SalesFlash.qvw file.  There is a switch that lets you turn on and off the loading of this spreadsheet.</p>
+<p><img src="../assets/ASETUP_Spreadsheets5.png" alt=""></p>
+<p>​</p></li>
+<li><p><strong>SystemSheets.xls</strong> - Currently this houses one tab, the <strong>GLExcludeList</strong> worksheet.  Enter any GL Number in this sheet if you DO NOT want to see that GL or any revenue associated with it in SalesFlash.  Site will use this to keep converted balances from getting loaded into SalesFlash.
+​
+<strong>NOTE:</strong> You will need to turn this feature on in SOURCE_SalesFlash.qvw:</p>
+<p><img src="../assets/ASETUP_Spreadsheets6.png" alt=""></p></li>
+<li><p><strong>Formulas.xls</strong> – This spreadsheet is where we store the common expressions for the Analytix charts.  Using and expanding formulas is covered in the <strong>Analytix Administrators Guide</strong>.</p></li>
+<li><p><strong>AdvancedSearchHelp.xls</strong> – This spreadsheet contains Advanced Search expressions to help users make advanced selections without having to know the complex syntax of Set Analysis.  The items in this spreadsheet are displayed on the “Reference Charts” sheet -&gt; “Advanced Search” button.</p></li>
+</ol>
+<div style="page-break-after: always;"></div>
+<h2><a class="anchor" aria-hidden="true" id="variable-editor"></a><a href="#variable-editor" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Variable Editor</h2>
+<hr>
+<p>This application will allow you to view and edit all variables that are used by Analytix.  You will also be able to add new variables if the need arises.</p>
+<p>See the documentation for the variable editor for more information, but do note that if you add or modify a variable or variable value, you will need to use the Variable Editor to make the change.  Once the change has been made and you have exported the XML file, you will need to manually reload the source file with the “Reload Variables switch” turned on.</p>
+<div style="page-break-after: always;"></div>
+<h2><a class="anchor" aria-hidden="true" id="group-editor"></a><a href="#group-editor" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Group Editor</h2>
+<hr>
+<p>The Group Editor will allow you to view and edit all Cyclic and Drill Down groups in Analytix.</p>
+<p>You will be able to Edit, Add and Remove groups from Analyix.</p>
+<p>Just like the Variable Editor, any changes to Groups within Analytix must be done using the Group Editor. Once the change has been made and you have exported the XML file, you will need to manually reload the source file and following the instructions in the Group Editor documentation to get the updates into Analytix.</p>
+<div style="page-break-after: always;"></div>
+<h2><a class="anchor" aria-hidden="true" id="source-files"></a><a href="#source-files" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>SOURCE Files</h2>
+<hr>
+<p>All Analytix application have a corresponding Source file in the SOURCE directory.  The source file contains the main scripting for the application.  It also has a number of switches that you can use to control what gets loaded into the final application.</p>
+<p>You should not change any code in these files, but there are two ways for you to affect the load:</p>
+<ol>
+<li><strong>Switches</strong> – There are a number of switches that will turn on and off features.
+.   <strong>Custom Scripts</strong> – You may write your own custom scripts and the source file will load these for you.</li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="source-file-switches"></a><a href="#source-file-switches" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>SOURCE File Switches</h3>
+<p>The following switches are available in the SOURCE_SalesFlash.qvw file.</p>
+<ol>
+<li><strong>Reload Variables</strong> - Load initial variable values from Variables spreadsheet (variables.xls).  The variables spreadsheet contains the on/off values for these switches, so if you turn “Reload Variables” on it may reset some of the other switches.  If that is the case, you should change them in the variables.xls file, but you also may simply reset your switches from the interface and save the QVW file.
+.   <strong>Load CRM</strong> - If this is turned to ON, the CRM process will load the following:</li>
+</ol>
+<ul>
+<li>Opportunity table</li>
+<li>User Goals as defined in Ad Sales</li>
+<li>Customer Goals as defined in Ad Sales</li>
+<li>Tasks and Meetings
+<strong>Load Budget</strong> - If this is turned to ON, the Budget spreadsheet will be loaded and the Budget tab will show in SalesFlash.qvw
+<strong>Load PRP Schedule</strong> - Loads information from the Core table aoPRPSchedule.  Currently just PRP Invoice Text.  Links to RevenueTable on the PRPScheduleID_AdBase
+<strong>Load Old Acct. Numbers</strong> - If this is turned to ON, Analytix will load any &quot;OLD&quot; account numbers that you imported into CORE from your old system.
+<strong>Exclude GLs</strong> - If turned on, this will exclude any GLs that are located in the GLExcludeList worksheet in the SystemSheet.xls file.  All revenue data associated with these GLs will also be excluded.
+<strong>Load Custom Scripts</strong> - If turned on, any *.qvs files located in the
+“..\Include\CustomScripts\SalesFlash\“ directory will be loaded.</li>
+</ul>
+<hr>
+<h3><a class="anchor" aria-hidden="true" id="custom-scripts"></a><a href="#custom-scripts" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Custom Scripts</h3>
+<p>If there is a reason that you need to inject some scripting into the SOURCE files, you may do this by creating a file with the extension of *.qvs in the “..\Include\CustomScripts\SalesFlash” directory, with the scripting inside of it.
+If the Load Custom Scripts switch is on, SOURCE_SalesFlash.qvw will load all files (in alphanumeric order) into the QVW.</p>
+<p>There is a separate directory under the <em>CustomScripts</em> directory for each application.</p>
+<p><strong>NOTE:</strong> Make sure you test your script before putting into production.</p>
+<div style="page-break-after: always;"></div>
+<h2><a class="anchor" aria-hidden="true" id="change-user-export-preferences-in-analytix"></a><a href="#change-user-export-preferences-in-analytix" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Change User Export Preferences in Analytix</h2>
+<hr>
+<p>Your end users should be using Internet Explorer with the Qlikview IE Plugin.  When exporting to Excel it is important to also have your selection criteria exported in the Excel file.  To make sure that you are set up to do this, follow the below procedures.</p>
+<ol>
+<li><p>Open Analytix in a browser and drop down the Menu Toolbar and select User Preferences.</p>
+<p><img src="../assets/ASETUP_Export1.png" alt=""></p></li>
+<li><p>The User Preferences dialog box will display.  Click on the Export tab and the make sure there is a check mark in the “On BIFF Exports” checkbox.  This checkbox is located in the lower right corner of the dialog.</p>
+<p><img src="../assets/ASETUP_Export2.png" alt=""></p></li>
+<li><p>Click OK.</p></li>
+</ol>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/analytix/analytix-install.html">← Analytix Installation/Upgrade Guide</a><a class="docs-next button" href="/docs/analytix/analytix-admin-guide.html">Analytix Administrator&#x27;s Guide →</a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#setting-up-db-connection-files">Setting up DB Connection Files</a><ul class="toc-headings"><li><a href="#creating-db-connection-files">Creating DB Connection Files</a></li><li><a href="#encrypting-biconnection-and-coreconnection-odbc-strings">Encrypting BIConnection and CoreConnection ODBC Strings</a></li></ul></li><li><a href="#qvd-maintenance-using-the-qvd-allqvw-file">QVD Maintenance using the QVD_ALL.qvw file</a><ul class="toc-headings"><li><a href="#qvd-settings-main-page">QVD Settings - Main Page</a></li><li><a href="#qvd-incremental-load-maintenance">QVD Incremental Load Maintenance</a></li><li><a href="#dmdate-tab-settings">dmDate Tab Settings</a></li><li><a href="#combinedrevenue-tab-settings">CombinedRevenue Tab Settings</a></li><li><a href="#fielded-data">Fielded Data</a></li><li><a href="#client-relationships">Client Relationships</a></li></ul></li><li><a href="#spreadsheets">Spreadsheets</a></li><li><a href="#variable-editor">Variable Editor</a></li><li><a href="#group-editor">Group Editor</a></li><li><a href="#source-files">SOURCE Files</a><ul class="toc-headings"><li><a href="#source-file-switches">SOURCE File Switches</a></li><li><a href="#custom-scripts">Custom Scripts</a></li></ul></li><li><a href="#change-user-export-preferences-in-analytix">Change User Export Preferences in Analytix</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/newscycle-circle.png" alt="Newscycle Solutions - Analytix Docs" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/analytixsetup.html">Getting Started With Analytix</a><a href="/docs/bi-auditors.html">BI Docs</a></div><div><h5>Newscycle Solutions</h5><a href="http://newscycle.com/" target="_blank">Newscycle Website</a><a href="https://twitter.com/NEWSCYCLE_News?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor" target="_blank">Twitter</a></div><div><h5>More</h5><a href="/blog">Blog</a></div></section><a href="https://newscyclesolutions.com" target="_blank"><img src="/img/NewscycleLogo.png" alt="Newscycle Solutions" width="226" height="42" style="margin:1em auto;display:block;width:226px"/></a><section class="copyright">Copyright © 2018 Newscycle Solutions.</section></footer></div></body></html>

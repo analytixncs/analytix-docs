@@ -1,0 +1,251 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Salesflash Developer Guide · Newscycle Solutions - Analytix Docs</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="[Optional Header]: # &quot;Salesflash Developer Guide&quot;"/><meta property="og:title" content="Salesflash Developer Guide · Newscycle Solutions - Analytix Docs"/><meta property="og:type" content="website"/><meta property="og:url" content=".//index.html"/><meta property="og:description" content="[Optional Header]: # &quot;Salesflash Developer Guide&quot;"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible doc separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/newscycle-circle.png" alt="Newscycle Solutions - Analytix Docs"/><h2 class="headerTitleWithLogo">Newscycle Solutions - Analytix Docs</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/docs/analytix/analytix-bi-overview.html" target="_self">Analytix</a></li><li class=""><a href="/docs/bi/bi-resources.html" target="_self">BI</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Analytix Developer Guides</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup navGroupActive"><h3>Analytix Intro</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-bi-overview.html">Analytix and BI Overview</a></li></ul></div><div class="navGroup navGroupActive"><h3>Analytix Setup/Main</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-preinstall-checklist.html">Analytix Pre Install Checklist</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-install.html">Analytix Install/Upgrade Guide</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-setup.html">Analytix Setup</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-admin-guide.html">Analytix Admin Guide</a></li></ul></div><div class="navGroup navGroupActive"><h3>Analytix User Guides</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-salesflash-userguide.html">Salesflash User Guide</a></li></ul></div><div class="navGroup navGroupActive"><h3>Analytix Developer Guides</h3><ul><li class="navListItem navListItemActive"><a class="navItem navItemActive" href="/docs/analytix/analytix-salesflash-developerguide.html">Salesflash Developer Guide</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-training-aggr-function.html">AGGR Function Training</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-training-set-analysis.html">The Power of Set Analysis</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-balance-to-gl.html">Balancing Analytix to Core</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-exchange-rate.html">Exchange Rate / Foreign Currency in Analytix</a></li></ul></div><div class="navGroup navGroupActive"><h3>Analytix Support Docs</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-using-accesspoint.html">Using AccessPoint</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-salesflash-vs-advertisinganalytix.html">SalesFlash versus AdvertisingAnalytix</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-help-advanced-search.html">Advanced Search</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-license-management.html">Qlikview License (CALs) Management</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-bookmark-management.html">Qlikview Bookmark Management</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-reduce-data.html">Remove Data from Qlikview App</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1>Salesflash Developer Guide</h1></header><article><div><span><hr>
+<ul>
+<li><a href="#salesflash-overview">SalesFlash Overview</a></li>
+<li><a href="#foreign-currency-/-exchange-rate">Foreign Currency / Exchange Rate</a></li>
+<li><a href="#advertising-sheet">Advertising Sheet</a>
+<ul>
+<li><a href="#churn-button">Churn Button</a></li>
+<li><a href="#dynamic-ytd-button">Dynamic YTD Button</a></li>
+</ul></li>
+<li>[]</li>
+</ul>
+<hr>
+<div style="page-break-after: always;"></div>
+<h2><a class="anchor" aria-hidden="true" id="salesflash-overview"></a><a href="#salesflash-overview" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>SalesFlash Overview</h2>
+<p>The SalesFlash application's focus is on bringing together invoices, adjustments and booked but not yet invoiced ads.  The data's primary grain is the GL Account associated with the transaction.</p>
+<p>There are tools in SalesFlash that will allow sites to further summarize their data by create GL Groupings based on the GL Account numbers.</p>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="foreign-currency-exchange-rate"></a><a href="#foreign-currency-exchange-rate" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Foreign Currency / Exchange Rate</h2>
+<p>In SalesFlash we will now have two fields to represent the Amount (Cost) of a transaction.  The one that is the default for all reports is <code>AMOUNT</code>.</p>
+<p><code>AMOUNT</code> - This field represents the amount of the transaction in the currency the ad was placed in.  So, if an ad was placed with USD as it's currency, then AMOUNT is in USD.  If an ad is placed with GBP as the currency, then the AMOUNT field would represent GBP.</p>
+<p><code>CONVERTEDAMOUNT</code> - This field is just what is says, it is the <code>AMOUNT</code> converted into the native currency.  If native currency is USD, then an ad placed in GBP would be converted, based on the exchange rate, to USD.</p>
+<p>There are a few other fields that are available pertaining to Foreign Currency.</p>
+<ul>
+<li><strong>EXCHANGERATEID_ADBASE</strong></li>
+<li><strong>Flag_IsCurrencyNative</strong> - &quot;TRUE&quot; - native currency, &quot;FALSE&quot; - NOT native currency</li>
+<li><strong>ForeignCurrency_ExchangeRate</strong>- Currency Exchange rate from the fnExcahngeRate table.</li>
+<li><strong>ForeignCurrency_Name</strong> - Currency Name from the fnCurrency table in Core.</li>
+<li><strong>ForeignCurrency_String</strong> - the currency symbol</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="sample-expressions"></a><a href="#sample-expressions" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Sample Expressions</h3>
+<p>Here is a sample expression that will insert the Currency string when formatting the output revenue:</p>
+<pre><code class="hljs"><span class="hljs-function"><span class="hljs-title">NUM</span><span class="hljs-params">(SUM(AMOUNT)</span></span>, ForeignCurrency_String &amp; <span class="hljs-string">'#,##0.00;('</span> &amp; ForeignCurrency_String &amp; <span class="hljs-string">'#,##0.00)'</span>)
+</code></pre>
+<p>Notice that we are using the <code>AMOUNT</code>field as this is the NON Converted field.</p>
+<p>Get more details in <a href="./anlaytix-exchange-rate">Analytix Exchange Rate</a> Document.</p>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="advertising-sheet"></a><a href="#advertising-sheet" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Advertising Sheet</h2>
+<p>The Advertising sheet contains a number of reports focused on what we thought Sales Reps and Advertising Managers would want to see.  However, these groupings are just a way to separate reports and it doesn't mean that others won't find these reports useful.</p>
+<h3><a class="anchor" aria-hidden="true" id="churn-button"></a><a href="#churn-button" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Churn Button</h3>
+<p>The Churn reports offer users either a yearly or monthly churn.  These definitions are strict and would be difficult to modify on a site by site basis.</p>
+<ol>
+<li>Yearly Churn - Compares data on a Year over Year basis, using the <em>Select A Year</em> field to determine the &quot;Current&quot; Year and the &quot;Previous&quot; Year</li>
+<li>Monthly Churn - Compares data from the selected Month to the month previous to it.  Note this is not a YOY month compare.  As an example, a monthly churn could be compare August 2018 to July 2018.</li>
+</ol>
+<h4><a class="anchor" aria-hidden="true" id="yearly-churn"></a><a href="#yearly-churn" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Yearly Churn</h4>
+<p>To create churn type expression for Analytix we need to be able to compare revenue by AccountNumber for each year.</p>
+<p>In the end we will have four expressions as defined below:</p>
+<ol>
+<li><p><strong>Inactive:</strong> Current Year Revenue=0 AND Previous Year Revenue = 0.</p></li>
+<li><p><strong>Active:</strong> Current Year Revenue&lt;&gt;0 AND Previous Year Revenue&lt; &gt;0.</p></li>
+<li><p><strong>Lost:</strong> Current Year Revenue=0 AND Previous Year Revenue &lt;&gt; 0.</p></li>
+<li><p><strong>New:</strong> Current Year Revenue&lt;&gt;0 AND Previous Year Revenue = 0.</p></li>
+</ol>
+<p><strong>New</strong>:</p>
+<pre><code class="hljs">COUNT(DISTINCT //We <span class="hljs-keyword">only</span> want <span class="hljs-keyword">to</span> <span class="hljs-built_in">count</span> distinct Accounts
+
+//This will <span class="hljs-keyword">find</span> <span class="hljs-keyword">all</span> accounts in the current year whose sum of revenue <span class="hljs-keyword">is</span> NOT equal <span class="hljs-keyword">to</span> zero 
+
+{&lt;ACCOUNTNUMBER_ADBASE=({<span class="hljs-string">"=SUM({$&lt;Posting_CalendarYear={$(=$(SelectYear))}&gt;} $(NetRevenue))&lt;&gt;0"</span>}) 
+
+* //This <span class="hljs-keyword">is</span> the intersection operator.  It will take the result sets from the <span class="hljs-keyword">set</span> above <span class="hljs-built_in">and</span> below <span class="hljs-built_in">and</span> intersect them.
+
+//We cannot say =<span class="hljs-number">0</span> here since this will not <span class="hljs-built_in">count</span> those accounts that had NO ad orders.  So we take All Accounts <span class="hljs-built_in">and</span> use the Minus (-) operator <span class="hljs-keyword">to</span> <span class="hljs-built_in">remove</span> those accounts that had revenue in the <span class="hljs-keyword">previous</span> year from the <span class="hljs-keyword">list</span>.
+
+(ACCOUNTNUMBER_ADBASE-{<span class="hljs-string">"=SUM({$&lt;Posting_CalendarYear={$(=$(SelectYear)-1)}&gt;} $(NetRevenue))&lt;&gt;0"</span>})
+
+&gt;} ACCOUNTNUMBER_ADBASE)
+</code></pre>
+<p><strong>Inactive:</strong></p>
+<pre><code class="hljs">COUNT(DISTINCT {&lt;ACCOUNTNUMBER_ADBASE=(ACCOUNTNUMBER_ADBASE -{<span class="hljs-string">"=SUM({<span class="hljs-variable">$&lt;</span>Posting_CalendarYear={$(=<span class="hljs-variable">$(SelectYear)</span>)}&gt;} <span class="hljs-variable">$(NetRevenue)</span>)&lt;&gt;0"</span>}) *                                                                (ACCOUNTNUMBER_ADBASE-{<span class="hljs-string">"=SUM({<span class="hljs-variable">$&lt;</span>Posting_CalendarYear={$(=<span class="hljs-variable">$(SelectYear)</span>-1)}&gt;} <span class="hljs-variable">$(NetRevenue)</span>)&lt;&gt;0"</span>})
+
+&gt;} ACCOUNTNUMBER_ADBASE)
+</code></pre>
+<p><strong>Active:</strong></p>
+<pre><code class="hljs">COUNT(DISTINCT {&lt;ACCOUNTNUMBER_ADBASE={<span class="hljs-string">"=SUM({<span class="hljs-variable">$&lt;</span>Posting_CalendarYear={$(=<span class="hljs-variable">$(SelectYear)</span>)}&gt;} <span class="hljs-variable">$(NetRevenue)</span>)&lt;&gt;0"</span>}*                                       {<span class="hljs-string">"=SUM({<span class="hljs-variable">$&lt;</span>Posting_CalendarYear={$(=<span class="hljs-variable">$(SelectYear)</span>-1)}&gt;} <span class="hljs-variable">$(NetRevenue)</span>)&lt;&gt;0"</span>}&gt;} ACCOUNTNUMBER_ADBASE)
+</code></pre>
+<p><strong>Lost:</strong></p>
+<pre><code class="hljs">COUNT(DISTINCT {&lt;ACCOUNTNUMBER_ADBASE=(ACCOUNTNUMBER_ADBASE-{<span class="hljs-string">"=SUM({<span class="hljs-variable">$&lt;</span>Posting_CalendarYear={$(=<span class="hljs-variable">$(SelectYear)</span>)}&gt;} <span class="hljs-variable">$(NetRevenue)</span>)&lt;&gt;0"</span>}) *
+
+({<span class="hljs-string">"=SUM({<span class="hljs-variable">$&lt;</span>Posting_CalendarYear={$(=<span class="hljs-variable">$(SelectYear)</span>-1)}&gt;} <span class="hljs-variable">$(NetRevenue)</span>)&lt;&gt;0"</span>})
+
+&gt;} ACCOUNTNUMBER_ADBASE)
+</code></pre>
+<p>To make all of this easier to reason about in the calculated dimension, we use two variables to encapsulate the Current Year (<code>$(vChurnCurrYear)</code>) and Previous Year (<code>$(vChurnPrevYear)</code>) Revenue</p>
+<pre><code class="hljs">=IF( ($(<span class="hljs-name">vChurnCurrYear</span>) &gt; <span class="hljs-number">0</span> ) AND ( $(<span class="hljs-name">vChurnPrevYear</span>) = <span class="hljs-number">0</span>), 'New Customers',
+    IF( ($(<span class="hljs-name">vChurnCurrYear</span>) = <span class="hljs-number">0</span> ) AND ( $(<span class="hljs-name">vChurnPrevYear</span>) = <span class="hljs-number">0</span> ), 'Inactive Customers',
+        IF( ($(<span class="hljs-name">vChurnCurrYear</span>) = <span class="hljs-number">0</span> ) AND ( $(<span class="hljs-name">vChurnPrevYear</span>) &gt; <span class="hljs-number">0</span> ),  'Lost Customers',
+            IF( ($(<span class="hljs-name">vChurnCurrYear</span>) - $(<span class="hljs-name">vChurnPrevYear</span>)) / $(<span class="hljs-name">vChurnPrevYear</span>) &gt; <span class="hljs-number">0</span>, 'Increased Rev Customers',
+                IF( ( ($(<span class="hljs-name">vChurnCurrYear</span>) - $(<span class="hljs-name">vChurnPrevYear</span>)) / $(<span class="hljs-name">vChurnPrevYear</span>) &lt; <span class="hljs-number">0</span> ) AND ( ($(<span class="hljs-name">vChurnCurrYear</span>) - $(<span class="hljs-name">vChurnPrevYear</span>)) / $(<span class="hljs-name">vChurnPrevYear</span>) &gt; <span class="hljs-number">-1</span> ), 'Reduced Rev Customers', 'OTHER')
+                )
+            )
+        )
+    )
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="monthly-churn"></a><a href="#monthly-churn" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Monthly Churn</h4>
+<p>Churn by month allows the end user to select the “current” month to start the churn comparison.</p>
+<p>So, if the month chosen is Nov. 2018, the churn calculations will look at Nov. 2018 and Oct. 2018.</p>
+<p>The first thing we need is a Month/Year table that is not associated with any other tables.  Add the following code to the QVW Script:</p>
+<pre><code class="hljs">//===========================================================//
+//<span class="hljs-comment">-- Create fields for use with the Monthly Churn charts on </span>
+//<span class="hljs-comment">-- the Advertising tab -&gt; Churn</span>
+//<span class="hljs-comment">-- <span class="hljs-doctag">NOTE:</span> it doesn't matter that we are pulling this info from the</span>
+//<span class="hljs-comment">--   insert date table</span>
+//<span class="hljs-comment">-- It is only important in the variables. In the variables we will be using</span>
+//<span class="hljs-comment">-- posting or insert date to compare based on user selection.</span>
+//===========================================================//
+
+MonthYearSelection:
+<span class="hljs-keyword">LOAD</span> 
+    Dual(QVD_Month &amp; <span class="hljs-string">'-'</span> &amp; QVD_Calendar_Year, (QVD_Calendar_Year*<span class="hljs-number">100</span>) + QVD_Month_OfYear_Number) <span class="hljs-keyword">as</span> DynamicMonthYear%,
+    Dual(<span class="hljs-keyword">Month</span>(AddMonths(QVD_CalendarDate, <span class="hljs-number">-1</span>)) &amp; <span class="hljs-string">'-'</span> &amp; <span class="hljs-keyword">Year</span>(AddMonths(QVD_CalendarDate, <span class="hljs-number">-1</span>)), (<span class="hljs-keyword">Year</span>(AddMonths(QVD_CalendarDate, <span class="hljs-number">-1</span>))*<span class="hljs-number">100</span>) + <span class="hljs-keyword">Month</span>(AddMonths(QVD_CalendarDate, <span class="hljs-number">-1</span>))) <span class="hljs-keyword">as</span> DynamicMonthYearPrev%
+<span class="hljs-keyword">FROM</span> ..\QVD\dmDate.qvd (qvd)
+<span class="hljs-keyword">Where</span> QVD_Calendar_Year &gt;= <span class="hljs-keyword">Year</span>(Today())<span class="hljs-number">-1</span> <span class="hljs-keyword">AND</span> QVD_Calendar_Year &lt;= <span class="hljs-keyword">Year</span>(Today())+<span class="hljs-number">1</span>;
+
+Let SelectMonthYear = '=NUM([DynamicMonthYear%])';
+Let SelectMonthYearPrev = '=NUM([DynamicMonthYearPrev%])';
+</code></pre>
+<p>I have chosen to only load three years for the user to select from – “Prev, Curr and Curr + 1”</p>
+<p>Notice that I am creating two variables to hold the information:</p>
+<p><strong>SelectMonthYear</strong> – Actual Month/Year selected
+<strong>SelectMonthYearPrev</strong> – Previous Month/Year based on the selected Month/Year</p>
+<p>Note that in these variables I am storing the number equivalent which is YYYYMM.</p>
+<h4><a class="anchor" aria-hidden="true" id="other-variables-needed-for-monthly-churn"></a><a href="#other-variables-needed-for-monthly-churn" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Other Variables needed for Monthly Churn</h4>
+<p>These are other variables that are used in the Monthly Churn charts.</p>
+<p><strong>vChurnDynCurrMonth</strong></p>
+<pre><code class="hljs">IF(<span class="hljs-name">IsNull</span>(
+<span class="hljs-name">AGGR</span>(<span class="hljs-name">SUM</span>({$&lt;Insert_MonthOfYearNumber=
+    {$(<span class="hljs-name">=Mid</span>('$(<span class="hljs-name">SelectMonthYear</span>)',<span class="hljs-number">5</span>,<span class="hljs-number">2</span>))},
+    Insert_CalendarYear={$(<span class="hljs-name">=Mid</span>('$(<span class="hljs-name">SelectMonthYear</span>)',<span class="hljs-number">1</span>,<span class="hljs-number">4</span>))}&gt;} $(<span class="hljs-name">NetRevenue</span>)), AccountNumber_AdBase)),
+    <span class="hljs-number">0</span>,
+AGGR(<span class="hljs-name">SUM</span>({$
+    &lt;Insert_MonthOfYearNumber={$(<span class="hljs-name">=Mid</span>('$(<span class="hljs-name">SelectMonthYear</span>)',<span class="hljs-number">5</span>,<span class="hljs-number">2</span>))},
+    Insert_CalendarYear={$(<span class="hljs-name">=Mid</span>('$(<span class="hljs-name">SelectMonthYear</span>)',<span class="hljs-number">1</span>,<span class="hljs-number">4</span>))}&gt;
+    } 
+    $(<span class="hljs-name">NetRevenue</span>)), 
+AccountNumber_AdBase))
+</code></pre>
+<p><strong>vChurnDynPrevMonth</strong></p>
+<pre><code class="hljs">IF(<span class="hljs-name">IsNull</span>(
+<span class="hljs-name">AGGR</span>(<span class="hljs-name">SUM</span>({$&lt;Insert_MonthOfYearNumber=
+    {$(<span class="hljs-name">=Mid</span>('$(<span class="hljs-name">SelectMonthYearPrev</span>)',<span class="hljs-number">5</span>,<span class="hljs-number">2</span>))},
+    Insert_CalendarYear={$(<span class="hljs-name">=Mid</span>('$(<span class="hljs-name">SelectMonthYearPrev</span>)',<span class="hljs-number">1</span>,<span class="hljs-number">4</span>))}&gt;} $(<span class="hljs-name">NetRevenue</span>)), AccountNumber_AdBase)),
+    <span class="hljs-number">0</span>,
+AGGR(<span class="hljs-name">SUM</span>({$
+    &lt;Insert_MonthOfYearNumber={$(<span class="hljs-name">=Mid</span>('$(<span class="hljs-name">SelectMonthYearPrev</span>)',<span class="hljs-number">5</span>,<span class="hljs-number">2</span>))},
+    Insert_CalendarYear={$(<span class="hljs-name">=Mid</span>('$(<span class="hljs-name">SelectMonthYearPrev</span>)',<span class="hljs-number">1</span>,<span class="hljs-number">4</span>))}&gt;
+    } 
+    $(<span class="hljs-name">NetRevenue</span>)), 
+AccountNumber_AdBase))
+
+</code></pre>
+<p>You can then use the above two variables in your chart's dimension field.  Here is an example:</p>
+<pre><code class="hljs">=
+IF(($(<span class="hljs-name">vChurnDynCurrMonth</span>) - $(<span class="hljs-name">vChurnDynPrevMonth</span>))/$(<span class="hljs-name">vChurnDynPrevMonth</span>) = <span class="hljs-number">-1</span>, 
+'Lost Customers',
+    IF( ($(<span class="hljs-name">vChurnDynCurrMonth</span>) - $(<span class="hljs-name">vChurnDynPrevMonth</span>)) / $(<span class="hljs-name">vChurnDynPrevMonth</span>) &gt; <span class="hljs-number">0</span>,
+    'Increased Rev Customers',
+        IF(($(<span class="hljs-name">vChurnDynCurrMonth</span>) - $(<span class="hljs-name">vChurnDynPrevMonth</span>))/$(<span class="hljs-name">vChurnDynPrevMonth</span>) &lt; <span class="hljs-number">0</span>
+        AND ($(<span class="hljs-name">vChurnDynCurrMonth</span>) - $(<span class="hljs-name">vChurnDynPrevMonth</span>))/$(<span class="hljs-name">vChurnDynPrevMonth</span>) &gt; <span class="hljs-number">-1</span>, 
+        'Reduced Rev Customers',
+            IF(($(<span class="hljs-name">vChurnDynCurrMonth</span>) &gt; <span class="hljs-number">0</span> AND $(<span class="hljs-name">vChurnDynPrevMonth</span>) = <span class="hljs-number">0</span>), 
+            'New Customers',
+                IF(($(<span class="hljs-name">vChurnDynCurrMonth</span>) = <span class="hljs-number">0</span> AND $(<span class="hljs-name">vChurnDynPrevMonth</span>) = <span class="hljs-number">0</span>), 
+                'Inactive Customers','OTHER')
+                )
+            )
+        )
+    )
+</code></pre>
+<hr>
+<h3><a class="anchor" aria-hidden="true" id="dynamic-ytd-button"></a><a href="#dynamic-ytd-button" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Dynamic YTD Button</h3>
+<p>Be sure to review the SalesFlash User Guide to understand what the Dynamic YTD Chart is designed to do as this document will explain how it accomplishes those goals.</p>
+<p>The idea behind the Dynamic YTD chart is to break you out of the constraints of the typical YTD which is determined by the current date.</p>
+<p>There were a few obstacles that needed to be overcome.</p>
+<ol>
+<li>The user could be either in Fiscal Or Calendar year.  Each of these modes required a different field to be used as the predictor of the final month/period in the YTD calculation.</li>
+<li>The user could be in either Posting/Insert/Create date mode.  The calculation needs to take this into account.</li>
+<li>Multiple months or periods could be selected, however, the calculation only needed a single value.  The greatest month/period is the value that was needed.</li>
+<li>Selections on Months would return <strong>MMM</strong> style months.  A number for month is needed for the calculation.</li>
+</ol>
+<p>To make this calculation easier to reuse, it is implemented as a series of Qlikview Variables.</p>
+<table>
+<thead>
+<tr><th>Variable Name</th><th>Variable Contents</th><th>Expected Output</th></tr>
+</thead>
+<tbody>
+<tr><td>vdynTYD_MonthPeriodFinalCalc</td><td>IF(vFiscalOrCalendarFlag, <br />$(vdynYTD_getGreatestMonthPeriod), Num(Month(Date#($(vdynYTD_getGreatestMonthPeriod), 'MMM'))))</td><td>Single Month Number or Period Number</td></tr>
+<tr><td>vdynYTD_getGreatestMonthPeriod</td><td>Mid(GetFieldSelections(<br />$(=$(vFiscalOrCalendarMonthPeriod)), ';',13),<br /> Index(GetFieldSelections(<br />$(=$(vFiscalOrCalendarMonthPeriod)),';',13),';', -1)+1)</td><td>Single Month in MMM format or single period</td></tr>
+<tr><td>vFiscalOrCalendarFlag</td><td>Set to 0 or 1 via the <strong>Switch to Fiscal Year</strong> switch on the <em>Main</em> sheet.</td><td>0 (Calendar) or <br />1 (Fiscal)</td></tr>
+</tbody>
+</table>
+<p>NOTE: if a variable isn't enclosed with a <strong>$()</strong>, that means that we want the text that is in the variable OR that the variable itself is already evaluating itself.  If you see the <strong>$(vVarName)</strong> around a variable name, Qlikview is evaluating the contents of the variable and returning the value to the expression.  You will also sometimes see <strong>$(=$(vVarName))</strong>.  Depending on the complexity of the expression in a variable and where that variable is used, you may need this syntax.  It is used often in Set Analysis when we want to force evaluation inside other expressions.</p>
+<pre><code class="hljs css languages- javascript">//-- Dynamic YTD based on Posting/Insert/Create_Month Selection.
+//-- It will be either Posting/Insert/Create based on which mode you are in
+//-- Note, that the year is controlled by the "Select A Year" variable
+//-- First, designate what Year this YTD column is for
+//-- vFiscalOrCalendarYear returns either 
+//--      "Posting/Insert/Create"_"Calendar/FiscalYear"
+//-- $(SeletYear) returns the currently selected YOY value.
+SUM({$&lt;$(=$(vFiscalOrCalendarYear))={$(=$(SelectYear))}, 
+//-- Clear out any selections in Posting/Insert/Create_Month/Period for our 
+//-- calculation of YTD
+$(=$(vFiscalOrCalendarMonthPeriod))=,
+//-- I am using the Posting/Insert/Create_Month/PeriodOfYearNumber to select the 
+//-- months I want included in the dynamic YTD.
+//-- Basically, GetFieldSelections is used to get any selections in the 
+//-- Posting/Insert/Create_Month/Period field
+//-- Since the user could have selected more than one, the last month returned by 
+//-- the GetFieldSelections function is used.
+//-- So, if 'May;Jun' was selected, the Index function is used to find the last 
+//-- semicolon, adding 1 to that location and using that result as the starting 
+//-- point for the Mid() function.  
+//-- The result would be 'Jun'
+//-- A month number is needed, so the month 'MMM' value is converted to a number by 
+//-- first converting it to a Date using the Date#('', 'MMM').  The 'MMM' designates
+//-- a three character month.  Then the result can be converted into a Month, which 
+//-- is dual field, allowing for the use of the Num() function on that result which 
+//-- will convert it to the month number.
+//-- All this produces a single number which is the greatest month selected.  
+//-- If period number is needed, less needs to be done.  Simply getting the last 
+//-- period number and returning it suffices.
+//-- The last modify is simply taking this result and getting transactions
+//-- where the Posting/Insert/Create_Month/PeriodOfYearNumber is &lt;= said number.
+$(=$(vFiscalOrCalendarMonthPeriodNum))={"&lt;=$(=Num(Month(Date#(
+Mid(GetFieldSelections($(=$(vFiscalOrCalendarMonthPeriod)), ';',13), Index(GetFieldSelections($(=$(vFiscalOrCalendarMonthPeriod)),';',13),';', -1)+1)
+, 'MMM'))))"}&gt;} $(NetRevenue))
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/analytix/analytix-salesflash-userguide.html">← Salesflash User Guide</a><a class="docs-next button" href="/docs/analytix/analytix-training-aggr-function.html">AGGR Function Training →</a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#salesflash-overview">SalesFlash Overview</a></li><li><a href="#foreign-currency-exchange-rate">Foreign Currency / Exchange Rate</a><ul class="toc-headings"><li><a href="#sample-expressions">Sample Expressions</a></li></ul></li><li><a href="#advertising-sheet">Advertising Sheet</a><ul class="toc-headings"><li><a href="#churn-button">Churn Button</a></li><li><a href="#dynamic-ytd-button">Dynamic YTD Button</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/newscycle-circle.png" alt="Newscycle Solutions - Analytix Docs" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/analytixsetup.html">Getting Started With Analytix</a><a href="/docs/bi-auditors.html">BI Docs</a></div><div><h5>Newscycle Solutions</h5><a href="http://newscycle.com/" target="_blank">Newscycle Website</a><a href="https://twitter.com/NEWSCYCLE_News?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor" target="_blank">Twitter</a></div><div><h5>More</h5><a href="/blog">Blog</a></div></section><a href="https://newscyclesolutions.com" target="_blank"><img src="/img/NewscycleLogo.png" alt="Newscycle Solutions" width="226" height="42" style="margin:1em auto;display:block;width:226px"/></a><section class="copyright">Copyright © 2018 Newscycle Solutions.</section></footer></div></body></html>

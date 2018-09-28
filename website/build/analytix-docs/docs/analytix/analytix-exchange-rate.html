@@ -1,0 +1,114 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Exchange Rate / Foreign Currency in Analytix · Newscycle Solutions - Analytix Docs</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="[Optional Header]: # &quot;Exchange Rate / Foreign Currency in Analytix&quot;"/><meta property="og:title" content="Exchange Rate / Foreign Currency in Analytix · Newscycle Solutions - Analytix Docs"/><meta property="og:type" content="website"/><meta property="og:url" content=".//index.html"/><meta property="og:description" content="[Optional Header]: # &quot;Exchange Rate / Foreign Currency in Analytix&quot;"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible doc separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/newscycle-circle.png" alt="Newscycle Solutions - Analytix Docs"/><h2 class="headerTitleWithLogo">Newscycle Solutions - Analytix Docs</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/docs/analytix/analytix-bi-overview.html" target="_self">Analytix</a></li><li class=""><a href="/docs/bi/bi-resources.html" target="_self">BI</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Analytix Developer Guides</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup navGroupActive"><h3>Analytix Intro</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-bi-overview.html">Analytix and BI Overview</a></li></ul></div><div class="navGroup navGroupActive"><h3>Analytix Setup/Main</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-preinstall-checklist.html">Analytix Pre Install Checklist</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-install.html">Analytix Install/Upgrade Guide</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-setup.html">Analytix Setup</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-admin-guide.html">Analytix Admin Guide</a></li></ul></div><div class="navGroup navGroupActive"><h3>Analytix User Guides</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-salesflash-userguide.html">Salesflash User Guide</a></li></ul></div><div class="navGroup navGroupActive"><h3>Analytix Developer Guides</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-salesflash-developerguide.html">Salesflash Developer Guide</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-training-aggr-function.html">AGGR Function Training</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-training-set-analysis.html">The Power of Set Analysis</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-balance-to-gl.html">Balancing Analytix to Core</a></li><li class="navListItem navListItemActive"><a class="navItem navItemActive" href="/docs/analytix/analytix-exchange-rate.html">Exchange Rate / Foreign Currency in Analytix</a></li></ul></div><div class="navGroup navGroupActive"><h3>Analytix Support Docs</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-using-accesspoint.html">Using AccessPoint</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-salesflash-vs-advertisinganalytix.html">SalesFlash versus AdvertisingAnalytix</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-help-advanced-search.html">Advanced Search</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-license-management.html">Qlikview License (CALs) Management</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-bookmark-management.html">Qlikview Bookmark Management</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-reduce-data.html">Remove Data from Qlikview App</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1>Exchange Rate / Foreign Currency in Analytix</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="salesflashqvw"></a><a href="#salesflashqvw" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>SalesFlash.qvw</h2>
+<p>In SalesFlash we will now have two fields to represent the Amount (Cost) of a transaction.  The one that is the default for all reports is <code>AMOUNT</code>.</p>
+<p><code>AMOUNT</code> - This field represents the amount of the transaction in the currency the ad was placed in.  So, if an ad was placed with USD as it's currency, then AMOUNT is in USD.  If an ad is placed with GBP as the currency, then the AMOUNT field would represent GBP.</p>
+<p><code>CONVERTEDAMOUNT</code> - This field is just what is says, it is the <code>AMOUNT</code> converted into the native currency.  If native currency is USD, then an ad placed in GBP would be converted, based on the exchange rate, to USD.</p>
+<p>There are a few other fields that are available pertaining to Foreign Currency.</p>
+<ul>
+<li><strong>EXCHANGERATEID_ADBASE</strong></li>
+<li><strong>Flag_IsCurrencyNative</strong> - &quot;TRUE&quot; - native currency, &quot;FALSE&quot; - NOT native currency</li>
+<li><strong>ForeignCurrency_ExchangeRate</strong>- Currency Exchange rate from the fnExcahngeRate table.</li>
+<li><strong>ForeignCurrency_Name</strong> - Currency Name from the fnCurrency table in Core.</li>
+<li><strong>ForeignCurrency_String</strong> - the currency symbol</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="sample-expressions"></a><a href="#sample-expressions" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Sample Expressions</h3>
+<p>Here is a sample expression that will insert the Currency string when formatting the output revenue:</p>
+<pre><code class="hljs"><span class="hljs-function"><span class="hljs-title">NUM</span><span class="hljs-params">(SUM(AMOUNT)</span></span>, ForeignCurrency_String &amp; <span class="hljs-string">'#,##0.00;('</span> &amp; ForeignCurrency_String &amp; <span class="hljs-string">'#,##0.00)'</span>)
+</code></pre>
+<p>Notice that we are using the <code>AMOUNT</code>field as this is the NON Converted field.</p>
+<h2><a class="anchor" aria-hidden="true" id="development-details"></a><a href="#development-details" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Development Details</h2>
+<h3><a class="anchor" aria-hidden="true" id="qvd-all"></a><a href="#qvd-all" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>QVD_ALL</h3>
+<p>In the CombinedRevenue load in QVD_ALL, we are simply adding the ExchangeRateID from the FNExchangeRate Table to every transaction loaded.</p>
+<p>The mapping tables are constructed as follows:</p>
+<pre><code class="hljs css languages- sql">//=======================================
+//<span class="hljs-comment">-- Foreign Currency/Exchange Rate Maps</span>
+//=======================================
+OrdersERMap:
+MAPPING <span class="hljs-keyword">LOAD</span>
+  ADORDERID_ADBASE,
+  EXCHANGERATEID_ADBASE;
+<span class="hljs-keyword">SELECT</span>
+  LINKID <span class="hljs-keyword">AS</span> ADORDERID_ADBASE,
+  EXCHANGERATEID <span class="hljs-keyword">AS</span> EXCHANGERATEID_ADBASE
+<span class="hljs-keyword">FROM</span> AOCREDITDEBIT CD, FNEXCHANGERATE E
+<span class="hljs-keyword">WHERE</span> CD.EXCHANGERATEID = E.ID
+  <span class="hljs-keyword">AND</span> TRANSTYPE = <span class="hljs-number">0</span>;
+  
+
+AdjustmentsERMap:
+MAPPING <span class="hljs-keyword">LOAD</span>
+  AOCREDITDEBITID_ADBASE,
+  EXCHANGERATEID_ADBASE;
+<span class="hljs-keyword">SELECT</span>
+  CD.ID <span class="hljs-keyword">AS</span> AOCREDITDEBITID_ADBASE,
+  EXCHANGERATEID <span class="hljs-keyword">AS</span> EXCHANGERATEID_ADBASE
+<span class="hljs-keyword">FROM</span> AOCREDITDEBIT CD, FNEXCHANGERATE E
+<span class="hljs-keyword">WHERE</span> CD.EXCHANGERATEID = E.ID
+<span class="hljs-keyword">AND</span> CD.TRANSTYPE = <span class="hljs-number">3</span>;
+</code></pre>
+<p>The <strong>OrdersERMap</strong> will take all orders and give them their ExchangeRateID and the <strong>AdjustmentsERMap</strong> will do the same for Credits and Debits.</p>
+<h3><a class="anchor" aria-hidden="true" id="source-salesflash"></a><a href="#source-salesflash" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Source_SalesFlash</h3>
+<p>In Source_SalesFlash, we get the main currency information from Core:</p>
+<pre><code class="hljs css languages- sql">//=======================================
+//<span class="hljs-comment">-- Exchange Rate table info from Core</span>
+//=======================================
+ForeignCurrencyTable:
+<span class="hljs-keyword">LOAD</span>
+    EXCHANGERATEID_ADBASE,
+    EXCHANGERATE <span class="hljs-keyword">as</span> ForeignCurrency_ExchangeRate,
+    CURRENCYNAME <span class="hljs-keyword">as</span> ForeignCurrency_Name,
+    CURRENCYSTRING <span class="hljs-keyword">as</span> ForeignCurrency_String,
+    <span class="hljs-keyword">If</span>(ISNATIVE=<span class="hljs-number">1</span>, <span class="hljs-string">'TRUE'</span>, <span class="hljs-string">'FALSE'</span>) <span class="hljs-keyword">as</span> Flag_IsCurrencyNative;
+<span class="hljs-keyword">SELECT</span> E.ID <span class="hljs-keyword">AS</span> EXCHANGERATEID_ADBASE,
+  E.EXCHANGERATE,
+  C.NAME <span class="hljs-keyword">AS</span> CURRENCYNAME,
+  C.CURRENCYSTRING,
+  C.ISNATIVE
+<span class="hljs-keyword">FROM</span> FNEXCHANGERATE E, FNCURRENCY C
+<span class="hljs-keyword">WHERE</span> E.FOREIGNCURENCYID = C.ID;
+</code></pre>
+<p>This will allow the ExchangeRate_ID in the RevenueTable to link to its currency details.</p>
+<p>We also want to create a field that will be the converted amount.  We do this by building a mapping table that will link to the exchange rate and return a conversion factor that we can multiply by the AMOUNT field to get a new field that is in the Native Currency.</p>
+<pre><code class="hljs css languages- sql">//<span class="hljs-comment">--------------------------------</span>
+//<span class="hljs-comment">--Loading mapping for Rows in dmExchangeRate</span>
+//<span class="hljs-comment">--Do not load the null row (id=1) as it's exchange rate</span>
+//<span class="hljs-comment">--is 0 and for our purposes we want it to be 1</span>
+//<span class="hljs-comment">--By excluding the null row, it will fail when mapping</span>
+//<span class="hljs-comment">--and we can return the default of 1</span>
+//<span class="hljs-comment">--------------------------------</span>
+ExchangeRateMap:
+MAPPING <span class="hljs-keyword">LOAD</span> 
+    EXCHANGERATEID_ADBASE,
+    <span class="hljs-number">1</span> / ForeignCurrency_ExchangeRate <span class="hljs-keyword">as</span> ForeignCurrencyToNative
+Resident ForeignCurrencyTable;
+</code></pre>
+<p>Then in the RevenueTable build, the CONVERTEDAMOUNT field is created using the ForeignCurrencyToNative mapping:</p>
+<pre><code class="hljs css languages- sql">RevenueTable:
+...
+    EXCHANGERATEID_ADBASE,
+    AMOUNT * ApplyMap('ExchangeRateMap', EXCHANGERATEID_ADBASE, 1) as CONVERTEDAMOUNT,
+...
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/analytix/analytix-balance-to-gl.html">← Balancing Analytix to the Core Database</a><a class="docs-next button" href="/docs/analytix/analytix-using-accesspoint.html">Using AccessPoint →</a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#salesflashqvw">SalesFlash.qvw</a><ul class="toc-headings"><li><a href="#sample-expressions">Sample Expressions</a></li></ul></li><li><a href="#development-details">Development Details</a><ul class="toc-headings"><li><a href="#qvd-all">QVD_ALL</a></li><li><a href="#source-salesflash">Source_SalesFlash</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/newscycle-circle.png" alt="Newscycle Solutions - Analytix Docs" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/analytixsetup.html">Getting Started With Analytix</a><a href="/docs/bi-auditors.html">BI Docs</a></div><div><h5>Newscycle Solutions</h5><a href="http://newscycle.com/" target="_blank">Newscycle Website</a><a href="https://twitter.com/NEWSCYCLE_News?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor" target="_blank">Twitter</a></div><div><h5>More</h5><a href="/blog">Blog</a></div></section><a href="https://newscyclesolutions.com" target="_blank"><img src="/img/NewscycleLogo.png" alt="Newscycle Solutions" width="226" height="42" style="margin:1em auto;display:block;width:226px"/></a><section class="copyright">Copyright © 2018 Newscycle Solutions.</section></footer></div></body></html>

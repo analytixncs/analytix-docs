@@ -1,0 +1,222 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Analytix Installation/Upgrade Guide · Newscycle Solutions - Analytix Docs</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="---"/><meta property="og:title" content="Analytix Installation/Upgrade Guide · Newscycle Solutions - Analytix Docs"/><meta property="og:type" content="website"/><meta property="og:url" content=".//index.html"/><meta property="og:description" content="---"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible doc separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/newscycle-circle.png" alt="Newscycle Solutions - Analytix Docs"/><h2 class="headerTitleWithLogo">Newscycle Solutions - Analytix Docs</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/docs/analytix/analytix-bi-overview.html" target="_self">Analytix</a></li><li class=""><a href="/docs/bi/bi-resources.html" target="_self">BI</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Analytix Setup/Main</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup navGroupActive"><h3>Analytix Intro</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-bi-overview.html">Analytix and BI Overview</a></li></ul></div><div class="navGroup navGroupActive"><h3>Analytix Setup/Main</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-preinstall-checklist.html">Analytix Pre Install Checklist</a></li><li class="navListItem navListItemActive"><a class="navItem navItemActive" href="/docs/analytix/analytix-install.html">Analytix Install/Upgrade Guide</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-setup.html">Analytix Setup</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-admin-guide.html">Analytix Admin Guide</a></li></ul></div><div class="navGroup navGroupActive"><h3>Analytix User Guides</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-salesflash-userguide.html">Salesflash User Guide</a></li></ul></div><div class="navGroup navGroupActive"><h3>Analytix Developer Guides</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-salesflash-developerguide.html">Salesflash Developer Guide</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-training-aggr-function.html">AGGR Function Training</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-training-set-analysis.html">The Power of Set Analysis</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-balance-to-gl.html">Balancing Analytix to Core</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-exchange-rate.html">Exchange Rate / Foreign Currency in Analytix</a></li></ul></div><div class="navGroup navGroupActive"><h3>Analytix Support Docs</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-using-accesspoint.html">Using AccessPoint</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-salesflash-vs-advertisinganalytix.html">SalesFlash versus AdvertisingAnalytix</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-help-advanced-search.html">Advanced Search</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-license-management.html">Qlikview License (CALs) Management</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-bookmark-management.html">Qlikview Bookmark Management</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-reduce-data.html">Remove Data from Qlikview App</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1>Analytix Installation/Upgrade Guide</h1></header><article><div><span><hr>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#installing-analytix">Installing Analytix</a></li>
+<li><a href="#upgrading-analytix">Upgrading Analytix</a></li>
+</ul>
+<div style="page-break-after: always;"></div>
+<h2><a class="anchor" aria-hidden="true" id="introduction"></a><a href="#introduction" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Introduction</h2>
+<p>Before you can use Analytix, you will need to install a few things.  This document covers the installation of the Analytix files themselves.</p>
+<p>To install Analytix, you must first run the <strong>AnalytixInstaller_Setup.exe</strong> application.  This will install an application called <strong>analytix-installer</strong>.  The <strong>analytix-installer</strong> application is run the actually install or upgrade Analytix.</p>
+<p>Once the <strong>analytix-installer</strong> has been installed, it may be run multiple times.  For example, if you are going to create a <em>Production</em> and a <em>Testing</em> Analytix environment, you would want to run the <strong>analytix-installer</strong> twice.  Once for the <em>Production</em> environment and once fro the <em>Testing</em> environment.</p>
+<div style="page-break-after: always;"></div>
+<h2><a class="anchor" aria-hidden="true" id="installing-analytix"></a><a href="#installing-analytix" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Installing Analytix</h2>
+<p>Only install Analytix to a directory that you</p>
+<h3><a class="anchor" aria-hidden="true" id="step-1-choose-install-option"></a><a href="#step-1-choose-install-option" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Step 1: Choose Install Option</h3>
+<p>To install Analytix, you will run the Analytix Installation program.  Upon running, on the first screen, you will select the &quot;Install&quot; options and then click on &quot;Next&quot;:</p>
+<p><img src="https://dl.dropboxusercontent.com/s/f3j0p5cyoexw3mc/INSTALL_AnalytixInstallerStep1.png?dl=0" alt=""></p>
+<h3><a class="anchor" aria-hidden="true" id="step-2-choose-installation-directory"></a><a href="#step-2-choose-installation-directory" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Step 2: Choose Installation Directory</h3>
+<p>On the next page, you will be asked to select the location to install Analytix into.  Select, the root directory to install into and the application will add the &quot;Analytix&quot; directory for you.  Most sites simply install into the C drive.  If you click on the File select and choose &quot;C:&quot;, the installer will fill in the &quot;Analytix&quot; for you.</p>
+<p>Click &quot;Next&quot;.</p>
+<p><img src="https://dl.dropboxusercontent.com/s/ic36ljzt0xzbdsp/INSTALL_AnalytixInstallerStep2SelectDir.png" alt=""></p>
+<h3><a class="anchor" aria-hidden="true" id="step-3-install-analytix-copy-files"></a><a href="#step-3-install-analytix-copy-files" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Step 3: Install Analytix (Copy Files)</h3>
+<p>The last step is to simply click on the &quot;Install Analytix&quot; button on the last screen.  This will copy the appropriate files over to the directory you choose in step 2.</p>
+<p>.<img src="https://dl.dropboxusercontent.com/s/tpwft8u3n9h6ka5/INSTALL_AnalytixInstallerStep3CopyFiles.png" alt=""></p>
+<p>Once Analytix is installed, you will be presented with an &quot;Exit&quot; button.  At this point, you may exit the installer application.</p>
+<h3><a class="anchor" aria-hidden="true" id="what-the-installation-did"></a><a href="#what-the-installation-did" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>What the Installation Did</h3>
+<p>When the installation of Analytix is finished, you will find, in the directory you chose to install Analytix to, a structure that looks as follows:</p>
+<p>.<img src="https://dl.dropboxusercontent.com/s/6ym0e1g8900x2bc/INSTALL_DirectoryStructure.png?dl=0" alt=""></p>
+<p>Once the installation is finished, proceed to the <strong><em>Analytix Setup</em></strong> documentation to continue the setup needed to get Analytix running.</p>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="upgrading-analytix"></a><a href="#upgrading-analytix" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Upgrading Analytix</h2>
+<p>Before beginning, make sure you have the following:</p>
+<ul>
+<li>The Analytix Installer setup application.</li>
+<li>Remote access to the server where Analytix is installed</li>
+<li>Takes a screenshot of the <em>Load Switches</em> found in each of the SOURCE_....qvw files.<br>
+You will use these in Step 4(Updating Load Switches), when setting up the new Analytix Source files.
+<img src="https://dl.dropboxusercontent.com/s/zrcgxv84cgb0771/upgax_PreReqs1.png" alt="">
+If some of the switches ON/OFF button can't be seen.  Click on the Reload variables ON/OFF area.  This will usually show the other switches.</li>
+</ul>
+<p>When choosing to upgrade, you will be asked to enter the location of your production Analytix.  This will be the directory that will be upgraded.  Based on the chosen Analytix upgrade location, the application will choose a backup directory.  You may change this directory to a different location if you like.</p>
+<p>The upgrade application will perform the following steps:</p>
+<ol>
+<li>Backup Analytix to the backup directory chosen.</li>
+<li>Copy the upgrade files to your Analytix directory.</li>
+<li>Merge the existing qvVariables.json and qvGroups.json files with their Upgrade counterparts.</li>
+</ol>
+<p>Next, there is a manual step that will require opening the site's QVW files and transferring any custom built tabs/sheets over to the new Analytix QVW files.</p>
+<p>The last step is to test all of the changes with a full reload and then user testing.  Once everything checks out, the cleanup script can be run.</p>
+<p>The rest of this document will walk through each of these steps in details.</p>
+<h3><a class="anchor" aria-hidden="true" id="step-1-choose-upgrade-option"></a><a href="#step-1-choose-upgrade-option" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Step 1: Choose Upgrade Option</h3>
+<p>Start the <strong><em>analytix-installer</em></strong> application.  If it has not been installed, then install it first.</p>
+<p>Select &quot;Upgrade&quot; and click &quot;Next&quot;.</p>
+<table>
+<thead>
+<tr><th style="text-align:center">Step 1 - Choose Upgrade Option</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align:center"><img src="https://dl.dropboxusercontent.com/s/6dsvhn9arbhd3bu/UPGRADE_AnalytixInstallerStep1.png" alt=""></td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="step-2-choose-directory-to-upgrade"></a><a href="#step-2-choose-directory-to-upgrade" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Step 2: Choose Directory to Upgrade</h3>
+<p>Select the directory where the Analytix file to upgrade are located.  Once selected, the Installer application will suggest a backup directory.  If this location is OK, simply click &quot;Next&quot;.  If you would like to change the backup directory, click on the folder icon and choose a new backup location and the click &quot;Next&quot;.</p>
+<table>
+<thead>
+<tr><th style="text-align:center">Step 2 - Choose Directory to Upgrade and Backup Directory</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align:center"><img src="https://dl.dropboxusercontent.com/s/l28vhxse21sse3r/UPGRADE_AnalytixInstallerStep2.png" alt=""></td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="step-3-perform-upgrade"></a><a href="#step-3-perform-upgrade" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Step 3: Perform Upgrade</h3>
+<p>This is the step where the upgrade starts happening.  Note that there are three steps that happen:</p>
+<ol>
+<li>The Analytix directory chosen to be upgraded is backed up to the backup directory chosen.</li>
+<li>The Analytix upgrade files are copied to the Analytix directory chosen to be upgraded.</li>
+<li>Merge the existing qvVariables.json and qvGroups.json files with their Upgraded counterparts.</li>
+</ol>
+<table>
+<thead>
+<tr><th style="text-align:center">Step 3.1 - Backup Production Directory (Click &quot;Next&quot; after Green Checkmark appears)</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align:center"><img src="https://dl.dropboxusercontent.com/s/bbq86hi13jf444n/UPGRADE_AnalytixInstallerStep3-1.png?dl=0" alt=""></td></tr>
+</tbody>
+</table>
+<p><strong>Backup Details:</strong> This is a straightforward copy of all the files in your production directory.  The only files not copied are the *<strong>.qvd</strong> files in the <strong>\QVD</strong> directory.</p>
+<table>
+<thead>
+<tr><th style="text-align:center">Step 3.2 - Copy The Upgrade Files (Click &quot;Next&quot; after Green Checkmark appears)</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align:center"><img src="https://dl.dropboxusercontent.com/s/8y7wss7dfwol4mr/UPGRADE_AnalytixInstallerStep3-2.png?dl=0" alt=""></td></tr>
+</tbody>
+</table>
+<p><strong>Copy Details:</strong> The copy step copies the following files to the chosen Upgrade directory, overwriting the existing files except where noted below.</p>
+<ul>
+<li>.\SOURCE -&gt; *.QVW</li>
+<li>.\QVD -&gt; *.QVW</li>
+<li>.\QVW -&gt; copy the QVW over, but prefix them with UPG_</li>
+<li>.\Include\*.qvs</li>
+<li>.\Include\Image\<em>.</em></li>
+<li>.\Include\SystemQVW\*.*</li>
+<li>.\Include\VariableEditor\
+<ul>
+<li>Before copying the new qvVariables.json file, the existing qvVariables.json file in the Upgrade directory will be renamed to SITE_qvVariables.json.</li>
+</ul></li>
+<li>.\Include\GroupEditor\
+<ul>
+<li>Before copying the new qvGroups.json file, the existing qvGroups.json file in the Upgrade directory will be renamed to SITE_qvGroups.json.</li>
+</ul></li>
+</ul>
+<table>
+<thead>
+<tr><th style="text-align:center">Step 3.3 - Merge the Variable and Group Files</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align:center"><img src="https://dl.dropboxusercontent.com/s/is32wrd6qo283bm/UPGRADE_AnalytixInstallerStep3-3.png?dl=0" alt=""></td></tr>
+</tbody>
+</table>
+<p><strong>Merge Details:</strong> The qvVariables.json and qvGroups.json files contain information used in your Analytix files.  These files can also be modified by the site administrator using the Variable Editor and/or Group Editor programs.</p>
+<p>If you edit these files, we do not want to overwrite anything you have changed with items from the upgrade files.</p>
+<p>This step will compare each of these files with their counterpart in the upgrade and make sure to not overwrite anything that you have changed.</p>
+<p>Once done, it will export the a new copy of the needed XML files to the ..\include\ directory.</p>
+<table>
+<thead>
+<tr><th style="text-align:center">Step 3.4 - Click &quot;Exit&quot;</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align:center"><img src="https://dl.dropboxusercontent.com/s/0u01eb1qdzf2cag/UPGRADE_AnalytixInstallerStep3-4.png?dl=0" alt=""></td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="step-4-manually-transfer-custom-tabs"></a><a href="#step-4-manually-transfer-custom-tabs" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Step 4 - Manually Transfer Custom Tabs</h3>
+<p>Each site using Analytix has the ability to create custom report and chart objects in Analytix. Even though sites do this, there still must be a way to upgrade them to the latest version.  This is done by having the site keep all their custom reporting objects on separate tabs/sheets within the Analytix QVW files located in the QVW directory.</p>
+<p>This makes it easy to merge their custom work with the new Analytix QVWs.</p>
+<p>To perform this step, you will need to be on the Analytix server and using the Qlikview Developer software.</p>
+<p>You will perform the following steps on each of the Analytix files in the QVW directory  in the Analytix directory you chose to upgrade (probably Analytix\QVW).  Note, that some may not have any custom tabs.  If this is the case, then you do not need to do anything with that file and its associated UPG_ file.</p>
+<p><strong>SalesFlash.qvw</strong> will be used in this example.</p>
+<ol>
+<li>Open SalesFlash.qvw in Qlikview Developer (This is the sites QVW file)</li>
+<li>Open a new instance of Qlikview Developer and open the UPG_SalesFlash.qvw</li>
+<li>I like to put these two files side by side on a single screen.  You can use the WinKey + Left arrow for SalesFlash.qvw and then WinKey + Right arrow for the Qlikview Developer with the UPG_SalesFlash.qvw open.  It will look like this:
+<img src="https://dl.dropbox.com/s/zybkbacnpksybom/UPGRADE_AnalytixInstallerStep4.png?dl=0" alt=""></li>
+<li><strong>NOTE</strong>: You will be moving tabs <strong>FROM</strong> SalesFlash.qvw <strong>TO</strong> UPG_SalesFlash.qvw</li>
+<li>For the actual moving of tabs, you will need to know which tabs are the site's custom tabs.  It is best to let the site tell you which tabs are theirs.  Also note that sites can choose to hide any of the default tabs that are in each Analytix application.
+<ul>
+<li><strong>NOTE</strong>: The &quot;Budget&quot; and &quot;CRM&quot; tabs are shown/hidden by setting a Varaible.  See main tab in SOURCE_SalesFlash.qvw.  The following variables can also be modified in the Variable Editor: -vLoadBudget, -vLoadCRM</li>
+</ul></li>
+<li>Now the site's tabs will be copied from SalesFlash.qvw to UPG_SalesFlash.qvw.  To do this:
+<ul>
+<li>Make one of the site's tabs active.</li>
+<li>Press Ctrl/Shift/S.  This will show all objects, even those that are hidden.</li>
+<li>Press Ctrl/a.  This will select all of the objects.</li>
+<li>Press Ctrl/c.  This will copy all of the objects to your clipboard.</li>
+<li>Make the UPG_SalesFlash.qvw active.</li>
+<li>From the Menu click &quot;Layout/Add sheet...&quot;. This will add a new sheet to the UPG_SalesFlash.qvw file.</li>
+<li>Press Ctrl/v. This will paste all of the previously selected objects.</li>
+<li>From the Menu click &quot;Settings/Sheet Properties...&quot;.  This will display the sheet properties dialog.  In this dialog rename the tab to match what is was in the old version and update any colors or other customization the site had done to the tab/sheet.</li>
+<li>Move the tab to the proper position in the list of tabs.  This can be done by right clicking on the tab and choosing &quot;Promote sheet&quot; or &quot;Demote Sheet&quot;.</li>
+</ul></li>
+</ol>
+<p>Do this for the other QVW files that the site has made modifications to.  More than likely it will just be the following:</p>
+<ul>
+<li>SalesFlash.qvw -&gt; UPG_SalesFlash.qvw</li>
+<li>AdvertisingAnalytix.qvw -&gt; UPG_AdvertisingAnalytix.qvw</li>
+<li>Contracts.qvw -&gt; UPG_Contracts.qvw</li>
+<li>ARAnaltyix.qvw -&gt; UPG_ARAnaltyix.qvw</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="step-5-rename-the-upgrade-files"></a><a href="#step-5-rename-the-upgrade-files" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Step 5 - Rename the Upgrade Files</h3>
+<p>Now, the UPG_... files will need to be renamed and have the <strong>UPG_</strong> prefix stripped from them.  You will also remove the old QVW files. However, if you need to get access to these files, they will be in the Analytix backup directory you specified in Step 2.</p>
+<p>Run the following commands or manually make the changes in Windows File Explorer:</p>
+<pre><code class="hljs">&gt; <span class="hljs-selector-tag">del</span> AdvertisingAnalytix<span class="hljs-selector-class">.qvw</span>
+&gt; <span class="hljs-selector-tag">del</span> ARAnalytix<span class="hljs-selector-class">.qvw</span>
+&gt; <span class="hljs-selector-tag">del</span> SalesFlash<span class="hljs-selector-class">.qvw</span>
+&gt; <span class="hljs-selector-tag">del</span> Contracts<span class="hljs-selector-class">.qvw</span>
+&gt; rename UPG_AdvertisingAnalytix<span class="hljs-selector-class">.qvw</span> AdvertisingAnalytix<span class="hljs-selector-class">.qvw</span>
+&gt; rename UPG_ARAnalytix<span class="hljs-selector-class">.qvw</span> ARAnalytix<span class="hljs-selector-class">.qvw</span>
+&gt; rename UPG_SalesFlash<span class="hljs-selector-class">.qvw</span> SalesFlash<span class="hljs-selector-class">.qvw</span>
+&gt; rename UPG_Contracts<span class="hljs-selector-class">.qvw</span> Contracts<span class="hljs-selector-class">.qvw</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="step-6-reload-source-and-update-load-switches"></a><a href="#step-6-reload-source-and-update-load-switches" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Step 6: Reload Source_... and Update Load Switches</h3>
+<p>Each of the SOURCE files has a set of load switches.  When doing an upgrade, these will all be reset.  This step will get those set back to what the site had before the upgrade.</p>
+<p>To do this properly, we first need to reload the SOURCE file variables.  To do this:</p>
+<ol>
+<li>Open SOURCE\SOURCE_SalesFlash.qvw in Qlikview Developer.</li>
+<li>Turn On the <em>&quot;Reload Variables&quot;</em> option.</li>
+<li>If the site is large and a reload would take a long time, I would suggest doing a limited load by using the Debug load option.</li>
+<li>Once the reload is finished, the other Load Switches must be set.  Simply refer back to the screenshots or notes that you made before the upgrade (or go into the Analytix backup directory if needed) and set the switches as they were set.</li>
+<li>Save the file.</li>
+<li>Repeat the above 5 steps for each of the SOURCE files.</li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="step-7-full-reload-and-testing"></a><a href="#step-7-full-reload-and-testing" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Step 7: Full Reload and Testing</h3>
+<p>At this point, Analytix should be upgraded to the latest version.  Now it is time to do a full reload and have the users do some testing.</p>
+<p>The full reload is best accomplished by going into the QMC (Qlikview Management Console) and manually starting the <strong>QVD_ALL</strong> job by clicking on the play icon next to the job name.</p>
+<p><img src="https://dl.dropboxusercontent.com/s/xh4ho6rslvmqmoq/upgax_QMC.png" alt=""></p>
+<p>Once reloaded have the site do a couple of days of testing.  Once verified that all is well continue to step 7.</p>
+<h3><a class="anchor" aria-hidden="true" id="step-8-cleanup-of-backup-directory"></a><a href="#step-8-cleanup-of-backup-directory" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Step 8: Cleanup of Backup Directory</h3>
+<p>The last step is to remove the Backup Analytix directory.  I would suggest leaving it until the site is confident that the Upgrade was successful.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/analytix/analytix-preinstall-checklist.html">← Analytix Pre Install Checklist</a><a class="docs-next button" href="/docs/analytix/analytix-setup.html">Analytix Setup →</a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#introduction">Introduction</a></li><li><a href="#installing-analytix">Installing Analytix</a><ul class="toc-headings"><li><a href="#step-1-choose-install-option">Step 1: Choose Install Option</a></li><li><a href="#step-2-choose-installation-directory">Step 2: Choose Installation Directory</a></li><li><a href="#step-3-install-analytix-copy-files">Step 3: Install Analytix (Copy Files)</a></li><li><a href="#what-the-installation-did">What the Installation Did</a></li></ul></li><li><a href="#upgrading-analytix">Upgrading Analytix</a><ul class="toc-headings"><li><a href="#step-1-choose-upgrade-option">Step 1: Choose Upgrade Option</a></li><li><a href="#step-2-choose-directory-to-upgrade">Step 2: Choose Directory to Upgrade</a></li><li><a href="#step-3-perform-upgrade">Step 3: Perform Upgrade</a></li><li><a href="#step-4-manually-transfer-custom-tabs">Step 4 - Manually Transfer Custom Tabs</a></li><li><a href="#step-5-rename-the-upgrade-files">Step 5 - Rename the Upgrade Files</a></li><li><a href="#step-6-reload-source-and-update-load-switches">Step 6: Reload Source_... and Update Load Switches</a></li><li><a href="#step-7-full-reload-and-testing">Step 7: Full Reload and Testing</a></li><li><a href="#step-8-cleanup-of-backup-directory">Step 8: Cleanup of Backup Directory</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/newscycle-circle.png" alt="Newscycle Solutions - Analytix Docs" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/analytixsetup.html">Getting Started With Analytix</a><a href="/docs/bi-auditors.html">BI Docs</a></div><div><h5>Newscycle Solutions</h5><a href="http://newscycle.com/" target="_blank">Newscycle Website</a><a href="https://twitter.com/NEWSCYCLE_News?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor" target="_blank">Twitter</a></div><div><h5>More</h5><a href="/blog">Blog</a></div></section><a href="https://newscyclesolutions.com" target="_blank"><img src="/img/NewscycleLogo.png" alt="Newscycle Solutions" width="226" height="42" style="margin:1em auto;display:block;width:226px"/></a><section class="copyright">Copyright © 2018 Newscycle Solutions.</section></footer></div></body></html>

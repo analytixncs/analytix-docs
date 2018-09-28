@@ -1,0 +1,239 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>The Power of Set Analysis · Newscycle Solutions - Analytix Docs</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="[Optional Header]: # &quot;The Power of Set Analysis&quot;"/><meta property="og:title" content="The Power of Set Analysis · Newscycle Solutions - Analytix Docs"/><meta property="og:type" content="website"/><meta property="og:url" content=".//index.html"/><meta property="og:description" content="[Optional Header]: # &quot;The Power of Set Analysis&quot;"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><link rel="stylesheet" href="/css/main.css"/></head><body class="sideNavVisible doc separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/newscycle-circle.png" alt="Newscycle Solutions - Analytix Docs"/><h2 class="headerTitleWithLogo">Newscycle Solutions - Analytix Docs</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/docs/analytix/analytix-bi-overview.html" target="_self">Analytix</a></li><li class=""><a href="/docs/bi/bi-resources.html" target="_self">BI</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Analytix Developer Guides</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup navGroupActive"><h3>Analytix Intro</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-bi-overview.html">Analytix and BI Overview</a></li></ul></div><div class="navGroup navGroupActive"><h3>Analytix Setup/Main</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-preinstall-checklist.html">Analytix Pre Install Checklist</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-install.html">Analytix Install/Upgrade Guide</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-setup.html">Analytix Setup</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-admin-guide.html">Analytix Admin Guide</a></li></ul></div><div class="navGroup navGroupActive"><h3>Analytix User Guides</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-salesflash-userguide.html">Salesflash User Guide</a></li></ul></div><div class="navGroup navGroupActive"><h3>Analytix Developer Guides</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-salesflash-developerguide.html">Salesflash Developer Guide</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-training-aggr-function.html">AGGR Function Training</a></li><li class="navListItem navListItemActive"><a class="navItem navItemActive" href="/docs/analytix/analytix-training-set-analysis.html">The Power of Set Analysis</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-balance-to-gl.html">Balancing Analytix to Core</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-exchange-rate.html">Exchange Rate / Foreign Currency in Analytix</a></li></ul></div><div class="navGroup navGroupActive"><h3>Analytix Support Docs</h3><ul><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-using-accesspoint.html">Using AccessPoint</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-salesflash-vs-advertisinganalytix.html">SalesFlash versus AdvertisingAnalytix</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-help-advanced-search.html">Advanced Search</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-license-management.html">Qlikview License (CALs) Management</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-bookmark-management.html">Qlikview Bookmark Management</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-reduce-data.html">Remove Data from Qlikview App</a></li></ul></div></div></section></div><script>
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1>The Power of Set Analysis</h1></header><article><div><span><hr>
+<ul>
+<li><a href="#what-is-set-analysis">What is Set Analysis</a></li>
+<li><a href="#set-analysis-syntax">Set Analysis Syntax</a>
+<ul>
+<li><a href="#set-identifiers">Set Identifiers</a></li>
+<li><a href="#set-operators">Set Operators</a></li>
+<li><a href="#set-modifiers">Set Modifiers</a></li>
+</ul></li>
+<li><a href="#set-modifiers-with-set-operators">Set Modifiers with Set Operators</a></li>
+<li><a href="#removing-a-selection">Removing a Selection</a></li>
+<li><a href="complex-set-operations">Complex Set Operations</a></li>
+<li><a href="#set-modifiers-with-dollar-sign-expansion">Set Modifiers with Dollar Sign Expansion</a></li>
+<li><a href="#element-functions---p()-and-e()">Element Functions - P() and E()</a></li>
+<li><a href="#how-to-put-a-formula-on-the-left-side">How to Put a Formula on the Left Side</a></li>
+<li><a href="#set-analysis-examples">Set Analysis Examples</a></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="what-is-set-analysis"></a><a href="#what-is-set-analysis" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>What is Set Analysis</h2>
+<p>When you create an expression with an aggregation function such as <strong>SUM(Sales)</strong>, that expressions sums only the available transactions available in the current set, which is defined by the current selections that a user has made.</p>
+<p>Below, the diagram is trying to give you a visual handle on data within Qlikview.  When you open up Advertising Analytix and before any selections are made, all your charts are operations on “ALL DATA” in the application.  When you start making selections, that data becomes smaller and more refined.</p>
+<p>In the example below, you can see that if you select the Year 2010, our charts will only be using a subset of “ALL DATA” in the application.  If we make another selection on Product, so that we are now looking at Year = 2010 and Product = ‘Atex’, our data set has just become more refined.</p>
+<p><img src="../assets/SETANALYSIS_1537978195484.png" alt="1537978195484"></p>
+<p>The way to we filter the data within a Qlikview application is by making a selection in a list box or chart that limits the values in a certain field, i.e. Year = 2010.</p>
+<p>This is very powerful, but the data subset created by making selections applies to everything in our application.  This means that once we filter by 2010, no Qlikview objects can access any other year of data until we change our selection criteria.</p>
+<p>Set Analysis lets us break through this barrier by allowing us to define a whole new set of data regardless of the current selections already made.</p>
+<p>Most of the time we will still want to recognize the selections that have already been made, but no longer will we be constrained by them.</p>
+<p><img src="../assets/SETANALYSIS_1537978234332.png" alt="1537978234332"></p>
+<p>The above diagram illustrates how you can use Set Analysis to move outside of the current selection within an expression easily.</p>
+<hr>
+<div style="page-break-after: always;"></div>
+<h2><a class="anchor" aria-hidden="true" id="set-analysis-syntax"></a><a href="#set-analysis-syntax" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Set Analysis Syntax</h2>
+<p>First of all, when we write Set Analysis code, we call it a <strong>Set Expression</strong>.  A set expression is used in aggregation functions to define the set of data those aggregation functions will operate over.</p>
+<p>Be warned, the set syntax can get complicated, so even if you get results back ALWAYS check the data being returned to verify that your set expression is returning the data that you want it to return.</p>
+<p>The set expression can be thought of as consisting of three parts:</p>
+<ol>
+<li><p>Identifiers – designates our starting data set.</p></li>
+<li><p>Operators – allows us to combine multiple data sets (defined by set expressions) and return a set as a result.</p></li>
+<li><p>Modifiers – syntax that modifies the contents of a set by filtering field values.</p></li>
+</ol>
+<p>Set Expression Identifiers</p>
+<p>Let’s take a look at a simple set expression within an aggregation function:</p>
+<p>SUM(<strong>{1}</strong> Revenue)</p>
+<p>The set expression is contained within the curly braces {} within the aggregation function.  The 1 inside the curly braces is a set identifier.  It is defining the set that is going to be passed to the aggregation function.</p>
+<hr>
+<h3><a class="anchor" aria-hidden="true" id="set-identifiers"></a><a href="#set-identifiers" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Set Identifiers</h3>
+<p><strong>{1}</strong> – represents the full set of data within the application.  Using the 1 identifier is telling the aggregation function to disregard any selections that have been made and look at the whole data set.</p>
+<p><strong>{$}</strong> – represents the records of the current selection.  Using the $ alone as a set expression is equivalent to not using a set expression at all.</p>
+<p><strong>{$1}</strong> – represents the records of the Previous selection.  Supposed to be equivalent to pressing the Back button. Use this with caution.  I won’t say it is faulty, but the rules upon which it operates are not easy to tell.</p>
+<p><strong>{$_1}</strong> – represents the records in the Next selection.  Supposed to be equivalent to pressing the forward history button.</p>
+<p><strong>{BookMarkName}</strong> – represents the records in the bookmark name used.  You may also use the Bookmark ID if you know it.</p>
+<p>Here is how you would use these identifiers in aggregation functions.</p>
+<p>SUM(<strong>{1}</strong> Revenue)  -- Sum the revenue ignoring any selections made.  This would be the same as clicking on the clear button.</p>
+<p>SUM(<strong>{BM01}</strong> Revenue) – Sum the revenue for the transactions that are in the set of data defined by the BM01 bookmark.  If this bookmark had the criteria Year = 2010 and Product = ‘Atex’, only those transactions meeting that criteria would be included in the calculation.</p>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="set-operators"></a><a href="#set-operators" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Set Operators</h2>
+<p>Set operators use sets as operands and return a set as a result.  You can draw an analogy between an arithmetic equation and the set operators.</p>
+<p>First, here are the operators and their function:</p>
+<p>In the examples below think of SetA and SetB as Bookmarks that each corresponds to a set of data.</p>
+<p><strong>+     Union operator.</strong>  Returns a set consisting of records that belong to ANY of the two operands</p>
+<p><img src="../assets/SETANALYSIS_1537978434011.png" alt="1537978434011"></p>
+<p><strong>-      Exclusion operator.</strong>  As a binary operation (using two operands/sets), returns the set of records that belong only to the first of the two operands.  You can think of this as the mathematical MINUS, but acting on sets of data. Removing records from the first set that exist in the second set.</p>
+<p><img src="../assets/SETANALYSIS_1537981632318.png" alt="1537981632318"></p>
+<p>***     Intersection operator.** Returns the set consisting of records that belong to both sets of data.</p>
+<p><img src="../assets/SETANALYSIS_1537978508475.png" alt="1537978508475"></p>
+<p><strong>/     Symmetric difference (XOR) operator.</strong>  This returns a set consisting of records that belong to either Set A or Set B but <strong>NOT BOTH</strong>.  So in the diagram below, the records that are intersecting between the sets are excluded from the resultant set.</p>
+<p><img src="../assets/SETANALYSIS_1537978526210.png" alt="1537978526210"></p>
+<div style="page-break-after: always;"></div>
+<hr>
+<h3><a class="anchor" aria-hidden="true" id="set-operator-syntax"></a><a href="#set-operator-syntax" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Set Operator Syntax</h3>
+<p>The syntax for these operators is shown in the following example.  Note that this type of selection was never possible in Qlikview before the introduction of Set Analysis.</p>
+<p><strong>SUM({1 - $} Revenue)</strong></p>
+<p>The above example is using the exclusion operator and results in a set of all the records not currently selected.  The <strong>1</strong> indicates all of the data within the application, whereas the <strong>$</strong> indicates the data available based on the current selection.  When you take away this data from whole data set of the application you are left with, data that was not selected in our current selections.</p>
+<p>Another Example using a Bookmark:</p>
+<p><strong>SUM({$*BM01} Revenue)</strong></p>
+<p>This example is returning a set of data that is the intersection of the Current Selection and Bookmark BM01.  To visualize this, let’s say these are our data sets:</p>
+<p><strong>$</strong> <strong>🡒 Year = 2010</strong></p>
+<p><strong>BM01</strong> <strong>🡒 Product = ‘Atex’</strong></p>
+<p>Then the intersection {$*BM01} would be transactions that are the Atex Product falling in the year 2010.</p>
+<p>The figure below is trying to draw an analogy between a standard arithmetic statement and a Set Analysis statement.</p>
+<p><img src="../assets/SETANALYSIS_1537978871311.png" alt="1537978871311"></p>
+<p>You are not limited to just two operands; you can do something like this:</p>
+<p><strong>SUM(1-($+BM01) Revenue)</strong></p>
+<p>Notice that I am using standard brackets () to designate the order of operations on my sets.  If you ever have more than two operands, use brackets () to make the order of operations clear.</p>
+<p>In the above example, we first Union the Current Selection with Bookmark BM01 and then Exclude that from the full data set of the application.</p>
+<hr>
+<div style="page-break-after: always;"></div>
+<h2><a class="anchor" aria-hidden="true" id="set-modifiers"></a><a href="#set-modifiers" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Set Modifiers</h2>
+<p>Now we get to the real power of Set Analysis.  The set modifiers allow us to modify our set of data by filtering by fields.  Remember that when we are talking about modifying a selection, we are only talking about the selection that applies to the set of data we are working with in our current Set Analysis expression.</p>
+<p>The modifier syntax is enclosed by &lt; and &gt; with a set expression.  The modifier itself consists of one or several field names, each followed by selection criteria.</p>
+<p><strong>SUM({$&lt;ProductName={’Atex’}&gt; } Revenue)</strong></p>
+<p>Let’s break apart this set expression</p>
+<p><strong>{$&lt;ProductName={’Atex’}&gt; }</strong> – Full set expression</p>
+<p><strong>{$  }</strong> – This is giving us our initial set of data to work with.  Notice we are using the $ Set Identifier, which means our initial set of data is whatever is available given our current selections.</p>
+<p><strong>&lt;ProductName={’Atex’}&gt;</strong> – This is the Set Modifier section.  This is further modifier our initial set of data by limiting it to only records that have a ProductName equal to Atex.  Note the angle brackets &lt;&gt; enclosing the set modifier and also notice that the field value ‘Atex’ is enclosed in curly brackets {}.</p>
+<p>The $ set identifier is options, so you may rewrite the above example as:</p>
+<p><strong>SUM({&lt;ProductName={’Atex’}&gt; } Revenue)</strong></p>
+<p>The above example will return Revenue for all records with a ProductName of Atex.  Note, that this becomes a new selection on ProductName.  If there were any other selections on ProductName, they will be disregarded.</p>
+<p>If you simply want to add a product selection to your current selection in that field you would use the following syntax. (See <a href="#set-modifiers-with-set-operators">Set Modifiers with Set Operators</a>)</p>
+<p><strong>SUM({$&lt;ProductName=ProductName + {’Atex’}&gt; } Revenue)</strong></p>
+<p>If a selection is in the current selections ($), then the above example will return a data set containing whatever selections are currently made plus ‘Atex’.  If no selections are present in ProductName, then you will get a return data set of all products, meaning that the above will act the same as SUM($(NetRevenue) ) if no selections are present in the ProductName.</p>
+<h3><a class="anchor" aria-hidden="true" id="multiple-modifiers-fields"></a><a href="#multiple-modifiers-fields" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Multiple Modifiers Fields</h3>
+<p>If you want to limit based on multiple fields, just separate the other fields with a comma as below:</p>
+<p><strong>SUM({$&lt;ProductName={’Atex’}, Year={2010}&gt; } Revenue)</strong></p>
+<h3><a class="anchor" aria-hidden="true" id="multiple-modifiers-field-values"></a><a href="#multiple-modifiers-field-values" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Multiple Modifiers Field Values</h3>
+<p>Next, what if you want to have multiple field values in your modifier:</p>
+<p><strong>SUM({$&lt;ProductName={’Atex’, ‘Mactive’}, Year={2010, 2009}&gt; } Revenue)</strong></p>
+<h3><a class="anchor" aria-hidden="true" id="wild-card-searches"></a><a href="#wild-card-searches" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Wild Card Searches</h3>
+<p>You can do a wildcard search using the * character.  You must enclose the field value in double quotes.</p>
+<p>Also, the search is case Insensitive and will search over excluded values.  This means that if you have a selection made of ProductName = ‘Mactive’, the below example will still return transactions.</p>
+<p><em><em>SUM({&lt;ProductName={“*Atex</em>”}&gt; } Revenue)</em>*</p>
+<h3><a class="anchor" aria-hidden="true" id="empty-sets"></a><a href="#empty-sets" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Empty Sets</h3>
+<p>Using the Set Modifiers you can also get <strong>Empty Sets</strong>.  This means that you will get a set of records not associated with the field used in your set modifier.</p>
+<p><strong>SUM({&lt;ProductName={}&gt; } Revenue)</strong></p>
+<p>The above example is how you designate an empty set.  The set returned will only contain records that DO NOT have a product linked to them.</p>
+<p>Be aware that they the BI database is structured (dimensional model), there are no empty set for the dimensions.  The reason for this is because every transaction’s link from a fact table to a dimension is not allowed to be NULL (empty).  So, if we have a transaction without a product, then we link it to what we call a NULL row in the dimension table.  Hence, that transaction would not be considered to be without a product.</p>
+<p>So, be careful when using this syntax.</p>
+<h3><a class="anchor" aria-hidden="true" id="removing-selections"></a><a href="#removing-selections" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Removing Selections</h3>
+<p>If you want to use the $ as the initial set of data, but want to make sure that even if a certain field has a selection in it, that it will be removed, you will need the following syntax.</p>
+<p><strong>SUM({$&lt;ProductName=&gt; } Revenue)</strong></p>
+<p>This will return revenue with all the current selections intact, BUT if there was a selection on ProductName, it will be removed.</p>
+<h3><a class="anchor" aria-hidden="true" id="date-and-number-modifiers"></a><a href="#date-and-number-modifiers" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Date and Number Modifiers</h3>
+<p>Date and numbers have a unique syntax that is very powerful.</p>
+<p><strong>SUM({$&lt;Insert_CalendarDate={’&gt;10/20/2009&lt;11/20/2009’}&gt; } Revenue)</strong></p>
+<p>This will return all records that fall within the date range given.</p>
+<p>Here is another example:</p>
+<p><strong>SUM({$&lt;Year={’&gt;=2009’}&gt; } Revenue)</strong></p>
+<p>Notice that you put the equality signs inside the set modifier values {‘’}.</p>
+<hr>
+<div style="page-break-after: always;"></div>
+<h2><a class="anchor" aria-hidden="true" id="set-modifiers-with-set-operators"></a><a href="#set-modifiers-with-set-operators" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Set Modifiers with Set Operators</h2>
+<p>You can get some powerful results by combining set modifiers with set operators.</p>
+<p>We’ve seen this example previously, but let’s go over it again…Let’s say you want to add a selection criterion to a field’s current selection.   For example, I want to make sure that no matter what is selected in the ProductName field, the field value ‘Atex’ is always part of my criteria:</p>
+<p><strong>SUM({$&lt;ProductName=ProductName + {’Atex’}&gt; } Revenue)</strong></p>
+<p>The above example will not only give you transactions for whatever values have been explicitly selected in ProductName, but also, the transactions with ‘Atex’ as a ProductName.</p>
+<p>You can use any of the <a href="#_Set_Operators:">Set Operators</a> to modify your selection.</p>
+<p>In the example below all transactions with the current ProductName selections are returned, but since we are using the exclusion operator, we are excluding any transactions that have a ProductName equal to ‘Atex’.</p>
+<p><strong>SUM({$&lt;ProductName=ProductName - {’Atex’}&gt; } Revenue)</strong></p>
+<p>The above two selections have allowed us to base our set analysis selection to be based on the current selection in a field and then add field values as we needed.  The syntax was:</p>
+<p><strong>{$&lt; FieldName =FieldName + {’Field Value’}&gt; }</strong></p>
+<p>For those of you who like shorthand notation, you can shorten these types of statement s to:</p>
+<p><strong>{$&lt; FieldName +=  {’Field Value’}&gt; }</strong></p>
+<p><strong>{$&lt; FieldName -=  {’Field Value’}&gt; }</strong></p>
+<p><strong>{$&lt; FieldName *=  {’Field Value’}&gt; }</strong></p>
+<p><strong>{$&lt; FieldName /=  {’Field Value’}&gt; }</strong></p>
+<p>So our example above would become:</p>
+<p><strong>SUM({$&lt;ProductName += {’Atex’}&gt; } Revenue)</strong></p>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="removing-a-selection"></a><a href="#removing-a-selection" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Removing a Selection</h2>
+<p>There will be times when you want to remove a selection criterion from your selection.  For example, we want remove the ProductName selection before Summing the Revenue:</p>
+<p><strong>SUM({$&lt;ProductName =&gt; } Revenue)</strong></p>
+<p>So this is equivalent to not having any ProductName’s selected and having SUM(Revenue) for your expression.</p>
+<p>This is very different from the following:</p>
+<p><strong>SUM({$&lt;ProductName = {}&gt; } Revenue)</strong></p>
+<p>This is indicating that you should only SUM revenue for transactions that have NO ProductName associated with them.</p>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="complex-set-operations"></a><a href="#complex-set-operations" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Complex Set Operations</h2>
+<p>There are an unlimited number of ways that you can use the features of Set Analysis to get at the information you need.  In the below example, Revenue will be summed for all Accounts that have BOTH of the Products across all transactions.</p>
+<p><strong>SUM({</strong>&lt;<strong>AccountNumber_AdBase={&quot;=COUNT({&lt;ProductName={'Atex Home'}&gt;} AccountNumber_AdBase) &gt; 0&quot;}</strong></p>
+<ul>
+<li></li>
+</ul>
+<p><strong>{&quot;=COUNT({&lt;ProductName={'Atex Style Magazine'}&gt;} AccountNumber_AdBase) &gt; 0&quot;}, ProductName=</strong>&gt;<strong>}</strong> <strong>Revenue)</strong></p>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="set-modifiers-with-dollar-sign-expansion"></a><a href="#set-modifiers-with-dollar-sign-expansion" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Set Modifiers with Dollar Sign Expansion</h2>
+<p>Dollar sign expansion is used to access variables and Qlikview functions within our set analysis expressions.  The syntax if fairly simple:</p>
+<p>$(VariableName)</p>
+<p>$(=FunctionName())</p>
+<p>When you put a variable name within the $(), it will return that value within that variable.  If you want to get a function to return a value, you must precede the function name with an equal sign.</p>
+<p><strong>SUM({$&lt;Insert_CalendarYear = { $(=Year(Today()))}&gt; } Revenue)</strong></p>
+<p>In the above example “<strong>$(=Year(Today())”</strong> is calling the Today() function, passing it to the Year function which will return the current year based on today’s date.</p>
+<p>You can also perform mathematical operations on these values.  Here we take one away from the current year giving us previous year:  “<strong>$(=Year(Today())-1)”</strong></p>
+<hr>
+<div style="page-break-after: always;"></div>
+<h2><a class="anchor" aria-hidden="true" id="element-functions-p-and-e"></a><a href="#element-functions-p-and-e" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Element Functions - P() and E()</h2>
+<p>Let’s say you want to filter your data so that you only have customers selected who have run and ad on a specific date.</p>
+<p>For example, I want to see all the revenue from all customers who ran an ad on “01/01/2018”.  Not how much revenue was generated on “01/01/2018”, but instead all the revenue for Customers who ran an ad on that day.</p>
+<p>To do this by using our list boxes, we would first select the Insert Date of “01/01/2018”, then select the possible values in the Customer Account Number list box, then lastly, deselect the Insert Date.</p>
+<p>If we want to handle all this selection within an expression we can do it using Element Functions.</p>
+<p>These are P() and E().</p>
+<p>The P() function lets you get the element set of possible values and E() giving you the element set of excluded values.</p>
+<p><strong>SUM({$&lt;AccountNumber_AdBase=P({1&lt;Insert_CalendarDate = {“01/01/2018”}&gt;} AccountNumber_AdBase)&gt; } Revenue)</strong></p>
+<p>The P() function is going to filter on all possible Account Numbers that have a Insert Date of 01/01/2018 and then allow us to SUM the revenue for all those accounts, but not limited to their revenue just on 01/01/2018.</p>
+<p>Another example, but using the E() function:</p>
+<p><strong>SUM({$&lt;AccountNumber_AdBase=E({1&lt;Insert_CalendarDate = {“01/01/2018”}&gt;} AccountNumber_AdBase)&gt; } Revenue)</strong></p>
+<p>Using the E() function will give us the opposite.  It will filter on Account Number but will include only Accounts that did not have a transaction on 01/01/2018.</p>
+<hr>
+<div style="page-break-after: always;"></div>
+<h2><a class="anchor" aria-hidden="true" id="how-to-put-a-formula-on-the-left-side"></a><a href="#how-to-put-a-formula-on-the-left-side" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>How to Put a Formula on the Left Side</h2>
+<p>One rule that we have to follow when writing Set Analysis expressions is that you must have a field name on the left side of the set expression:</p>
+<p><strong>SUM({$&lt;GL_Number ={0000} $(NetRevenue))</strong></p>
+<p>But what if we wanted to create a set that included all GL_Numbers that end in 0000.  Well, you would normally do something like this Right(GL_Number, 4)=0000, but our set Analysis rules says that we can do this!</p>
+<p>Well, we can use the trick below to get by this rule.</p>
+<p><strong>SUM({$&lt;GLNumber ={“=RIGHT(GLNumber, 4)=0000”}&gt;} $(NetRevenue))</strong></p>
+<p>Here we are using the right hand side of the equation to only return the GL Numbers that we want:</p>
+<p><strong>“=RIGHT(GLNumber, 4)=0000”</strong></p>
+<p>The result is that Qlikview returns only GLNumbers that have the last 4 digits of 0000.</p>
+<hr>
+<div style="page-break-after: always;"></div>
+<h2><a class="anchor" aria-hidden="true" id="set-analysis-examples"></a><a href="#set-analysis-examples" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Set Analysis Examples</h2>
+<p>Here are some example of Set Analysis in use:</p>
+<p><strong>SUM({$&lt;SoldBy_RepLoginName={&quot;=SUM({1&lt;Insert_CalendarYear={2010}&gt;} $(NetRevenue)) &gt; 100000&quot;}&gt;} $(NetRevenue))</strong></p>
+<p>The above example shows just how powerful set analysis can be.  It will return the Revenue for the whatever the current selection is, but with a new selection in the SoldBy_RepLoginName field: only reps who, during Insert Year 2010, sold more than $100,000 will be included.</p>
+<p>That example shows us that we can nest expressions within our set analysis expressions to get some truly powerful results.</p>
+<p>Here are some common examples that we use often in Analytix.  Year over Year comparison examples.</p>
+<p>First is the current year example comparing against today’s year.</p>
+<p><strong>SUM({$&lt;Insert_CalendarYear = { $(=Year(Today()))}&gt; } Revenue)</strong></p>
+<p>Next is the previous year example comparing against today’s year minus one.</p>
+<p><strong>SUM({$&lt;Insert_CalendarYear = { $(=Year(Today())-1)}&gt; } Revenue)</strong></p>
+<p>First is the current year example comparing against today’s year.</p>
+<p>The next example will give us only color charges for the current year:</p>
+<p><strong>SUM({$&lt;Insert_CalendarYear = { $(=Year(Today()))},ChargeCategory={'ColorItem'}&gt; } Revenue)</strong></p>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="conclusion"></a><a href="#conclusion" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Conclusion</h2>
+<p>As you can see set analysis is very powerful, but can get confusing as you build larger and more complex expressions.</p>
+<p>As you explore these capabilities, make sure that you are testing your expression to ensure that it is returning the data that you expect to see.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/analytix/analytix-training-aggr-function.html">← AGGR Function Training</a><a class="docs-next button" href="/docs/analytix/analytix-balance-to-gl.html">Balancing Analytix to the Core Database →</a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#what-is-set-analysis">What is Set Analysis</a></li><li><a href="#set-analysis-syntax">Set Analysis Syntax</a><ul class="toc-headings"><li><a href="#set-identifiers">Set Identifiers</a></li></ul></li><li><a href="#set-operators">Set Operators</a><ul class="toc-headings"><li><a href="#set-operator-syntax">Set Operator Syntax</a></li></ul></li><li><a href="#set-modifiers">Set Modifiers</a><ul class="toc-headings"><li><a href="#multiple-modifiers-fields">Multiple Modifiers Fields</a></li><li><a href="#multiple-modifiers-field-values">Multiple Modifiers Field Values</a></li><li><a href="#wild-card-searches">Wild Card Searches</a></li><li><a href="#empty-sets">Empty Sets</a></li><li><a href="#removing-selections">Removing Selections</a></li><li><a href="#date-and-number-modifiers">Date and Number Modifiers</a></li></ul></li><li><a href="#set-modifiers-with-set-operators">Set Modifiers with Set Operators</a></li><li><a href="#removing-a-selection">Removing a Selection</a></li><li><a href="#complex-set-operations">Complex Set Operations</a></li><li><a href="#set-modifiers-with-dollar-sign-expansion">Set Modifiers with Dollar Sign Expansion</a></li><li><a href="#element-functions-p-and-e">Element Functions - P() and E()</a></li><li><a href="#how-to-put-a-formula-on-the-left-side">How to Put a Formula on the Left Side</a></li><li><a href="#set-analysis-examples">Set Analysis Examples</a></li><li><a href="#conclusion">Conclusion</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/newscycle-circle.png" alt="Newscycle Solutions - Analytix Docs" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/analytixsetup.html">Getting Started With Analytix</a><a href="/docs/bi-auditors.html">BI Docs</a></div><div><h5>Newscycle Solutions</h5><a href="http://newscycle.com/" target="_blank">Newscycle Website</a><a href="https://twitter.com/NEWSCYCLE_News?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor" target="_blank">Twitter</a></div><div><h5>More</h5><a href="/blog">Blog</a></div></section><a href="https://newscyclesolutions.com" target="_blank"><img src="/img/NewscycleLogo.png" alt="Newscycle Solutions" width="226" height="42" style="margin:1em auto;display:block;width:226px"/></a><section class="copyright">Copyright © 2018 Newscycle Solutions.</section></footer></div></body></html>
