@@ -59,7 +59,7 @@ Once you have authenticated, you will be able to see the AccessPoint home page.
 
 It will look something like this:
 
-![](./assets/ACCESSPOINT-Main1.png)
+![](../assets/ACCESSPOINT-Main1.png)
 
 
 
@@ -89,7 +89,7 @@ Before you open an Analytix application, you really should select a category.  Y
 
 Once you have chosen the "Production" category, you will see the following:
 
-![](./assets/ACCESSPOINT-Open1.png)
+![](../assets/ACCESSPOINT-Open1.png)
 
 To open an application, either click on the image of the application or click on the named link of the application that you want to open.
 
@@ -99,19 +99,19 @@ If you use the plug in, the screen will look like the image below.  Note that th
 
 ***Plugin version***
 
-![](./assets/ACCESSPOINT-IE1.png)
+![](../assets/ACCESSPOINT-IE1.png)
 
 If you are using the full browser version, then the toolbar will be in black and white.
 
 ***Full Browser Version***
 
-![](./assets/ACCESSPOINT-JS1.png)
+![](../assets/ACCESSPOINT-JS1.png)
 
 ### Choosing Plugin or Full Browser Version
 
 If you click on the **view details** link under each application, you will see a popup box with some additional information.
 
-![](./assets/ACCESSPOINT-ViewDetails1.png)
+![](../assets/ACCESSPOINT-ViewDetails1.png)
 
 You will see the different options available to you for opening the application.  If you are in IE with the plugin installed, then you will have the "Internet Explorer Plugin" option available.  All other browsers will have the "Full Browser Version" and possibly the "Small Device Version".
 
@@ -133,7 +133,7 @@ There are a few significant differences when you are not using the plugin to vie
 
 If using the Plugin in Internet Explorer, the easiest way to access your bookmarks will be by pressing the F2 key or clicking on the Server Objects icon in the toolbar.
 
-![](./assets/ACCESSPOINT-SOIcon1.png)
+![](../assets/ACCESSPOINT-SOIcon1.png)
 
 This will open the **Server Object Pane**, where you will be able to see all of your Bookmarks and Objects as well as all shared Bookmarks and Objects.
 
@@ -141,11 +141,11 @@ This will open the **Server Object Pane**, where you will be able to see all of 
 
 To access your bookmarks in the full browser version, you will need to find an empty area of the screen and right-click, then choose **Repository** or click on the Repository icon in the toolbar.
 
-![](./assets/ACCESSPOINT-RepositoryIcon.png)
+![](../assets/ACCESSPOINT-RepositoryIcon.png)
 
 The Repository allows you to view your own and shared bookmarks and objects.
 
-![](./assets/ACCESSPOINT-Repository.png)
+![](../assets/ACCESSPOINT-Repository.png)
 
 There are two drop downs in the repository dialog. 
 

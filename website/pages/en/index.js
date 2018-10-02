@@ -81,6 +81,7 @@ class HomeSplash extends React.Component {
           <ProjectTitle />
           <PromoSection>
             <Button href={docUrl('analytix/analytix-bi-overview.html')}>Analytix</Button>
+            <Button href={'docs/analytix/analytix-bi-overview.html'}>AnalytixNaked</Button>
             <Button href={docUrl('bi/bi-resources.html', language)}>BI Docs</Button>
            </PromoSection>
         </div>
@@ -202,8 +203,8 @@ const Resources = () => {
       <div className="resource-container">
         <div className="resource-container__group">
           <ul className="resource-container__list">
-            <li><a href="analytix-docs/docs/assets/downloads/AGGR-AdvancedTraining.pdf">Set Analysis</a></li>
-            <li><a href="analytix-docs/docs/assets/downloads/SetAnalysis-AdvancedTraining.pdf">AGGR</a></li>
+            <li><a href="docs/assets/downloads/AGGR-AdvancedTraining.pdf">Set Analysis</a></li>
+            <li><a href="docs/assets/downloads/SetAnalysis-AdvancedTraining.pdf">AGGR</a></li>
           </ul>
         </div>
         <div className="resource-container__group">
