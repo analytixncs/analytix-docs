@@ -15,24 +15,12 @@ There are two primary directories that contain data to be changed:
 
 ## docs Section
 
-As stated above, all of the documentation, downloadable files or images will be located in the `analytix-docs/docs/` folder.
+As stated above, all of the documentation, downloadable files or images will be located in the
+ `analytix-docs/docs/` folder.
 
 The current structure inside this folder is as follows:
 
-docs/
-├── analytix/
-│   ├── analyix-doc-file.md
-│   └── analytix-doc-file2.md
-├── bi/
-│   └── bi-doc-file.md
-├── support/
-│   ├── qlikview-doc-file.md
-│   └── bi-support-file.md
-└── assets/
-​    ├── downloads/    
-​    ├── image-file.png
-​    ├── ...
-​    └── image-file-n.png
+![](https://dl.dropboxusercontent.com/s/hh1vsvit3zz3ny8/DOCUSAURUS_gitreadme3.png)
 
 First, notice that all documentation files that you want displayed on the static site must be in Markdown format.  If you don't know Markdown, this free 30 minute course will tell you most of what you need to know. 
 
