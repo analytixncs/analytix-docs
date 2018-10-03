@@ -81,7 +81,6 @@ class HomeSplash extends React.Component {
           <ProjectTitle />
           <PromoSection>
             <Button href={docUrl('analytix/analytix-bi-overview.html')}>Analytix</Button>
-            <Button href={'docs/analytix/analytix-bi-overview.html'}>AnalytixNaked</Button>
             <Button href={docUrl('bi/bi-resources.html', language)}>BI Docs</Button>
            </PromoSection>
         </div>

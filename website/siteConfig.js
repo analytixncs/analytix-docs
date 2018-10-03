@@ -50,6 +50,11 @@ const siteConfig = {
       "system-ui"
     ]
   },*/
+  algolia: {
+    apiKey: 'ccd2672198948e3c79646332385b98fb',
+    indexName: 'analytix',
+    algoliaOptions: {} // Optional, if provided by Algolia
+  },
   // This copyright info is used in /core/Footer.js and blog rss/atom feeds.
   copyright:
     'Copyright © ' +

@@ -12,8 +12,10 @@ sidebar_label: Qlikview License (CALs) Management
 
 - [Qlikview Licensing Options](#qlikview-licensing-options)
 - [Assigning Document CALs and Full Use (Named User) CALs](#assigning-document-cals-and-full-use-(named-user)-cals)
+- [Revoke A User License](#revoke-a-user-license)
 - [Clearing CAL Data from QMC](#clearing-cal-data-from-qmc)
-- [Options](#options)
+- [Add Or Update Qlikview Server License](#add-or-update-qlikview-server-license)
+- [Licensing Qlikview Developer Client](#licensing-qlikview-developer-client)
 
 ---
 
@@ -26,6 +28,8 @@ sidebar_label: Qlikview License (CALs) Management
   > Every site must have at least one Standard User CAL 
 
 - **Document User CAL (Client Access License)** – This is a named user license, giving one user the right to access only **ONE** named document.  For example, if Rep A has a doc license, the Qlikview administrator would need to go into the QV admin area and assign this Document CAL to a User and a Single document.
+
+> When a site purchases additional license keys, they get added to the users Qlikview license key.  To get those new licenses active on the users system, they will need to update their [Qlikview Server License](#update-qlikview-server-license)
 
 ---
 
@@ -94,6 +98,35 @@ Follows these steps for each document that you are assigning Document CALs to.
 
 <div style="page-break-after: always;"></div>
 
+## Revoke A User License
+
+Qlikview licenses are each associated with a single user name.  If you would like to free up a license, you will need to remove it from a user.
+
+There is a 7 day quarantine period when removing a license from a user.  The 7 days starts from the last time that the user viewed a Qlikview application.  
+
+### How To
+
+Open the QMC (Qlikview Management Console) and go to the System/Licenses tab:
+
+![1538579660616](../assets/qlikview-license-revoke1.png)
+
+Click on Qlikview Server and in the right hand pane select Client Access Licenses (CALs), then select the
+Assigned CALs tab.
+
+![1538579701052](../assets/qlikview-license-revoke2.png)
+
+To delete a user from a CAL, simply click on the red X on the right side of the user’s row. This will put it in Quarantine for up to 7 days (QV12+) from the **last time** the user used Analytix.
+
+Make sure to click the Apply button to apply the changes. Once applied, the license will be cleared and available for use once the quarantine period has been met.
+
+Usually you will be removing defunct users who have not used Analytix for longer than the quarantine period and thus the license will be available to assign immediately.
+
+
+
+---
+
+<div style="page-break-after: always;"></div>
+
 ## Clearing CAL Data from QMC
 
 This is an extreme measure in that you are removing the CAL license pgo file.  However, shared information will be retained in the **.shared** files. 
@@ -124,3 +157,70 @@ If you do not want to assign all the document CALs manually, you could instead j
 
 ![1536245527622](../assets/support_1536245527622.png)
 
+---
+
+<div style="page-break-after: always;"></div>
+
+## Add Or Update Qlikview Server License
+
+Qlikview stores the CAL (Client Access License) information in your license key. So, when you purchase a license the number of users (CALs and Document CALs) are stored in the license key.
+
+So, when you purchase more Qlikview licenses, Qlik will simply add those to your existing License key.
+
+This makes adding and updating your Qlikview Server License very similar.
+
+### Add New Qlikview Server License 
+
+Open the QMC (Qlikview Management Console) and go to the System/Licenses tab:
+
+![1538578676190](../assets/qlikview-license-update1.png)
+
+Click on the QlikView Server type in the left hand side of the screen.
+
+![1538578733197](../assets/qlikview-license-update2.png)
+
+Click on the “Qlikview Server License” tab in the right hand of the screen:
+
+![1538578751908](../assets/qlikview-license-update3.png)
+
+Now you are ready to either update or add a new license key:
+
+1. Enter your Serial Number and your Control number.
+2. Enter the Owner information. (Doesn’t really matter what you put in here).
+3. Click on the “Apply License” button.
+
+![1538578807401](../assets/qlikview-license-update4.png)
+
+### Updating Qlikview Server License
+
+If you have purchased additional CALs, they will be added to your existing Qlikview License.  To get these to show up on you server, simply follow all the instructions for adding a new License, except on the last step, click **Update license From Server** button instead of the Apply License button.
+
+---
+
+<div style="page-break-after: always;"></div>
+
+## Licensing Qlikview Developer Client
+
+Since Qlikview version 9, if you are a CAL holder on the server, you are able to license the desktop version of the Qlikview software with a full developer license.
+
+Once you follow the instructions below you will have licensed your desktop client for 30 days after which you will need to go through these steps again to get another 30 day license.
+
+**Follow the steps below:**
+
+1. Start QlikView and choose” File/Open In Server” 
+2. Enter the IP or Server name of the Qlikview server into the “Server” box. 
+3. If your computer login is the same as your Qlikview server login (it usually is) then leave the NT Identity radio button selected. 
+  If not, then choose the *Alternate Identity* radio button and enter in your User ID.  You will then be prompted for a password.
+4. Click Connect.
+
+![1538577569676](../assets/qlikview-license-devconnect1.png)
+
+After successfully connecting to the Qlikview server you will see a list of the directories that Qlikview has access to.  
+
+![1538577716909](../assets/qlikview-license-devconnect2.png)
+
+To license the Qlikview Developer client, simply choose one of the QVW files and click Open.
+
+The QVW file will be "opened in server".  This will then download a license lease for the machine you are on.
+
+Your Qlikview client is now licensed as a developer.

@@ -51,6 +51,8 @@
     "Qlikview License (CALs) Management": "Qlikview License (CALs) Management",
     "support/qlikview-reduce-data": "Remove Data from Qlikview App",
     "Remove Data from Qlikview App": "Remove Data from Qlikview App",
+    "support/sql-bi-common-queries": "Common BI Queries",
+    "Common BI Queries": "Common BI Queries",
     "Analytix": "Analytix",
     "BI": "BI",
     "Analytix Intro": "Analytix Intro",
@@ -59,7 +61,8 @@
     "Analytix Developer Guides": "Analytix Developer Guides",
     "Analytix Support Docs": "Analytix Support Docs",
     "BI Maintenance": "BI Maintenance",
-    "BI Support Docs": "BI Support Docs"
+    "BI Support Docs": "BI Support Docs",
+    "Common SQL Core/BI": "Common SQL Core/BI"
   },
   "pages-strings": {
     "Help Translate|recruit community translators for your project": "Help Translate",
