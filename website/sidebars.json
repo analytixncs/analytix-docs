@@ -41,7 +41,8 @@
       "support/bi-chargetypes"
     ],
     "Common SQL Core/BI": [
-      "support/sql-bi-common-queries"
+      "support/sql-bi-common-queries",
+      "support/sql-core-common-queries"
     ]
   }
 }

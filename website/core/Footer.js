@@ -35,10 +35,10 @@ class Footer extends React.Component {
           </a>
           <div>
             <h5>Docs</h5>
-            <a href={this.docUrl('analytixsetup.html')}>
+            <a href={this.docUrl('analytix/analytix-setup.html')}>
               Getting Started With Analytix
             </a>
-            <a href={this.docUrl('bi-auditors.html')}>
+            <a href={this.docUrl('bi/bi-auditors.html')}>
               BI Docs
             </a>
           </div>
@@ -55,7 +55,8 @@ class Footer extends React.Component {
           </div>
           <div>
             <h5>More</h5>
-            <a href={this.props.config.baseUrl + 'blog'}>Blog</a>
+            <a href={this.docUrl('analytix/analytix-bi-overview.html')}>Analytix Docs</a>
+            <a href={this.docUrl('bi/bi-resources.html')}>BI Docs</a>
           </div>
         </section>
 
