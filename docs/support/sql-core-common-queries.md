@@ -4,11 +4,16 @@ title: Common Core Queries
 sidebar_label: Common Core Queries
 ---
 
-- [Core Credits](#core-credits)
+- [Core Credits and Debits](#core-credits-and-debits)
+- [Core Payments](#core-payments)
 - [fnTransactions Joins](#fntransactions-joins)
 - [SalesComm Reps](#salescomm-reps)
 - [UsrUsers Reps](#usrusers-reps)
 - [Contract Customers](#contract-customers)
+- [GL Number From AdOrderNumber](#gl-number-from-adordernumber)
+- [Agency or Parent Relationship](#agency-or-parent-relationship)
+- [Rate Information](#rate-information)
+- [Aging Tables](#aging-tables)
 
 
 
@@ -20,7 +25,9 @@ Most of these queries have `where` statements which allow you to limit the query
 
 ---
 
-## Core Credits
+## Core Credits and Debits
+
+Get Credits or Debits, not deleted and associated **aoCustomerCD** information.
 
 ```sql
 SELECT crdb.*, 
@@ -33,7 +40,28 @@ FROM   aocreditdebit crdb,
 WHERE  crdb.id = custcd.transid 
        AND crdb.transtype = 3 
        AND crdb.deleted = 0 
-       AND crdb.amount < 0 
+       AND crdb.amount < 0 --Comment out for Debits
+   --  AND crdb.Amount >0  --Use this for Debits
+```
+
+
+
+---
+
+## Core Payments
+
+Get Payments, not deleted and associated **aoPayment** information
+
+```sql
+SELECT crdb.amount, 
+       crdb.transtype, 
+       crdb.deleted, 
+       pay.* 
+FROM   aocreditdebit crdb, 
+       aopayments pay 
+WHERE  crdb.id = pay.transid 
+       AND crdb.transtype = 2 
+       AND crdb.deleted = 0 
 ```
 
 
@@ -74,8 +102,6 @@ FROM   aoinsertionsalescomm sc,
 WHERE  adorderid = '' 
        AND sc.salesrepid = u.userid 
 ```
-
-
 
 
 
@@ -188,5 +214,123 @@ WHERE  ac.accountid =
        AND ac.agingoptionsid = ao.id 
 --	   AND ao.agingdate = '03-13-2018' 
 --	   AND ad.companyid = 23 
+```
+
+
+
+---
+
+## GL Number From AdOrderNumber
+
+Returns GL Information for a given Ad Order Number.
+
+> Limited by: **a.adordernumber**
+
+```sql
+SELECT f.NAME            AS CORE_GLNumber, 
+       f.description     AS CORE_GLName, 
+       a.adordernumber   AS CORE_ADORDERNUMBER, 
+       r.adorderid       AS CORE_AdOrderID, 
+       r.adrunscheduleid AS CORE_RunScheduleID, 
+       r.glaccountid     AS CORE_GLAccountID 
+FROM   rtchargeentryelem r, 
+       aoadorder a, 
+       fnaccounts f 
+WHERE  a.id = r.adorderid 
+       AND r.glaccountid = f.id 
+       AND a.adordernumber = '0000000000' 
+```
+
+
+
+---
+
+## Agency or Parent Relationship
+
+the relationshipType field in the Relationship table determines if the relationship is an Agency/Client(2) or Parent/Child (1).
+
+> Limited by: **accountnumber**
+
+### Agency/Client
+
+```sql
+SELECT Agency.accountid     Agency_AccountID, 
+       Agency.accountnumber Agency_AccountNumber, 
+       Agency.name1         Agency_Name, 
+       Client.accountid     Client_AccountID, 
+       Client.accountnumber Client_AccountNumber, 
+       Client.name1         Client_Name, 
+       relationship.* 
+FROM   customer Agency, 
+       customer Client, 
+       relationship 
+WHERE  Client.accountid = relationship.slaveid 
+       AND Agency.accountid = relationship.masterid 
+       AND relationship.relationshiptype = 2 
+       AND Agency.accountnumber = '0000000' 
+```
+
+### Parent/Child
+
+```sql
+SELECT Parent.accountid     Parent_AccountID,
+       Parent.accountnumber Parent_AccountNumber,
+       Parent.name1         Parent_Name,
+       Child.accountid     Child_AccountID,
+       Child.accountnumber Child_AccountNumber,
+       Child.name1         Child_Name,
+       relationship.*
+FROM   customer Parent,
+       customer Child,
+       relationship
+WHERE  Child.accountid = relationship.slaveid
+       AND Parent.accountid = relationship.masterid
+       AND relationship.relationshiptype = 1
+		AND Parent.accountnumber = '0000000'
+```
+
+
+
+---
+
+## Rate Information
+
+> Limited by: **adordernumber**
+
+```sql
+SELECT rtchargeentryelem.id AS RTCHARGEID,
+       aoadorder.adordernumber,
+       rtchargeentryelem.effectivedate,
+       rtratename.name      AS RATENAME,
+       rttaxschedule.name   AS TAXSCHEDULENAME
+FROM   aoadorder,
+       rtchargeentryelem,
+       rtrate,
+       rtratename,
+       rttaxschedule
+WHERE  aoadorder.id = rtchargeentryelem.adorderid
+       AND rtchargeentryelem.ratetableid = rtrate.id (+)
+       AND rtrate.ratenameid = rtratename.id (+)
+       AND rtchargeentryelem.taxscheduleid = rttaxschedule.id (+)
+       AND aoadorder.adordernumber = '0000000000';
+```
+
+
+
+---
+
+## Aging Tables
+
+```sql
+SELECT ao.*, 
+       ad.* --sum(ad.Bucket1Amount) 
+FROM   agingdetail ad, 
+       agingcustomer ac, 
+       agingoptions ao 
+WHERE  ac.accountid = 78497 
+       AND ad.agingcustomerid = ac.id 
+       AND ac.agingoptionsid = ao.id 
+--and ao.agingdate = '03-13-2018' 
+--and ad.companyid = 23  
 ```
 

@@ -5,10 +5,15 @@ sidebar_label: Common BI Queries
 ---
 
 - [SalesFlash Not Invoiced Rules](#salesflash-not-invoiced-rules)
+- [SalesComm Rep](#salescomm-rep)
 - [Schedule Ids and SalesComm Rep](#schedule-ids-and-salescomm-rep)
 - [fctGL Simple Query](#fctgl-simple-query)
 - [Contract Tables Query](#contract-tables-query)
 - [shApp Settings](#shapp-settings)
+- [GL Number From AdOrderNumber](#gl-number-from-adordernumber)
+- [Agency or Parent Relationship](#agency-or-parent-relationship)
+- [Rate Information From dmRate](#rate-information-from-dmrate)
+- [Client Location (Address)](#client-location-(address))
 
 
 
@@ -60,6 +65,27 @@ WHERE  fad.id = fin.fctadorder_id
        AND fin.adinsertbools_id = finbool.id 
        AND fad.adordernumber = '0000000000'; 
 ```
+
+---
+
+## SalesComm Rep
+
+> Limited By: **fad.adordernumber**
+
+```sql
+SELECT fad.adordernumber,
+       fsc.adorderid_adbase,
+       u.userloginname,
+       fsc.*
+FROM   fctsalescomm fsc,
+       dmuser u,
+       fctadorder fad
+WHERE  fad.adorderid_adbase = fsc.adorderid_adbase
+       AND fsc.salesrep_user_id = u.id
+       AND fad.adordernumber = '0000000000'
+```
+
+
 
 ---
 
@@ -175,5 +201,157 @@ FROM   shappsettings s,
        usrusers u 
 WHERE  programid = 127 
        AND s.userid = u.userid 
+```
+
+
+
+---
+
+## GL Number From AdOrderNumber
+
+Returns GL Information for a given Ad Order Number.
+
+> Limited by: **fad.adordernumber**
+
+```sql
+SELECT g.glnumber             AS BI_GLNumber, 
+       g.glname               AS BI_GLName, 
+       fad.adordernumber      AS BI_ADORDERNUMBER, 
+       fad.adorderid_adbase   AS BI_AdOrderID, 
+       f.runscheduleid_adbase AS BI_RunScheduleID, 
+       g.id                   AS BI_GLAccountID 
+FROM   fctinsertion f, 
+       fctinsertchargesummary fs, 
+       fctadorder fad, 
+       fctinsertchargedetail fd, 
+       dmglaccounts g 
+WHERE  f.id = fs.insertion_id 
+       AND fad.id = f.fctadorder_id 
+       AND fs.id = fd.insertchargesummary_id 
+       AND fd.glaccounts_id = g.id 
+       AND fad.adordernumber = '0000000000' 
+```
+
+
+
+---
+
+## Agency or Parent Relationship
+
+> Limited by: **accountnumber_adbase**
+
+### Agency/Client 
+
+```sql
+SELECT
+  c.namelast_bsn,
+  c.accountnumber_adbase,
+  r.*
+FROM dmrelationshipagency r,
+  dmclient c
+WHERE r.client_client_id = c.id
+      AND agency_client_id = (SELECT id
+                          FROM dmclient
+                          WHERE accountnumber_adbase = '000000')
+```
+
+### Parent/Child
+
+```sql
+SELECT
+  c.namelast_bsn,
+  c.accountnumber_adbase,
+  r.*
+FROM dmrelationshipparent r,
+  dmclient c
+WHERE r.CHILD_CLIENT_ID= c.id
+      AND parent_client_id = (SELECT id
+                          FROM dmclient
+                          WHERE accountnumber_adbase = '3218887650')
+```
+
+
+
+---
+
+## Rate Information From dmRate
+
+> Limited by: **adordernumber**
+
+```sql
+SELECT fctinsertchargedetail.rtchargeid_adbase AS RTCHARGEID, 
+       fctadorder.adordernumber, 
+       dmdate.calendardate                     AS EFFECTIVEDATE, 
+       dmrateinfo.ratename, 
+       dmrateinfo.taxschedulename 
+FROM   fctadorder, 
+       fctinsertion, 
+       fctinsertchargesummary, 
+       fctinsertchargedetail, 
+       dmrateinfo, 
+       dmdate 
+WHERE  fctadorder.id = fctinsertion.fctadorder_id 
+       AND fctinsertion.id = fctinsertchargesummary.insertion_id 
+       AND fctinsertchargesummary.id = 
+           fctinsertchargedetail.insertchargesummary_id 
+       AND fctinsertchargedetail.rateinfo_id = dmrateinfo.id 
+       AND fctinsertion.insert_date_id = dmdate.id 
+       AND fctadorder.adordernumber = '00000000000'; 
+```
+
+
+
+---
+
+## Client Location (Address)
+
+In BI, the dmClient is only linked to an address through the following tables:
+
+- **FCTADORDER** - Using 
+  - PrimaryOrderer_Client_id/Location_id
+  - PrimaryPayer_Client_id/Location_id
+- **FCTINSERTION** - Using
+  - PrimaryOrderer_Client_id/Location_id
+  - PrimaryPayer_Client_id/Location_id
+- **FCTARSUMMARY** - Using
+  - AROrderer_Client_id/Location_id
+  - ARPayer_Client_id/Location_id
+- **FCTGL** - Using
+  - Client_id/Location_id
+
+The example below gets the PrimaryOrderer's location by going through the fctAdOrder table.  This could return multiple address for a customer if they have ads linked to an old address and ads linked to a new address.
+
+> Limited by: **accountnumber_adbase**
+
+```sql
+SELECT DISTINCT c.accountnumber_adbase, 
+                c.namelast_bsn, 
+                l.address1, 
+                l.* 
+FROM   fctadorder f, 
+       dmclient c, 
+       dmlocation l 
+WHERE  f.primaryorderer_client_id = c.id 
+       AND f.primaryorderer_location_id = l.id 
+       AND c.accountnumber_adbase = '' 
+```
+
+### fctClientCoverage Option
+
+The direct way (but rarely used way) is to link through the fctClientCoverage table.  If you only want the current address, look for ccovercurrentrecord_Flag = 'TRUE'.
+
+>  Limited by: **accountnumber_adbase**
+
+```sql
+SELECT c.accountnumber_adbase, 
+       c.namelast_bsn, 
+       l.address1, 
+FROM   fctclientcoverage cc, 
+       dmclient c, 
+       dmlocation l 
+WHERE  cc.client_id = c.id 
+       AND cc.location_id = l.id 
+       AND cc.ccovercurrentrecord_flag = 'TRUE' 
+       AND c.accountnumber_adbase = '' 
 ```
 
