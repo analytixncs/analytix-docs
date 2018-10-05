@@ -8,6 +8,7 @@ sidebar_label: Common BI Queries
 - [Schedule Ids and SalesComm Rep](#schedule-ids-and-salescomm-rep)
 - [fctGL Simple Query](#fctgl-simple-query)
 - [Contract Tables Query](#contract-tables-query)
+- [shApp Settings](#shapp-settings)
 
 
 
@@ -155,5 +156,24 @@ FROM   fctcontract fc
        INNER JOIN dmclient ordererClient 
                ON ordererClient.id = bcc.ordererclient_id 
 WHERE  ordererClient.accountnumber_adbase = '000000' 
+```
+
+
+
+---
+
+## shApp Settings
+
+While this needs to be run on the **Core** database, it is used find out which users have run the BI Populator.
+
+The programid of 127 indicates the BI Populator.
+
+```sql
+SELECT DISTINCT s.userid, 
+                u.loginname 
+FROM   shappsettings s, 
+       usrusers u 
+WHERE  programid = 127 
+       AND s.userid = u.userid 
 ```
 

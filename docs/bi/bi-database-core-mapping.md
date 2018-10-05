@@ -29,7 +29,7 @@ sidebar_label: BI Database Core Mapping
 - [**Contract Information**](#contract-information)
   - [fctContract](#fctcontract)
   - [fctContractFulfillment](#fctcontractfulfillment)
-- [**Dimension Tables**](#tables)
+- [**Dimension Tables**](#dimension-tables)
   - [dmAdProduct](#dmadproduct)
   - [dmUser](#dmuser)
   - [dmClient](#dmclient)
@@ -40,7 +40,7 @@ sidebar_label: BI Database Core Mapping
   - [dmAdOrderBools](#dmadorderbools)
   - [dmAdOrderStatus](#dmadorderstatus)
   - [dmAdPromotion](#dmadpromotion)
-  - [dmAdOrderDetail 49](#dmadorderdetail)
+  - [dmAdOrderDetail](#dmadorderdetail)
   - [dmCompany](#dmcompany)
   - [bridgeMultiSpecials](#bridgemultispecials)
   - [dmSpecias](#dmspecias)
@@ -119,15 +119,17 @@ As you navigate through the BI database here are a few rules that will help you 
 
    > NOTE:  Fields ending in _ID can not be used in queries to join to similar Core IDs.  They may represent the same entity, but the number will be different. For example, Company_ID in fctInsertion is not the same ID number as CompanyID in aoAdOrder.  Again, they may point to the same Company, but the IDs will be different. 
 
-4. If the field ends in _AdBase, it is a link to an ID in the Core database.  In this document, in the Core description field we will have the following text to indicate that this is a Core ID:  Link to CORE &#129106;
-         This means that you may use these fields to actually join to fields in the      Core database.
-         For example, the AdOrderId_AdBase field in fctAdOrder can be used to join      to aoAdOrder as follows:
-                   SELECT * 
-                   FROM fctAdOrder, aoAdOrder
-                   WHERE      fctAdOrder.AdOrderId_AdBase = aoAdOrder.ID
+4. If the field ends in _AdBase, it is a link to an ID in the Core database.  In this document, in the Core description field we will have the following text to indicate that this is a Core ID:  
 
+    - Link to CORE &#129106;
+      This means that you may use these fields to actually join to fields in the Core database.
+      For example, the AdOrderId_AdBase field in fctAdOrder can be used to join to aoAdOrder as follows:
 
-         
+      ```sql
+      SELECT * 
+      FROM fctAdOrder, aoAdOrder
+      WHERE fctAdOrder.AdOrderId_AdBase = aoAdOrder.ID
+      ```
 
 5. Most of the fields in the Fact tables will be ID fields linking to other dimensions.
 
@@ -179,15 +181,15 @@ The Ad Order data mart has the following tables:
 | AdOrderID_AdBase             | Link to CORE &#129106;  aoAdOrder.ID                         |
 | Create_Date_ID               | Link to [dmDate](#dmDate_1) &#129106;  aoAdOrder.CreateDate  |
 | ADOrderNumber                | aoAdOrder.AdOrderNumber                                      |
-| GroupMultiClient_ID          | Link to [BridgeMultiClient](#bridgeMultiClient_1).GroupMultiClient_ID   The [bridgeMultiClient](#bridgeMultiClient_1)   table allows an insertion to be linked to more than just the Primary Orderer   and Payer. |
-| Household_ID                 | Link to dmHousehold.ID   The Household table was designed to be used to store the   history of address changes of a customer. Currently it is populated, but not   used in any of our reports or Analytix. |
-| PrimaryPayer_Client_ID       | Link to [dmClient](#dmClient).ID   AoOrderCustomers where PrimaryPayerFlag is TRUE |
-| PrimaryPayer_Location_ID     | Link to [dmLocation](#dmLocation)   Address information linked to the Primary Payer above. |
-| PrimaryOrderer_Client_ID     | Link to [dmClient](#dmClient)   AoOrderCustomers where PrimaryOrdererFlag is TRUE |
-| PrimaryOrderer_Location_ID   | Link to [dmLocation](#dmLocation)   Address information linked to the Primary Orderer above. |
+| GroupMultiClient_ID          | Link to [BridgeMultiClient](#bridgeMultiClient_1).GroupMultiClient_ID  <br />The [bridgeMultiClient](#bridgeMultiClient_1) table allows an insertion to be linked to more than just the Primary Orderer and Payer. |
+| Household_ID                 | Link to dmHousehold.ID  <br />The Household table was designed to be used to store the history of address changes of a customer. Currently it is populated, but not used in any of our reports or Analytix. |
+| PrimaryPayer_Client_ID       | Link to [dmClient](#dmClient).ID <br />AoOrderCustomers where PrimaryPayerFlag is TRUE |
+| PrimaryPayer_Location_ID     | Link to [dmLocation](#dmLocation) <br />Address information linked to the Primary Payer above. |
+| PrimaryOrderer_Client_ID     | Link to [dmClient](#dmClient) <br /> AoOrderCustomers where PrimaryOrdererFlag is TRUE |
+| PrimaryOrderer_Location_ID   | Link to [dmLocation](#dmLocation)  <br /> Address information linked to the Primary Orderer above. |
 | Commissionedrep_User_ID      | Link to [dmUser](#dmUser) &#129106;  Sold By Rep in AdBooker, aoAdOrder.SellerID |
 | OrderTaker_User_ID           | Link to [dmUser](#dmUser) &#129106;  aoAdOrder.RepID         |
-| CreditApprover_User_ID       | Link to [dmUser](#dmUser) &#129106;   aoAdOrder.CreditOverID |
+| CreditApprover_User_ID       | Link to [dmUser](#dmUser) &#129106;  aoAdOrder.CreditOverID  |
 | KillUser_User_ID             | Link to [dmUser](#dmUser) &#129106;  aoAdOrder.KillID        |
 | Killed_Date_ID               | Link to [dmDate](#dmDate) &#129106;  aoAdOrder.KillDate      |
 | Expired_Date_ID              | Link to [dmDate](#dmDate_1) &#129106;  aoAdOrder.ExpireDate  |
@@ -200,37 +202,37 @@ The Ad Order data mart has the following tables:
 | AdOrderBools_ID              | Link to [dmAdOrderBools](#dmAdOrderBools)                    |
 | AdOrderStatus_ID             | Link to [dmAdOrderStatus](#dmAdOrderStatus)                  |
 | AdPromotion_ID               | Link to [dmAdPromotion](#dmAdPromotion)                      |
-| Company_ID                   | Link to [dmCompany](#dmCompany)   Derived from aoAdOrder.CompanyID |
+| Company_ID                   | Link to [dmCompany](#dmCompany)  <br />Derived from aoAdOrder.CompanyID |
 | GroupMultiSpecials_ID        | Link to [bridgeMulitSpecials](#bridgeMultiSpecials)          |
 | ProductOfOrigin_AdProduct_ID | aoAdOrder.ProductOfOriginID                                  |
 | AdOrderDetail_ID             | Link to [dmAdOrderDetail](#dmAdOrderDetail)                  |
 | GroupOrderRoles_ID           | Link to [bridgeOrderRoles](#bridgeOrderRoles)                |
 | GroupMultiMaterials_ID       | Link to [bridgeMultiMaterials](#bridgeMultiMaterials)        |
 | GroupRepPercentage_ID        | Link to [bridgeRepPercentage](#bridgeRepPercentage)          |
-| CreateTime                   | Time portion of the Create Date.  Stored as number of seconds past Midnight. |
-| KilledTime                   | Time portion of the Kill Date.  Stored as number of seconds past Midnight. |
-| ModifiedTime                 | Time portion of the Modified Date.  Stored as number of seconds past Midnight. |
+| CreateTime                   | Time portion of the Create Date. <br />Stored as number of seconds past Midnight. |
+| KilledTime                   | Time portion of the Kill Date.  <br />Stored as number of seconds past Midnight. |
+| ModifiedTime                 | Time portion of the Modified Date.  <br />Stored as number of seconds past Midnight. |
 | TotalInsertions              | aoAdOrder.RunDateCountTotal                                  |
 | PONumber                     | aoOrderCustomers.PONumber                                    |
-| AdOrder_Counter              | 1 if a valid adorder , 0 if a “fake” ad order. To find a   count of ads you would use the following query:    SELECT SUM(AdOrder_Counter)    FROM fctAdOrder |
-| TotalCreditDebitAmount       | All Credits and Debits for Order totaled.   See [Here](#fctInsertion) for Credit/Debit   Info |
-| TotalAdAmount                | Total Amount for rows in rtChargeEntryElem with a charge   category of Insertion Charge |
-| TotalPreprintAmount          | Total Amount for rows in rtChargeEntryElem with a charge   category of Preprint Charge |
-| TotalColorAmount             | Total Amount for rows in rtChargeEntryElem with a charge   category of Color Charge |
-| TotalMaterialAmount          | Total Amount for rows in rtChargeEntryElem with a charge   category of Material Charge |
-| TotalTypographicalAmount     | Total Amount for rows in rtChargeEntryElem with a charge   category of Typographical Charge |
-| TotalDiscountAmount          | Total Amount for rows in rtChargeEntryElem with a charge   category of Discount Charge |
-| TotalSpecialDiscount         | Total Amount for rows in rtChargeEntryElem with a charge   category of Special Discount Charge |
-| TotalPremiumAmount           | Total Amount for rows in rtChargeEntryElem with a charge   category of Premium Charge |
-| TotalTaxAmount               | Total Amount for rows in rtChargeEntryElem with a charge   category of Tax Charge |
-| TotalCNTadjustmentAmount     | Total Amount for rows in rtChargeEntryElem with a charge   category of Discount, Contract Discount, or Contract Adjustment |
-| TotalAGYCommissionAmount     | Total Amount for rows in rtChargeEntryElem with a charge   category of Discount, Agency Commission Discount, Adjustment Charge or Agency   Commission Adjustment. |
-| TotalRoundingAmount          | Total Amount for rows in rtChargeEntryElem with a charge   category of Discount or General Rounding Charge |
-| TotalNetAmount               | Total Amount for all rows in rtChargeEntryElem for give   Ad. |
+| AdOrder_Counter              | 1 if a valid Ad Order , 0 if a “fake” ad order. <br />To find a count of ads you would use the following query:   <br /> ```SELECT SUM(AdOrder_Counter)    FROM fctAdOrder``` |
+| TotalCreditDebitAmount       | All Credits and Debits for Order totaled.   See [Here](#chargetypes-in-the-advertising-data-mart) for Credit/Debit   Info |
+| TotalAdAmount                | Total Amount for rows in rtChargeEntryElem with a charge category of Insertion Charge |
+| TotalPreprintAmount          | Total Amount for rows in rtChargeEntryElem with a charge category of Preprint Charge |
+| TotalColorAmount             | Total Amount for rows in rtChargeEntryElem with a charge category of Color Charge |
+| TotalMaterialAmount          | Total Amount for rows in rtChargeEntryElem with a charge category of Material Charge |
+| TotalTypographicalAmount     | Total Amount for rows in rtChargeEntryElem with a charge category of Typographical Charge |
+| TotalDiscountAmount          | Total Amount for rows in rtChargeEntryElem with a charge category of Discount Charge |
+| TotalSpecialDiscount         | Total Amount for rows in rtChargeEntryElem with a charge category of Special Discount Charge |
+| TotalPremiumAmount           | Total Amount for rows in rtChargeEntryElem with a charge category of Premium Charge |
+| TotalTaxAmount               | Total Amount for rows in rtChargeEntryElem with a charge category of Tax Charge |
+| TotalCNTadjustmentAmount     | Total Amount for rows in rtChargeEntryElem with a charge category of Discount, Contract Discount, or Contract Adjustment |
+| TotalAGYCommissionAmount     | Total Amount for rows in rtChargeEntryElem with a charge category of Discount, Agency Commission Discount, Adjustment Charge or Agency   Commission Adjustment. |
+| TotalRoundingAmount          | Total Amount for rows in rtChargeEntryElem with a charge category of Discount or General Rounding Charge |
+| TotalNetAmount               | Total Amount for all rows in rtChargeEntryElem for give Ad.  |
 | PriceRangeName               | aoAdOrder.PriceRange                                         |
 | PlacedByName                 | aoOrderCustomers.PlacedBy                                    |
 | BlindBoxNumber               | aoAdOrder.BlindBoxID &#129106;  aoBlindBox                   |
-| OriginalPriceQoute           | aoAdOrder.OriginalPriceQuote   The original price when the order was first saved |
+| OriginalPriceQoute           | aoAdOrder.OriginalPriceQuote <br />The original price when the order was first saved |
 | LastPopulateDate             | Date that the BI Populate last “touched” this record.  Used primarily in Analytix to allow for   incremental updates. |
 
  
@@ -242,214 +244,152 @@ The Ad Order data mart has the following tables:
 
 The Insertion data mart has the following tables:
 
- 
+ **Fact tables**
 
-**Fact tables**
-
-- [fctInsertion](#fctInsertion)
-- [fctInsertChargeSummary](#fctInsertChargeSummary)
-- [fctInsertChargeDetail](#fctInsertChargeDetail)
-- [fctSalesComm](#fctSalesComm)
-
- 
+- [fctInsertion](#fctinsertion)
+- [fctInsertChargeSummary](#fctinsertchargesummary)
+- [fctInsertChargeDetail](#fctinsertchargedetail)
+- [fctSalesComm](#fctsalescomm)
 
 **Dimensions**
 
-- [dmClient](#dmClient)
-- [dmRelationshipParent](#dmRelationshipParent)
-- [dmRelationshipAgency](#dmDate)
-- [dmAdInsertBools](#dmAdInsertBools)
-- [dmDate](#dmDate)
-- [dmUser](#dmUser)
-- [dmCompany](#dmCompany)
-- [dmLocation](#dmLocation)
-- [dmAdContent](#dmAdContent)
-- [dmAdDetail](#dmAdDetail)
-- [dmAdProduct](#dmAdProduct)
-- [dmLayoutInfo](#dmLayoutInfo)
-- [dmLogos](#dmLogos)
-- [dmAdLineage](#dmAdLineage)
-- [dmPRPDistribution](#dmPRPDistribution)
-- [dmMaterialCharge](#dmMaterialCharge)
-- [dmGLAccounts](#dmGLAccounts)
-- [dmSpecials](#dmSpecials)
-- [dmCauseReason](#dmCauseReason)
-- [dmBusinessArea](#dmBusinessArea)
-- [dmDigitalMediaCampaign](#dmDigitalMediaCampaign)
-- [dmDigitalMediaFlight](#dmDigitalMediaFlight)
-- [dmDigitalMediaUnit](#dmDigitalMediaUnit)
-
- 
+- [dmClient](#dmclient)
+- [dmRelationshipParent](#dmrelationshipparent)
+- [dmRelationshipAgency](#dmdate)
+- [dmAdInsertBools](#dmadinsertbools)
+- [dmDate](#dmdate)
+- [dmUser](#dmuser)
+- [dmCompany](#dmcompany)
+- [dmLocation](#dmlocation)
+- [dmAdContent](#dmadcontent)
+- [dmAdDetail](#dmaddetail)
+- [dmAdProduct](#dmadproduct)
+- [dmLayoutInfo](#dmlayoutinfo)
+- [dmLogos](#dmlogos)
+- [dmAdLineage](#dmadlineage)
+- [dmPRPDistribution](#dmprpdistribution)
+- [dmMaterialCharge](#dmmaterialcharge)
+- [dmGLAccounts](#dmglaccounts)
+- [dmSpecials](#dmspecials)
+- [dmCauseReason](#dmcausereason)
+- [dmBusinessArea](#dmbusinessarea)
+- [dmDigitalMediaCampaign](#dmdigitalmediacampaign)
+- [dmDigitalMediaFlight](#dmdigitalmediaflight)
+- [dmDigitalMediaUnit](#dmdigitalmediaunit)
 
 **Helper Tables**
 
-- [bridgeMultiClient](#bridgeMultiClient_1)
-- [bridgeLogos](#bridgeLogos)
-- [bridgePRPDistribution](#dmPRPDistribution)
-
- 
-
-
+- [bridgeMultiClient](#bridgemulticlient)
+- [bridgeLogos](#bridgelogos)
+- [bridgePRPDistribution](#dmprpdistribution)
 
 
 There are three fact tables in this data mart.  Below is how you will join them together.
 
 ![img](../assets/bi_core_mapping-clip_image003.png)
 
- 
-
 Here is the SQL.
 
- 
+ ```sql
+SELECT FCTINSERTION.ID,
+	FCTINSERTCHARGESUMMARY.INSERTION_ID,
+	FCTINSERTCHARGESUMMARY.ID,
+	FCTINSERTCHARGEDETAIL.INSERTCHARGESUMMARY_ID
+FROM FCTINSERTION, FCTINSERTCHARGESUMMARY, FCTINSERTCHARGEDETAIL
+WHERE FCTINSERTION.ID = FCTINSERTCHARGESUMMARY.INSERTION_ID
+AND FCTINSERTCHARGESUMMARY.ID = FCTINSERTCHARGEDETAIL.INSERTCHARGESUMMARY_ID
 
-SELECT   FCTINSERTION.ID,
+ ```
 
-         FCTINSERTCHARGESUMMARY.INSERTION_ID,
-    
-         FCTINSERTCHARGESUMMARY.ID,
-    
-         FCTINSERTCHARGEDETAIL.INSERTCHARGESUMMARY_ID
-
-  FROM   FCTINSERTION, FCTINSERTCHARGESUMMARY, FCTINSERTCHARGEDETAIL
-
- WHERE   (FCTINSERTION.ID = FCTINSERTCHARGESUMMARY.INSERTION_ID)
-
-         AND (FCTINSERTCHARGESUMMARY.ID =
-    
-                 FCTINSERTCHARGEDETAIL.INSERTCHARGESUMMARY_ID)
-
- 
-
-
-
-
-
+---
 
 # ChargeTypes in the Advertising Data Mart
 
- 
-
-When credits are loaded into the advertising side of BI they can fall into one of two CHARGETYPE buckets.  CHARGETYPE is a field in the *fctInsertChargeSummary* table.
-
- 
+When credits are loaded into the advertising side of BI they can fall into one of two CHARGETYPE buckets.  CHARGETYPE is a field in the *fctInsertChargeSummary* table. 
 
 **CREDIT** – Shows only credits that were targeted to an ad or insertion.  These include credits that Invoice Generator created because of a Trans ID in *rtChargeEntryElem* as well as credits is *aoChargeAdjust* (These are credits a user creates to target the GL of the credit to match the revenue GL for order).  
  Also those credits in *aoPrepayment* apply are marked as ChargeType CREDIT.  (The *aoPrepaymentapply* table is where we store the prepayment data for an order.)
 
- 
-
 **REV CR** (Revenue Credit) – Shows credits that were “physically” used to “pay” down an order.
-
- 
 
 So when viewing CREDIT transactions we are seeing credits that are created and then applied to a specific order or insertion by the user.
 
- 
-
 The REV CR transactions are credits that applied to an order to reduce its cost.  This can happen through balance utility, ad booker or any other application that applies existing credits to an order.
 
- 
-
-In Analytix we exclude all REV CR charges because including them will, in some cases, cause double dipping.  This happens when a credit is created and applied to a specific order and that order is already paid.  When this happens, a CREDIT transaction is created in BI and then when that credit is actually applied to pay down an order a REV CR transaction is created.
-
- 
+In Analytix we exclude all REV CR charges because including them will, in some cases, cause double dipping.  This happens when a credit is created and applied to a specific order and that order is already paid.  When this happens, a CREDIT transaction is created in BI and then when that credit is actually applied to pay down an order a REV CR transaction is created. 
 
 So, when we view all CREDIT charge types in BI, we see all credits targeted to specific orders, however we will not ever see credit that were created on a customers account.  These credits will show up as REV CR charge types when they are applied to an order.
 
- 
-
 The other two charge types are:
 
- 
-
-**CHARGE** – indicates that this record is a part of the charge that the rating engine has determined for this ad.
-
- 
+**CHARGE** – indicates that this record is a part of the charge that the rating engine has determined for this ad 
 
 **DEBIT** – indicates a Debit that has been applied to this ad.
 
-
-
-
 # Spread Logic in the Advertising Data Mart
 
- 
+Certain revenue that is stored in the BI database will be spread across other insertions and charge types within an ad.  This spread algorithm was designed to spread an amount, like order level charges and credits across all other charges and distribute a weighted amount to each.   
 
-Certain revenue that is stored in the BI database will be spread across other insertions and charge types within an ad.  This spread algorithm was designed to spread an amount, like order level charges and credits across all other charges and distribute a weighted amount to each.  
+The reason for this was so that and order level charge would not show up all on one day when querying for revenue. 
 
- 
+For example, if you have an Ad that runs for 10 days and costs $100 dollars a day.  You would have 10 insertion rows in fctInsertion and 10 rows in fctInsertChargeSummary showing $100 for each day. 
 
-The reason for this was so that and order level charge would not show up all on one day when querying for revenue.
+|                | **Ad Charge**     | **Order Level Charge Not Spread** | **Day Total**              |
+| -------------- | ----------------- | --------------------------------- | -------------------------- |
+| **Day   1**    | $          100.00 | $100                              | $              200.00      |
+| **Day   2**    | $          100.00 |                                   | $              100.00      |
+| **Day   3**    | $          100.00 |                                   | $              100.00      |
+| **Day   4**    | $          100.00 |                                   | $              100.00      |
+| **Day   5**    | $          100.00 |                                   | $              100.00      |
+| **Day   6**    | $          100.00 |                                   | $              100.00      |
+| **Day   7**    | $          100.00 |                                   | $              100.00      |
+| **Day   8**    | $          100.00 |                                   | $              100.00      |
+| **Day   9**    | $          100.00 |                                   | $              100.00      |
+| **Day   10**   | $          100.00 |                                   | $              100.00      |
+| **Ad   Total** |                   |                                   | **$             1,100.00** |
 
- 
+---
 
-For example, if you have an Ad that runs for 10 days and costs $100 dollars a day.  You would have 10 insertion rows in fctInsertion and 10 rows in fctInsertChargeSummary showing $100 for each day.
-
- 
-
- 
-
-|                | **Ad Charge**     | **Order   Level Charge Not Spread** | **Day Total**              |
-| -------------- | ----------------- | ----------------------------------- | -------------------------- |
-| **Day   1**    | $          100.00 | $100                                | $              200.00      |
-| **Day   2**    | $          100.00 |                                     | $              100.00      |
-| **Day   3**    | $          100.00 |                                     | $              100.00      |
-| **Day   4**    | $          100.00 |                                     | $              100.00      |
-| **Day   5**    | $          100.00 |                                     | $              100.00      |
-| **Day   6**    | $          100.00 |                                     | $              100.00      |
-| **Day   7**    | $          100.00 |                                     | $              100.00      |
-| **Day   8**    | $          100.00 |                                     | $              100.00      |
-| **Day   9**    | $          100.00 |                                     | $              100.00      |
-| **Day   10**   | $          100.00 |                                     | $              100.00      |
-| **Ad   Total** |                   |                                     | **$             1,100.00** |
-|                |                   |                                     |                            |
-|                | **Ad Charge**     | **Order   Level Charge  Spread**    | **Day Total**              |
-| **Day   1**    | $          100.00 | $10                                 | $              110.00      |
-| **Day   2**    | $          100.00 | $10                                 | $              110.00      |
-| **Day   3**    | $          100.00 | $10                                 | $              110.00      |
-| **Day   4**    | $          100.00 | $10                                 | $              110.00      |
-| **Day   5**    | $          100.00 | $10                                 | $              110.00      |
-| **Day   6**    | $          100.00 | $10                                 | $              110.00      |
-| **Day   7**    | $          100.00 | $10                                 | $              110.00      |
-| **Day   8**    | $          100.00 | $10                                 | $                110.00    |
-| **Day   9**    | $          100.00 | $10                                 | $              110.00      |
-| **Day   10**   | $          100.00 | $10                                 | $              110.00      |
-| **Ad   Total** |                   |                                     | **$             1,100.00** |
-
- 
+|                | **Ad Charge**     | **Order Level Charge Spread** | **Day Total**              |
+| -------------- | ----------------- | ----------------------------- | -------------------------- |
+| **Day   1**    | $          100.00 | $10                           | $              110.00      |
+| **Day   2**    | $          100.00 | $10                           | $              110.00      |
+| **Day   3**    | $          100.00 | $10                           | $              110.00      |
+| **Day   4**    | $          100.00 | $10                           | $              110.00      |
+| **Day   5**    | $          100.00 | $10                           | $              110.00      |
+| **Day   6**    | $          100.00 | $10                           | $              110.00      |
+| **Day   7**    | $          100.00 | $10                           | $              110.00      |
+| **Day   8**    | $          100.00 | $10                           | $                110.00    |
+| **Day   9**    | $          100.00 | $10                           | $              110.00      |
+| **Day   10**   | $          100.00 | $10                           | $              110.00      |
+| **Ad   Total** |                   |                               | **$             1,100.00** |
 
 Look at the spreadsheets above.  The first shows how the ad would look if we didn’t spread the order level charge and the second shows how it looks when we spread the charge.  You can see that the ad total is the same on both, but if you were to query just day 1 of the ad, you get different results.
 
- 
-
 Here is how the algorithm figures the weights:
 
-Assume we are spreading a $50 Order Level charge across an ad with 3 revenue entries
+Assume we are spreading a $50 Order Level charge across an ad with 3 revenue entries 
 
- 
 
-| Amount To Spread | 50              |                                        |                     |                                 |                  |
-| ---------------- | --------------- | -------------------------------------- | ------------------- | ------------------------------- | ---------------- |
-|                  |                 |                                        |                     |                                 |                  |
-| **Date**         | **Amount**      | **Calc   Weight   Line Amt/Total Amt** | **Calced   Weight** | **%   Needed of Amt To Spread** | **Spread   Amt** |
-| 4/1/2009         | $     10.00     | 10/30                                  | 0.333333            | 33%                             | 16.67            |
-| 4/2/2009         | $     15.00     | 15/30                                  | 0.500000            | 50%                             | 25.00            |
-| 4/3/2009         | $      5.00     | 5/30                                   | 0.166667            | 17%                             | 8.33             |
-| **Total**        | **$     30.00** |                                        | **1.000000**        | **100%**                        | **50**           |
 
- 
+| Amount To Spread | Transactions to Spread Over |
+| :--------------- | :-------------------------- |
+| 50               | 3                           |
 
- 
 
-1. Add      all the revenue amounts together that we are going to spread the order      level charge across.  (Amount      Column)
-2. Divide      each line item amount by the total amount to get a weighted percentage of      how much of the spread amount to allocate to this line item.
-3. Multiply      the Spread Amount by the calculated percentage found in step 2 to get the      spread amount allocation.
 
- 
+| Date      | Amount          | Spread Calculation | Calculation Weight | % To Spread | Spread Amount |
+| --------- | --------------- | ------------------ | ------------------ | ----------- | ------------- |
+| 4/1/2009  | $     10.00     | 10/30              | 0.333333           | 33%         | 16.67         |
+| 4/2/2009  | $     15.00     | 15/30              | 0.500000           | 50%         | 25.00         |
+| 4/3/2009  | $      5.00     | 5/30               | 0.166667           | 17%         | 8.33          |
+| **Total** | **$     30.00** |                    | **1.000000**       | **100%**    | **50**        |
 
- 
+1. Add all the revenue amounts together that we are going to spread the order level charge across.  (Amount      Column)
+2. Divide each line item amount by the total amount to get a weighted percentage of how much of the spread amount to allocate to this line item.
+3. Multiply the Spread Amount by the calculated percentage found in step two to get the spread amount allocation.
 
- 
+---
 
 ## fctInsertion
 
@@ -528,9 +468,7 @@ Assume we are spreading a $50 Order Level charge across an ad with 3 revenue ent
 | DigitalMediaQtyDelivered   | aoInFlight.QuantityDelivered                                 |
 | LastPopulateDate           | Date that the BI Populate last “touched” this record.  Used primarily in Analytix to allow for   incremental updates. |
 
- 
-
- 
+---
 
 ## fctInsertChargeSummary
 
@@ -541,13 +479,11 @@ Assume we are spreading a $50 Order Level charge across an ad with 3 revenue ent
 | ChargeCategory        | Type of charge see the rtChargeEntryElem Excel Spreadsheet   for full details.   AdInsertCharge   PreprintAdInsert   ColorItem   MaterialItem   MiscelaneousItemCharge   TypographicalItem   Premium   Discount   MessageOnly   ContractAdjustment   TaxCharge   AdjustmentCharge   InternetCharge |
 | SpecialChargeCategory | NULL (Not Populated)                                         |
 | Amount_InsertSummary  | rtChargeEntryElem.Amount – based on the Charge Category   for the insertion this insert summary record is linked to. |
-| ChargeType            | CHARGE   CREDIT   REV CR   DEBIT   [See above for details](#ChargeTypes_in_the) |
+| ChargeType            | CHARGE   CREDIT   REV CR   DEBIT   [See above for details](#chargetypes-in-the-advertising-data-mart) |
 | InvoiceNumber         | fnTransactions.TransNum                                      |
 | IsInsertion_Flag      | Set to TRUE if the Category Code represents an insertion   charge as opposed to a discount charge, typography charge, etc. |
 | LastPopulateDate      | Date that the BI Populate last “touched” this record.  Used primarily in Analytix to allow for   incremental updates. |
 | Doc_Date_ID           | Link to [dmDate](#dmDate_1) &#129106;  fnTransactions.DocDate |
-
-#  
 
 ## fctInsertChargeDetail
 
@@ -581,8 +517,6 @@ Assume we are spreading a $50 Order Level charge across an ad with 3 revenue ent
 
 The fctSalesComm table contains the BI version of the core table AoInsertionSalesComm.
 
- 
-
 | **BI Field Name**     | **CORE Field/Logic**                                         |
 | --------------------- | ------------------------------------------------------------ |
 | Insertion_Id          | Link to [fctInsertion](#fctInsertion_).ID                    |
@@ -595,93 +529,65 @@ The fctSalesComm table contains the BI version of the core table AoInsertionSale
 | BusinessAreaId_AdBase | Link to CORE &#129106;  aoInsertionSalesComm.BusinessAreaId  |
 | SalesTeamId_AdBase    | aoInsertionSalesComm.SalesTeamId                             |
 
-#  
-
-
-
+---
 
 # GL Data Mart
 
 The GL data mart has the following tables:
 
- 
-
 **Fact tables**
 
-- [fctARSummary](#fctARSummary)
-- [fctGL](#fctGL)
-- [fctPreApply](#fctPreApply)
-- [fctApply](#fctApply)
-
- 
+- [fctARSummary](#fctarsummary)
+- [fctGL](#fctgl)
+- [fctPreApply](#fctpreapply)
+- [fctApply](#fctapply)
 
 **Dimensions**
 
-- [dmClient](#dmClient)
-- [dmRelationshipParent](#dmRelationshipParent)
-- [dmRelationshipAgency](#dmDate)
-- [dmCollections](#dmCollections)
-- [dmDate](#dmDate_1)
-- [dmUser](#dmUser)
-- [dmCompany](#dmCompany)
-- [dmLocation](#dmLocation)
-- [dmCauseReason](#dmCauseReason)
-- [dmGLAccounts](#dmGLAccounts)
-- [dmGLInvoiceDetail](#dmGLInvoiceDetail)
-- [dmGLTransaction](#dmGLTransaction)
-
- 
+- [dmClient](#dmclient)
+- [dmRelationshipParent](#dmrelationshipparent)
+- [dmRelationshipAgency](#dmdate)
+- [dmCollections](#dmcollections)
+- [dmDate](#dmdate_1)
+- [dmUser](#dmuser)
+- [dmCompany](#dmcompany)
+- [dmLocation](#dmlocation)
+- [dmCauseReason](#dmcausereason)
+- [dmGLAccounts](#dmglaccounts)
+- [dmGLInvoiceDetail](#dmglinvoicedetail)
+- [dmGLTransaction](#dmgltransaction)
 
 **Helper Tables**
 
-- [bridgeMultiClient](#bridgeMultiClient_1)
+- [bridgeMultiClient](#bridgemulticlient)
 
-
-
+---
 
 # GL Relationship to Advertising Side of BI
 
- 
-
 There are times when you may want to try and get information from some GL tables and also some information from the advertising side.  
-
- 
 
 This is possible, but you must understand how these two data marts can be joined.
 
- 
-
 Before trying to join these two data marts, look at the field list in fctGL.  We understood the need for Advertising information on the GL (things like Product info and linage) and have added many of these field to fctGL already.
-
- 
 
 If you find that you must join these data marts together, realize that you will only be able to join tables to pull attributes of an order or insertion.
 
- 
-
 This is to say that there is NOT a one to one relationship between the rows in fctGL and fctInsertion or even a single charge on the advertising side.  One insertion is made up of multiple charges on the advertising side and when these charges are invoiced they are grouped together into GL Buckets and rows are written to fctGL.  
-
- 
 
 # Calculating Linage from fctGL
 
- 
-
 When calculating linage from fctGL you must only sum rows that have the insertion counter set to 1.
-
- 
 
 **Example Query**
 
-SELECT TransactionNumber,
-
-       SUM(ColumnInches)
-
-FROM fctGL
-
-WHERE Insertion_Counter = 1
-
-GROUP BY TransactionNumber
+```sql
+SELECT transactionnumber, 
+       Sum(columninches) 
+FROM   fctgl 
+WHERE  insertion_counter = 1 
+GROUP  BY transactionnumber 
+```
 
  
 
@@ -689,99 +595,83 @@ GROUP BY TransactionNumber
 
 fctApply contains information that link payments and credits to the invoices and debits that they are associated with.
 
- 
-
 **Example Query**
 
-SELECT  InvoicesDebits.TransactionNumber,
-
-        CreditsPayments.TransactionNumber,
-    
-        fctApply.amountapplied,
-    
-        fctApply.applieddate
-
-FROM fctARSummary InvoicesDebits,
-
-     fctApply,
-    
-     fctARSummary CreditsPayments
-
-WHERE InvoicesDebits.id = fctApply.InvoiceDebit_ARsummary_ID
-
-AND CreditsPayments.id = fctApply.CreditPayment_ARsummary_ID
-
- 
+```sql
+SELECT InvoicesDebits.transactionnumber, 
+       CreditsPayments.transactionnumber, 
+       fctapply.amountapplied, 
+       fctapply.applieddate 
+FROM   fctarsummary InvoicesDebits, 
+       fctapply, 
+       fctarsummary CreditsPayments 
+WHERE  InvoicesDebits.id = fctapply.invoicedebit_arsummary_id 
+       AND CreditsPayments.id = fctapply.creditpayment_arsummary_id 
+```
 
 ## fctARSummary
 
 fctARSummary contains one row for every Invoice, Debit, Credit and Payment in the Core database.  So many of these fields have a different source depending on the type of transaction.   
 
- 
-
 | **BI Field Name**       | **CORE Field/Logic**                                         |
 | ----------------------- | ------------------------------------------------------------ |
-| Realized_date_Id        | Link to [dmDate](#dmDate_1)   **Invoices/Debits**   – fnTransactions.TransDate    **Payments/Credits**   – aoCreditDebit.EffectiveDate |
-| Causereason_Id          | Link to [dmCauseReason](#dmCauseReason)   aoCustomerCD       |
-| ARPayer_client_Id       | Link to [dmClient](#dmClient_)    **Invoices/Debits**   – fnTransactions.CustomerAcctId &#129106;  Customer   **Payments/Credits** –   aoCreditDebit.CustomerID &#129106;Customer |
-| AROrderer_client_Id     | Link to [dmClient](#dmClient_)   **Invoices/Debits**   – fnTransactions.AdvertisorAcctId &#129106;  Customer   **Payments/Credits** –   aoCreditDebit.AdvOrPayor &#129106;Customer |
+| Realized_date_Id        | Link to [dmDate](#dmDate_1)   <br />**Invoices/Debits**   – fnTransactions.TransDate    <br />**Payments/Credits**   – aoCreditDebit.EffectiveDate |
+| Causereason_Id          | Link to [dmCauseReason](#dmCauseReason) <br /> aoCustomerCD  |
+| ARPayer_client_Id       | Link to [dmClient](#dmClient_)    <br />**Invoices/Debits**   – fnTransactions.CustomerAcctId &#129106;  Customer<br />**Payments/Credits** –   aoCreditDebit.CustomerID &#129106;Customer |
+| AROrderer_client_Id     | Link to [dmClient](#dmClient_)   <br />**Invoices/Debits**   – fnTransactions.AdvertisorAcctId &#129106;  Customer   <br />**Payments/Credits** –   aoCreditDebit.AdvOrPayor &#129106;Customer |
 | AROrderer_location_Id   | Link to [dmLocation](#dmLocation)                            |
 | ARPayer_location_Id     | Link to [dmLocation](#dmLocation)                            |
-| glTrans_ID              | Link to [dmGLTransaction](#dmGLTransaction)   Indicates the type of transaction - Credit, Debit, Payment   or Invoice |
-| Company_ID              | Link to [dmCompany](#dmCompany)   **Invoice/Debits**   -fnTransactions.ProcessCompany   **Payment** –   aoPayments.CompanyID   **Credit** –   aoCustomerCD.CompanyID |
-| TransactionNumber       | **Invoices/Debits**   – fnTransactions.TransNum   **Credits/Payments**   –aoCreditDebit.TransNumber |
+| glTrans_ID              | Link to [dmGLTransaction](#dmGLTransaction)   <br />Indicates the type of transaction - Credit, Debit, Payment   or Invoice |
+| Company_ID              | Link to [dmCompany](#dmCompany)   <br />**Invoice/Debits**   -fnTransactions.ProcessCompany   <br />**Payment** –   aoPayments.CompanyID   <br />**Credit** –   aoCustomerCD.CompanyID |
+| TransactionNumber       | **Invoices/Debits**   – fnTransactions.TransNum   <br />**Credits/Payments**   –aoCreditDebit.TransNumber |
 | StatementNumber         | **Invoices/Debits –** fnTransactions.StatementNumber         |
-| AdOrderNumber           | **Credit/Debits** -   AoCustomerCD.ApplyAdOrderId   **Invoices** –   fnTransactions.RefNumber |
+| AdOrderNumber           | **Credit/Debits** -   AoCustomerCD.ApplyAdOrderId   <br />**Invoices** –   fnTransactions.RefNumber |
 | aoCreditDebitId_AdBase  | **Debits/Credits/Payments**   &#129106;  AoCreditDebit.ID    |
 | GLInvoiceDetail_ID      | Link to [dmGLInvoiceDetail](#dmGLInvoiceDetail)              |
-| Enteredby_User_ID       | Link to [dmUser](#dmUser)    **Debits/ Credits**   – aoCustomerCD.CreatingUser   **Invoices** –    **Payments** –   aoPayments.CreatingUser |
-| CommissionedRep_User_ID | Link to [dmUser](#dmUser)    **Payments** –   aoPayments.CreatingUser   **Debits/ Credits**   – aoCustomerCD.SalesRep |
+| Enteredby_User_ID       | Link to [dmUser](#dmUser)    <br />**Debits/ Credits**   – aoCustomerCD.CreatingUser   <br />**Invoices** –    <br />**Payments** –   aoPayments.CreatingUser |
+| CommissionedRep_User_ID | Link to [dmUser](#dmUser)    <br />**Payments** –   aoPayments.CreatingUser   <br />**Debits/ Credits**   – aoCustomerCD.SalesRep |
 | fnTransactionId_AdBase  | **Invoices/Debit**   - fnTransactions.ID                     |
 | groupRepPercentage_ID   | Link to bridgeRepPercentage.groupRepPercentage_ID            |
-| Amount_ARSummary        | **Payments** –   aoCreditDebit.Amount * -1   **Credits** –   AbsoluteValue(aoCreditDebit.Amount) * -1   **Invoices/Debits**   – fnTransactions.InvTotalCost |
-| TotalAmountApplied      | **Payments –**   aoCreditDebit.Amount - aoPayments_AmountNotApplied   **Credits –**    aoCreditDebit.Amount – aoCustomerCD.AmountNotApplied   **Invoices/Debits**   –   fnTransactions.InvAmountPaid |
-| FullyAppliedOrPaid_Flag | Boolean indicating if a Debit or Invoice is unpaid or a   Credit or Payment has not been fully applied   If Amount_ARSummary = TotalAmountApplied then set to TRUE |
+| Amount_ARSummary        | **Payments** –   aoCreditDebit.Amount * -1   <br />**Credits** –   AbsoluteValue(aoCreditDebit.Amount) * -1   <br />**Invoices/Debits**   – fnTransactions.InvTotalCost |
+| TotalAmountApplied      | **Payments –**   aoCreditDebit.Amount - aoPayments_AmountNotApplied   <br />**Credits –**    aoCreditDebit.Amount – aoCustomerCD.AmountNotApplied <br />**Invoices/Debits**   –   fnTransactions.InvAmountPaid |
+| FullyAppliedOrPaid_Flag | Boolean indicating if a Debit or Invoice is unpaid or a Credit or Payment has not been fully applied   If Amount_ARSummary = TotalAmountApplied then set to TRUE |
 | ARSummary_Counter       | Counter field; always equal to 1                             |
-| Collections_Date_ID     | Link to [dmDate](#dmDate_1)    fnTransactions.DateSentToCollections |
+| Collections_Date_ID     | Link to [dmDate](#dmDate_1)    <br />fnTransactions.DateSentToCollections |
 | Collections_ID          | Link to [dmCollections](#dmCollections)                      |
-| Closed_Date_ID          | Link to [dmDate](#dmDate_1)    aoCreditDebit.ClosedDate      |
+| Closed_Date_ID          | Link to [dmDate](#dmDate_1)    <br />aoCreditDebit.ClosedDate |
 | Amount_Writeoff         | fnTransactions.WriteoffAmount                                |
-| Amount_Collections      | Collections amount   fnTransactions.CollectionsAmount        |
-| Amount_BadDebt          | Bad debt amount   aoCreditDebit.BadDebtAmount                |
-| LastPopulateDate        | Date that the BI Populate last “touched” this record.  Used primarily in Analytix to allow for   incremental updates. |
-| BatchNumber             | FnBatchInstance logical name (payment, credit only)   Invoices/Debits – 1   Payments/Credits – FnBatchInstance.LogicalName |
+| Amount_Collections      | Collections amount   <br />fnTransactions.CollectionsAmount  |
+| Amount_BadDebt          | Bad debt amount   <br />aoCreditDebit.BadDebtAmount          |
+| LastPopulateDate        | Date that the BI Populate last “touched” this record.  Used primarily in Analytix to allow for incremental updates. |
+| BatchNumber             | FnBatchInstance logical name (payment, credit only)   <br />**Invoices/Debits** – 1   <br />**Payments/Credits** – FnBatchInstance.LogicalName |
 | DisputeInvoiceId_AdBase | **Credits –** AoCustomerCD.DisputedInvoiceId                 |
-| Doc_Date_ID             | Link to [dmDate](#dmDate_1)    fnTransactions.DocDate        |
+| Doc_Date_ID             | Link to [dmDate](#dmDate_1)    <br />fnTransactions.DocDate  |
 | ReferenceNumber         | Reference number from AoPayments                             |
-
- 
 
 ## fctGL
 
 One row for each transaction made against a GL Account.  These can be Credits, Debits, Invoices or Payments.
 
- 
-
 | **BI Field Name**         | **CORE Field/Logic**                                         |
 | ------------------------- | ------------------------------------------------------------ |
-| Realized_Date_ID          | Link to [dmDate](#dmDate_1)   **Invoices/Debits**   – fnTransactions.TransDate    **Payments/Credits**   – aoCreditDebit.EffectiveDate |
-| Client_ID                 | Link to [dmClient](#dmClient_)   **Invoices/Debits**   – fnTransactions.CustomerAcctId &#129106;  Customer   **Payments/Credits** –   aoCreditDebit.CustomerID &#129106;Customer |
+| Realized_Date_ID          | Link to [dmDate](#dmDate_1)   <br />**Invoices/Debits**   – fnTransactions.TransDate    <br />**Payments/Credits**   – aoCreditDebit.EffectiveDate |
+| Client_ID                 | Link to [dmClient](#dmClient)   <br />**Invoices/Debits**   – fnTransactions.CustomerAcctId &#129106;  Customer   <br />**Payments/Credits** –   aoCreditDebit.CustomerID &#129106;Customer |
 | Location_ID               | Link to [dmLocation](#dmLocation)                            |
-| GLAccounts_ID             | Link to [dmGLAccounts](#dmGLAccounts)   **Invoices/Debits**   – fnTransLineDist.AccountId   **Payments/Credits** –   aoTransactionAcctMap.AccountId |
-| Causereason_ID            | Link to [dmCauseReason](#dmCauseReason)   aoCustomerCD       |
-| TransactionNumber         | **Invoices/Debits**   – fnTransactions.TransNum   **Credits/Payments**   –aoCreditDebit.TransNumber |
-| GLTrans_ID                | Link to [dmGLTransaction](#dmGLTransaction)   Indicates the type of transaction - Credit, Debit, Payment   or Invoice |
-| GLLineItemId_AdBase       | **Invoices/Debits**   – fnTransLineDist.ID   **Payments/Credits** –   AoTransactionAcctMap.ID |
-| Company_ID                | Link to [dmCompany](#dmCompany)   **Invoice/Debits**   -fnTransactions.ProcessCompany   **Payment** –   aoPayments.CompanyID   **Credit** –   aoCustomerCD.CompanyID |
-| DebitCreditCode           | Indicates Accounting Credits and Debits   CR = Credit; DR = Debit |
-| TransAmount               | // Trans amount.       float64_m   theTransAmount, theAmount, theCreditAmount, theDebitAmount;       if ( (   theFunctionCode == ARPopulatePayment_e ) \|\| ( theFunctionCode ==   ARPopulateCredit_e ) )       {           theAmount =   theAoTransactionAcctMap_p->get_theAmount();           theCreditAmount   = theAoTransactionAcctMap_p->get_theCreditAmount();             theDebitAmount = theAoTransactionAcctMap_p->get_theDebitAmount();       }       else       {           if (   theFnTransLineDstDetail_p != NULL )                 theAmount = theFnTransLineDstDetail_p->get_theAmount();           else                 theAmount = theFnTransLineDist_p->get_theAmount();             theCreditAmount = theFnTransLineDist_p->get_theCreditAmount();             theDebitAmount = theFnTransLineDist_p->get_theDebitAmount();       }           // Convert   positive credits to debits, negative debits to credits, etc.       if (   theFnTransLineDstDetail_p != NULL )       {             theTransAmount = -( theAmount );       }       else       {           if( (   theDebitAmount == 0.0 ) && ( theCreditAmount == 0.0 ) && (   theAmount != 0.0 ) )           {               if(   theAmount < 0.00 )                     theDebitAmount = fabs( theAmount );               else                     theCreditAmount = fabs( theAmount );           }           if(   theDebitAmount < 0.0 )           {               theCreditAmount   = fabs( theDebitAmount );                 theDebitAmount = 0.0;           }           if(   theCreditAmount < 0.0 )           {                 theDebitAmount = fabs( theCreditAmount );                 theCreditAmount = 0.0;           }                 theTransAmount = theDebitAmount - theCreditAmount;       } |
-| GL_Counter                | Counter field; always equal to 1                             |
+| GLAccounts_ID             | Link to [dmGLAccounts](#dmGLAccounts)  <br />**Invoices/Debits**   – fnTransLineDist.AccountId   <br />**Payments/Credits** –   aoTransactionAcctMap.AccountId |
+| Causereason_ID            | Link to [dmCauseReason](#dmCauseReason)   <br />aoCustomerCD |
+| TransactionNumber         | **Invoices/Debits**   – fnTransactions.TransNum   <br />**Credits/Payments**   –aoCreditDebit.TransNumber |
+| GLTrans_ID                | Link to [dmGLTransaction](#dmGLTransaction)   <br />Indicates the type of transaction - Credit, Debit, Payment or Invoice |
+| GLLineItemId_AdBase       | **Invoices/Debits**   – fnTransLineDist.ID   <br />**Payments/Credits** –   AoTransactionAcctMap.ID |
+| Company_ID                | Link to [dmCompany](#dmCompany)   <br />**Invoice/Debits**   -fnTransactions.ProcessCompany   <br />**Payment** –   aoPayments.CompanyID   <br />**Credit** –   aoCustomerCD.CompanyID |
+| DebitCreditCode           | Indicates Accounting Credits and Debits   <br />CR = Credit; DR = Debit |
+| TransAmount               | [View the Code](#fctgl.transamount-populate-code)            |
+| GL_Counter                | Counter field; Always equal to 1                             |
 | ARSummary_ID              | Link to [fctARSummary](#fctARSummary).ID                     |
 | Apply_ID                  | Link to [fctApply](#fctApply).ID                             |
 | Insert_Date_ID            | Link to [dmDate](#dmDate_1)                                  |
 | RunScheduleId_adbase      | Link to CORE &#129106;  AoAdRunSchedule.ID                   |
 | PRPScheduleId_adbase      | Link to CORE &#129106;  AoPrpRunSchedule.ID                  |
-| Insertion_Counter         | Used here to determine which rows to use in a linage   calculation.  [See here for details.](#Calculating_Linage_from) |
+| Insertion_Counter         | Used here to determine which rows to use in a linage calculation.  [See here for details.](#calculating-linage-from-fctgl) |
 | NumColumns                | aoAdContent.NumColumns                                       |
 | AdWidth                   | aoAdContent.AdWidth                                          |
 | AdDepth                   | aoAdContent.AdDepth                                          |
@@ -804,7 +694,7 @@ One row for each transaction made against a GL Account.  These can be Credits, D
 | AdProduct_ID              | Link to dmAdProduct                                          |
 | AdContent_ID              | Link to dmAdContent                                          |
 | AdInsertbools_ID          | Link to dmAdInsertBools                                      |
-| GLType                    | The GL type.  (See   FnGLTypeEnumType enum.)                 |
+| GLType                    | The GL type.  See **FnGLTypeEnumType** enumerations in the [Other Enumerations](./bi-resources) spreadsheet. |
 | AdDetail_ID               | Link to dmAdDetail                                           |
 | LineType                  | Line type                                                    |
 | DoubleTruckColumns        | aoPageType.AdditionalCols                                    |
@@ -821,93 +711,113 @@ One row for each transaction made against a GL Account.  These can be Credits, D
 | AdLineage_ID              | Link to [dmAdLineage](#dmAdLineage).                         |
 | AdDepthCentimeters        | Ad Depth in Centimeters                                      |
 | ColumnCentimeters         | Column Centimeters                                           |
-| LastPopulateDate          | Date that the BI Populate last “touched” this record.  Used primarily in Analytix to allow for   incremental |
+| LastPopulateDate          | Date that the BI Populate last “touched” this record.  Used primarily in Analytix to allow for incremental loads. |
 
-#  
+### fctGL.TransAmount Populate Code
 
-## fctPreApply
+```c++
+// Trans amount.
+float64_m theTransAmount, theAmount, theCreditAmount, theDebitAmount;
+if ((theFunctionCode == ARPopulatePayment_e) || (theFunctionCode == ARPopulateCredit_e)) {
+    theAmount = theAoTransactionAcctMap_p->get_theAmount();
+    theCreditAmount = theAoTransactionAcctMap_p->get_theCreditAmount();
+    theDebitAmount = theAoTransactionAcctMap_p->get_theDebitAmount();
+}
+else {
+    if (theFnTransLineDstDetail_p != NULL)
+        theAmount = theFnTransLineDstDetail_p->get_theAmount();
+    else
+        theAmount = theFnTransLineDist_p->get_theAmount();
+    theCreditAmount = theFnTransLineDist_p->get_theCreditAmount();
+    theDebitAmount = theFnTransLineDist_p->get_theDebitAmount();
+}
+// Convert positive credits to debits, negative debits to credits, etc.
+if (theFnTransLineDstDetail_p != NULL) {
+    theTransAmount = -(theAmount);
+}
+else {
+    if ((theDebitAmount == 0.0) && (theCreditAmount == 0.0) && (theAmount != 0.0)) {
+        if (theAmount < 0.00)
+            theDebitAmount = fabs(theAmount);
+        else
+            theCreditAmount = fabs(theAmount);
+    }
+    if (theDebitAmount < 0.0) {
+        theCreditAmount = fabs(theDebitAmount);
+        theDebitAmount = 0.0;
+    }
+    if (theCreditAmount < 0.0) {
+        theDebitAmount = fabs(theCreditAmount);
+        theCreditAmount = 0.0;
+    }
+    theTransAmount = theDebitAmount - theCreditAmount;
+}
+```
+
+
+
+> **NOTE** - The fctPreApply and fctApply tables are deprecated.  They are included for reference purposes only, but expect that they do not contain accurate data.
+
+##fctPreApply <span style="color: red">\*\*Deprecated - Do not use</span>
 
 One row is created each time a payment has an AoPrepaymentApply record belonging to it.  Pre payment rows are created when a payment or credit is applied to an order which has not yet been invoiced.
 
- 
-
 | **BI Field Name**          | **CORE Field/Logic**                                         |
 | -------------------------- | ------------------------------------------------------------ |
-| AdOrderId_AdBase           | Link to CORE &#129106;  aoPrePaymentApply.AdOrderID   Ad Order ID prepay is associated with. |
-| CreditPayment_ARSummary_ID | [fctARSummary](#fctARSummary) ID if credit or   payment. Link to fctARSummary |
+| AdOrderId_AdBase           | Link to CORE &#129106;  aoPrePaymentApply.AdOrderID   <br />Ad Order ID prepay is associated with. |
+| CreditPayment_ARSummary_ID | [fctARSummary](#fctARSummary) ID if credit or payment. <br />Link to fctARSummary |
 | AppliedDate                | aoPrePaymentApply.DateApplied                                |
 | AmountApplied              | aoPrePaymentApply.ApplyAmount                                |
 | AmountPosted               | aoPrePaymentApply.AmountPosted                               |
 | TaxPortion                 | aoPrePaymentApply.TaxPortion                                 |
 | Applied_Counter            | Counter field; always equal to 1                             |
 
-#  
+## fctApply <span style="color: red">\*\*Deprecated - Do not use</span>
 
-## fctApply
-
-One row is created each time an invoice has a credit, debit or payment applied to it.
-
-            
+One row is created each time an invoice has a credit, debit or payment applied to it.   
 
 | **BI Field Name**          | **CORE Field/Logic**                                         |
 | -------------------------- | ------------------------------------------------------------ |
-| Invoicedebit_ARSummary_ID  | Link to [fctARSummary](#fctARSummary).ID   This links to an Invoice or Debit record in   fctARSummary.  [See here for details.](#Joining_fctApply_to) |
-| CreditPayment_ARSummary_ID | Link to [fctARSummary](#fctARSummary).ID   This links to an Credit or Payment record in   fctARSummary.  [See here for details.](#Joining_fctApply_to) |
+| Invoicedebit_ARSummary_ID  | Link to [fctARSummary](#fctARSummary).ID   <br />This links to an Invoice or Debit record in fctARSummary.  [See here for details.](#joining-fctapply-to-fctarsummary) |
+| CreditPayment_ARSummary_ID | Link to [fctARSummary](#fctARSummary).ID  <br />This links to an Credit or Payment record in fctARSummary.  [See here for details.](#joining-fctapply-to-fctarsummary) |
 | AdOrderId_AdBase           | Link to CORE &#129106;  aoPaymentApply.AdOrderId             |
 | AppliedDate                | aoPaymentApply.AppliedDate                                   |
 | AmountApplied              | aoPaymentApply.Amount                                        |
 | Applied_Counter            | Counter field; always equal to 1                             |
 
-#  
-
-
-
+---
 
 # Contract Data Mart
 
 The Contract data mart has the following tables:
 
- 
-
 **Fact tables**
 
-- [fctContract](#fctContract)
-- [fctContractFulfillment](#fctContractFulfillment)
-
- 
+- [fctContract](#fctcontract)
+- [fctContractFulfillment](#fctcontractfulfillment)
 
 **Dimensions**
 
-- [dmClient](#dmClient)
-- [dmContractDetails](#dmContractDetails)
-- [dmContractTemplate](#dmContractTemplate)
-- [dmContractBools](#dmContractBools)
-- [dmRateHolder](#dmRateHolder)
-- [dmUser](#dmUser)
-- [dmCompany](#dmCompany)
-
- 
+- [dmClient](#dmclient)
+- [dmContractDetails](#dmcontractdetails)
+- [dmContractTemplate](#dmcontracttemplate)
+- [dmContractBools](#dmcontractbools)
+- [dmRateHolder](#dmrateholder)
+- [dmUser](#dmuser)
+- [dmCompany](#dmcompany)
 
 **Helper Tables**
 
-- [bridgeMultiClient](#bridgeMultiClient_1)
-- [brdigeContractClient](#bridgeContractClient)
-
-
+- [bridgeMultiClient](#bridgemulticlient)
+- [brdigeContractClient](#bridgecontractclient)
 
 # Contract Information
 
- 
-
-There are times when you may want to try and get information from some GL tables and also some information from the advertising side.  
-
- 
+There are times when you may want to try and get information from some GL tables and also some information from the advertising side.   
 
 ## fctContract
 
-One row for each contract instance.
-
-            
+One row for each contract instance.            
 
 | **BI Field Name**            | **CORE Field/Logic**                                         |
 | ---------------------------- | ------------------------------------------------------------ |
@@ -942,13 +852,9 @@ One row for each contract instance.
 | Createdate_Date_ID           | Link to dmDate.ID   coContractInstance.CreateDate            |
 | Createuser_User_ID           | Link to dmUser.ID   coContractInstance.CreateUserId          |
 
- 
-
 ## fctContractFulfillment
 
-One row for each Ad Insertion that is to be counted towards fulfillment of the contract.
-
-            
+One row for each Ad Insertion that is to be counted towards fulfillment of the contract. 
 
 | **BI Field Name**           | **CORE Field/Logic**                                         |
 | --------------------------- | ------------------------------------------------------------ |
@@ -967,22 +873,13 @@ One row for each Ad Insertion that is to be counted towards fulfillment of the c
 | LastPopulateDate            | Date that the BI Populate last “touched” this record.  Used primarily in Analytix to allow for   incremental |
 | prpScheduleId_AdBase        | Link to CORE &#129106;  coFulfillmentRec.RefPRPRunschedule   |
 
- 
-
- 
-
- 
-
-
-
+---
 
 # Dimension Tables
 
 ## dmAdProduct
 
 The dmAdProduct table contains various product related attributes for the ad insertion.  
-
- 
 
 | **BI Field Name**    | **CORE Field/Logic**                                         |
 | -------------------- | ------------------------------------------------------------ |
@@ -991,7 +888,7 @@ The dmAdProduct table contains various product related attributes for the ad ins
 | ProductDescription   | aoProducts.Description                                       |
 | ProductCategory      | ProductCategory.Name                                         |
 | WebCategory          | NULL (Not Populated)                                         |
-| AdType               | aoAdType.Name OR   aoPrePrintTypes.Name for Preprints        |
+| AdType               | aoAdType.Name OR aoPrePrintTypes.Name for Preprints          |
 | AdSubType            | aoAdSubType.Name                                             |
 | PlacementAlias       | rtAliasPlacement.Name                                        |
 | PlacementName        | aoPlacements.Name                                            |
@@ -1006,11 +903,11 @@ The dmAdProduct table contains various product related attributes for the ad ins
 | ZoneID_AdBase        | aoZones.ID                                                   |
 | CheckSum             | Internal BI Populator Use                                    |
 | ProductID_AdBase     | aoProducts.ID                                                |
-| AdTypeID_AdBase      | aoAdType.ID OR   aoPrePrintTypes.ID for Preprints            |
+| AdTypeID_AdBase      | aoAdType.ID OR aoPrePrintTypes.ID for Preprints              |
 | AdSubTypeID_AdBase   | aoAdSubType.ID                                               |
 | PlacementID_AdBase   | aoPlacements.ID                                              |
 | AdCategory           | aoPlacCategory.Name                                          |
-| ProductCompany_ID    | Link to [dmCompany](#dmCompany)   aoProductDef.Company.CompanyID &#129106;  ShCompanies.Name |
+| ProductCompany_ID    | Link to [dmCompany](#dmCompany)   <br />aoProductDef.Company.CompanyID &#129106;  ShCompanies.Name |
 | DivisionName         | aoProductDef.DivisionID &#129106;  CfDivision.Name           |
 | UseWithCrossSellFlag | aoProductDef.UseWithCrossSellFlag                            |
 | SubClass3ID_AdBase   | aoAdRunSchedule.Level3ID &#129106;  aoSubClassLevel3.ID      |
@@ -1020,88 +917,50 @@ The dmAdProduct table contains various product related attributes for the ad ins
 | SubClass4Name        | aoAdRunSchedule.Level4ID &#129106;  aoSubClassLevel4.Name    |
 | SubClass4Description | aoAdRunSchedule.Level4ID &#129106;  aoSubClassLevel4.Description |
 
- 
-
 ## dmUser
 
 The dmUser table contains information from the UsrUsers table and related tables describing the Sales Reps and other users of the AdBase system.
 
- 
-
 **Reps in BI**
 
- 
+There are many links from various BI tables to the [dmUser](#dmUser) table.  This covers reps like Order Taker User, Credit Approver User, etc.  However, there are two main types of Sales Reps within BI that are used most often. 
 
-There are many links from various BI tables to the [dmUser](#dmUser) table.  This covers reps like Order Taker User, Credit Approver User, etc.  However, there are two main types of Sales Reps within BI that are used most often.
-
- 
-
-- Primary      Rep – This is the sales rep that is associated with a customer.  This rep is set in Customer Manager.  This rep is found in [dmClient](#dmClient).PrimarySalesRep_User_ID
-- Sold      By Rep – This sales rep is set in Ad Booker when an order is placed.  This rep usually defaults to the primary      rep, but can be changed by the person entering the order.  This rep is found in      fctInsertion.Commissionedrep_User_ID.
-
- 
+- Primary Rep – This is the sales rep that is associated with a customer.  This rep is set in Customer Manager.  This rep is found in [dmClient](#dmClient).PrimarySalesRep_User_ID
+- Sold By Rep – This sales rep is set in Ad Booker when an order is placed. This rep usually defaults to the primary rep, but can be changed by the person entering the order. This rep is found in      fctInsertion.Commissionedrep_User_ID.
 
 Both of the above reps are located in the dmUser table.  For example, let’s say we have a user “JDoe” in the dmUser table.  This User can be a Primary Rep for a number of customers and at the time he can also be listed as a Sold By Rep for a number of ads that exist in the database.
 
- 
+A setting in **System Admin** &#129106; Tools/System Level Information &#129106;Other Settings tab called “Update Existing dmUser Entry” is used to control what happens when a user is moved to a new sales team, region, territory or company.
 
-A setting in System Admin &#129106; Tools/System Level Information &#129106;Other Settings tab called “Update Existing dmUser Entry” is used to control what happens when a user is moved to a new sales team, region, territory or company.
-
- 
-
-![img](file:///C:/Users/MARK~1.MCC/AppData/Local/Temp/msohtmlclip1/01/clip_image005.gif)![img](file:///C:/Users/MARK~1.MCC/AppData/Local/Temp/msohtmlclip1/01/clip_image007.jpg) 
-
- 
-
- 
+![1536678735607](../assets/bi_core_mapping-clip_imageusers.png) 
 
 **Option 1**
 
 When this option is checked, any change made to the sales rep’s Team, Region, Territory or Company within system admin is reflected by updating the existing row in the dmUser table.  
 
- 
-
 **Option 2**
 
 If this option is not checked, then when a change is made to a sales rep’s Team, Region, Territory or Company a new row is created in dmUser for that sales rep, but his old row still exists.
-
- 
 
 **What Does This Mean**
 
 These options effect how the Sold By rep’s transactions are able to be reported.
 
- 
-
 Every transaction (ad taken) has a Sold By sales rep attached to it.  This is a field that is set in Ad Booker.  
 
- 
-
-Option 1 will effectively let the Sold By sales rep’s transactions “move” with him when he moves to a new sales team, territory or region.  
-
- 
+Option 1 will effectively let the Sold By sales rep’s transactions *“move”* with him when he moves to a new sales team, territory or region.  
 
 **For Example:**
 
-Rep JDoe is on Team Alpha in ’07 and in Dec ’07 he sold 10 ads in which he was the rep in the Sold By field in Ad Booker.  If we were to run a report for Dec ’07 for Team Alpha, Rep JDoe’s sales would be included in the total.    
+Rep JDoe is on Team Alpha in ’17 and in Dec ’17 he sold 10 ads in which he was the rep in the Sold By field in Ad Booker.  If we were to run a report for Dec ’17 for Team Alpha, Rep JDoe’s sales would be included in the total.    
 
- 
-
-If in Jan ’08 Rep JDoe was moved to Team Beta and Option 1 was set in System Admin, the same report, Dec ’07 for Team Alpha, Rep JDoe’s sales would NO longer be included in the total.  
-
- 
+If in Jan ’08 Rep JDoe was moved to Team Beta and Option 1 was set in System Admin, the same report, Dec ’17 for Team Alpha, Rep JDoe’s sales would NO longer be included in the total.  
 
 However if Option 2 was selected in System Admin, the above report would be the same both before and after Rep JDoe was moved to Team Beta.  
 
- 
-
 Be aware the Rep JDoe always is the Sold By rep on the ads.  This just allows you to choose what Team, Region, Territory or Company those ads should show up in.
 
-  
-
-Here are the dmUser fields.
-
- 
+Here are the **dmUser** fields. 
 
 | **BI Field Name**   | **CORE Field/Logic**                                         |
 | ------------------- | ------------------------------------------------------------ |
@@ -1120,22 +979,16 @@ Here are the dmUser fields.
 | Salesregion_User    | UsrUsers.SalesRegionID &#129106;  SalesRegionName.RegionName |
 | Salesterritory_User | UsrUsers.SalesTerritoryID &#129106;  SalesTerritoryName.TerritoryName |
 | Company_ID          | Link to dmCompany &#129106;  derived from UsrUsers.CompanyID |
-| Userstart_Date_ID   | Link to [dmDate](#dmDate) &#129106;  Set to the date that the record was loaded into BI. Always the same as   Userstop_Date_ID |
-| Userstop_Date_ID    | Link to [dmDate](#dmDate) &#129106;  Set to the date that the record was loaded into BI.  Always the same as Userstart_Date_ID |
+| Userstart_Date_ID   | Link to [dmDate](#dmDate) &#129106;  Set to the date that the record was loaded into BI. <br />Always the same as   Userstop_Date_ID |
+| Userstop_Date_ID    | Link to [dmDate](#dmDate) &#129106;  Set to the date that the record was loaded into BI.  <br />Always the same as Userstart_Date_ID |
 | Currentrecord_Flag  | Always set to ‘TRUE’                                         |
-| Manager_User_ID     | Link to dmUser.  This   links to the user in dmUser associated with the UsrUsers.SupervisorID in   core. |
+| Manager_User_ID     | Link to dmUser.  <br />This links to the user in dmUser associated with the UsrUsers.SupervisorID in core. |
 | DivisionName        | UsrUsers.DivisionID &#129106;  cfDivision.Name               |
 | SalesIdentifier     | UsrUsers.SalesIdentifier                                     |
-
- 
-
-##  
 
 ## dmClient
 
 The dmClient table contains attributes related to customers.  
-
- 
 
 | **BI Field Name**         | **CORE Field/Logic**                                         |
 | ------------------------- | ------------------------------------------------------------ |
@@ -1149,13 +1002,13 @@ The dmClient table contains attributes related to customers.
 | BirthDate                 | NULL (Not Populated)                                         |
 | Gender                    | NULL (Not Populated)                                         |
 | Ethnicity                 | NULL (Not Populated)                                         |
-| PrimaryPhoneNumber        | Customer.PrimaryTelephone   Format for loading is 9999999999.  If length is 7 |
-| PrimaryPhoneExtension     | Customer.PrimaryExtension   Format for loading is 999999. No padding |
-| SecondaryPhoneNumber      | Customer.SecondaryTelephone   Format for loading is 9999999999.  If length is 7 |
-| SecondaryPhoneExtension   | Customer.SecondaryExtension   Format for loading is 999999. No padding |
-| FaxNumber                 | Customer.PrimaryFax   Format for loading is 9999999999.  If length is 7 |
+| PrimaryPhoneNumber        | Customer.PrimaryTelephone   <br />Format for loading is 9999999999.  If length is 7 |
+| PrimaryPhoneExtension     | Customer.PrimaryExtension   <br />Format for loading is 999999. No padding |
+| SecondaryPhoneNumber      | Customer.SecondaryTelephone   <br />Format for loading is 9999999999.  If length is 7 |
+| SecondaryPhoneExtension   | Customer.SecondaryExtension   <br />Format for loading is 999999. No padding |
+| FaxNumber                 | Customer.PrimaryFax   <br />Format for loading is 9999999999.  If length is 7 |
 | CellNumber                | NULL (Not Populated)                                         |
-| PrimaryEmail              | Customer.EmailAddress   Converted to lowercase on load       |
+| PrimaryEmail              | Customer.EmailAddress   <br />Converted to lowercase on load |
 | SecondaryEmail            | NULL (Not Populated)                                         |
 | Salesregion_Client        | Customer.SalesRegionID &#129106;  SalesRegionName.RegionName |
 | Salesterritory_Client     | Customer.SalesTerritoryID &#129106;  SalesTerritoryName.TerritoryName |
@@ -1167,22 +1020,22 @@ The dmClient table contains attributes related to customers.
 | CustomerStatus            | Customer.StatusID &#129106;  CustomerStatus.Name             |
 | EmailSolicitok_Flag       | NULL (Not Populated)                                         |
 | EmailSolicitDate          | NULL (Not Populated)                                         |
-| PrimarySalesrep_User_ID   | Link to [dmUser](#dmUser) &#129106;  Customer.PrimarySalespersonID   Primary sales rep for this customer; Link to dmUser Table |
+| PrimarySalesrep_User_ID   | Link to [dmUser](#dmUser) &#129106;  Customer.PrimarySalespersonID   <br />Primary sales rep for this customer; Link to dmUser Table |
 | Business_Flag             | Customer.CompanyFlag                                         |
-| Agency_Flag               | Customer.AgencyFlag   This business customer is an agency    |
+| Agency_Flag               | Customer.AgencyFlag   <br />This business customer is an agency |
 | Activeclient_Flag         | NULL (Not Populated)                                         |
-| CreditRisk                | CustomerCreditInfo.CreditRiskID   The credit risk that has been assigned to this customer by   the newspaper. |
-| CreditLimit               | CustomerCreditInfo.CreditLimit   Maximum credit limit available for this customer |
-| CreditStopped_Flag        | CustomerCreditInfo.CreditStoppedFlag   TRUE - this customer s credit line has been stopped. FALSE   - this customer s credit line has NOT been stopped |
+| CreditRisk                | CustomerCreditInfo.CreditRiskID   <br />The credit risk that has been assigned to this customer by   the newspaper. |
+| CreditLimit               | CustomerCreditInfo.CreditLimit   <br />Maximum credit limit available for this customer |
+| CreditStopped_Flag        | CustomerCreditInfo.CreditStoppedFlag   <br />**TRUE** - this customer s credit line has been stopped. <br />**FALSE**   - this customer s credit line has NOT been stopped |
 | CreditReviewDate          | CustomerCreditInfo.CreditReviewDate                          |
-| InCollections_Flag        | CustomerCreditInfo.InCollections   Customer is currently in collections |
-| CollectionsAgency         | CustomerCreditInfo.CollectorsID   Name of collector          |
+| InCollections_Flag        | CustomerCreditInfo.InCollections   <br />Customer is currently in collections |
+| CollectionsAgency         | CustomerCreditInfo.CollectorsID   <br />Name of collector    |
 | LoginName                 | Customer.WebLoginName                                        |
 | DoNotSolicit_Flag         | Customer.DoNotSolicitFlag                                    |
 | DoNotSolicitPhone1_Flag   | Customer.DoNotSolicitPhone1                                  |
 | DoNotSolicitPhone2_Flag   | Customer.DoNotSolicitPhone2                                  |
 | DoNotSolicitFax_Flag      | Customer.DoNotSolicitFax                                     |
-| BookingStatus             | Customer.BookingStatusCode   Booking status                  |
+| BookingStatus             | Customer.BookingStatusCode   <br />Booking status            |
 | Creditrep_User_ID         | Link to [dmUser](#dmUser)    CustomerCreditRep.PrimaryCreditRep |
 | PreviousCreditRep_User_ID | Link to [dmUser](#dmUser)                                    |
 | Incollections_Date_ID     | Link to [dmDate](#dmDate)   CustomerCreditInfo.InCollectionsDate |
@@ -1192,30 +1045,30 @@ The dmClient table contains attributes related to customers.
 | Salesteam_Client          | Customer.SalesTeamID &#129106;  SalesTeamName.TeamName       |
 | Company_ID                | Link to [dmCompany](#dmCompany)   Customer.CompanyID         |
 | Creation_Date_ID          | Link to [dmDate](#dmDate)   Customer.CreationDate            |
-| TaxExempt_Flag            | CustomerBillingInfo.TaxExemptFlag   TRUE or FALSE            |
-| WriteOffExempt_Flag       | CustomerBillingInfo.WriteOffExemptionFlag   TRUE or FALSE    |
-| DemandFeeExempt_Flag      | CustomerBillingInfo.DunningLetterExemptionFlag   TRUE or FALSE |
-| SplitBillingexempt_Flag   | CustomerBillingInfo.SplitBillingFeeExemptionFlag   TRUE or FALSE |
-| InvoiceFeeExempt_Flag     | CustomerBillingInfo.InvoiceFeeExemptionFlag   TRUE or FALSE  |
-| FeesAdjusted_Flag         | CustomerBillingInfo.AdjustmentsIncludeInvoiceFee   TRUE or FALSE |
+| TaxExempt_Flag            | CustomerBillingInfo.TaxExemptFlag   <br />TRUE or FALSE      |
+| WriteOffExempt_Flag       | CustomerBillingInfo.WriteOffExemptionFlag   <br />TRUE or FALSE |
+| DemandFeeExempt_Flag      | CustomerBillingInfo.DunningLetterExemptionFlag   <br />TRUE or FALSE |
+| SplitBillingexempt_Flag   | CustomerBillingInfo.SplitBillingFeeExemptionFlag   <br />TRUE or FALSE |
+| InvoiceFeeExempt_Flag     | CustomerBillingInfo.InvoiceFeeExemptionFlag   <br />TRUE or FALSE |
+| FeesAdjusted_Flag         | CustomerBillingInfo.AdjustmentsIncludeInvoiceFee   <br />TRUE or FALSE |
 | CommissionEligible_Flag   | TRUE or FALSE                                                |
 | FinanceChargeExempt_Flag  | TRUE or FALSE                                                |
-| DunningLettersExempt_Flag | CustomerBillingInfo.DunningLetterExemptionFlag   TRUE or FALSE |
-| PORequired_Flag           | Customer.PurchaseOrderRequiredFlag   TRUE or FALSE           |
-| PrintInvoice_Flag         | CustomerBillingInfo.PrintInvoiceFlag   TRUE or FALSE         |
-| PrintConsInvoice_Flag     | CustomerBillingInfo.PrintConsolidatedInvoiceFlag   TRUE or FALSE |
-| PrintCreditBalance_Flag   | CustomerBillingInfo.PrintCreditBalancesFlag   TRUE or FALSE  |
-| SendInvoiceParent_Flag    | CustomerBillingInfo.InvoiceToParentFlag   TRUE or FALSE      |
-| SendInvoiceChild_Flag     | CustomerBillingInfo.InvoiceToChildFlag   TRUE or FALSE       |
-| NoAutoReinstate_Flag      | CustomerBillingInfo.AutoReinstate   TRUE or FALSE            |
-| CollectionsExempt_Flag    | CustomerBillingInfo.CollectionExemptionFlag   TRUE or FALSE  |
-| PayAsOrderer_Flag         | CustomerBillingInfo.AllowOrdererPayment   TRUE or FALSE      |
-| CreditStatusType          | CustomerCreditInfo.CreditStatusType   Credit status type (see CreditStatusEnumType.h) |
-| ICNumber                  | Customer.ICNumber   Identity Card Number                     |
+| DunningLettersExempt_Flag | CustomerBillingInfo.DunningLetterExemptionFlag   <br />TRUE or FALSE |
+| PORequired_Flag           | Customer.PurchaseOrderRequiredFlag   <br />TRUE or FALSE     |
+| PrintInvoice_Flag         | CustomerBillingInfo.PrintInvoiceFlag   <br />TRUE or FALSE   |
+| PrintConsInvoice_Flag     | CustomerBillingInfo.PrintConsolidatedInvoiceFlag   <br />TRUE or FALSE |
+| PrintCreditBalance_Flag   | CustomerBillingInfo.PrintCreditBalancesFlag   <br />TRUE or FALSE |
+| SendInvoiceParent_Flag    | CustomerBillingInfo.InvoiceToParentFlag   <br />TRUE or FALSE |
+| SendInvoiceChild_Flag     | CustomerBillingInfo.InvoiceToChildFlag   <br />TRUE or FALSE |
+| NoAutoReinstate_Flag      | CustomerBillingInfo.AutoReinstate   <br />TRUE or FALSE      |
+| CollectionsExempt_Flag    | CustomerBillingInfo.CollectionExemptionFlag   <br />TRUE or FALSE |
+| PayAsOrderer_Flag         | CustomerBillingInfo.AllowOrdererPayment   <br />TRUE or FALSE |
+| CreditStatusType          | CustomerCreditInfo.CreditStatusType   <br />Credit status type (see CreditStatusEnumType.h) |
+| ICNumber                  | Customer.ICNumber   <br />Identity Card Number               |
 | GroupClientAlias_ID       | Link to bridgeClientAlias                                    |
-| SecondarySalesrep_User_ID | Link to [dmUser](#dmUser)   Customer.SecondarySalespersonID  |
+| SecondarySalesrep_User_ID | Link to [dmUser](#dmUser)   <br />Customer.SecondarySalespersonID |
 | AttentionTo               | Customer.AttentionTo                                         |
-| Creating_User_ID          | Link to [dmUser](#dmUser)   Examines Audit Trail to see if an entry can be found that   constitutes the user who added the customer.    If so, it is put here. |
+| Creating_User_ID          | Link to [dmUser](#dmUser)  <br />Examines Audit Trail to see if an entry can be found that   constitutes the user who added the customer.    If so, it is put here. |
 | OrganizationId            | Customer.FederalID                                           |
 | TaxId                     | Customer.TaxID                                               |
 | PayStatusCode             | Payment status code                                          |
@@ -1224,35 +1077,24 @@ The dmClient table contains attributes related to customers.
 
 The dmRelationshipAgency table contains links Agencies with their clients.  Each row in the dmRelationshipAgency table contains a number of links back to dmClient for the various clients that make up the relationship.
 
- 
+In the dmRelationshipAgency table you will have one column **agency_client_id** that will link to dmClient and describes the parent Agency for the **client_client_id** which also links back to dmClient and will describe the client that is a child to the agency.  See the query below for an example of these joins. 
 
-In the dmRelationshipAgency table you will have one column **agency_client_id** that will link to dmClient and describes the parent Agency for the **client_client_id** which also links back to dmClient and will describe the client that is a child to the agency.  See the query below for an example of these joins.
-
- 
-
-The dmRelationshipAgency table also contains 4 grandparent levels.  The first grandparent level would be the client that is the parent of the agency in the given record, the 2nd level grandparent would be the parent of the parent of the agency and so on.
-
- 
+The dmRelationshipAgency table also contains 4 grandparent levels.  The first grandparent level would be the client that is the parent of the agency in the given record, the 2nd level grandparent would be the parent of the parent of the agency and so on. 
 
 **Sample Query:**
 
-SELECT Agency.NameLast_BSN,
+```sql
+SELECT Agency.namelast_bsn       AS Agency,
+       AgencyClient.namelast_bsn AS Client,
+       dmrelationshipagency.*
+FROM   dmclient Agency,
+       dmrelationshipagency,
+       dmclient AgencyClient
+WHERE  AgencyClient.id = dmrelationshipagency.client_client_id
+       AND dmrelationshipagency.agency_client_id = Agency.id
+```
 
-     AgencyClient.NameLast_BSN,
-    
-     dmRelationshipAgency.*
 
-FROM dmClient Agency,
-
-     dmRelationshipAgency,
-    
-     dmClient AgencyClient
-
-WHERE AgencyClient.id = dmRelationshipAgency.client_client_id
-
-AND dmRelationshipAgency.agency_client_id = Agency.ID
-
- 
 
 | **BI Field Name**         | **CORE Field/Logic**                                         |
 | ------------------------- | ------------------------------------------------------------ |
@@ -1270,61 +1112,31 @@ AND dmRelationshipAgency.agency_client_id = Agency.ID
 | g3p_Client_ID             | Link to [dmClient](#dmClient_).ID                            |
 | g4p_Client_ID             | Link to [dmClient](#dmClient_).ID                            |
 
-##  
-
 ## dmRelationshipParent
 
-The dmRelationshipParent table contains links Agencies with their clients.  Each row in the dmRelationshipParent table contains a number of links back to dmClient for the various clients that make up the relationship.
+The dmRelationshipParent table links Parents with their Children.  Each row in the dmRelationshipParent table contains a number of links back to dmClient for the various clients that make up the relationship.
 
- 
+In the dmRelationshipParent table you will have one column **parent_client_id** that will link to dmClient and describes the parent for the **client_client_id** which also links back to dmClient and will describe the client that is a child to the parent.  See the query below for an example of these joins. 
 
-In the dmRelationshipParent table you will have one column **parent_client_id** that will link to dmClient and describes the parent for the **client_client_id** which also links back to dmClient and will describe the client that is a child to the parent.  See the query below for an example of these joins.
+The dmRelationshipParent table also contains 4 grandparent levels.  The first grandparent level would be the client that is the parent of the parent in the given record, the 2nd level grandparent would be the parent of the parent of the parent and so on. 
 
- 
+> NOTE: These tables define the relationships between clients, but DO NOT define any revenue "share" information.  If you are looking for who paid for an Ad, you would look to the Primary Payer field (*PRIMARYPAYER_CLIENT_ID*) in fctInsertion.
 
-The dmRelationshipParent table also contains 4 grandparent levels.  The first grandparent level would be the client that is the parent of the parent in the given record, the 2nd level grandparent would be the parent of the parent of the parent and so on.
+ **Sample Query:**
 
- 
+```sql
+SELECT Parent.namelast_bsn       AS Parent, 
+       ParentClient.namelast_bsn AS Child, 
+       dmrelationshipparent.* 
+FROM   dmclient Parent, 
+       dmrelationshipparent, 
+       dmclient ParentClient 
+WHERE  ParentClient.id = dmrelationshipparent.child_client_id 
+       AND dmrelationshipparent.parent_client_id = Parent.id 
 
-**Sample Query:**
+```
 
-SELECT Agency.NameLast_BSN,
 
-     AgencyClient.NameLast_BSN,
-    
-     dmRelationshipAgency.*
-
-FROM dmClient Agency,
-
-     dmRelationshipAgency,
-    
-     dmClient AgencyClient
-
-WHERE AgencyClient.id = dmRelationshipAgency.client_client_id
-
-AND dmRelationshipAgency.agency_client_id = Agency.ID
-
- 
-
-**Sample Query:**
-
-SELECT Parent.NameLast_BSN,
-
-     ParentClient.NameLast_BSN,
-    
-     dmRelationshipParent.*
-
-FROM dmClient Parent,
-
-     dmRelationshipParent,
-    
-     dmClient ParentClient
-
-WHERE ParentClient.id = dmRelationshipParent.child_client_id
-
-AND dmRelationshipParent.Parent_client_id = Parent.ID
-
- 
 
 | **BI Field Name**         | **CORE Field/Logic**                                         |
 | ------------------------- | ------------------------------------------------------------ |
@@ -1342,45 +1154,35 @@ AND dmRelationshipParent.Parent_client_id = Parent.ID
 | g3p_Client_ID             | Link to [dmClient](#dmClient_).ID                            |
 | g4p_Client_ID             | Link to [dmClient](#dmClient_).ID                            |
 
- 
-
- 
+---
 
 ## bridgeMultiClient
 
 Normally, you will link to the dmClient table via the fact table fields such as PrimaryOrderer_Client_ID or PrimaryPayer_Client_ID.  However, if you want a list of all clients that were part of the customers for a given ad.
 
- 
+ **Sample Query:**
 
-**Sample Query:**
+```sql
+SELECT fctinsertion.id, 
+       fctinsertion.adnumber, 
+       dmclient.accountnumber_adbase, 
+       bridgemulticlient.* 
+FROM   dmclient, 
+       bridgemulticlient, 
+       fctinsertion 
+WHERE  fctinsertion.groupmulticlient_id = bridgemulticlient.groupmulticlient_id 
+       AND bridgemulticlient.client_id = dmclient.id 
+```
 
-SELECT fctInsertion.id,
 
-     fctInsertion.adnumber,
-    
-     dmClient.accountNumber_adbase,
-    
-     bridgeMultiClient.*
-
-FROM dmclient,
-
-     bridgeMultiClient,
-    
-     fctinsertion
-
-WHERE fctInsertion.groupMultiClient_ID = bridgeMultiClient.groupMultiClient_ID
-
-AND bridgeMultiClient.client_id = dmClient.id
-
- 
 
 | **BI Field Name**    | **CORE Field/Logic**                                         |
 | -------------------- | ------------------------------------------------------------ |
-| groupMultiClient_ID  | Link to [fctInsertion](#fctInsertion_).groupMultiClient_ID   OR any other table that has a groupMultiClient_ID link. |
+| groupMultiClient_ID  | Link to [fctInsertion](#fctInsertion_).groupMultiClient_ID OR any other table that has a groupMultiClient_ID link. |
 | Client_ID            | Link to [dmClient](#dmClient_).ID                            |
-| AdvertiserType       | If aoOrderCustomers.PayedBy = 1 then        ‘Payer’   Else       ‘Orderer’ |
-| IsPayer_Flag         | If aoOrderCustomers.PayedBy = 1 then        ‘TRUE’   Else       ‘FALSE’ |
-| IsOrderer_Flag       | If aoOrderCustomers.OrderedBy = 1 then        ‘TRUE’   Else       ‘FALSE’ |
+| AdvertiserType       | If aoOrderCustomers.PayedBy = 1 then<br />       ‘Payer’   <br />Else       <br />       ‘Orderer’ |
+| IsPayer_Flag         | If aoOrderCustomers.PayedBy = 1 then<br />       ‘TRUE’   <br />Else      <br />      ‘FALSE’ |
+| IsOrderer_Flag       | If aoOrderCustomers.OrderedBy = 1 then<br />       ‘TRUE’   <br />Else      <br />      ‘FALSE’ |
 | PercentagePaid       | aoOrderCustomers.PayPercent                                  |
 | PercentageOrdered    | aoOrderCustomers.OrderPercent                                |
 | PercentagePaid_Space | aoOrderCustomers.PercentOverrideSpaceCharge                  |
@@ -1388,13 +1190,9 @@ AND bridgeMultiClient.client_id = dmClient.id
 | PercentagePaid_Other | aoOrderCustomers.PercentOverrideOtherCharge                  |
 | AmountPaid           | aoOrderCustomers.PayAmount                                   |
 
- 
-
 ## dmDate
 
-Each row in the dmDate table holds a single date and describes the date fully.
-
- 
+Each row in the dmDate table holds a single date and describes the date fully. 
 
 | **BI Field Name**       | **CORE Field/Logic**                                         |
 | ----------------------- | ------------------------------------------------------------ |
@@ -1406,43 +1204,39 @@ Each row in the dmDate table holds a single date and describes the date fully.
 | Month_NumberOfDays      | Contains number of days in month. 28-31                      |
 | Month_OfYear_Text       | Full Text - January, February, etc.                          |
 | Month_OfYear_Number     | 1-12                                                         |
-| MonthEnd_Date           | Date that the last day of the month falls on.     Date Field |
-| MonthEnd_Flag           | Indicates whether this date is the last day of the month.   TRUE or FALSE |
+| MonthEnd_Date           | Date that the last day of the month falls on.     <br />Date Field |
+| MonthEnd_Flag           | Indicates whether this date is the last day of the month.  <br /> TRUE or FALSE |
 | Week_OfYear             | Indicates the week number in the year. 1-52                  |
-| WeekDay_Flag            | Monday through Friday = TRUE   Saturday or Sunday = FALSE.   |
+| WeekDay_Flag            | Monday through Friday = TRUE   <br />Saturday or Sunday = FALSE. |
 | WeekEnd_Date            | Week ending date for the week that this date falls into.   Date Field |
 | Holiday_Flag            | Currently Not Used – Always set to FALSE.                    |
-| Year_Calendar           | Calendar year that this date fall into.     Format is YYYY   |
-| Year_Fiscal             | Indicates which fiscal year this date fall in.   Format is YYYY |
-| Year_FiscalStartDate    | The start date of the fiscal year   Date Field               |
-| Year_FiscalEndDate      | The end date of the fiscal year   Date Field                 |
-| Quarter_Calendar_Text   | Text description of the calendar quarter that this date   falls in.  FIRST, SECOND, etc |
-| Quarter_Calendar_Number | Number indicating the calendar quarter that this date   falls in.  1-4 |
-| Quarter_Fiscal_Text     | Text description of the fiscal quarter that this date   falls in.  FIRST, SECOND, etc |
-| Quarter_Fiscal_Number   | Number description of the fiscal quarter that this date   falls in.  1-4 |
-| Period_StartDate        | Start date of period in which this date falls.  The BI Populator looks in the   fnAccountingPeriod table to see if the CalendarDate falls into a period range   in the table.  If it does, it will   return the Start Date of the period.   Date Field |
-| Period_EndDate          | End date of period in which this date falls.   The BI Populator looks in the fnAccountingPeriod table to   see if the CalendarDate falls into a period range in the table.  If it does, it will return the End Date of   the period.   Date Field |
-| Period_OfYear_Text      | Text description of the period that this date falls in.    fnAccountingPeriod.Name for the period that this Calendar   Date falls into. |
-| Period_OfYear_Number    | Numeric value of the period that this date falls in,    1-12 |
-| PeriodEnd_Flag          | Indicates if this date is a period end date. TRUE or FALSE.      Based on the EndDate in fnAccoutingPeriod. |
+| Year_Calendar           | Calendar year that this date fall into.     <br />Format is YYYY |
+| Year_Fiscal             | Indicates which fiscal year this date fall in.   <br />Format is YYYY |
+| Year_FiscalStartDate    | The start date of the fiscal year <br />Date Field           |
+| Year_FiscalEndDate      | The end date of the fiscal year<br />Date Field              |
+| Quarter_Calendar_Text   | Text description of the calendar quarter that this date falls in.  <br />FIRST, SECOND, etc |
+| Quarter_Calendar_Number | Number indicating the calendar quarter that this date falls in.  <br />1-4 |
+| Quarter_Fiscal_Text     | Text description of the fiscal quarter that this date falls in.  <br />FIRST, SECOND, etc |
+| Quarter_Fiscal_Number   | Number description of the fiscal quarter that this date falls in.  <br />1-4 |
+| Period_StartDate        | Start date of period in which this date falls.  <br />The BI Populator looks in the fnAccountingPeriod table to see if the CalendarDate falls into a period range in the table.  If it does, it will return the Start Date of the period.   <br />Date Field |
+| Period_EndDate          | End date of period in which this date falls.   <br />The BI Populator looks in the fnAccountingPeriod table to see if the CalendarDate falls into a period range in the table.  If it does, it will return the End Date of the period.   <br />Date Field |
+| Period_OfYear_Text      | Text description of the period that this date falls in.    <br />fnAccountingPeriod.Name for the period that this Calendar Date falls into. |
+| Period_OfYear_Number    | Numeric value of the period that this date falls in.    <br />1-12 |
+| PeriodEnd_Flag          | Indicates if this date is a period end date. TRUE or FALSE.      <br />Based on the EndDate in fnAccoutingPeriod. |
 | Holidays_ID             | NULL (Not Populated)                                         |
-
- 
 
 ## dmAdOrderBools
 
-Within BI we chose to store many of the common Flag (True/False) type fields in separate tables.   dmAdOrderBools holds flags that pertain to the Ad Order level.
+Within BI we chose to store many of the common Flag type fields in separate tables.   dmAdOrderBools holds flags that pertain to the Ad Order level.
 
-All flags in the bools table are either TRUE or FALSE.
-
- 
+All flags in the bools table are either **TRUE** or **FALSE**. 
 
 | **BI Field Name**      | **CORE Field/Logic**                                         |
 | ---------------------- | ------------------------------------------------------------ |
 | DoNotPaginate_Flag     | aoAdOrder.LayoutRequiredFlag                                 |
 | DoNotBill_Flag         | aoAdOrder.BillingRequiredFlag                                |
 | DoNotProduce_Flag      | aoAdOrder.ProductionRequiredFlag                             |
-| InvoicedAlready_Flag   | Will only be set to TRUE if ALL of the insertions for the   order have been invoiced.   The lowest level of this flag is found in the   fctInsertChargeDetail table. |
+| InvoicedAlready_Flag   | Will only be set to TRUE if ALL of the insertions for the order have been invoiced.   The lowest level of this flag is found in the **fctInsertChargeDetail** table. |
 | IsConfidential_Flag    | aoAdOrder.ConfidentialFlag                                   |
 | Rebill_Flag            | aoAdOrder.RebillSourceFlag                                   |
 | Renewal_Flag           | aoAdOrder.Renewal                                            |
@@ -1451,141 +1245,103 @@ All flags in the bools table are either TRUE or FALSE.
 | QuoteExpired_Flag      | aoAdOrder.QuoteExpiredFlag                                   |
 | CallbackCompleted_Flag | aoAdOrder.CallbackCompleted                                  |
 | Incomplete_Flag        | aoAdOrder.IncompleteFlag                                     |
-| Checksum               | BI Populator System Field   Check sum of this record         |
-
- 
+| Checksum               | BI Populator System Field <br />Check sum of this record     |
 
 ## dmAdOrderStatus
 
-The dmAdOrderStatus table contains Order Status and the current Queue for a given AdOrder.
-
- 
+The dmAdOrderStatus table contains Order Status and the Current Queue for a given AdOrder.
 
 | **BI Field Name** | **CORE Field/Logic**                                    |
 | ----------------- | ------------------------------------------------------- |
 | OrderStatus       | aoAdOrder.OrderStatusID &#129106;  aoAdOrderStatus.Name |
 | CurrentQueue      | aoAdOrder.CurrentQueue                                  |
 
- 
-
 ## dmAdPromotion
 
 The promotion linked to the Ad Order.
-
- 
 
 | **BI Field Name** | **CORE Field/Logic**     |
 | ----------------- | ------------------------ |
 | PromoName         | aoPromotions.Name        |
 | PromoDesc         | aoPromotions.Description |
 
- 
-
 ## dmAdOrderDetail
 
 Miscellaneous ad order attributes.
 
- 
-
 | **BI Field Name**   | **CORE Field/Logic**                                         |
 | ------------------- | ------------------------------------------------------------ |
-| KillReasonName      | aoAdOrder.KillID &#129106;  shKillReasons.Name   Kill reason name, if ad order is killed |
+| KillReasonName      | aoAdOrder.KillID &#129106;  shKillReasons.Name   <br />Kill reason name, if ad order is killed |
 | PaymentMethod       | aoOrderCustomers.PaymentMethod                               |
 | DivisionName        | aoAdOrder.DivisionID &#129106;  cfDivision.Name              |
-| CrosssellType       | aoAdOrder.CrossSellType   Decoded into text by BI Populator  |
+| CrosssellType       | aoAdOrder.CrossSellType   <br />Decoded into text by BI Populator |
 | CatClusterId_AdBase | aoAdOrder.CatClusterID                                       |
 | CatClusterName      | aoAdOrder.CatClusterID &#129106;  aoCatCluster.Name          |
 | CatClusterDesc      | aoAdOrder.CatClusterID &#129106;  aoCatCluster.Description   |
 | CatcodeId_AdBase    | aoAdOrder.CatCodeID                                          |
 | CatcodeName         | aoAdOrder.CatCodeID &#129106;  aoCatCode.Name                |
 | CatcodeDesc         | aoAdOrder.CatCodeID &#129106;  aoCatCode.Description         |
-| Checksum            | BI Populator System Field   Check sum of this record         |
-
- 
-
- 
+| Checksum            | BI Populator System Field   <br />Check sum of this record   |
 
 ## dmCompany
 
- 
 
-| **BI Field Name** | **CORE Field/Logic**                            |
-| ----------------- | ----------------------------------------------- |
-| CompanyName       | aoAdOrder.CompanyID &#129106;  shCompanies.Name |
-| Address1_Company  | shCompanies.AddrLine1                           |
-| Address2_Company  | shCompanies.AddrLine2                           |
-| Address3_Company  | shCompanies.AddrLine3                           |
-| City_Company      | shCompanies.City                                |
-| State_Company     | shCompanies.State                               |
-| Zipcode_Company   | shCompanies.ZipCode                             |
-| CompanyCode       | shCompanies.CompanyCode                         |
-| Description       | shCompanies.Description                         |
-| Primary_Flag      | shCompanies.IsMasterCompany   TRUE or FALSE     |
 
- 
+| **BI Field Name** | **CORE Field/Logic**                              |
+| ----------------- | ------------------------------------------------- |
+| CompanyName       | aoAdOrder.CompanyID &#129106;  shCompanies.Name   |
+| Address1_Company  | shCompanies.AddrLine1                             |
+| Address2_Company  | shCompanies.AddrLine2                             |
+| Address3_Company  | shCompanies.AddrLine3                             |
+| City_Company      | shCompanies.City                                  |
+| State_Company     | shCompanies.State                                 |
+| Zipcode_Company   | shCompanies.ZipCode                               |
+| CompanyCode       | shCompanies.CompanyCode                           |
+| Description       | shCompanies.Description                           |
+| Primary_Flag      | shCompanies.IsMasterCompany   <br />TRUE or FALSE |
 
 ## bridgeMultiSpecials
 
 Links multiple specials to an Ad Order.
 
- 
-
 **Sample Query:**
 
-SELECT  fctAdOrder.AdOrderNumber,
+```sql
+SELECT fctadorder.adordernumber, 
+       bridgemultispecials.*, 
+       dmspecials.* 
+FROM   fctadorder, 
+       bridgemultispecials, 
+       dmspecials 
+WHERE  fctadorder.groupmultispecials_id = 
+       bridgemultispecials.groupmultispecials_id 
+       AND bridgemultispecials.specials_id = dmspecials.id 
+```
 
-        bridgeMultiSpecials.*,
-    
-        dmSpecials.*
 
-FROM    fctAdOrder,
 
-        bridgeMultiSpecials,
-    
-        dmSpecials
-
- WHERE  fctAdOrder.groupMultiSpecials_ID = bridgeMultiSpecials.groupMultiSpecials_ID
-
-AND     bridgeMultiSpecials.Specials_ID = dmSpecials.ID
-
- 
-
-| **BI Field Name**      | **CORE Field/Logic**                                     |
-| ---------------------- | -------------------------------------------------------- |
-| GroupMultiSpecials_ID  | Link to [fctAdOrder](#fctAdOrder)   See query above      |
-| Specials_ID            | Link to dmSpecials.ID                                    |
-| SpecialsAmount         | Calculated from the RTCharge records that are marked as  |
-| SpecialPriceReasonName | aoSpecialPrice.ReasonID &#129106;  cfspPriceReasons.Name |
-
- 
-
- 
-
- 
-
- 
+| **BI Field Name**      | **CORE Field/Logic**                                      |
+| ---------------------- | --------------------------------------------------------- |
+| GroupMultiSpecials_ID  | Link to [fctAdOrder](#fctAdOrder)   <br />See query above |
+| Specials_ID            | Link to dmSpecials.ID                                     |
+| SpecialsAmount         | Calculated from the RTCharge records that are marked as   |
+| SpecialPriceReasonName | aoSpecialPrice.ReasonID &#129106;  cfspPriceReasons.Name  |
 
 ## dmSpecials
 
- 
-
 **Sample Query:**
 
-SELECT  fctAdOrder.AdOrderNumber,
-
-        bridgeMultiSpecials.*,
-    
-        dmSpecials.*
-
-FROM    fctAdOrder,
-
-        bridgeMultiSpecials,
-    
-        dmSpecials
-
- WHERE  fctAdOrder.groupMultiSpecials_ID = bridgeMultiSpecials.groupMultiSpecials_ID
-
-AND     bridgeMultiSpecials.Specials_ID = dmSpecials.ID
+```sql
+SELECT fctadorder.adordernumber, 
+       bridgemultispecials.*, 
+       dmspecials.* 
+FROM   fctadorder, 
+       bridgemultispecials, 
+       dmspecials 
+WHERE  fctadorder.groupmultispecials_id = 
+       bridgemultispecials.groupmultispecials_id 
+       AND bridgemultispecials.specials_id = dmspecials.id 
+```
 
  
 
@@ -1595,72 +1351,50 @@ AND     bridgeMultiSpecials.Specials_ID = dmSpecials.ID
 | SpecialDiscountName | rtDiscSpecial.SpecialDiscountNameId &#129106;  rtSpecialDiscType.Name |
 | SpecialNotes        | aoSpecialPrice.SpecialNotes                                  |
 
- 
-
 ## bridgeMultiMaterials
 
 This table will allow us to link a single Ad order to multiple materials that are included in the order.
 
- 
-
 **Sample Query:**
 
+```sql
 SELECT  fctAdOrder.AdOrderNumber,
-
         bridgeMultiMaterials.*,
-    
         dmMaterialCharge.*
-
 FROM    fctAdOrder,
-
         bridgeMultiMaterials,
-    
         dmMaterialCharge
-
- WHERE  fctAdOrder.groupMultiMaterials_ID = bridgeMultiMaterials.groupMultiMaterials_ID
-
+WHERE fctAdOrder.groupMultiMaterials_ID =bridgeMultiMaterials.groupMultiMaterials_ID
 AND     bridgeMultiMaterials.MaterialCharge_ID = dmMaterialCharge.ID
+```
 
- 
+
 
 | **BI Field Name**      | **CORE Field/Logic**                                         |
 | ---------------------- | ------------------------------------------------------------ |
 | groupMultiMaterials_ID | Link to fctAdOrder                                           |
 | MaterialCharge_ID      | Link to dmMaterialCharge                                     |
-| MaterialQuantity       | Total units for all materials attached to this order.  aoOrderMaterials.MaterialUnits |
-| MaterialtotalAmount    | Total cost for all materials attached to this order.  aoOrderMaterials.MaterialPriceUnit *   MaterialQuantity |
-
- 
-
- 
+| MaterialQuantity       | Total units for all materials attached to this order.<br />aoOrderMaterials.MaterialUnits |
+| MaterialtotalAmount    | Total cost for all materials attached to this order.<br />aoOrderMaterials.MaterialPriceUnit *   MaterialQuantity |
 
 ## dmMaterialCharge
 
 The dmMaterialCharge table contains information pertaining to any material charges for a given AdOrder.
 
- 
-
 **Sample Query:**
 
+```sql
 SELECT  fctAdOrder.AdOrderNumber,
-
         bridgeMultiMaterials.*,
-    
         dmMaterialCharge.*
-
 FROM    fctAdOrder,
-
         bridgeMultiMaterials,
-    
         dmMaterialCharge
+WHERE fctAdOrder.groupMultiMaterials_ID =bridgeMultiMaterials.groupMultiMaterials_ID
+AND   bridgeMultiMaterials.MaterialCharge_ID = dmMaterialCharge.ID
+```
 
- WHERE  fctAdOrder.groupMultiMaterials_ID = bridgeMultiMaterials.groupMultiMaterials_ID
 
-AND     bridgeMultiMaterials.MaterialCharge_ID = dmMaterialCharge.ID
-
- 
-
- 
 
 | **BI Field Name** | **CORE Field/Logic**                     |
 | ----------------- | ---------------------------------------- |
@@ -1668,13 +1402,9 @@ AND     bridgeMultiMaterials.MaterialCharge_ID = dmMaterialCharge.ID
 | MaterialAmount    | aoOrderMaterials.MaterialPriceUnit       |
 | glAccounts_Id     | Link to [dmglAccounts](#dmGLAccounts).ID |
 
- 
-
- 
-
 ## dmLocation
 
- 
+
 
 | **BI Field Name** | **CORE Field/Logic**                                      |
 | ----------------- | --------------------------------------------------------- |
@@ -1710,18 +1440,12 @@ AND     bridgeMultiMaterials.MaterialCharge_ID = dmMaterialCharge.ID
 | LocationType      | NULL (Not Populated)                                      |
 | CheckSum          | BI Populator System Field   Check sum of this record      |
 
- 
-
- 
-
 ## bridgeOrderRoles
 
 Links multiple order roles to an Ad Order.  Used in conjunction with groupOrderRoles.
 
 fctAdOrder &#129106;bridgeOrderRoles
- bridgeOrderRoles &#129106;dmClient
-
- 
+bridgeOrderRoles &#129106;dmClient
 
 | **BI Field Name**       | **CORE Field/Logic**                                         |
 | ----------------------- | ------------------------------------------------------------ |
@@ -1730,19 +1454,15 @@ fctAdOrder &#129106;bridgeOrderRoles
 | OrderRolesLinkId_AdBase | Link to CORE &#129106;  aoOrderRolesLink.ID                  |
 | OrderRolesName          | aoOrderRoles.Name                                            |
 | OrderRolesDescription   | aoOrderRoles.Description                                     |
-| OrderRole               | aoOrderRoles.OrderRole   Order role as defined in OrderRoleEnumType. |
-| IsInactiveFlag          | aoOrderRoles.IsInactiveFlag   TRUE = Order Role entry is inactive |
+| OrderRole               | aoOrderRoles.OrderRole   <br />Order role as defined in OrderRoleEnumType. |
+| IsInactiveFlag          | aoOrderRoles.IsInactiveFlag   <br />TRUE = Order Role entry is inactive |
 | OrderRolesId_AdBase     | Link to CORE &#129106;  aoOrderRoles.ID                      |
-
- 
 
 ## dmAdInsertBools
 
 Within BI we chose to store many of the common Flag (True/False) type fields in separate tables.   dmAdInsertBools holds flags that pertain to the Ad Insertion level.
 
-All flags in the bools table are either TRUE or FALSE.
-
- 
+All flags in the bools table are either **TRUE** or **FALSE**.
 
 | **BI Field Name**           | **CORE Field/Logic**                                         |
 | --------------------------- | ------------------------------------------------------------ |
@@ -1754,25 +1474,21 @@ All flags in the bools table are either TRUE or FALSE.
 | RateOverride_Flag           | aoAdRunSchedule.RateOverride                                 |
 | AdVerified_Flag             | aoAdRunSchedule.Verified                                     |
 | IsDoubletruck_Flag          | aoAdInfo.DoubletruckFlag                                     |
-| IsPublished_Flag            | rtChargeEntryElem.PublishedFlag   Loops through all charges for an insertion.  If all have PublishedFlag set to True (1)   this field is set to TRUE else it is set to FALSE |
-| IsInvoicedAlready_Flag      | rtChargeEntryElem.InvoicedAlreadyFlag   Loops through all charges for an insertion.  If all have InvoicedAlreadyFlag set to True   (1) this field is set to TRUE else it is set to FALSE |
+| IsPublished_Flag            | rtChargeEntryElem.PublishedFlag   <br />Loops through all charges for an insertion.  If all have PublishedFlag set to True (1)   this field is set to TRUE else it is set to FALSE |
+| IsInvoicedAlready_Flag      | rtChargeEntryElem.InvoicedAlreadyFlag   <br />Loops through all charges for an insertion.  If all have InvoicedAlreadyFlag set to True   (1) this field is set to TRUE else it is set to FALSE |
 | IsTillforbid_Flag           | aoAdRunSchedule.IsTillForbid                                 |
 | IsStandby_Flag              | aoAdRunSchedule.IsStandBy                                    |
 | SortTextOverride_Flag       | aoAdRunSchedule.SortOverride                                 |
 | OnlineProduct_Flag          | aoProductDef.IsOnlineProduct                                 |
 | DoNotPaginate_Flag          | aoAdInfo.LayoutRequiredFlag                                  |
-| IsPreprint_Flag             | If the BI Populator has a pointer to a preprint we know   this is a preprint and set the flag to TRUE. |
+| IsPreprint_Flag             | If the BI Populator has a pointer to a preprint we know this is a preprint and set the flag to TRUE. |
 | ExcludeContractFulfill_Flag | aoAdRUnSchedule. DenyContracFulfillFlag                      |
 | OddShaped_Flag              | aoAdInfo.OddShapedFlag                                       |
-| checksum                    | BI Populator System Field   Check sum of this record         |
-
- 
+| checksum                    | BI Populator System Field   <br />Check sum of this record   |
 
 ## dmAdContent
 
 The dmAdContent table contains numerical attributes that describe the insertion in question.
-
- 
 
 | **BI Field Name**      | **CORE Field/Logic**                                         |
 | ---------------------- | ------------------------------------------------------------ |
@@ -1817,20 +1533,16 @@ The dmAdContent table contains numerical attributes that describe the insertion 
 | TotalBorderMarginDepth | aoAdContent.TotalBorderMarginDepth   Total depth of margins in twips |
 | Checksum               | BI Populator System Field   Check sum of this record         |
 
- 
-
 ## dmAdDetail
 
 The dmAdDetail table contains various attributes about the insertion.
-
- 
 
 | **BI Field Name**      | **CORE Field/Logic**                                         |
 | ---------------------- | ------------------------------------------------------------ |
 | AdCaption              | aoAdOrder.InvoiceText                                        |
 | ColorName              | aoAdContent.ColorTypeId &#129106;  aoColors.Name             |
 | Colorcount             | aoColors.ColorCount                                          |
-| Colortype              | aoColors.ColorType   Decoded to a text value.                |
+| Colortype              | aoColors.ColorType   <br />Decoded to a text value.          |
 | GroupBuyName           | aoAdRunSchedule.GroupBuyID                                   |
 | GroupOfProductsName    | BI Populator internal process determines this value.         |
 | CustomerType_addetail  | aoOrderCustomers.CustomerTypeId &#129106;  CustomerType.Name |
@@ -1841,19 +1553,15 @@ The dmAdDetail table contains various attributes about the insertion.
 | SchedAttributeName     | aoAdRunSchedule.SchedAttributeId &#129106;  aoSchedAttribute.Name |
 | ProdMethodName         | aoAdInfo.ProdMethodId &#129106;  aoProdMethod.Name           |
 | ProdMethodInternalType | aoProdMethod.InternalType converted to a text value.         |
-| Checksum               | BI Populator System Field   Check sum of this record         |
-
- 
+| Checksum               | BI Populator System Field   <br />Check sum of this record   |
 
 ## dmLayoutInfo
 
 The dmLayoutInfo table contains information about where the ad was physically placed in the paper.
 
- 
-
 | **BI Field Name**        | **CORE Field/Logic**                                         |
 | ------------------------ | ------------------------------------------------------------ |
-| InsertDate               | anEditorialInsert.InsertDate   Date Field                    |
+| InsertDate               | anEditorialInsert.InsertDate   <br />Date Field              |
 | MastheadName             | anEditorialInsert.MastHeadName                               |
 | xPosition                | anEditorialInsert.xPosition                                  |
 | yPosition                | anEditorialInsert.yPosition                                  |
@@ -1862,49 +1570,38 @@ The dmLayoutInfo table contains information about where the ad was physically pl
 | EPSPath                  | anEditorialInsert.EPSPath                                    |
 | Section                  | anEditorialInsert.Section                                    |
 | EditorialinsertId_adbase | CORE AnEditorialInsert.Id                                    |
-| Checksum                 | BI Populator System Field   Check sum of this record   NOTE:Checksum not used in this table for populating. |
-
- 
+| Checksum                 | BI Populator System Field  <br />Check sum of this record   **NOTE:**Checksum not used in this table for populating. |
 
 ## dmLogos
 
 The dmLogos table contains information for a given graphic ad logo. 
 
- 
-
-| **BI Field Name** | **CORE Field/Logic**                        |
-| ----------------- | ------------------------------------------- |
-| LogoName          | GraphicAdLogo.Description                   |
-| LogoGroupName     | GraphicLogoGroup.LogoGroupName              |
-| LogoGroupAbrev    | GraphicLogoGroup.LogoGroupAbbreviation      |
-| Placeholder_Flag  | GraphicAdLogo.PlaceholdFlag   TRUE or FALSE |
-| ExternalName      | GraphicAdLogo.ExternalName                  |
+| **BI Field Name** | **CORE Field/Logic**                              |
+| ----------------- | ------------------------------------------------- |
+| LogoName          | GraphicAdLogo.Description                         |
+| LogoGroupName     | GraphicLogoGroup.LogoGroupName                    |
+| LogoGroupAbrev    | GraphicLogoGroup.LogoGroupAbbreviation            |
+| Placeholder_Flag  | GraphicAdLogo.PlaceholdFlag   <br />TRUE or FALSE |
+| ExternalName      | GraphicAdLogo.ExternalName                        |
 
 ## bridgeLogos
 
 This table will allow us to link a single Ad order to multiple logos used in the ad.
 
- 
-
 **Sample Query:**
 
+```sql
 SELECT fctInsertion.adnumber,
-
      bridgeLogos.*,
-    
      dmLogos.*
-
 FROM fctInsertion,
-
      dmLogos,
-    
      bridgeLogos
-
 WHERE fctInsertion.grouplogos_id = bridgeLogos.grouplogos_id
-
 AND bridgeLogos.logos_id = dmLogos.id
+```
 
- 
+
 
 | **BI Field Name** | **CORE Field/Logic**               |
 | ----------------- | ---------------------------------- |
@@ -1912,55 +1609,45 @@ AND bridgeLogos.logos_id = dmLogos.id
 | Logos_ID          | Link to [dmLogos](#dmLogos).ID     |
 | FirstDayLogo_Flag | aoAdContentGraphics.FirstDayLogoId |
 
- 
-
 ## dmAdLineage
 
 The dmLogos table contains information for a given graphic ad logo. 
 
- 
-
-| **BI Field Name**     | **CORE Field/Logic**                                     |
-| --------------------- | -------------------------------------------------------- |
-| AgateLineDef          | aoColumnDef.AgateLineDef                                 |
-| UserDefinedUnitName   | aoAdContent.UserUnitId àAoUserUnitDefs.Name              |
-| UserDefinedReportSize | aoAdContent.UserUnitId àAoUserUnitDefs.ReportingPageSize |
-| AdType_UnitMeasure    | Unit of measure (inches, centimeters, etc.)              |
-| PaginationStyle       | aoAdTypeDefinition                                       |
-| PageTypeName          | aoPageType.Name                                          |
-| PageTypeNumColumns    | aoPageType.ColumnCount                                   |
-| PageTypeWidth         | aoPageType.PageWidth                                     |
-| PageTypeDepth         | aoPageType.PageDepth                                     |
-| PageTypeWidthInches   | Convert aoPageType.PageWidth to Inches                   |
-| PageTypeDepthInches   | Convert aoPageType.PageDepth to Inches                   |
-| PageTypeSAUConversion | aoPageType.SAUConversion                                 |
-| Checksum              | BI Populator System Field   Check sum of this record     |
-
- 
+| **BI Field Name**     | **CORE Field/Logic**                                       |
+| --------------------- | ---------------------------------------------------------- |
+| AgateLineDef          | aoColumnDef.AgateLineDef                                   |
+| UserDefinedUnitName   | aoAdContent.UserUnitId àAoUserUnitDefs.Name                |
+| UserDefinedReportSize | aoAdContent.UserUnitId àAoUserUnitDefs.ReportingPageSize   |
+| AdType_UnitMeasure    | Unit of measure (inches, centimeters, etc.)                |
+| PaginationStyle       | aoAdTypeDefinition                                         |
+| PageTypeName          | aoPageType.Name                                            |
+| PageTypeNumColumns    | aoPageType.ColumnCount                                     |
+| PageTypeWidth         | aoPageType.PageWidth                                       |
+| PageTypeDepth         | aoPageType.PageDepth                                       |
+| PageTypeWidthInches   | Convert aoPageType.PageWidth to Inches                     |
+| PageTypeDepthInches   | Convert aoPageType.PageDepth to Inches                     |
+| PageTypeSAUConversion | aoPageType.SAUConversion                                   |
+| Checksum              | BI Populator System Field   <br />Check sum of this record |
 
 ## bridgePRPDistribution
 
-Links Preprint distribution values to an Insertion.  Used in conjunction with groupPrpDistribution.
+Links Preprint distribution values to an Insertion.  There is also a groupPrpDistribution table, however it is not needed in queries.  It is only used for database referential integrity constraints.  The query below is sufficient to get the data you need.
 
 **Sample Query:**
 
-SELECT fctInsertion.adNumber,
-
+```sql
+SELECT fctInsertion.adNumber, 
      bridgePRPDistribution.*,
-    
      dmPRPDistribution.*
-
 FROM fctInsertion,
-
      bridgePRPDistribution,
-    
      dmPRPDistribution
-
-WHERE fctInsertion.groupPRPDistribution_ID = bridgePRPDistribution.groupPRPDistribution_ID
-
+WHERE fctInsertion.groupPRPDistribution_ID =  
+                   bridgePRPDistribution.groupPRPDistribution_ID
 AND bridgePRPDistribution.PRPDistribution_ID = dmPRPDistribution.ID
+```
 
- 
+
 
 | **BI Field Name**       | **CORE Field/Logic**                         |
 | ----------------------- | -------------------------------------------- |
@@ -1971,13 +1658,9 @@ AND bridgePRPDistribution.PRPDistribution_ID = dmPRPDistribution.ID
 | DealerCount             | Dealer Count                                 |
 | DirectMailCount         | Direct Mail Count                            |
 
-##  
-
 ## dmPRPDistribution
 
-The dmPrpDistribution table contains information pertaining to pre print zone codes, unit codes, distribution codes, and dealer codes.
-
- 
+The dmPrpDistribution table contains information pertaining to pre print zone codes, unit codes, distribution codes, and dealer codes. 
 
 | **BI Field Name**   | **CORE Field/Logic**                                     |
 | ------------------- | -------------------------------------------------------- |
@@ -1990,29 +1673,19 @@ The dmPrpDistribution table contains information pertaining to pre print zone co
 | DealerCodeId_AdBase | Link to CORE &#129106;  aoPRPDealerCodeLink.DealerCodeId |
 | DealerCode          | Dealer Code                                              |
 
- 
-
- 
-
 ## dmGLAccounts
 
-The dmGLAccounts table contains GL Accounts.
+The dmGLAccounts table contains GL Accounts. 
 
- 
-
-| **BI Field Name** | **CORE Field/Logic**                      |
-| ----------------- | ----------------------------------------- |
-| GLNumber          | fnAccounts.Name                           |
-| GLName            | fnAccounts.Description                    |
-| GLAccountClass    | fnAccounts.AccountClass   Decoded to text |
-
- 
+| **BI Field Name** | **CORE Field/Logic**                            |
+| ----------------- | ----------------------------------------------- |
+| GLNumber          | fnAccounts.Name                                 |
+| GLName            | fnAccounts.Description                          |
+| GLAccountClass    | fnAccounts.AccountClass   <br />Decoded to text |
 
 ## dmCauseReason
 
 The dmCauseReason table describes the Cause and/or Reason for a Credit or Debit.
-
- 
 
 | **BI Field Name**           | **CORE Field/Logic**                      |
 | --------------------------- | ----------------------------------------- |
@@ -2025,13 +1698,9 @@ The dmCauseReason table describes the Cause and/or Reason for a Credit or Debit.
 | CauseDescription            | aoAdjusmentCauses.Description             |
 | ReasonDescription           | aoAdjusmentReasons.Description            |
 
- 
-
 ## dmCollections
 
 **This table is currently NOT being populated.**  It will only have the “null” initialization row populated.  This table links to the [dmClient](#dmClient) table.
-
- 
 
 | **BI Field Name**  | **CORE Field/Logic** |
 | ------------------ | -------------------- |
@@ -2040,13 +1709,9 @@ The dmCauseReason table describes the Cause and/or Reason for a Credit or Debit.
 | BadDebt_Flag       |                      |
 | WriteOff_Flag      |                      |
 
- 
-
 ## dmBusinessArea
 
 This table links to the [dmClient](#dmClient) table.
-
- 
 
 | **BI Field Name**     | **CORE Field/Logic**                                         |
 | --------------------- | ------------------------------------------------------------ |
@@ -2067,15 +1732,9 @@ This table links to the [dmClient](#dmClient) table.
 | PlacCategoryId_AdBase | Link to CORE &#129106;  BusinessArea.PlacCategoryId          |
 | PlacCategoryName      | BusinessArea.PlacCategoryId &#129106;  aoPlacCategory.Name   |
 
- 
-
- 
-
 ## dmDigitalMediaCampaign
 
 Stores information relating to campaigns related to internet ads.  Links to fctInsertion.
-
- 
 
 | **BI Field Name**     | **CORE Field/Logic**                                         |
 | --------------------- | ------------------------------------------------------------ |
@@ -2095,41 +1754,29 @@ Stores information relating to campaigns related to internet ads.  Links to fctI
 | DailyDeliveryRate     | aoINCampaign.DailyDeliveryRate                               |
 | Reach                 | aoINCampaign.Reach                                           |
 
- 
-
- 
-
 ## dmDigitalMediaFlight
 
-Stores information relating to Flights related to internet ads.  Links to fctInsertion.
+Stores information relating to Flights related to internet ads.  Links to fctInsertion. 
 
- 
-
-| **BI Field Name**        | **CORE Field/Logic**                                    |
-| ------------------------ | ------------------------------------------------------- |
-| aoINFlightGroupId_AdBase | Link to CORE &#129106;  aoINFlightGroup.Id              |
-| AoINFlightId_AdBase      | Link to CORE &#129106;  aoINFlight.ID                   |
-| FlightGroupName          | aoINFlightGroup.GroupName                               |
-| Site                     | aoINFlight.SiteId &#129106;  aoProducts.Name            |
-| Section                  | aoINFlight.SectionId &#129106;  cfInSection.Name        |
-| Page                     | aoINFlight.PageId &#129106;  cfInPage.Name              |
-| ManualRateFlag           | aoINFlight.UseManualRate                                |
-| UnitOfRate               | aoINFlight.ManRateUOR                                   |
-| UnitPrice                | aoINFlight.ManRateCostPer                               |
-| FlightInvoiceNote        | aoINFlightGroup.InvoiceNotes                            |
-| Flightstart_Date_ID      | Link to [dmDate](#dmDate_1)   aoINFlightGroup.StartDate |
-| Flightend_Date_ID        | Link to [dmDate](#dmDate_1)   aoINFlightGroup.EndDate   |
-| QuantityRequested        | aoINFlightGroup.QuantityRequested                       |
-
- 
-
- 
+| **BI Field Name**        | **CORE Field/Logic**                                         |
+| ------------------------ | ------------------------------------------------------------ |
+| aoINFlightGroupId_AdBase | Link to CORE &#129106;  aoINFlightGroup.Id                   |
+| AoINFlightId_AdBase      | Link to CORE &#129106;  aoINFlight.ID                        |
+| FlightGroupName          | aoINFlightGroup.GroupName                                    |
+| Site                     | aoINFlight.SiteId &#129106;  aoProducts.Name                 |
+| Section                  | aoINFlight.SectionId &#129106;  cfInSection.Name             |
+| Page                     | aoINFlight.PageId &#129106;  cfInPage.Name                   |
+| ManualRateFlag           | aoINFlight.UseManualRate                                     |
+| UnitOfRate               | aoINFlight.ManRateUOR                                        |
+| UnitPrice                | aoINFlight.ManRateCostPer                                    |
+| FlightInvoiceNote        | aoINFlightGroup.InvoiceNotes                                 |
+| Flightstart_Date_ID      | Link to [dmDate](#dmDate_1)   <br />aoINFlightGroup.StartDate |
+| Flightend_Date_ID        | Link to [dmDate](#dmDate_1)   <br />aoINFlightGroup.EndDate  |
+| QuantityRequested        | aoINFlightGroup.QuantityRequested                            |
 
 ## dmDigitalMediaUnit
 
-Stores information relating to Units related to internet ads.  Links to fctInsertion.
-
- 
+Stores information relating to Units related to internet ads.  Links to fctInsertion. 
 
 | **BI Field Name**       | **CORE Field/Logic**                                         |
 | ----------------------- | ------------------------------------------------------------ |
@@ -2139,40 +1786,28 @@ Stores information relating to Units related to internet ads.  Links to fctInser
 | Height                  | aoINCampaignUnit.InternetUnitId &#129106;  CfInUnitType.Height |
 | MaxFileSize             | aoINCampaignUnit.InternetUnitId &#129106;  CfInUnitType.MaxFileSize |
 
- 
-
 ## dmGLInvoiceDetail
 
-One row for each transaction made against a GL Account.  These can be Credits, Debits, Invoices or Payments.
-
- 
+One row for each transaction made against a GL Account.  These can be Credits, Debits, Invoices or Payments. 
 
 | **BI Field Name** | **CORE Field/Logic**                                         |
 | ----------------- | ------------------------------------------------------------ |
-| InvoiceText       | Payments -- aoPayments.InvoiceText.InvoiceText   Credit/Debit – aoCustomerCD.InvoiceText |
-| InvoiceNote       | Payments -- aoPayments.Notes   Credit/Debit – aoCustomerCD.Notes |
-
- 
+| InvoiceText       | Payments -- aoPayments.InvoiceText.InvoiceText   <br />Credit/Debit – aoCustomerCD.InvoiceText |
+| InvoiceNote       | Payments -- aoPayments.Notes   <br />Credit/Debit – aoCustomerCD.Notes |
 
 ## dmGLTransaction
 
 Contains the different transaction types for GL entries (Invoice, Credit, Debit, Payment)
 
- 
-
-| **BI Field Name** | **CORE Field/Logic**                         |
-| ----------------- | -------------------------------------------- |
-| GLTransType       | Credit, Debit, Payment or Invoice            |
-| PaymentMethod     | aoPayments.PaymentMethod   Method of Payment |
-| CreditCardType    | Name of Credit Card (Discover, etc)          |
-
- 
+| **BI Field Name** | **CORE Field/Logic**                               |
+| ----------------- | -------------------------------------------------- |
+| GLTransType       | Credit, Debit, Payment or Invoice                  |
+| PaymentMethod     | aoPayments.PaymentMethod   <br />Method of Payment |
+| CreditCardType    | Name of Credit Card (Discover, etc)                |
 
 ## dmContractDetails
 
-The dmContractDetails table contains contract details.
-
-            
+The dmContractDetails table contains contract details.            
 
 | **BI Field Name**    | **CORE Field/Logic**                                         |
 | -------------------- | ------------------------------------------------------------ |
@@ -2180,84 +1815,68 @@ The dmContractDetails table contains contract details.
 | InstanceName         | coContractInstance.Name                                      |
 | ContractStatus       | coContractInstance.Status                                    |
 | FulfillmentStatus    | coContractInstance.FulfillmentStatus                         |
-| LevelSignedUpTo      | coContractInstance.LevelSignedUpTo   Original level this customer agreed to reach for the terms   of this contract. |
-| CurrentLevel         | coContractInstance.CurrentLevel   Current level that applies to this contract. This level   may be different from LevelSignedUpTo if fulfillment is better or worse than   expected. |
-| FulfillmentGoal1     | coDiscountLevel.Var1LowerLimit   **OR**    coRateLevel.Var1LowerLimit   Depending on type of Contract   Amount of units that must be met to satisfy contract for   VAR1 |
-| FulfillmentGoal2     | coDiscountLevel.Var2LowerLimit   **OR**    coRateLevel.Var2LowerLimit   Depending on type of Contract   Amount of units that must be met to satisfy contract for   VAR2 |
+| LevelSignedUpTo      | coContractInstance.LevelSignedUpTo   <br />Original level this customer agreed to reach for the terms   of this contract. |
+| CurrentLevel         | coContractInstance.CurrentLevel   <br />Current level that applies to this contract. This level   may be different from LevelSignedUpTo if fulfillment is better or worse than   expected. |
+| FulfillmentGoal1     | coDiscountLevel.Var1LowerLimit **OR**  coRateLevel.Var1LowerLimit depending on type of Contract   <br />Amount of units that must be met to satisfy contract for VAR1 |
+| FulfillmentGoal2     | coDiscountLevel.Var2LowerLimit **OR**  coRateLevel.Var2LowerLimit depending on type of Contract   <br />Amount of units that must be met to satisfy contract for VAR2 |
 | ExternalFulfillment1 | coContractInstance.Var1ExternalFulfillment                   |
 | ExternalFulfillment2 | coContractInstance.Var2ExternalFulfillment                   |
 | AdditionalReq1       | coContractInstance.Var1AdditionalReq                         |
 | AdditionalReq2       | coContractInstance.Var2AdditionalReq                         |
-| ContractNotes        | coContractInstance.Notes                                     |
-
- 
+| ContractNotes        | coContractInstance.Note                                      |
 
 ## dmContractTemplate
 
 The dmContractTemplate table contains contract information.  Specifically related to the coContractTemplate table in AdBase.
-
-            
 
 | **BI Field Name**     | **CORE Field/Logic**                                         |
 | --------------------- | ------------------------------------------------------------ |
 | TemplateName          | coContractTemplate.Name                                      |
 | ContractType          | coContractTemplate.ContractLevelType                         |
 | ContractDuration      | coContractTemplate.DurationLength                            |
-| FulfillmentUnitsDesc1 | coContractTemplate.Variable1UnitType   Unit type on which orders for this contract are to be   evaluated. |
-| ReviewPeriod1         | coContractTemplate.Period1UnitType   Period of time for which the contract should be evaluated |
-| LinesPerDollar1       | coContractTemplate.Var1LinesPerDollar    For inserts the   number of lines to be defined per dollar |
-| FulfillmentUnitsDesc2 | coContractTemplate.Variable2UnitType   Unit type on which orders for this contract are to be   evaluated. |
-| ReviewPeriod2         | coContractTemplate.Period2UnitType   Period of time for which the contract should be evaluated |
-| LinesPerDollar2       | coContractTemplate.Var2LinesPerDollar   For inserts the number of lines to be defined per dollar |
-
- 
+| FulfillmentUnitsDesc1 | coContractTemplate.Variable1UnitType   <br />Unit type on which orders for this contract are to be   evaluated. |
+| ReviewPeriod1         | coContractTemplate.Period1UnitType   <br />Period of time for which the contract should be evaluated |
+| LinesPerDollar1       | coContractTemplate.Var1LinesPerDollar    <br />For inserts the number of lines to be defined per dollar |
+| FulfillmentUnitsDesc2 | coContractTemplate.Variable2UnitType   <br />Unit type on which orders for this contract are to be   evaluated. |
+| ReviewPeriod2         | coContractTemplate.Period2UnitType   <br />Period of time for which the contract should be evaluated |
+| LinesPerDollar2       | coContractTemplate.Var2LinesPerDollar   <br />For inserts the number of lines to be defined per dollar |
 
 ## dmContractBools
 
-The dmContractBools table contains boolean values describing a given contract.
-
-            
+The dmContractBools table contains boolean values describing a given contract.            
 
 | **BI Field Name**            | **CORE Field/Logic**                                         |
 | ---------------------------- | ------------------------------------------------------------ |
-| AutoRenew_Flag               | coContractInstance.AutoRenewFlag   Indicates if contract will auto renew |
-| ColorOnly_Flag               | coContractInstance.   Indicates if contract is for color only |
-| RateHolder_Flag              | coContractInstance.   Indicates if contract is a rate holder |
-| IssueShortRate_Flag          | coContractInstance.IssueShortRateFlag   Indicates that contract will short rate at end if   necessary |
-| IssueRebate_Flag             | coContractInstance.IssueRebateFlag   Indicates that contract will rebate at end if necessary |
-| RenewAtEarnedLevel_Flag      | coContractInstance.RenewAtEarnedLevelFlag   Indicates that contract will renew at the earned   level.  Can only be true if   RenewAtEarnedLevelFlag is true. |
-| RateGuarantee_Flag           | coContractInstance.RateGuaranteeFlag   Indicates that contract s rates are guaranteed based on   startup date.  If a rate change happens   during contract period |
-| AdvanceLevelAsEarned_Flag    | coContractInstance.AdvancedLevelAsEarnedFlag   Indicates that contract s level will increase as if it   exceeds its signup level |
-| ExcludeFulfill_Internal_Flag | Exclude fulfillment generated internally by the Mactive   system |
+| AutoRenew_Flag               | coContractInstance.AutoRenewFlag   <br />Indicates if contract will auto renew |
+| ColorOnly_Flag               | coContractInstance.  <br />Indicates if contract is for color only |
+| RateHolder_Flag              | coContractInstance.  <br />Indicates if contract is a rate holder |
+| IssueShortRate_Flag          | coContractInstance.IssueShortRateFlag   <br />Indicates that contract will short rate at end if   necessary |
+| IssueRebate_Flag             | coContractInstance.IssueRebateFlag   <br />Indicates that contract will rebate at end if necessary |
+| RenewAtEarnedLevel_Flag      | coContractInstance.RenewAtEarnedLevelFlag   <br />Indicates that contract will renew at the earned level.  Can only be true if   RenewAtEarnedLevelFlag is true. |
+| RateGuarantee_Flag           | coContractInstance.RateGuaranteeFlag   <br />Indicates that contract s rates are guaranteed based on startup date.  If a rate change happens during contract period |
+| AdvanceLevelAsEarned_Flag    | coContractInstance.AdvancedLevelAsEarnedFlag   <br />Indicates that contract s level will increase as if it   exceeds its signup level |
+| ExcludeFulfill_Internal_Flag | Exclude fulfillment generated internally by the AdBase system |
 | ExcludeFulfill_Var1ext_Flag  | Exclude fulfillment from ‘VAR1ExternalFulfillment’           |
 | ExcludeFulfill_Var2ext_Flag  | Exclude fulfillment from ‘VAR2ExternalFulfillment’           |
-| CheckSum                     | BI Populator System Field   Check sum of this record         |
-
- 
+| CheckSum                     | BI Populator System Field   <br />Check sum of this record   |
 
 ## dmRateHolder
 
 The dmRateHolder table contains information about a contract if it is a rate holder.
 
-            
-
 | **BI Field Name** | **CORE Field/Logic**                                         |
 | ----------------- | ------------------------------------------------------------ |
-| RunSunday_Flag    | coContractTemplate.RunSunday   Indicates that Sunday is a required run date for a rate holder |
-| RunMonday_Flag    | coContractTemplate.RunMonday   Indicates that Monday is a required run date for a rate   holder |
-| RunTuesday_Flag   | coContractTemplate.RunTuesday   Indicates that Tuesday is a required run date for a rate   holder |
-| RunWednesday_Flag | coContractTemplate.RunWednesday   Indicates that Wednesday is a required run date for a rate   holder |
-| RunThursday_Flag  | coContractTemplate.RunThursday   Indicates that Thursday is a required run date for a rate   holder |
-| RunFriday_Flag    | coContractTemplate.RunFriday   Indicates that FrIday is a required run date for a rate   holder |
-| RunSaturday_Flag  | coContractTemplate.RunSaturday   Indicates that Saturday is a required run date for a rate   holder |
-
- 
+| RunSunday_Flag    | coContractTemplate.RunSunday   <br />Indicates that Sunday is a required run date for a rate holder |
+| RunMonday_Flag    | coContractTemplate.RunMonday   <br />Indicates that Monday is a required run date for a rate   holder |
+| RunTuesday_Flag   | coContractTemplate.RunTuesday   <br />Indicates that Tuesday is a required run date for a rate   holder |
+| RunWednesday_Flag | coContractTemplate.RunWednesday   <br />Indicates that Wednesday is a required run date for a rate   holder |
+| RunThursday_Flag  | coContractTemplate.RunThursday   <br />Indicates that Thursday is a required run date for a rate   holder |
+| RunFriday_Flag    | coContractTemplate.RunFriday   <br />Indicates that FrIday is a required run date for a rate   holder |
+| RunSaturday_Flag  | coContractTemplate.RunSaturday   <br />Indicates that Saturday is a required run date for a rate   holder |
 
 ## bridgeContractClient
 
 The bridgeContractClient table allows multiple clients to be associated with a give contract.  
-
-            
 
 | **BI Field Name**      | **CORE Field/Logic**                                       |
 | ---------------------- | ---------------------------------------------------------- |
@@ -2265,16 +1884,22 @@ The bridgeContractClient table allows multiple clients to be associated with a g
 | OrdererClient_ID       | Link to [dmClient](#dmClient_).ID                          |
 | PayorClient_ID         | Link to [dmClient](#dmClient_).ID                          |
 
- 
-
 ## bridgeRepPercentage
 
 Links multiple sales rep percentages to an Ad Order
 
-fctAdOrder.groupRepPercentage_ID &#129106;bridgeRepPercentage.groupRepPercentage_ID
- bridgeRepPercentage.SalesRep_ID &#129106;dmUser.ID
-
-            
+```sql
+SELECT fctadorder.adordernumber, 
+       dmuser.userloginname, 
+       bridgereppercentage.* 
+FROM   fctadorder, 
+       bridgereppercentage, 
+       dmuser 
+WHERE  fctadorder.groupreppercentage_id = 
+       bridgereppercentage.groupreppercentage_id 
+       AND bridgereppercentage.salesrep_id = dmuser.id 
+       AND fctadorder.groupreppercentage_id > 1 
+```
 
 | **BI Field Name**     | **CORE Field/Logic**                                    |
 | --------------------- | ------------------------------------------------------- |
@@ -2282,42 +1907,37 @@ fctAdOrder.groupRepPercentage_ID &#129106;bridgeRepPercentage.groupRepPercentage
 | SalesRep_ID           | Link to [dmUser](#dmUser).ID                            |
 | Percentage            | Percentage for this sales rep                           |
 
- 
-
 ## bridgeClientAlias
 
 Links client aliases to a Client. 
 
-dmClient &#129106;bridgeClientAlias
- bridgeClientAlias &#129106;dmClientAlias
-
-            
+```sql
+SELECT dmclient.namelast_bsn, 
+       dmclientalias.aliasname 
+FROM   dmclient, 
+       bridgeclientalias, 
+       dmclientalias 
+WHERE  dmclient.id = bridgeclientalias.groupclientalias_id 
+       AND bridgeclientalias.clientalias_id = dmclientalias.id 
+```
 
 | **BI Field Name**   | **CORE Field/Logic**                               |
 | ------------------- | -------------------------------------------------- |
 | groupClientAlias_Id | Link to [dmClient](#dmClient_).groupClientAlias_ID |
 | ClientAlias_Id      | Link to [dmClientAlias](#dmClientAlias).ID         |
 
- 
-
 ## dmClientAlias
 
 The dmClientAlias table contains information pertaining to customer aliases.
-
-            
 
 | **BI Field Name**      | **CORE Field/Logic**  |
 | ---------------------- | --------------------- |
 | CustomerAliasId_AdBase | CustomerAlias.AliasId |
 | AliasName              | CustomerAlias.Name    |
 
- 
-
 ## dmRateInfo
 
-The dmRateInfo table contains rate information for records in fctInsertChargeDetail.
-
- 
+The dmRateInfo table contains rate information for records in fctInsertChargeDetail. 
 
 | **BI Field Name**   | **CORE Field/Logic**                                         |
 | ------------------- | ------------------------------------------------------------ |

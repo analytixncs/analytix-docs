@@ -1,7 +1,7 @@
 ---
 id: analytix-help-advanced-search
-title: Advanced Search
-sidebar_label: Advanced Search
+title: Qlikview Advanced Search
+sidebar_label: Qlikview Advanced Search
 ---
 
 
