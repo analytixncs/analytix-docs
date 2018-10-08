@@ -39,6 +39,7 @@
       "bi/bi-resources"
     ],
     "BI Support Docs": [
+      "bi/bi-faq",
       "support/bi-chargetypes"
     ],
     "Common SQL Core/BI": [

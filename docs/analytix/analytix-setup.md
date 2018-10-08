@@ -78,13 +78,13 @@ However, if you do not want the username and password exposed in this text file 
 
 Here is what you need to do:
 
-First you must check a setting in User Preferences that turns the scramble function on and off.  The default is to scramble, but please do a quick look and make sure this option is checked.
+First you must check a setting in User Preferences (Settings/User Preferences...) that turns the scramble function on and off.  The default is to scramble, but please do a quick look and make sure this option is checked.
 
 ![](../assets/ASETUP_ScrambleConnection1.png)
 
-Go to User Preferences/General tab and make sure there is a check mark in the “Scramble Connect User Credentials”
+Go to *General* tab and make sure there is a check mark in the “**Scramble Connect User Credentials**”
 
-Now to scramble the Username and Password you must go into the Fat Client and:
+Now to scramble the Username and Password you will need to do the following in the Qlikview Developer application:
 
 1. Create a new empty document.
 
@@ -322,7 +322,7 @@ Below are the spreadsheets and how they are used.  Not all spreadsheets need to 
 
 This application will allow you to view and edit all variables that are used by Analytix.  You will also be able to add new variables if the need arises.
 
-See the documentation for the variable editor for more information, but do note that if you add or modify a variable or variable value, you will need to use the Variable Editor to make the change.  Once the change has been made and you have exported the XML file, you will need to manually reload the source file with the “Reload Variables switch” turned on.
+See the [Analytix Admin Guide](analytix-admin-guide.html#variable-editor) for usage details, but do note that if you add or modify a variable or variable value, you will need to use the Variable Editor to make the change.  Once the change has been made and you have exported the XML file, you will need to manually reload the source file with the “Reload Variables switch” turned on.
 
 <div style="page-break-after: always;"></div>
 
@@ -330,11 +330,11 @@ See the documentation for the variable editor for more information, but do note 
 
 ---
 
-The Group Editor will allow you to view and edit all Cyclic and Drill Down groups in Analytix.
+The Group Editor will allow you to view and edit all Cyclic and Drill Down groups in Analytix.  See the [Analytix Admin Guide](analytix-admin-guide.html#group-editor) for usage details.
 
-You will be able to Edit, Add and Remove groups from Analyix.
+You will be able to Edit, Add and Remove groups from Analytix.
 
-Just like the Variable Editor, any changes to Groups within Analytix must be done using the Group Editor. Once the change has been made and you have exported the XML file, you will need to manually reload the source file and following the instructions in the Group Editor documentation to get the updates into Analytix.
+Just like the Variable Editor, any changes to Groups within Analytix must be done using the Group Editor. Once the change has been made and you have exported the XML file, you will need to manually reload the source file and following the instructions in the [Group Editor documentation](analytix-admin-guide.html#group-editor) to get the updates into Analytix.
 
 <div style="page-break-after: always;"></div>
 
@@ -360,10 +360,10 @@ The following switches are available in the SOURCE_SalesFlash.qvw file.
   - Customer Goals as defined in Ad Sales
   - Tasks and Meetings
 			**Load Budget** - If this is turned to ON, the Budget spreadsheet will be loaded and the Budget tab will show in SalesFlash.qvw
-			**Load PRP Schedule** - Loads information from the Core table aoPRPSchedule.  Currently just PRP Invoice Text.  Links to RevenueTable on the PRPScheduleID_AdBase
-			**Load Old Acct. Numbers** - If this is turned to ON, Analytix will load any "OLD" account numbers that you imported into CORE from your old system.
-			**Exclude GLs** - If turned on, this will exclude any GLs that are located in the GLExcludeList worksheet in the SystemSheet.xls file.  All revenue data associated with these GLs will also be excluded.
-			**Load Custom Scripts** - If turned on, any *.qvs files located in the
+		​	**Load PRP Schedule** - Loads information from the Core table aoPRPSchedule.  Currently just PRP Invoice Text.  Links to RevenueTable on the PRPScheduleID_AdBase
+		​	**Load Old Acct. Numbers** - If this is turned to ON, Analytix will load any "OLD" account numbers that you imported into CORE from your old system.
+		​	**Exclude GLs** - If turned on, this will exclude any GLs that are located in the GLExcludeList worksheet in the SystemSheet.xls file.  All revenue data associated with these GLs will also be excluded.
+		​	**Load Custom Scripts** - If turned on, any *.qvs files located in the
   “..\Include\CustomScripts\SalesFlash\“ directory will be loaded.
 
 ---

@@ -1,7 +1,7 @@
 ---
 id: analytix-using-accesspoint
-title: Using AccessPoint
-sidebar_label: Using AccessPoint
+title: Using AccessPoint / IE Plugin Setup
+sidebar_label: Using AccessPoint / IE Plugin Setup
 ---
 
 ---
@@ -12,6 +12,7 @@ sidebar_label: Using AccessPoint
   - [Analytix URL](#analytix-url)
   - [AccessPoint Home Page](#accesspoint-home-page)
 - [The IE Plugin](#the-ie-plugin)
+  - [IE Setup and Troubleshooting](#ie-setup-and-troubleshooting)
 - [Opening an Analytix Application](#opening-an-analytix-application)
 - [Difference between Plugin and Full Browser Version](#difference-between-plugin-and-full-browser-version)
 
@@ -78,6 +79,35 @@ As stated before, it is recommended that you use Internet Explorer 11 with the I
 To install the plugin simply click the download link and install the downloaded EXE as any other windows application.  **Note**: Some companies restrict their users ability to install programs.  if this is the case, then you will need to contact your IT department to install the plugin.
 
 After the plugin is install, you will need to reload the AccessPoint homepage.  When you do, you should see a status message at the bottom of your browser window or popup message asking you to give the IE Plugin permission to run.  You must say yes for the plugin to work.
+
+### IE Setup and Troubleshooting
+
+If you experience issues seeing pop up dialogs such as the Current Selections or Bookmark dialogs, then you most likely need to disable protected mode in Internet Explorer.
+
+To do this
+
+1. Open Internet Explorer
+
+2. Navigate to the AccessPoint webpage
+
+3. Click the gear icon in the top right, click Internet options
+   ![1539007617571](../assets/ACCESSPOINT-IE2.png)
+
+4. Go to the Security tab, click Trusted sites and ensure that *Enable Protected Mode* is **unchecked**.
+   ![1539007657797](../assets/ACCESSPOINT-IE3.png)
+
+5. Click on the Sites button
+
+6. Make sure that the Analytix URL is listed in the Add this website to the zone field
+
+   Note, that the address could either be an IP address, which is a series or numbers (100.25.251.125) OR a DNS entry which will be a name that your administrator has defined.  Either way, it should be pre populated for you as long as you were on the AccessPoint page when you started this process.
+   ![1539007737213](../assets/ACCESSPOINT-IE42.png)
+
+7. Click Add, then Close
+
+8. Click Apply, then OK
+
+9. Restart Internet Explorer
 
 
 
