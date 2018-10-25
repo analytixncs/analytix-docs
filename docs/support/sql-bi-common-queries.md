@@ -14,6 +14,7 @@ sidebar_label: Common BI Queries
 - [Agency or Parent Relationship](#agency-or-parent-relationship)
 - [Rate Information From dmRate](#rate-information-from-dmrate)
 - [Client Location (Address)](#client-location-(address))
+- [BridgeMultiClient Query](#bridgemulticlient-query)
 
 
 
@@ -353,5 +354,30 @@ WHERE  cc.client_id = c.id
        AND cc.location_id = l.id 
        AND cc.ccovercurrentrecord_flag = 'TRUE' 
        AND c.accountnumber_adbase = '' 
+```
+
+## BridgeMultiClient Query
+
+There are a number of Bridge tables in the BI Database.  Every Bridge table has a corresponding Group table, however the Group table is only used so the database can enforce referential integrity through foreign keys. 
+
+When querying the data, we do not need to use the Group tables, simply bypass them and link directly to the Bridge table.
+
+For the BridgeMultiClient, you would like directly from 
+**fctInsertion.groupMultiClient_id** to **bridgeMultiClient.groupMultiClient_id**
+
+> Limited by: adorderid_adbase
+
+```sql
+SELECT fin.adorderid_adbase, 
+       b.advertisertype, 
+       c.accountnumber_adbase, 
+       c.namelast_bsn, 
+       b.* 
+FROM   fctinsertion fin, 
+       bridgemulticlient b, 
+       dmclient c 
+WHERE  fin.groupmulticlient_id = b.groupmulticlient_id 
+       AND b.client_id = c.id 
+       AND fin.adorderid_adbase = 000
 ```
 

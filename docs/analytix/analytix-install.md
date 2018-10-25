@@ -75,7 +75,9 @@ Once the installation is finished, proceed to the ***Analytix Setup*** documenta
 - Remote access to the server where Analytix is installed
 - Takes a screenshot of the _Load Switches_ found in each of the SOURCE_....qvw files.  
   You will use these in Step 4(Updating Load Switches), when setting up the new Analytix Source files.
+
    ![](https://dl.dropboxusercontent.com/s/zrcgxv84cgb0771/upgax_PreReqs1.png)
+
    If some of the switches ON/OFF button can't be seen.  Click on the Reload variables ON/OFF area.  This will usually show the other switches.
 
 When choosing to upgrade, you will be asked to enter the location of your production Analytix.  This will be the directory that will be upgraded.  Based on the chosen Analytix upgrade location, the application will choose a backup directory.  You may change this directory to a different location if you like.

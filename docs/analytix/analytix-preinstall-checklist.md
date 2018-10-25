@@ -26,7 +26,7 @@ Other configurations, as the sites get larger, could be:
 
 The Analytix software is installed via the **AnalytixInstaller.exe**.  This application will install and run the actual setup program that will guide you through the installation or upgrade of Analytix.
 
- Details on using the software is found in the [Analytix Installer](analytix-install )
+ Details on using the software is found in the [Analytix Installer](./analytix-install)
 
 ## Qlikview Software
 
@@ -66,9 +66,9 @@ During the on-site training for Analytix, each user should have access to Analyt
 Here is a quick checklist for on-premise sites.
 
 1. Download the Analytix software: 
-   ftp://ftp-mlb.newscyclesolutions.com//Mark/CurrentRelease/AnalytixInstaller.exe
+   ftp:/ftp-mlb.newscyclesolutions.com/Mark/CurrentRelease/AnalytixInstaller.exe
 2. Download the Qlikview software 
-   ftp://ftp-mlb.newscyclesolutions.com//Mark/QlikView/CurrentRelease
+   ftp:/ftp-mlb.newscyclesolutions.com/Mark/QlikView/CurrentRelease
 3. Create a service account with Admin rights. We need the username and password for the install.
 4. Create the ODBC connections to the BI and CORE databases. We need the login information for these databases.
 
