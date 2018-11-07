@@ -28,7 +28,8 @@
       "support/qlikview-server-objects",
       "support/qlikview-license-management",
       "support/qlikview-bookmark-management",
-      "support/qlikview-reduce-data"
+      "support/qlikview-reduce-data",
+      "support/qlikview-miscellaneous-support"
     ]
   },
   "bi": {
