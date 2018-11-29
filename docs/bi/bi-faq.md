@@ -71,11 +71,30 @@ When this option is Unchecked it will effectively let the Sold By rep’s transa
 
 For example, Rep JDoe is on Team Alpha in '17 and in Dec '17 he sold 10 ads in which he was the rep in the Sold By field in Ad Booker.  If we were to run a report for Dec '17 for Team Alpha, Rep JDoe’s sales would be included in the total.    
 
+**Update Existing dmUser Entry - CHECKED**
+
 If in Jan ’18 Rep JDoe was moved to Team Beta and Option 1 was set in System Admin, the same report, Dec '17 for Team Alpha, Rep JDoe’s sales would NO longer be included in the total.  
+
+**Update Existing dmUser Entry - UNCHECKED**
 
 However if this option is checked in System Admin, the above report would be the same both before and after Rep JDoe was moved to Team Beta.  
 
 Be aware the Rep JDoe always is the Sold By rep on the ads.  This just allows you to choose what Team, Region, Territory or Company those ads should show up in.
+
+### BE CAREFUL Changing This Option
+
+If you have been populating the BI Database with this option unchecked and then decide you want it checked.  You will need to run a process in the BI Populator to make sure the data is consistent.
+
+If you change this setting, from being un-checked to being checked, there is a function in BiPopulator to update the existing entries in BI. This would merge all entries for a sales rep to point to one record in BI.
+
+Some sites start with the setting unchecked, but realize they want to change this and go to one record per sales rep. To update existing data to have one row vs. multiple you can use a function in BI Populator:
+
+![1543509375900](../assets/bi-faq-bipopfixtable.jpg)
+
+
+
+You click on ‘Fix The Table’ and it goes through all the [dmUser](bi-database-core-mapping#dmuser) records and merges them into one per sales rep. **Note:** Always do this in a **separate** BI Populator session here you are logged in with a user that is NOT
+the same as the Automated BI Populator.
 
 ---
 

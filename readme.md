@@ -88,6 +88,24 @@ The other question you should be asking is "where do my download live?"
 
 From what I can see in docusaurus, you will need to keep any type of asset in the assets folder that is in (i.e. you create in) the docs folder.
 
+### Links to Other Documents
+
+It is very simple to link to other documents that are in the Docs folder.  You will need to be aware if they are in different directories.
+
+But first, the easiest case.  You want to link to another document that is in the current directory.
+
+```markdown
+[dmUser](bi-database-core-mapping#dmuser)
+```
+
+Now, if you want to link to a document that is in a sub directory of Docs, then you just need to make sure you use the relative path to point to that doc.  Below is an example that assumes we are linking for a doc in the BI sub directory.
+
+```markdown
+[AdminGuide](../analytix/analytix-admin-guide)
+```
+
+
+
 ## General Site Configuration
 
 This documentation site is based on the [docusaurus.io](https://docusaurus.io/) package.  For more details on using and modifying the site, refer to the [docusaurus documentation](https://docusaurus.io/docs/en/installation).
