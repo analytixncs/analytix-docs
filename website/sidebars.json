@@ -7,7 +7,9 @@
       "analytix/analytix-preinstall-checklist", 
       "analytix/analytix-install",
       "analytix/analytix-setup",
-      "analytix/analytix-admin-guide"    
+      "analytix/analytix-admin-guide",
+      "analytix/analytix-custom-scripts",
+      "analytix/analytix-source-control"
     ],
     "Analytix User Guides": [
       "analytix/analytix-salesflash-userguide"

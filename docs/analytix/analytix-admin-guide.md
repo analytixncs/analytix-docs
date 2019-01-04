@@ -121,18 +121,18 @@ Available Analytix applications are listed in the left-hand menu.  Clicking on o
 Whether you are editing an existing variable or are adding a new variable, these are the fields that you will need to have:
 
 1.	**Name** – The actual variable name that will be loaded into the Analytix application.
-  2.**Group** – Groups your variable.  You may want to keep User Created Variable in a group like ‘User Created’.
-  3.**Description** – This is a short description that will appear in the tool tip when hovering over a variable name.
-  4.**Expression** – The expression assigned to the variable when loaded.
-  5.**Notes** – Description of what the variable is used for.
-  6.**Locked** – Indicates if this field is locked.  Mainly use for system variables.
+2.	**Group** – Groups your variable.  You may want to keep User Created Variable in a group like ‘User Created’.
+3.	**Description** – This is a short description that will appear in the tool tip when hovering over a variable name.
+4.	**Expression** – The expression assigned to the variable when loaded.
+5.	**Notes** – Description of what the variable is used for.
+6.	**Locked** – Indicates if this field is locked.  Mainly use for system variables.
 
 ### Exporting to Analytix
 
 Changing variables in the Variable Editor does not affect the Analytix application directly.  There are two steps that need to happen to have your changes to variables show up in Analytix.
 
 1.	You need to export the application variable XML file.
-  2.You need to reload Analytix with the “Reload Variables” switch turned on.
+2.	You need to reload Analytix with the “Reload Variables” switch turned on.
 
 #### Export Variables to XML
 
