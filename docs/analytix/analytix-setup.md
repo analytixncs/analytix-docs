@@ -106,6 +106,48 @@ Now to scramble the Username and Password you will need to do the following in t
 
 <div style="page-break-after: always;"></div>
 
+## Manual Loading of Analytix
+
+---
+
+Usually Analytix will be set to load on a schedule through Qlikview Server.  However, there are times when you may want to load Analytix manually.
+
+There is a hierarchy in the loading of Analytix files.  
+
+First the **QVD_ALL.qvw** must be loaded.  It will create the needed *QVD* files for the rest of the load.
+
+Next, you will load the files in the  `SOURCE` directory.  You may load them all or if you are just needing a single QVW file loaded, then just load that file.  
+
+Note that each of the QVW files in the `SOURCE` directory will be paired with a corresponding file from the `QVW` directory.
+
+- SOURCE_SalesFlash.qvw &#129106; SalesFlash.qvw
+- SOURCE_AdvertisingAnalytix.qvw &#129106; AdvertisingAnalytix.qvw
+- SOURCE_ARAnalytix.qvw &#129106; ARAnalytix.qvw
+- SOURCE_Contract.qvw &#129106; Contracts.qvw
+
+Once the SOURCE file(s)  are loaded, you may load the corresponding files in the `QVW` directory.
+
+### Loading a QVW file with Qlikview
+
+To actually run the load script for a QVW file, you will need to have Qlikview Developer installed and licensed.  If you have not purchased a dedicated Qlikview Developer license, you may "lease" a license from your installed Qlikview server.  See [Licensing Qlikview Developer Client](../support/qlikview-license-management.html#licensing-qlikview-developer-client)
+
+Once Qlikview Developer is licensed, you may proceed with the load process.
+
+To load a QVW file:
+
+1. Start the Qlikview Developer application
+2. Click on **File/Open**(Ctrl/O) and choose the QVW file that you want to load/reload
+3. Once the file has opened, click on **File/Reload** (Ctrl/R)
+4. Once the file has finished reloading, click **File/Save** (Ctrl/S)
+
+You will perform the above steps for each file that you want to reload.  For example, if you wanted to reload the SalesFlash.qvw with current data you would reload the following files:
+
+1. QVD\QVD_All.qvw
+2. SOURCE\SOURCE_Salesflash.qvw
+3. QVW\Salesflash.qvw
+
+<div style="page-break-after: always;"></div>
+
 ## QVD Maintenance using the QVD_ALL.qvw file
 
 ---
@@ -316,6 +358,22 @@ Below are the spreadsheets and how they are used.  Not all spreadsheets need to 
 
 <div style="page-break-after: always;"></div>
 
+## Setting up Security (Optional)
+
+Analytix is already secure by using Active Directory login information so that only licensed users are able to access the Analytix Applications.
+
+However, you may want to limit those users who do have access to Analytix to only see certain data within each application.
+
+Before starting down this path, be sure to read the [Qlikview Docs on Section Access](../assets/downloads/qlikviewdocs/qlikview_introduction_to_section_access.pdf) docs before starting to make changes.
+
+**Section Access** is implemented in Analytix such that that each application has a folder that holds the section access script and any needed data in the `./Include/SecurityScripts` directory.
+
+There is a folder for each Analytix application in this directory.  Inside each folder you will find a script (*SalesFlashSecurity.qvs, ARAnalytixSecurity.qvs, etc.*) that you will edit to include your Section Access code.
+
+![1546892747647](analytix-setup-security-1.png)
+
+Upon installation of Analytix, there is only commented out starter code in these security QVS files.  As soon as there is code in these files, they will be injected into the main QVW files.
+
 ## Variable Editor
 
 ---
@@ -383,7 +441,11 @@ There is a separate directory under the *CustomScripts* directory for each appli
 
 ---
 
-Your end users should be using Internet Explorer with the Qlikview IE Plugin.  When exporting to Excel it is important to also have your selection criteria exported in the Excel file.  To make sure that you are set up to do this, follow the below procedures.
+When exporting to Excel it is important to also have your selection criteria exported in the Excel file.  Enabling this feature is different depending on which browsers your users are using.
+
+### Using the IE Plugin
+
+If your end users are using Internet Explorer with the Qlikview IE Plugin, you can setup your exports to include a *selection stamp*.  
 
 1. Open Analytix in a browser and drop down the Menu Toolbar and select User Preferences.
 
@@ -394,3 +456,17 @@ Your end users should be using Internet Explorer with the Qlikview IE Plugin.  W
    ![](../assets/ASETUP_Export2.png)
 
 3. Click OK.
+
+### Using Ajax (Other Browser)
+
+Whereas the IE plugin requires the user to enable this feature, when using a browser in the Ajax mode, you must enable this feature on the server.
+
+This means that all users will get *selection stamps* in their exports.
+
+You must first be on the Qlikview server running the service "Qlikview Server".
+
+1. Stop the service "Qlikview Server"s
+2. Open the **settings.ini** file located in `C:/ProgramData/QlikTech/QlikViewServer`
+3. Add the parameter `SelectionStampInBIFFExport=1` in the section labeled **[Settings 7]**
+4. Save the File
+5. Restart the service "Qlikview Server"
