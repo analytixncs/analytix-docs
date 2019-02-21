@@ -23,6 +23,7 @@ sidebar_label: Analytix Setup
   - [Fielded Data](#fielded-data)
   - [Client Relationships](#client-relationships)
 - [Spreadsheets](#spreadsheets)
+- [Setting Up Security](#setting-up-security-optional)
 - [Variable Editor](#variable-editor)
 - [Group Editor](#group-editor)
 - [SOURCE Files](#source-files)
@@ -358,7 +359,7 @@ Below are the spreadsheets and how they are used.  Not all spreadsheets need to 
 
 <div style="page-break-after: always;"></div>
 
-## Setting up Security (Optional)
+## Setting up Security-Optional
 
 Analytix is already secure by using Active Directory login information so that only licensed users are able to access the Analytix Applications.
 
@@ -370,7 +371,7 @@ Before starting down this path, be sure to read the [Qlikview Docs on Section Ac
 
 There is a folder for each Analytix application in this directory.  Inside each folder you will find a script (*SalesFlashSecurity.qvs, ARAnalytixSecurity.qvs, etc.*) that you will edit to include your Section Access code.
 
-![1546892747647](analytix-setup-security-1.png)
+![1546892747647](./assets/analytix-setup-security-1.png)
 
 Upon installation of Analytix, there is only commented out starter code in these security QVS files.  As soon as there is code in these files, they will be injected into the main QVW files.
 

@@ -407,7 +407,7 @@ Assume we are spreading a $50 Order Level charge across an ad with 3 revenue ent
 | GroupMultiClient_ID        | Link to [BridgeMultiClient](#bridgeMultiClient_1).GroupMultiClient_ID   The bridgeMultiClient table allows an insertion to be   linked to more than just the Primary Orderer and Payer. |
 | Household_ID               | Link to dmHousehold.ID   The Household table was designed to be used to store the   history of address changes of a customer. Currently it is populated, but not   used in any of our reports or Analytix. |
 | AdProduct_ID               | Link to [dmAdProduct](#dmAdProduct).ID                       |
-| Billing_Date_ID            | NULL (Not Populated)                                         |
+| Billing_Date_ID            | AoInsertion.CreateDate<br />The billing date id was one of the fields which was created the early BI design, however, nothing was stored in it initially.  A customer asked us to extract the create date from AoInsertion and store it in fctInsertion, so we chose to use this field to avoid a schema change.  This is why it contains AoInsertion.CreateDate. |
 | Modified_Date_ID           | Link to [dmDate](#dmDate_1)   &#129106;  aoAdOrder.LastEditDate |
 | CommissionedRep_User_ID    | Link to [dmUser](#dmUser) &#129106;  Sold By Rep in AdBooker |
 | AdContent_ID               | Link to [dmAdContent](#dmAdContent)                          |
