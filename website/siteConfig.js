@@ -9,15 +9,15 @@
 const users = [
   {
     caption: 'User1',
-    image: '/test-site/img/newscycle-circle.png',
-    infoLink: 'https://www.facebook.com',
+    image: '/test-site/img/Naviga_Logo_Dark_Icon.png',
+    infoLink: 'https://www.navigaglobal.com',
     pinned: true,
   },
 ];
 
 const siteConfig = {
-  title: 'Newscycle Solutions - Analytix Docs' /* title for your website */,
-  tagline: 'Analytix Documentation',
+  title: 'Analytix and BI Populator Docs' /* title for your website */,
+  tagline: '',
   url: './' /* your website url */,
   baseUrl: '/' /* base url for your project */,
   projectName: 'analytix-docs',
@@ -31,13 +31,13 @@ const siteConfig = {
   ],
   users,
   /* path to images for header/footer */
-  headerIcon: 'img/newscycle-circle.png',
-  footerIcon: 'img/newscycle-circle.png',
+  headerIcon: 'img/Naviga_Logo_Dark_Icon.png',
+  footerIcon: 'img/Naviga_Logo_Dark_Icon.png',
   favicon: 'img/favicon.png',
   /* colors for website */
   colors: {
-    primaryColor: '#07466E',
-    secondaryColor: '#205C3B',
+    primaryColor: '#1f0744',
+    secondaryColor: '#6950F6',
   },
   /* custom fonts for website */
   /*fonts: {
@@ -59,7 +59,7 @@ const siteConfig = {
   copyright:
     'Copyright © ' +
     new Date().getFullYear() +
-    ' Newscycle Solutions',
+    'Naviga',
   // organizationName: 'deltice', // or set an env variable ORGANIZATION_NAME
   // projectName: 'test-site', // or set an env variable PROJECT_NAME
   highlight: {

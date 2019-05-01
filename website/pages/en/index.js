@@ -57,10 +57,13 @@ const Logo = props => (
 );
 
 const ProjectTitle = props => (
-  <h2 className="projectTitle">
-    {siteConfig.title}
-    <small>{siteConfig.tagline}</small>
-  </h2>
+  <React.Fragment>
+    <img src={imgUrl('Naviga_Logo_Dark_Horizontal_Tagline.png')} width="40%"/>
+    <h2 className="projectTitle objectivity-font">
+      {siteConfig.title}
+      <small>{siteConfig.tagline}</small>
+    </h2>
+  </React.Fragment>
 );
 
 const PromoSection = props => (
@@ -76,7 +79,7 @@ class HomeSplash extends React.Component {
     let language = this.props.language || '';
     return (
       <SplashContainer>
-        <Logo img_src={imgUrl('newscycle-circle.png')} />
+        {/* <Logo img_src={imgUrl('Naviga_Logo_Dark_Icon.png')} /> */}
         <div className="inner">
           <ProjectTitle />
           <PromoSection>

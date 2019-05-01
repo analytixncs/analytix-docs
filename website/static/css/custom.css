@@ -1,3 +1,18 @@
+
+@font-face {
+  font-family: 'Objectivity';
+  font-style: normal; 
+  src: url('./css/Objectivity-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Karla';
+  font-style: normal; 
+  src: url('./css/Karla-Regular.ttf');
+}
+
+.objectivity-font {
+  font-family: 'Objectivity';
+}
 /* your custom css */
 .resource-container {
   display: flex;
@@ -53,3 +68,4 @@
 
 @media only screen and (min-width: 1500px) {
 }
+

@@ -43,14 +43,23 @@ class Footer extends React.Component {
             </a>
           </div>
           <div>
-            <h5>Newscycle Solutions</h5>
+            <h5>naviga</h5>
             <a
-              href="http://newscycle.com/"
+              href="http://navigaglobal.com/"
               target="_blank">
-              Newscycle Website
+              Website
             </a>
-            <a href="https://twitter.com/NEWSCYCLE_News?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor" target="_blank">
+            <a href="http://navigaglobal.com/blog/" target="_blank">
+              naviga Blog
+            </a>
+            <a href="https://twitter.com/navigaglobal" target="_blank">
               Twitter
+            </a>
+            <a href="https://www.facebook.com/navigaglobal" target="_blank">
+              Facebook
+            </a>
+            <a href="https://www.linkedin.com/company/navigaglobal" target="_blank">
+              LinkedIn
             </a>
           </div>
           <div>
@@ -61,18 +70,18 @@ class Footer extends React.Component {
         </section>
 
         <a
-          href="https://newscyclesolutions.com"
+          href="https://navigaglobal.com"
           target="_blank">
           <img
-            src={this.props.config.baseUrl + 'img/NewscycleLogo.png'}
-            alt="Newscycle Solutions"
+            src={this.props.config.baseUrl + 'img/Naviga_Logo_Dark_Verticle.png'}
+            alt="naviga - Venture Forward"
             width="226"
             height="42"
             style={{margin: "1em auto", display: "block", width: "226px"}}
           />
         </a>
         <section className="copyright">
-          Copyright &copy; {currentYear} Newscycle Solutions.
+          Copyright &copy; {currentYear} naviga
         </section>
       </footer>
     );
