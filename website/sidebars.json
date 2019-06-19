@@ -9,6 +9,7 @@
       "analytix/analytix-setup",
       "analytix/analytix-admin-guide",
       "analytix/analytix-custom-scripts",
+      "analytix/analytix-auto-export-email",
       "analytix/analytix-source-control"
     ],
     "Analytix User Guides": [

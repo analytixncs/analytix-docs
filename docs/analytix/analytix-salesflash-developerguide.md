@@ -87,14 +87,11 @@ In the end we will have four expressions as defined below:
 
 ```
 COUNT(DISTINCT //We only want to count distinct Accounts
-
 //This will find all accounts in the current year whose sum of revenue is NOT equal to zero 
-
 {<ACCOUNTNUMBER_ADBASE=({"=SUM({$<Posting_CalendarYear={$(=$(SelectYear))}>} $(NetRevenue))<>0"}) 
 
-* //This is the intersection operator.  It will take the result sets from the set above and below and intersect them.
-
-//We cannot say =0 here since this will not count those accounts that had NO ad orders.  So we take All Accounts and use the Minus (-) operator to remove those accounts that had revenue in the previous year from the list.
+//This is the intersection operator.  It will take the result sets from the set above and below and intersect them.
+//We cannot say =0 here since this will not count those accounts that had NO ad orders. So we take All Accounts and use the Minus (-) operator to remove those accounts that had revenue in the previous year from the list.
 
 (ACCOUNTNUMBER_ADBASE-{"=SUM({$<Posting_CalendarYear={$(=$(SelectYear)-1)}>} $(NetRevenue))<>0"})
 
@@ -131,7 +128,8 @@ To make all of this easier to reason about in the calculated dimension, we use t
 =IF( ($(vChurnCurrYear) > 0 ) AND ( $(vChurnPrevYear) = 0), 'New Customers',
 	IF( ($(vChurnCurrYear) = 0 ) AND ( $(vChurnPrevYear) = 0 ), 'Inactive Customers',
 		IF( ($(vChurnCurrYear) = 0 ) AND ( $(vChurnPrevYear) > 0 ),  'Lost Customers',
-			IF( ($(vChurnCurrYear) - $(vChurnPrevYear)) / $(vChurnPrevYear) > 0, 'Increased Rev Customers',
+			IF( ($(vChurnCurrYea
+			r) - $(vChurnPrevYear)) / $(vChurnPrevYear) > 0, 'Increased Rev Customers',
 				IF( ( ($(vChurnCurrYear) - $(vChurnPrevYear)) / $(vChurnPrevYear) < 0 ) AND ( ($(vChurnCurrYear) - $(vChurnPrevYear)) / $(vChurnPrevYear) > -1 ), 'Reduced Rev Customers', 'OTHER')
 				)
 			)
