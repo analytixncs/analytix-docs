@@ -43,8 +43,9 @@
     "BI Resources": [
       "bi/bi-resources"
     ],
-    "BI Support Docs": [
+    "BI/Core Support Docs": [
       "bi/bi-faq",
+      "support/adbase-core-faqs",
       "support/bi-chargetypes"
     ],
     "Common SQL Core/BI": [

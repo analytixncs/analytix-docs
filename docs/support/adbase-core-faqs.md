@@ -10,7 +10,7 @@ sidebar_label: Adbase Core FAQS
 
 When you see an Ad in Ad Booker, sometimes the depth will be represented as "Li"
 
-![1561491615368](C:\Users\mark.mccoid\Documents\AnalytixDevelopment\analytix-docs\docs\assets\adbase-core-001.png)
+![1561491615368](..\assets\adbase-core-001.png)
 
 However, when you query the **aoAdContent** table, you will find a field called NumLines and it will not match what is in AdBooker.
 
@@ -20,7 +20,7 @@ How the Agate lines are defined will be found in Product Define.  Either in ***S
 
 You can tell which Adtype Template is being used by looking under ***Setup/Adtypes***
 
-To calculate the AdBooker Depth in lines use the following (as always, test the formula for accuracy with your system setup):
+To calculate the AdBooker Depth in lines use the following **(as always, test the formula for accuracy with your system setup)**:
 
 > NOTE: The result from the equation below will be rounded up, just like a *Ceiling* function in Excel.
 >
@@ -42,4 +42,4 @@ To calculate the AdBooker Depth in lines use the following (as always, test the 
 
 **aoAdContent.NumLines** represents the total number of "rows" with content on it, regardless of how large the font is.  Also, graphics get 1 line.  See the below ad, it has `aoAdContent.NumLines = 7`
 
-![img](C:\Users\mark.mccoid\Documents\AnalytixDevelopment\analytix-docs\docs\assets\adbase-core-002.png)
+![img](..\assets\adbase-core-002.png)

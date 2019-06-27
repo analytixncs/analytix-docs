@@ -25,6 +25,8 @@
     "Overview": "Overview",
     "analytix/analytix-preinstall-checklist": "Analytix Pre Install Checklist",
     "Analytix Pre Install Checklist": "Analytix Pre Install Checklist",
+    "analytix/analytix-qlik-dev-cookbook": "Qlikview Developer Cookbook",
+    "Qlikview Developer Cookbook": "Qlikview Developer Cookbook",
     "analytix/analytix-salesflash-developerguide": "Salesflash Developer Guide",
     "Salesflash Developer Guide": "Salesflash Developer Guide",
     "analytix/analytix-salesflash-userguide": "Salesflash User Guide",
@@ -51,6 +53,8 @@
     "BI Resources": "BI Resources",
     "support-docs": "Support Docs",
     "Support Docs Overview": "Support Docs Overview",
+    "support/adbase-core-faqs": "Adbase Core FAQS",
+    "Adbase Core FAQS": "Adbase Core FAQS",
     "support/bi-chargetypes": "BI ChargeTypes Explained",
     "BI ChargeTypes Explained": "BI ChargeTypes Explained",
     "support/qlikview-bookmark-management": "Qlikview Bookmark Management",
@@ -77,7 +81,7 @@
     "Analytix Developer Guides": "Analytix Developer Guides",
     "Analytix Support Docs": "Analytix Support Docs",
     "BI Maintenance": "BI Maintenance",
-    "BI Support Docs": "BI Support Docs",
+    "BI/Core Support Docs": "BI/Core Support Docs",
     "Common SQL Core/BI": "Common SQL Core/BI"
   },
   "pages-strings": {
