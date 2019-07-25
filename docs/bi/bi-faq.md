@@ -8,6 +8,7 @@ sidebar_label: BI FAQ
 - [dmUser SysAdmin Setting](#dmuser-sysadmin-setting)
 - [Spread Logic may Cause Large Spread Amount](#spread-logic-may-cause-large-spread-amount)
 - [BI Populator Object Id Filter Mapping](#bi-populator-object-id-filter-mapping)
+- [shBIInterface Table Codes](#shbiinterface-table-codes)
 
 ## BI Populator Command Line Arguments
 
@@ -44,7 +45,6 @@ In the table, parameters are enclosed to indicate information that needs to be s
 ---
 
 <div style="page-break-after: always;"></div>
-
 ## dmUser SysAdmin Setting
 
 A setting in System Admin &#129106;  Tools/System Level Information &#129106; Other Settings tab called “Update Existing dmUser Entry” is used to control when a user is moved to a new sales team, region, territory or company.
@@ -99,7 +99,6 @@ the same as the Automated BI Populator.
 ---
 
 <div style="page-break-after: always;"></div>
-
 ## Spread Logic may Cause Large Spread Amount
 
 > First seen in 2009
@@ -129,10 +128,280 @@ This is most commonly seen in Till forbid ads.
 ---
 
 <div style="page-break-after: always;"></div>
-
 ## BI Populator Object Id Filter Mapping
 
 The BI Populator allows you to manually populate individual records from the Object Id Filters tab.  Below is a mapping to the fields that are being referenced on this tab.
 
 ![1539022454846](../assets/bi-faq-ObjectIdFilterMap.jpg)
+
+## shBIInterface Table Codes
+
+The shBIInteface table in the AdBase core database is a table used to tell the BI Populator to populate information that will not get picked up by the BI Populator's normal check.
+
+Usually, it is utility applications like RepSetter that will populate this table when it is run by users.
+
+```sql
+select * from shbiInterface
+```
+
+One of the fields in the shBIInterface table is the `FunctionCode` field.  This code represents what type of populating is going to occur. The other field of importance is the `ApplicationId` which tells us which application wrote the record in the shBIInterface table.  Lastly, the ObjectId, is the associated ID to be populated.  Whether the ObjectID represents an AdOrderID or CustomerID or something else, depends on the `FunctionCode` .
+
+### Function Codes
+
+Below is a list of the **function codes** and their enumerations.
+
+| Function                                        | Function Code |
+| :---------------------------------------------- | ------------- |
+| <center>**Contract related functions**</center> |               |
+| ShBIInterfacePopulateContract                   | 1             |
+| ShBIInterfacePurgeContract                      | 2             |
+| <center>**Invoice related functions**</center>  |               |
+| ShBIInterfacePopulateInvoice                    | 101           |
+| ShBIInterfacePurgeInvoice                       | 102           |
+| ShBIInterfaceInvoiceClosedDate                  | 103           |
+| <center>**Debit related functions**</center>    |               |
+| ShBIInterfacePopulateDebit                      | 201           |
+| ShBIInterfacePurgeDebit                         | 202           |
+| ShBIInterfaceDebitClosedDate                    | 203           |
+| <center>**Payment related functions**</center>  |               |
+| ShBIInterfacePopulatePayment                    | 301           |
+| ShBIInterfacePurgePayment                       | 302           |
+| ShBIInterfacePaymentClosedDate                  | 303           |
+| <center>**Credit related functions**</center>   |               |
+| ShBIInterfacePopulateCredit                     | 401           |
+| ShBIInterfacePurgeCredit                        | 402           |
+| ShBIInterfaceCreditClosedDate                   | 403           |
+| <center>**Ad order related functions**</center> |               |
+| ShBIInterfacePopulateAdOrder                    | 501           |
+| ShBIInterfacePurgeAdOrder                       | 502           |
+| ShBIInterfaceAdOrderQueueStatus                 | 503           |
+| ShBIInterfaceAdOrderInvoicedAlready             | 504           |
+| ShBIInterfaceAdOrderEditorialInsert             | 505           |
+| ShBIInterfaceAdOrderPrimarySalesRep             | 506           |
+| <center>**Miscellaneous functions**</center>    |               |
+| ShBIInterfacePopulateCustomer                   | 901           |
+| ShBIInterfaceStatementNumber                    | 902           |
+| ShBIInterfaceSyncAccountingPeriods              | 903           |
+| ShBIInterfaceLast                               | 90            |
+
+### Application Ids
+
+Below is a list of the Application Ids and their associated application descriptions.
+
+| Application                       | Id                            |
+| --------------------------------- | ----------------------------- |
+| AdBookingAppId                    | 1                             |
+| ContactManagementAppId            | 2                             |
+| GraphicsManagementAppId           | 3                             |
+| LockAdminAppId                    | 4                             |
+| GalleyoutAppId                    | 5                             |
+| AdRaterAppId                      | 6                             |
+| ProductManagerAppId               | 7                             |
+| AdOrderExportAppId                | 8                             |
+| ScheduleSrvAppId                  | 9                             |
+| AdmarcCustomerExportAppId         | 10                            |
+| AIMCustomerExportAppId            | 11                            |
+| OfficePayMgrAppId                 | 12                            |
+| OutputAppId                       | 13                            |
+| AdOneExportAppId                  | 14                            |
+| Layout8000ExportId                | 15                            |
+| CashReceiptsId                    | 16                            |
+| CustomerBalanceUtilityId          | 17                            |
+| DisplayAdImporterId               | 18                            |
+| InvoiceGeneratorId                | 19                            |
+| RemoteDataAppId                   | 20                            |
+| TillForbidExtenderAppId           | 21                            |
+| RemoteMaintAppId                  | 22                            |
+| AdOrderPurgeUtilityId             | 23                            |
+| CustomerPurgeUtilityId            | 24                            |
+| RemoteClientDataSenderAppId       | 25                            |
+| CreditManagerUtilityId            | 26                            |
+| ContractRenewUtilityId            | 27                            |
+| DBTableUtilityId                  | 28                            |
+| WorkFlowUtilityId                 | 29                            |
+| SystemAdminId                     | 30                            |
+| AdbaseWebServerAppId              | 31                            |
+| GEACCustomerExportId              | 32                            |
+| PaymentDaemonId                   | 33                            |
+| GEACCreditImporterId              | 34                            |
+| NovaInterfaceId                   | 35                            |
+| FinanceManagerId                  | 36                            |
+| GEACContractExportId              | 37                            |
+| WebExporterId                     | 38                            |
+| GraphicPurgeUtilityId             | 39                            |
+| ContractManagerAppId              | 40                            |
+| BlindBoxReplyManagerId            | 41                            |
+| LockBoxUtilityId                  | 42                            |
+| WriteOffUtilityId                 | 43                            |
+| NovaViaWarpInterfaceAppId         | 44                            |
+| AuthorizeDotNetInterfaceAppId     | 45                            |
+| CrainCustomerExportId             | 46                            |
+| CrainContractExportId             | 47                            |
+| AdBaseXMLImporterAppId            | 48                            |
+| UserFieldsImportId                | 49                            |
+| HighPlainsAdOrderExportId         | 50                            |
+| HighPlainsCustomerExportId        | 51                            |
+| GannettCustomerImporter           | 52                            |
+| PlainDealerImportAppId            | 53                            |
+| ExpireAdsId                       | 54                            |
+| PaymentPlusAXId                   | 55 // Payment Plus  interface |
+| SAOEImportAppId                   | 56                            |
+| ICVerifyAXId                      | 57                            |
+| SuperChargeInterfaceId            | 58                            |
+| SmartStreamAdOrderExportId        | 59                            |
+| MactivePGLExportId                | 60                            |
+| SmartStreamInterfaceId            | 61                            |
+| PlainDealerAdOrderExportId        | 62                            |
+| CampaignManagerAppId              | 63                            |
+| ImportEditorialInformationAppId   | 64                            |
+| PlainDealerCCInterfaceId          | 65                            |
+| Annapolis8000ExportId             | 66                            |
+| PlanPagExportId                   | 67                            |
+| SJCC8000ExportId                  | 68                            |
+| SystemTranslatorUtilityId         | 69                            |
+| AdBaseWebServerId                 | 70                            |
+| AppSettingsManagerId              | 71                            |
+| DataAnalysisReportId              | 72                            |
+| DataAnalysisToolId                | 73                            |
+| SpokaneCustomerExportId           | 74                            |
+| WebDbManagerId                    | 75                            |
+| XMLWebExporterId                  | 76                            |
+| DataImportAppId                   | 77                            |
+| SpokaneCustomerImportId           | 78                            |
+| AdjustmentManagerAppId            | 79                            |
+| PlanPagImportId                   | 100                           |
+| AdQuoterId                        | 101                           |
+| ExternalLoginAppId                | 102                           |
+| InvoiceAutoPayAppId               | 103                           |
+| CustomerExportId                  | 104                           |
+| CreditBalImportId                 | 105                           |
+| GraphicsExporterAppId             | 106                           |
+| RefundCheckExporterAppId          | 107                           |
+| TellanAXAppId                     | 108                           |
+| GLExporterAppId                   | 109                           |
+| VerisignPayflowAppId              | 110                           |
+| AutoLaunchToolAppId               | 111                           |
+| CustomerImportAppId               | 112                           |
+| AdTrackingExportAppId             | 113                           |
+| TimesPicayune8000ExporterId       | 114                           |
+| AdbaseXMLExporterAppId            | 115                           |
+| AmosCustomerExportAppId           | 116                           |
+| SanJoseGLExportAppId              | 117                           |
+| ContraCostaGLExportAppId          | 118                           |
+| NewarkOrderExporterAppId          | 119                           |
+| SJCCGLExportAppId                 | 120                           |
+| SystemNodeMonitorAppId            | 121                           |
+| AdbaseSystemNodeManagerAppId      | 122                           |
+| AdbaseToPMPAdtrackAppId           | 123                           |
+| AdjustmentsMonitorAppId           | 124                           |
+| AdbasePurgeUtilityAppId           | 125                           |
+| RevenueExportAppId                | 126                           |
+| BIPopulatorAppId                  | 127                           |
+| EmailAlertManagerId               | 128                           |
+| GatewayPaymentsMgrAppId           | 129                           |
+| InCollectionsMarkerId             | 130                           |
+| BalanceUtilityId                  | 131                           |
+| IpixManagerId                     | 132                           |
+| BIImporterAppId                   | 133                           |
+| Fayetteville8000ExportId          | 134                           |
+| RangerExportAppId                 | 135                           |
+| USPSConversionUtilityAppId        | 136                           |
+| StatementNumberToolAppId          | 137                           |
+| TimesPicayuneUSGExportAppId       | 138                           |
+| TimesPicayunePPBillingExportAppId | 139                           |
+| MactivePlannerAppId               | 140                           |
+| AdbaseXMLDistributorAppId         | 141                           |
+| MactiveLoginAuditTrailId          | 142                           |
+| XMLCustomerTransportId            | 143                           |
+| CallFXExportAppId                 | 144                           |
+| BIUtilityAppId                    | 145                           |
+| BIInterfaceAppId                  | 146                           |
+| KubraInterfaceAppId               | 147                           |
+| ScheduleAdminAppId                | 148                           |
+| MGDSIProjectedCountsAppId         | 149                           |
+| MGDSIFinalCountsAppId             | 150                           |
+| AdPayManagerId                    | 151                           |
+| MobileAdPackPreprintId            | 152                           |
+| BonusSpendingUtilityAppId         | 153                           |
+| MactiveImageManagerId             | 154                           |
+| MactiveImageUtilityAppId          | 155                           |
+| DorfmanInterfaceAppId             | 156                           |
+| Newark8000ExportId                | 157                           |
+| VVPaymentInterfaceAppId           | 158                           |
+| LiveProcessorInterfaceAppId       | 159                           |
+| BookedSizeUpdaterAppId            | 160                           |
+| MediaLinkAppId                    | 161                           |
+| PlaceholderOrderAppId             | 162                           |
+| DocumentEpxorterAppId             | 163                           |
+| StandardReportsAppId              | 164                           |
+| CyberSourceAppId                  | 165                           |
+| AdbaseToYahooHotJobsId            | 166                           |
+| CustomerStatusUtilityId           | 167                           |
+| SDEPayInterfaceId                 | 168                           |
+| ContractImportAppId               | 169                           |
+| GraphicsImporterAppId             | 170                           |
+| PaywareAppId                      | 171                           |
+| DirectDebitToolAppId              | 172                           |
+| AdbaseARAppId                     | 173                           |
+| InterfaceDateUtilityId            | 174                           |
+| PreprintCountToolAppId            | 175                           |
+| DJBizSerivicesInterfaceAppId      | 176                           |
+| CreditCardUtility                 | 193                           |
+| EPSImporterAppId                  | 194                           |
+| PaymentCutoffUtilityAppId         | 195                           |
+| SalesforceUpdaterAppId            | 196                           |
+| TagOrderToolAppId                 | 197                           |
+| BatchCheckerAppId                 | 198                           |
+| DJBizPayToolAppId                 | 199                           |
+| OASExporterAppId                  | 200                           |
+| PDFLinkerAppId                    | 201                           |
+| AdbasePrintAuditAppId             | 202                           |
+| PersonalFinanceManagerAppId       | 203                           |
+| WebInventoryManagerAppId          | 204                           |
+| PaymentTokenManagerAppId          | 205                           |
+| BraintreePaymentAppId             | 206                           |
+| GraphicsUpdaterAppId              | 207                           |
+| XmlImporterFolderServerAppId      | 208                           |
+| SSPCustomerExportAppId            | 209                           |
+| OneViewAppId                      | 210                           |
+| EdgilEccOAppId                    | 211                           |
+| ElavonProtoBaseAppId              | 212                           |
+| AutoPlannerAppId                  | 213                           |
+| BcContentMgmtSubsystemId          | 214                           |
+| BcSpaceMgmtSubsystemId            | 215                           |
+| TrafficManagerAppId               | 216                           |
+| SCANDARFinanceChargerAppId        | 217                           |
+| OneViewSelfServiceAppId           | 218                           |
+| FTNIAppId                         | 219                           |
+| PayFlowTokenAppId                 | 220                           |
+| SPHWorldPayAppId                  | 221                           |
+| EPXAppId                          | 222                           |
+| EdgilPayWayAppId                  | 223                           |
+| FDHelperAppId                     | 224                           |
+| Newsday8000ExportId               | 225                           |
+| AdServingAppId                    | 226                           |
+| PreSalesAppId                     | 227                           |
+| MSSExportAppId                    | 228                           |
+| AdSafeExportId                    | 229                           |
+| BroadcastFormatImporterId         | 230                           |
+| BroadcastPostProductionId         | 231                           |
+| BroadcastFeedbackImporterId       | 232                           |
+| GLRemapperAppId                   | 233                           |
+| ASIStatsUtilityAppId              | 234                           |
+| IntegrationServicesAppId          | 235                           |
+| RelationUpdateInterfaceId         | 236                           |
+| MonerisAppId                      | 237                           |
+| EPSFPurgerAppId                   | 238                           |
+| GoalToolAppId                     | 239                           |
+| ChasePaymentTechAppId             | 240                           |
+| ISNPDFXMLExporterAppId            | 241                           |
+| ImportEditorialInfoAppId          | 242                           |
+| PrintQueueToolAppId               | 243                           |
+| ReportToolAppId                   | 244                           |
+| FirstDataAppId                    | 245                           |
+| FieldedDataModUtilAppId           | 246                           |
+| DJContractAccrualExportAppId      | 247                           |
+| FinanceChargerAppId               | 248                           |
+
+
 
