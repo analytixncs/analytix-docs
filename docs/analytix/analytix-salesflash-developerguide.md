@@ -81,6 +81,68 @@ WHERE transnum = 'MD10668-05112018'
       AND fn.transtype = 3
 ```
 
+### More Queries For Installment Billing
+
+As stated above, Installment Billing transactions include IB* invoices with a transtype of 6.  These are the revenue side of the Installment Bill.  To invoice customers (AR), debits will be created and these debits will be "paid".
+
+One issue is linking the IB* with their Debits.  However, this really isn't and issue since we are able to link the IB*'s to an AdOrder and the Debits to an AdOrder.
+
+The SQL below focuses on getting the Debits that were generated for the AR side of Installment Billing invoices.  
+
+```sql
+SELECT ad.adordernumber, 
+       fn.transnum AS IB_DebitTransNum, 
+       cd.invoiceid, 
+       ( CASE 
+           WHEN fn.invtotalcost = invamountpaid THEN 'TRUE' 
+           ELSE 'FALSE' 
+         END )     AS FULLYAPPLIEDORPAID_FLAG 
+FROM   fnipp, 
+       fntransactions fn, 
+       aoadorder ad, 
+       aocustomercd ccd, 
+       aocreditdebit cd 
+WHERE  fnipp.adorderid = ad.id 
+       AND cd.invoiceid = fn.id 
+       AND ccd.ippid = fnipp.id 
+       AND ccd.transid = cd.id 
+```
+
+The SQL below, will return the Revenue side of Installment Billing invoices.
+
+```sql
+SELECT fn.refnumber, 
+       fn.id AS fnTransactions_id, 
+       fn.transnum, 
+       fn.invtotalcost 
+FROM   fntransactions fn 
+WHERE  fn.transtype = 6 
+       AND fn.refnumber = '0000005558' 
+```
+
+Here is SQL that will show the Ad Order Number, the IB invoice and the Debit Invoice.  Remember that you won't see a one to one relationship between the IB and Debit transactions.  The best you can do is say that for a given Ad Order Number, the IB's SUM(INVTOTALCOST) will equal the Debits for that Ad SUM(AMOUNT)
+
+```sql
+SELECT ad.adordernumber, 
+       fn.id AS fnTransactions_id, 
+       fn.transnum, 
+       fn.invtotalcost, 
+       cd.id AS aoCreditDebit_id, 
+       cd.transnumber, 
+       cd.amount, 
+       cd.amountposted 
+FROM   fnipp, 
+       fntransactions fn, 
+       aoadorder ad, 
+       aocustomercd ccd, 
+       aocreditdebit cd 
+WHERE  fnipp.adorderid = ad.id 
+       AND ad.adordernumber = fn.refnumber 
+       AND ccd.ippid = fnipp.id 
+       AND ccd.transid = cd.id 
+       AND cd.deleted = 0 
+```
+
 
 
 ### Debit Issue
