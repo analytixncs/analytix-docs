@@ -4,7 +4,7 @@
       "analytix/analytix-bi-overview"
     ],
     "Analytix Setup/Main": [
-      "analytix/analytix-preinstall-checklist", 
+      "analytix/analytix-preinstall-checklist",
       "analytix/analytix-install",
       "analytix/analytix-setup",
       "analytix/analytix-admin-guide",
@@ -14,7 +14,6 @@
     ],
     "Analytix User Guides": [
       "analytix/analytix-salesflash-userguide"
-      
     ],
     "Analytix Developer Guides": [
       "analytix/analytix-salesflash-developerguide",
@@ -22,7 +21,7 @@
       "analytix/analytix-training-set-analysis",
       "analytix/analytix-balance-to-gl",
       "analytix/analytix-exchange-rate"
-    ], 
+    ],
     "Analytix Support Docs": [
       "analytix/analytix-using-accesspoint",
       "analytix/analytix-salesflash-vs-advertisinganalytix",
@@ -51,6 +50,13 @@
     "Common SQL Core/BI": [
       "support/sql-bi-common-queries",
       "support/sql-core-common-queries"
+    ]
+  },
+  "insight": {
+    "InSight Docs": [
+      "insight/insight",
+      "insight/insight-sql-commands",
+      "insight/insight-duplicate-issues"
     ]
   }
 }
