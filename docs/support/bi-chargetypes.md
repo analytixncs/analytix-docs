@@ -16,9 +16,9 @@ sidebar_label: BI ChargeTypes Explained
 
 - **REV CR** (Revenue Credit) – Shows credits that were “physically” used to “pay” down an order.
 
-  So when viewing CREDIT transactions we are seeing credits that are created and then applied to a specific order or insertion by the user.
+  So when viewing CREDIT transactions we are seeing credits that are created and then applied to a specific invoice by the user.
 
-  The REV CR transactions are credits that applied to an order to reduce its cost.  This can happen through balance utility, ad booker or any other application that applies existing credits to an order.
+  The REV CR transactions are credits that applied to an invoice to reduce its balance. This can happen through balance utility, ad booker or any other application that applies existing credits to an invoice.
 
   In Analytix we exclude all REV CR charges because including them will, in some cases, cause double dipping.  This happens when a credit is created and applied to a specific order and that order is already paid.  When this happens, a CREDIT transaction is created in BI and then when that credit is actually applied to pay down an order a REV CR transaction is created.
 

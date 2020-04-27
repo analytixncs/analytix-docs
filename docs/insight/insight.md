@@ -181,8 +181,6 @@ You final list will look something like this:
 
 The first thing to check if the cubes don't build is the **IBM Cognos** Service:
 
-
-
 If the the service isn't started, try to start it.  It is starts, rerun the Cube build.  If, however, the **IBM Cognos** service will not start, then you will need to check the IBM Cognos Configuration application.
 
 To do this, find the  **IBM Cognos Configuration** application and start it.
@@ -198,3 +196,21 @@ When you do this, you will be presented with a dialog that will allow you to ent
 ![1586370221249](../assets/insight_Procs_cognosconfig_002.png)
 
 Once done, choose File / Save and then File / Exit.  It will ask if you want to start the service.  Say yes.
+
+### Error In Transformer
+
+**Transformer can't read the database**
+
+Found this was caused when a new InSight 2014 server was built and then reports from an InSight V10 were imported into this server.  
+
+The easiest solution was to restore the **cognos10** SQL Server database back to before the reports were imported.
+
+## Information To Gather on Stalled / Failed Load
+
+Check the event log to find out if the server was restarted.  To do this, filter the Windows Logs / System events by the following event ids:
+
+41, 1074, 6006, 6008
+
+Check the task manager to log the resources consumed by insightd service & SQL Server.  That will help to figure out the culprit. 
+
+Run `sp_whoisactive` to check the queries running at that time and the resource consumption and save to csv.

@@ -58,5 +58,11 @@
       "insight/insight-sql-commands",
       "insight/insight-duplicate-issues"
     ]
+  },
+  "informer": {
+    "Informer Docs": [
+      "informer/informer-basics",
+      "informer/informer-javascript"
+    ]
   }
 }
