@@ -197,13 +197,107 @@ When you do this, you will be presented with a dialog that will allow you to ent
 
 Once done, choose File / Save and then File / Exit.  It will ask if you want to start the service.  Say yes.
 
-### Error In Transformer
+### cognos10 / cognos10audit DBs corrupt
+
+Another reason for the IBM Cognos service to not start is because the cognos10 and cognos10audit databases are corrupted.  This usually only happens on a new install.
+
+> Be aware if you follow these steps on an existing installation you will loose the information stored in these cognos databases.  Not sure exactly what this is, but it could be user security settings or other information that would be difficult to restore.  Just be aware
+
+**Step 1**
+
+Drop the cognos10 and cognos10audit databases from the SQL Server Management studio query window.
+
+```sql
+USE [master]
+GO
+
+DROP DATABASE [cognos10]
+GO
+DROP DATABASE [cognos10audit]
+GO
+
+```
+
+Exit and restart SQL Server Management Studio.
+
+**Step 2**
+
+Go to the location of the databases, usually `e:\databases` and delete the following:
+
+- cognos10.mdf
+- cognos10_log.ldf
+- cognos10audit.mdf
+- cognos10audit_log.ldf
+
+
+
+**Step 3**
+
+Create two new databases.
+
+First let's create the **cognos10** database:
+
+![image-20200430162547231](..\assets\insight-ibmcognosnewdb_001.png)
+
+This will bring up the **New Database** dialog.
+
+![image-20200430163639838](..\assets\insight-ibmcognosnewdb_002.png)
+
+On the **General** page set the following
+
+1. Fill in the database name with **cognos10**
+2. Add the insightd user as the owner
+3. Set the initial size of the database to be 18 MB
+4. Make sure the path is directed to the database directory.
+
+On the **Options** page set the following:
+
+![image-20200430163958891](..\assets\insight-ibmcognosnewdb_003.png)
+
+1. Collation to SQL_Latin1_General_CP1_CI_AS
+2. Recovery Model to Simple
+
+**Click OK**
+
+Now, do the same thing for the **cognos10audit** database.
+
+**General Page settings for cognos10audit**
+
+![image-20200430164648702](..\assets\insight-ibmcognosnewdb_004.png)
+
+**Options Page settings for cognos10audit**
+
+![image-20200430164804502](..\assets\insight-ibmcognosnewdb_005.png)
+
+**Step 4**
+
+Open **Cognos Configuration** application and reset the credentials for these two new databases.
+
+First, under the ***Environment / Logging / Database /cognosaudit10*** node, reenter the databases login information.  This should be 
+
+**username:** sa
+
+**password: **Ins1ght
+
+![image-20200430165311924](..\assets\insight-ibmcognosnewdb_006.png)
+
+Do the same thing for the ***Data Access / Content Manager / cognos10*** node
+
+![image-20200430165541681](..\assets\insight-ibmcognosnewdb_007.png)
+
+## Error In Transformer
 
 **Transformer can't read the database**
 
 Found this was caused when a new InSight 2014 server was built and then reports from an InSight V10 were imported into this server.  
 
 The easiest solution was to restore the **cognos10** SQL Server database back to before the reports were imported.
+
+**Step 6**
+
+Save the configuration and the start or restart the IBM Cognos service.
+
+![image-20200430165729229](..\assets\insight-ibmcognosnewdb_008.png)
 
 ## Information To Gather on Stalled / Failed Load
 
@@ -213,4 +307,4 @@ Check the event log to find out if the server was restarted.  To do this, filter
 
 Check the task manager to log the resources consumed by insightd service & SQL Server.  That will help to figure out the culprit. 
 
-Run `sp_whoisactive` to check the queries running at that time and the resource consumption and save to csv.
+Run `sp_whoisactive` to check the queries running at that time and the resource consumption and save to csv.****
