@@ -62,7 +62,8 @@
   "informer": {
     "Informer Docs": [
       "informer/informer-basics",
-      "informer/informer-javascript"
+      "informer/informer-javascript",
+      "informer/informer-system"
     ]
   }
 }

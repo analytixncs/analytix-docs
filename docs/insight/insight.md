@@ -285,6 +285,14 @@ Do the same thing for the ***Data Access / Content Manager / cognos10*** node
 
 ![image-20200430165541681](..\assets\insight-ibmcognosnewdb_007.png)
 
+**Step 6**
+
+Save the configuration and the start or restart the IBM Cognos service.
+
+![image-20200430165729229](..\assets\insight-ibmcognosnewdb_008.png)
+
+
+
 ## Error In Transformer
 
 **Transformer can't read the database**
@@ -293,11 +301,7 @@ Found this was caused when a new InSight 2014 server was built and then reports 
 
 The easiest solution was to restore the **cognos10** SQL Server database back to before the reports were imported.
 
-**Step 6**
 
-Save the configuration and the start or restart the IBM Cognos service.
-
-![image-20200430165729229](..\assets\insight-ibmcognosnewdb_008.png)
 
 ## Information To Gather on Stalled / Failed Load
 

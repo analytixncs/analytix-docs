@@ -108,6 +108,10 @@
         "title": "Informer JavaScript Use",
         "sidebar_label": "Informer JavaScript Use"
       },
+      "informer/informer-system": {
+        "title": "Informer System Stuff",
+        "sidebar_label": "Informer System Stuff"
+      },
       "insight/insight-duplicate-issues": {
         "title": "InSight Duplicate Fixes",
         "sidebar_label": "InSight Duplicate Fixes"

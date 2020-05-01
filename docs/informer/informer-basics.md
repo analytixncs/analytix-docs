@@ -39,7 +39,7 @@ This is a change from Informer 4, so you will see that all of the base reports a
 
 Find the report you want to covert to a Dataset, open it and run it.
 
-![image-20200227150927583](./informer_tips_dataset_001.png)
+![image-20200227150927583](../assets/informer_tips_dataset_001.png)
 
 This is very important, as the report must have data in it for you to get the "Create Dataset" option.
 
@@ -340,7 +340,7 @@ You can do this by scheduling a job to run to refresh your datasets.
 
 You can pair the reloading with Actions like emailing, however, you don't have to.  Each dataset in a Job has a check box "Refresh on job run" that will determine if the dataset will be refreshed before the other actions in the Job are run.
 
-![image-20200210093208408](./informer_tips_jobs-001.png)
+![image-20200210093208408](../assets/informer_tips_jobs-001.png)
 
 A job is made up of two parts, the **Data** and the **Actions**.
 
@@ -370,9 +370,13 @@ This is what I would call a loop and reduce, since it will not only use an email
 
 You can choose to attach the data associated with the user email and/or include the full set of data.
 
-![image-20200210094850978](./informer_tips_jobs-002.png)
+![image-20200210094850978](../assets/informer_tips_jobs-002.png)
 
+### Alerts for Failed Jobs
 
+There is no direct way to get an email or other notification that a job has failed, however, you can load up informer as a Datasource and create a report from the metadata stored within.
+
+[Setup Informer Metadata Datasource](./informer-system)
 
 ## Data Access Tokens
 
@@ -430,141 +434,6 @@ Here is a sample of JSON output from a sample Dataset:
   ...
 ]
 ```
-
-
-
-## Power Scripts
-
-Power Scripts are advanced scripts (JavaScript) that gives you complete control over the data.  A Power Script is JavaScript with a sandboxed script context
-
-Here are the predefined keywords you can use in your Power Script. [Informer Docs](https://informer5.zendesk.com/hc/en-us/articles/115005113823)
-
-| Keyword | Type            | Desc                                                         |
-| ------- | --------------- | ------------------------------------------------------------ |
-| $record | object          | The current row. You may modify this row.                    |
-| $index  | number          | The current row number (row 1 = index 0)                     |
-| $omit() | function        | When called, removes the current row                         |
-| $fields | object          | Field metadata                                               |
-| $field  | function        | Function to describe a field: $field('location').label('Loc') |
-| $inputs | object          | User Inputs                                                  |
-| $local  | object          | Variable that is not cleared from on record to the next      |
-| _       | object/function | Lodash v3 library. [lodash](https://lodash.com)              |
-| moment  | function        | moment date manipulation library. [momentjs](https://momentjs.com) |
-
-To declare a variable use the `var` keyword. 
-
-```javascript
-var gtp = $inputs['greaterThanPrice'] || 0;
-if($record.baseCost >= gtp) {
-    $record.isGreaterThan = true
-} else {
-    $record.isGreaterThan = false
-}
-```
-
-Do not `return` anything from the Power Script.  Simply change the value of what you want.
-
-You can create multiple fields in a single Power Script.
-
-### Using $local
-
-The $local keyword is very powerful in that it persists throughout the load process.  First thing to understand is that it is an Object.  Which means, you can declare multiple local persistent variables using the $local keyword:
-
-```javascript
-$local.count = 0;
-$local.otherVariable = "x";
-```
-
-However, if you were to declare the $local variables as above, they would be reset every time.  To declare these types of variables, you must first check if they exists, if they do, continue, if they don't, then create them:
-
-```javascript
-if(!$local.count) { // if this var doesn't exist then
-  $local.count = 0 // initialize it
-}
-// Another method that does the same thing
-$local.count = ($local.count) ? $local.count : 0
-
-// Last way to do the same thing
-$local.count = ($local.hasOwnProperty('count')) ? $local.count : 0
-```
-
-If you wanted to create a row count variable, you would pick one of the above methods to perform the initialization and then increment the count and store in a `$record` variable.
-
-```javascript
-if(!$local.count) { // if this var doesn't exist then
-  $local.count = 0 // initialize it
-}
-//This will create a rowCount record for every row
-//the ++ at the end of the $local.count will increment AFTER it assigns 
-//whatever is in $local.count.  This just means your first row will be 0.
-$record.rowCount = $local.count++
-```
-
-### Numbers and Other Gotchas
-
-You must be aware of the data type of the fields you are using and if there are any *Null* values in the fields you are using.
-
-For Example, if you wanted to get a running total by Customer (AdvName) and the field you were using to get this running total (priceActAmt) had null values in it, you would need to take that into account in your script.
-
-### Delete a column
-
-Use the keyword **delete** followed by the column you want removed.
-
-```javascript
-delete $record.columnToDelete
-```
-
-
-
-### Getting Total By Advertiser and % of Total By Advertiser
-
-The `$local` variable can be very powerful by itself, but when used in conjunction with the **Flush** flow step, you can do a number of other things.
-
-It is important to understand that the `$local` object will persist between running a Power Script and a **Flush** flow step.
-
-**Goal**
-
-The goal is to get a field that sums the revenue for an advertiser and then uses that to calculate the percentage of total for every row.
-
->  This is vastly different from the **Percent of Total** flow step as this is based on the Grand Total versus totals by advertiser.
-
-To do this we need three flow steps.
-
-1. **Power Script Flow Step** - used to calculate the Total Revenue for each Advertiser.  This information will have to be stored in the `$local` object so that it is persisted.
-2. **Flush** - Starts a new pass of the data with our `$local` object intact.
-3. **Power Script Flow Step** - used to calculate the % of Total Revenue per Advertiser and create the fields 
-   - **$record.percentOfTotalByAdv** - This is the field we want, the % of Total Revenue by Advertiser.
-   - **$record.TotalByAdv** - This is the subtotal for each advertiser.  We really don't need to expose this as a record, but it is useful for testing.
-
-Here is what the Flow steps look like:
-
-![image-20200213150630405](../assets/informer_tips_date-powerscript-001.png)
-
-**Power Script - Aggregate Rev By Advertiser**
-
-```javascript
-// The usual initialization code
-if (!$local[$record.advCode]) {
-	$local[$record.advCode] = 0    
-}
-// Add current records amount to the running total
-$local[$record.advCode] = $local[$record.advCode] + $record.orderNetAmt 
-```
-
-The unique thing that is happening in the **Aggregate Rev By Advertiser** Power Script, is that we are create a different object property on the `$local` object for each advCode (advertiser).  This allows us to keep a different total for each Advertiser.
-
-Next we just run the **Flush** Flow step.
-
-**Power Script - Percent Of Adv Total**
-
-```javascript
-$record.percentOfTotalByAdv = ($record.orderNetAmt / $local[$record.advCode])
-$record.TotalByAdv = $local[$record.advCode]
-```
-
-This above code is simply creating the two new fields that we want.  
-
-## Saved Functions
 
 
 
