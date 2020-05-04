@@ -8,7 +8,9 @@ sidebar_label: Informer System Stuff
 
 > NOTE: The information below is for **Informer 5.1.2 or greater only** 
 
-Download the following TGZ file to your hard drive: [Informer 5 (5.1.2 or later).tgz](../assets/downloads/informer/Informer 5 (5.1.2 or later).tgz)
+Download the following TGZ file to your hard drive: 
+
+**[Informer5--5.1.2OrLater.tgz](../assets/downloads/informer/Informer5--5.1.2OrLater.tgz)**
 
 This file has all the information needed to create the Datasource, mappings, and sample Datasets.
 
