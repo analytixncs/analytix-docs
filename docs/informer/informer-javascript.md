@@ -601,7 +601,13 @@ To do this, we will need to do two things.  First, you must add a counter to you
 
 ![image-20200427153828821](../assets/informer-javascript_powerscript_001)
 
-We will do this via a Powerscript.
+The counter creation will be the first Flow step.
+
+Next do any other flow steps that need to happen before the Normalize (it is Ok if it is none), then do the Normalize Flow step.
+
+Lastly, create a Powerscript called "OneToManyFix" (or whatever you want to call it).
+
+Past the following code in the Powerscript.
 
 ```javascript
 // Initialize "prevCounter" in the local object if undefined
@@ -618,5 +624,14 @@ if ($record.preCounter === $local["prevCounter"]) {
 $local["prevCounter"] = $record.preCounter
 ```
 
+You are not done yet!  You need to customize the contents of the second if statement
 
+```javascript
+if ($record.preCounter === $local["prevCounter"]) {
+// These will be all the fields that you do not want to be duplicated.
+// These fields will be numeric fields
+    $record.beforeTaxAmt = 0
+    // add yours here
+}
+```
 

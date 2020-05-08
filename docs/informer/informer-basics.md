@@ -101,7 +101,7 @@ if(moment(startDate).year() === moment().year()-1) {
 }
 ```
 
-
+See the [Informer JavaScript Docs](./informer-javascript/#calculated-fields) for more examples of Calculated Fields.
 
 ### Viewing a Dataset Query
 
@@ -139,10 +139,6 @@ AND    ((
                      start.date >= "11/01/2018" 
               AND    start.date <= "11/30/2018"))) list inet.campaigns eval "CHAR(244):CHAR(171):CONVERT(CHAR(253),CHAR(250),CONVERT(CHAR(252),CHAR(249),CONVERT(CHAR(251),CHAR(248),CONVERT(CHAR(32),CHAR(7),CONVERT(CHAR(4),CHAR(245),CONVERT(CHAR(13),CHAR(247),CONVERT(CHAR(10),CHAR(246),SUBR('-OCONVS',CAMPAIGN.ID,'MD00'):CHAR(166):ADV.NAME:CHAR(166):AGENCY.NAME:CHAR(166):WEB.GROUP:CHAR(166):STATUS.CODE:CHAR(166):SUBR('-OCONVS',START.DATE,'D4/'):CHAR(166):SUBR('-OCONVS',END.DATE,'D4/'):CHAR(166):SUBR('-OCONVS',COST,'MD22'):CHAR(166):SUBR('-OCONVS',COMMISSION,'MD22'):CHAR(166):SUBR('ESC.AT.V5',WEB.SITE):CHAR(166):SUBR('ESC.AT.V5',PRICE.DESC):CHAR(166):SUBR('ESC.AT.V5',SUBR('-OCONVS',PRICE.START.DATE,'D4/')):CHAR(166):SUBR('ESC.AT.V5',SUBR('-OCONVS',PRICE.END.DATE,'D4/')):CHAR(166):SUBR('ESC.AT.V5',SUBR('-OCONVS',PRICE.PER.UNIT,'MD55')):CHAR(166):SUBR('ESC.AT.V5',SUBR('-OCONVS',PRICE.QTY,'MD00')):CHAR(166):SUBR('ESC.AT.V5',SUBR('-OCONVS',PRICE.EXT,'MD22')):CHAR(166):SUBR('ESC.AT.V5',SUBR('-OCONVS',PRICE.ACTUAL.IMPS,'MD00')):CHAR(166):SUBR('ESC.AT.V5',SUBR('-OCONVS',PRICE.ACT.AMT,'MD22')):CHAR(166):SUBR('ESC.AT.V5',SUBR('-OCONVS',TRANS('INF_INET.ORDERS',PRICE.LINEID,'ACT.AMT','X'),'MD22')):CHAR(166):STATUS.DESC:CHAR(166):WEB.GROUP.NAME))))))):CHAR(187)" cnv "" fmt "80L" id.sup count.sup col.spcs 0 hdr.sup col.sup require.SELECT
 ```
-
-## JavaScript Calculated Field
-
-
 
 ## Loading External Attribute Data
 
@@ -377,6 +373,68 @@ You can choose to attach the data associated with the user email and/or include 
 There is no direct way to get an email or other notification that a job has failed, however, you can load up informer as a Datasource and create a report from the metadata stored within.
 
 [Setup Informer Metadata Datasource](./informer-system)
+
+### Export a Pivot Table via a Job
+
+When you create a Pivot Table, you can manually export it to a CSV file.  You cannot export it to any other format like PDF, etc.
+
+You also will NOT have an option to export a pivot table through a Job.
+
+Jobs only have access to the top level data.  Meaning any visualizations you create on a Dataset or through an Ad Hoc Report will not be available in a Job for export.
+
+You can however, in a round about way, make your visualization available to the end users who receive emails via your Jobs.
+
+**What is the End Result**
+
+Instead of email the users an Excel file or CSV file, we will be emailing them a link to a visual on a Dataset.  The "Visual" will be of the Pivot table. 
+
+Once they have access this Pivot table, they will be able to export it at that point to a CSV or Excel file.
+
+**Step 1**
+
+The first step is to create the Pivot Table that you want your end users to have access to.  
+
+This can be done directly on the Dataset or through a Dataview report.  However, even if you create the visual through a Dataview report, it will still be saved on the Dataset.
+
+From a Dataview report, create the desired Pivot table and then click on the horizontal ellipsis in the right hand corner and choose "Save pivot to visuals"
+
+![image-20200508113612663](../assets/informer_tips_pivotjob-001.png)
+
+This will not save the pivot anywhere in the report, but instead will save it to the underlying Dataset that is driving the report.
+
+You can then view the saved visual by opening the Dataset and clicking on the "Visuals" icon:
+
+![image-20200508114425051](G:\MarkNCS2019\analytix-docs\docs\assets\informer_tips_pivotjob-002.png)
+
+You can also create new visuals from this area also.
+
+Just click on the New Visual / Tables / Pivot:
+
+![image-20200508114539615](..\assets\informer_tips_pivotjob-003.png)
+
+**Step 2**
+
+Now that you have create a visual, you will need to "Generate external link" for the visual.
+
+From the Visuals page, select the visual you want to export by simply clicking once on the visual and then clicking on the horizontal ellipses in the bottom right and select "Generate external link"
+
+![image-20200508115351892](..\assets\informer_tips_pivotjob-004.png)
+
+This will bring up the following dialog:
+
+![image-20200508115650990](G:\MarkNCS2019\analytix-docs\docs\assets\informer_tips_pivotjob-005.png)
+
+Click on **Copy** and store this link in notepad for later use.
+
+**Step 3**
+
+Get that link to whomever needs it.  This can be done via a Job that runs everytime the dataset refreshes, or you could send it out once to the people who need it and let them know that every day around X time, there will be new data.
+
+If you set up a job, it is as simple as putting the Dataset in a job and then setting up an email action to 
+
+![image-20200508120536589](..\assets\informer_tips_pivotjob-006.png)
+
+
 
 ## Data Access Tokens
 
