@@ -301,6 +301,38 @@ Found this was caused when a new InSight 2014 server was built and then reports 
 
 The easiest solution was to restore the **cognos10** SQL Server database back to before the reports were imported.
 
+## InSight Objects not Showing in Circulation Dashboard
+
+We have had a few AWS servers that were previously set up, however, when logging into the Circulation dashboard, you are presented with a screen that looks like this:
+
+![image-20200514145703857](..\assets\insight-ibmcognosnotshowing_002.png)
+
+If you go to My Home or any other "My Content", you will find nothing.  This does NOT mean that anything needs to be reinstalled.  We found a couple of things that need to be done to fix this issue.
+
+**Step One**
+
+Restore a backup of the Cognos10 database in SQL Server.
+
+![image-20200514150511502](..\assets\insight-ibmcognosnotshowing_003.png)
+
+You can test after restoring the Database, but you will most likely need to go through the next steps.
+
+**Step Two**
+
+Start the **IBM Cognos Configuration** application.
+
+In here we need to make sure that the security is setup properly for the domain of the site we are working with.
+
+You will navigate to Security/Authentication/**domain of site**.  On the pane the displays to the right, you will click on Binding Credentials and enter the user **insight.app** with the CORRECT password.  
+
+Obviously, the password needs to be correct.  You can test the password by right clicking on the domain and choosing test.
+
+![image-20200514144339410](..\assets\insight-ibmcognosnotshowing_001.png)
+
+
+
+
+
 
 
 ## Information To Gather on Stalled / Failed Load

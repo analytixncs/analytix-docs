@@ -209,6 +209,10 @@ I tested on a dataset that had multiple *array* fields in it and when I normaliz
 
 ![1576165545982](../assets/informer_tips_013-2.png)
 
+> If your query contains a one to many join (think order to order details type query), Normalize will duplicate the "one" fields for each "many".
+>
+> If you don't normalize, you will get something that looks like you have multivalued fields. 
+
 ## Using the Dates in Your Filters
 
 ### Date Keywords
@@ -319,13 +323,29 @@ In our example, filter by Nov and Dec of 2019 and 2020, you would need to add tw
 
 ![1578949720984](../assets/informer_tips_date-filters-006.png)
 
-## Using Datasets
+## Datasets
 
 The data in a Dataset will be persisted.  Meaning that once loaded, it will be available for future use, while the Ad Hoc query's data is dumped after it is done being used.
 
 Persisted but not updated data would work for historical data, but for reporting that requires current data the dataset data must be refreshed at certain intervals to be useful.
 
 You can do this by scheduling a job to run to refresh your datasets.
+
+### Copying Datasets
+
+It is very easy to make a copy of an existing Dataset.  Simply click on the vertical ellipses in the upper right hand corner of the Dataset screen and choose Copy.  Give your copy a new name.
+
+> This will NOT copy any Visuals or Filters that you have stored in the Dataset.  To get Filters and/or Visuals copied into a new dataset, following the Bundle Copy method below.
+
+![image-20200518105542330](..\assets\informer_tips_datasetcopy-001.png)
+
+### Bundle Copy a Dataset
+
+You will want to use this method to copy a Dataset if you want to retain the Filters and Visuals that exist on the Dataset being copied.
+
+
+
+
 
 ## Jobs & Emails
 
@@ -372,7 +392,7 @@ You can choose to attach the data associated with the user email and/or include 
 
 There is no direct way to get an email or other notification that a job has failed, however, you can load up informer as a Datasource and create a report from the metadata stored within.
 
-[Setup Informer Metadata Datasource](./informer-system)
+[Setup Informer Metadata Datasource](informer-system)
 
 ### Export a Pivot Table via a Job
 
