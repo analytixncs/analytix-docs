@@ -26,6 +26,7 @@ const siteConfig = {
     { doc: "analytix/analytix-bi-overview", label: "Analytix" },
     { doc: "bi/bi-resources", label: "BI" },
     { doc: "insight/insight", label: "InSight" },
+    { doc: "informer/informer-basics", label: "Informer" },
     //{doc: 'support/analytix-support', label: 'Support'},
     //{doc: 'doc4', label: 'API'},
     //{page: 'help', label: 'Help'},

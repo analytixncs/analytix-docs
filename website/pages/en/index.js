@@ -92,6 +92,9 @@ class HomeSplash extends React.Component {
             <Button href={docUrl("insight/insight.html", language)}>
               InSight Docs
             </Button>
+            <Button href={docUrl("informer/informer-basics.html", language)}>
+              Informer Docs
+            </Button>
           </PromoSection>
         </div>
       </SplashContainer>

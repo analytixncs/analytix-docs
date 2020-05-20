@@ -181,8 +181,6 @@ You final list will look something like this:
 
 The first thing to check if the cubes don't build is the **IBM Cognos** Service:
 
-
-
 If the the service isn't started, try to start it.  It is starts, rerun the Cube build.  If, however, the **IBM Cognos** service will not start, then you will need to check the IBM Cognos Configuration application.
 
 To do this, find the  **IBM Cognos Configuration** application and start it.
@@ -198,3 +196,151 @@ When you do this, you will be presented with a dialog that will allow you to ent
 ![1586370221249](../assets/insight_Procs_cognosconfig_002.png)
 
 Once done, choose File / Save and then File / Exit.  It will ask if you want to start the service.  Say yes.
+
+### cognos10 / cognos10audit DBs corrupt
+
+Another reason for the IBM Cognos service to not start is because the cognos10 and cognos10audit databases are corrupted.  This usually only happens on a new install.
+
+> Be aware if you follow these steps on an existing installation you will loose the information stored in these cognos databases.  Not sure exactly what this is, but it could be user security settings or other information that would be difficult to restore.  Just be aware
+
+**Step 1**
+
+Drop the cognos10 and cognos10audit databases from the SQL Server Management studio query window.
+
+```sql
+USE [master]
+GO
+
+DROP DATABASE [cognos10]
+GO
+DROP DATABASE [cognos10audit]
+GO
+
+```
+
+Exit and restart SQL Server Management Studio.
+
+**Step 2**
+
+Go to the location of the databases, usually `e:\databases` and delete the following:
+
+- cognos10.mdf
+- cognos10_log.ldf
+- cognos10audit.mdf
+- cognos10audit_log.ldf
+
+
+
+**Step 3**
+
+Create two new databases.
+
+First let's create the **cognos10** database:
+
+![image-20200430162547231](..\assets\insight-ibmcognosnewdb_001.png)
+
+This will bring up the **New Database** dialog.
+
+![image-20200430163639838](..\assets\insight-ibmcognosnewdb_002.png)
+
+On the **General** page set the following
+
+1. Fill in the database name with **cognos10**
+2. Add the insightd user as the owner
+3. Set the initial size of the database to be 18 MB
+4. Make sure the path is directed to the database directory.
+
+On the **Options** page set the following:
+
+![image-20200430163958891](..\assets\insight-ibmcognosnewdb_003.png)
+
+1. Collation to SQL_Latin1_General_CP1_CI_AS
+2. Recovery Model to Simple
+
+**Click OK**
+
+Now, do the same thing for the **cognos10audit** database.
+
+**General Page settings for cognos10audit**
+
+![image-20200430164648702](..\assets\insight-ibmcognosnewdb_004.png)
+
+**Options Page settings for cognos10audit**
+
+![image-20200430164804502](..\assets\insight-ibmcognosnewdb_005.png)
+
+**Step 4**
+
+Open **Cognos Configuration** application and reset the credentials for these two new databases.
+
+First, under the ***Environment / Logging / Database /cognosaudit10*** node, reenter the databases login information.  This should be 
+
+**username:** sa
+
+**password: **Ins1ght
+
+![image-20200430165311924](..\assets\insight-ibmcognosnewdb_006.png)
+
+Do the same thing for the ***Data Access / Content Manager / cognos10*** node
+
+![image-20200430165541681](..\assets\insight-ibmcognosnewdb_007.png)
+
+**Step 6**
+
+Save the configuration and the start or restart the IBM Cognos service.
+
+![image-20200430165729229](..\assets\insight-ibmcognosnewdb_008.png)
+
+
+
+## Error In Transformer
+
+**Transformer can't read the database**
+
+Found this was caused when a new InSight 2014 server was built and then reports from an InSight V10 were imported into this server.  
+
+The easiest solution was to restore the **cognos10** SQL Server database back to before the reports were imported.
+
+## InSight Objects not Showing in Circulation Dashboard
+
+We have had a few AWS servers that were previously set up, however, when logging into the Circulation dashboard, you are presented with a screen that looks like this:
+
+![image-20200514145703857](..\assets\insight-ibmcognosnotshowing_002.png)
+
+If you go to My Home or any other "My Content", you will find nothing.  This does NOT mean that anything needs to be reinstalled.  We found a couple of things that need to be done to fix this issue.
+
+**Step One**
+
+Restore a backup of the Cognos10 database in SQL Server.
+
+![image-20200514150511502](..\assets\insight-ibmcognosnotshowing_003.png)
+
+You can test after restoring the Database, but you will most likely need to go through the next steps.
+
+**Step Two**
+
+Start the **IBM Cognos Configuration** application.
+
+In here we need to make sure that the security is setup properly for the domain of the site we are working with.
+
+You will navigate to Security/Authentication/**domain of site**.  On the pane the displays to the right, you will click on Binding Credentials and enter the user **insight.app** with the CORRECT password.  
+
+Obviously, the password needs to be correct.  You can test the password by right clicking on the domain and choosing test.
+
+![image-20200514144339410](..\assets\insight-ibmcognosnotshowing_001.png)
+
+
+
+
+
+
+
+## Information To Gather on Stalled / Failed Load
+
+Check the event log to find out if the server was restarted.  To do this, filter the Windows Logs / System events by the following event ids:
+
+41, 1074, 6006, 6008
+
+Check the task manager to log the resources consumed by insightd service & SQL Server.  That will help to figure out the culprit. 
+
+Run `sp_whoisactive` to check the queries running at that time and the resource consumption and save to csv.****

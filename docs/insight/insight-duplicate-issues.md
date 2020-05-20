@@ -11,7 +11,10 @@ sidebar_label: InSight Duplicate Fixes
 Check the error for the following somewhere inside of it:
 
 ```
-Source: "Microsoft SQL Server Native Client 11.0" Hresult: 0x80004005 Description: "Violation of PRIMARY KEY constraint 'PK_stg_fct_SubscriptionDraw'. Cannot insert duplicate key in object 'dbo.stg_fct_SubscriptionDraw'. The duplicate key value is (3455136).".
+Source: "Microsoft SQL Server Native Client 11.0" Hresult: 0x80004005 Description: 
+"Violation of PRIMARY KEY constraint 'PK_stg_fct_SubscriptionDraw'. Cannot insert 
+duplicate key in object 'dbo.stg_fct_SubscriptionDraw'. The duplicate key value is 
+(3455136).".
 ```
 
 If you see `Violation of PRIMARY KEY constraint 'PK_stg_fct_SubscriptionDraw'` then you will need to follows these steps to fix the issue.
@@ -41,9 +44,15 @@ If the error refers to the table **dst_fct_SubscriptionCount** and stated that t
 Then check to see if the error is similar to the following:
 
 ```sql
-ExecutionID: Failure Code #-4001Source: Load stg_fct_SubscriptionCount SubComponent: Backup record before updating [1946] ErrorCode: -1071636471 Description: SSIS Error Code DTS_E_OLEDBERROR. An OLE DB error has occurred. Error code: 0x80040E2F.
-An OLE DB record is available. Source: "Microsoft SQL Server Native Client 10.0" Hresult: 0x80040E2F Description: "The statement has been terminated.".
-An OLE DB record is available. Source: "Microsoft SQL Server Native Client 10.0" Hresult: 0x80040E2F Description: "Violation of PRIMARY KEY constraint 'PK_dst_fct_SubscriptionCount'. Cannot insert duplicate key in object 'dbo.dst_fct_SubscriptionCount'. The duplicate key value is (428621).".
+ExecutionID: Failure Code #-4001Source: Load stg_fct_SubscriptionCount SubComponent: 
+Backup record before updating [1946] ErrorCode: -1071636471 Description: SSIS Error Code 
+DTS_E_OLEDBERROR. An OLE DB error has occurred. Error code: 0x80040E2F.
+An OLE DB record is available. Source: "Microsoft SQL Server Native Client 10.0" Hresult: 
+0x80040E2F Description: "The statement has been terminated.".
+An OLE DB record is available. Source: "Microsoft SQL Server Native Client 10.0" Hresult: 
+0x80040E2F Description: "Violation of PRIMARY KEY constraint 
+'PK_dst_fct_SubscriptionCount'. Cannot insert duplicate key in object 
+'dbo.dst_fct_SubscriptionCount'. The duplicate key value is (428621).".
 ```
 
 If so, you can take the following steps to rectify.

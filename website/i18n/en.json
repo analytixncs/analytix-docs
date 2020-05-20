@@ -100,6 +100,18 @@
         "title": "BI Resources",
         "sidebar_label": "BI Resources"
       },
+      "informer/informer-basics": {
+        "title": "Informer Basics",
+        "sidebar_label": "Informer Basics"
+      },
+      "informer/informer-javascript": {
+        "title": "Informer JavaScript Use",
+        "sidebar_label": "Informer JavaScript Use"
+      },
+      "informer/informer-system": {
+        "title": "Informer System Stuff",
+        "sidebar_label": "Informer System Stuff"
+      },
       "insight/insight-duplicate-issues": {
         "title": "InSight Duplicate Fixes",
         "sidebar_label": "InSight Duplicate Fixes"
@@ -160,7 +172,8 @@
     "links": {
       "Analytix": "Analytix",
       "BI": "BI",
-      "InSight": "InSight"
+      "InSight": "InSight",
+      "Informer": "Informer"
     },
     "categories": {
       "Analytix Intro": "Analytix Intro",
@@ -172,7 +185,8 @@
       "BI Resources": "BI Resources",
       "BI/Core Support Docs": "BI/Core Support Docs",
       "Common SQL Core/BI": "Common SQL Core/BI",
-      "InSight Docs": "InSight Docs"
+      "InSight Docs": "InSight Docs",
+      "Informer Docs": "Informer Docs"
     }
   },
   "pages-strings": {
