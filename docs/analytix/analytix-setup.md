@@ -33,7 +33,6 @@ sidebar_label: Analytix Setup
 
 
 <div style="page-break-after: always;"></div>
-
 ## Setting up DB Connection Files
 
 ---
@@ -106,7 +105,6 @@ Now to scramble the Username and Password you will need to do the following in t
 7. Repeat the above steps for the Core Connection ODBC Connection information.
 
 <div style="page-break-after: always;"></div>
-
 ## Manual Loading of Analytix
 
 ---
@@ -148,7 +146,6 @@ You will perform the above steps for each file that you want to reload.  For exa
 3. QVW\Salesflash.qvw
 
 <div style="page-break-after: always;"></div>
-
 ## QVD Maintenance using the QVD_ALL.qvw file
 
 ---
@@ -288,7 +285,6 @@ Also, the Relationship_Type is coded as 'PSEUDO PARENT/CHILD'
 Thought is, if the Grandparent has transactions, they will not be seen in a report unless he is a parent/child of himself because we link the orders to the child records.
 
 <div style="page-break-after: always;"></div>
-
 ## Spreadsheets
 
 ---
@@ -345,7 +341,7 @@ Below are the spreadsheets and how they are used.  Not all spreadsheets need to 
 
    ![](../assets/ASETUP_Spreadsheets5.png)
 
-   ​
+   
 
 5. **SystemSheets.xls** - Currently this houses one tab, the **GLExcludeList** worksheet.  Enter any GL Number in this sheet if you DO NOT want to see that GL or any revenue associated with it in SalesFlash.  Site will use this to keep converted balances from getting loaded into SalesFlash.
    ​
@@ -358,7 +354,6 @@ Below are the spreadsheets and how they are used.  Not all spreadsheets need to 
 7. **AdvancedSearchHelp.xls** – This spreadsheet contains Advanced Search expressions to help users make advanced selections without having to know the complex syntax of Set Analysis.  The items in this spreadsheet are displayed on the “Reference Charts” sheet -> “Advanced Search” button.
 
 <div style="page-break-after: always;"></div>
-
 ## Setting up Security-Optional
 
 Analytix is already secure by using Active Directory login information so that only licensed users are able to access the Analytix Applications.
@@ -384,7 +379,6 @@ This application will allow you to view and edit all variables that are used by 
 See the [Analytix Admin Guide](analytix-admin-guide.html#variable-editor) for usage details, but do note that if you add or modify a variable or variable value, you will need to use the Variable Editor to make the change.  Once the change has been made and you have exported the XML file, you will need to manually reload the source file with the “Reload Variables switch” turned on.
 
 <div style="page-break-after: always;"></div>
-
 ## Group Editor
 
 ---
@@ -396,7 +390,6 @@ You will be able to Edit, Add and Remove groups from Analytix.
 Just like the Variable Editor, any changes to Groups within Analytix must be done using the Group Editor. Once the change has been made and you have exported the XML file, you will need to manually reload the source file and following the instructions in the [Group Editor documentation](analytix-admin-guide.html#group-editor) to get the updates into Analytix.
 
 <div style="page-break-after: always;"></div>
-
 ## SOURCE Files
 
 ---
@@ -423,7 +416,7 @@ The following switches are available in the SOURCE_SalesFlash.qvw file.
 		​	**Load Old Acct. Numbers** - If this is turned to ON, Analytix will load any "OLD" account numbers that you imported into CORE from your old system.
 		​	**Exclude GLs** - If turned on, this will exclude any GLs that are located in the GLExcludeList worksheet in the SystemSheet.xls file.  All revenue data associated with these GLs will also be excluded.
 		​	**Load Custom Scripts** - If turned on, any *.qvs files located in the
-  “..\Include\CustomScripts\SalesFlash\“ directory will be loaded.
+    “..\Include\CustomScripts\SalesFlash\“ directory will be loaded.
 
 ---
 
@@ -437,7 +430,6 @@ There is a separate directory under the *CustomScripts* directory for each appli
 **NOTE:** Make sure you test your script before putting into production.
 
 <div style="page-break-after: always;"></div>
-
 ## Change User Export Preferences in Analytix
 
 ---
