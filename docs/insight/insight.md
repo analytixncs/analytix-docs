@@ -331,9 +331,19 @@ Obviously, the password needs to be correct.  You can test the password by right
 
 
 
+## User Access to InSight
 
+When you setup a new system.  The *insight.app* user is given system admin privileges.  The users however need to be give **BI Professional** rights.
 
+Log into the Cognos Admin and go to Security/User, Groups, and Roles/Cognos.  Then click on the "More..." by BI Professional.
 
+![image-20200527145350241](..\assets\insight-users_001.png)
+
+Choose **Set Members**.  You will see the screen below, where you will click on **Add...**
+
+![image-20200527145740548](..\assets\insight-users_002.png)
+
+From the Add screen navigate to the Users or Groups that you want to add.
 
 ## Information To Gather on Stalled / Failed Load
 
