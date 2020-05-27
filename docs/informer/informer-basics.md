@@ -515,6 +515,36 @@ Here is a sample of JSON output from a sample Dataset:
 
 
 
+# Creating a Datasource Link
+
+If you have two mappings that are not linked, but do have a field in common, you may create your own link in Informer.
+
+1. Go to Datasources
+2. Select the Datasource with the mappings you want to link and double click it.
+   If you have Prod, Test and/or Dev environments, you will need to create the link for each environment that you need it in.
+3. Click on the link icon (second icon from the top) at the very left panel.
+4. Click on "New Link" and choose how you want to link your mappings.
+
+![image-20200521130048559](..\assets\informer_tips_dslink-001.png)
+
+5. At the datasource page, click on 'New Link' and Select **"U2"**
+
+6. Populate the '**From Mapping**' and '**To Mapping**' with the mappings you are trying to link in the system. These are the Files on the U2 side of things.
+
+7. Provide a '**Link Name**' for the link. This is how the link will appear if you try to search for it in the system and when you are navigating through your various mappings when building out a Dataset.
+
+8. Select the field in the '**From Mapping**' file that will match up with the @ID field in the 'To Mapping' file.
+
+9. Select whether or not you wish to embed this link. If a link is embedded, all of the fields in the 'To Mapping' file will appear as though they belong to the 'From Mapping' file when you are selecting fields to add to a Dataset.
+
+   > I would recommend to not embed the link unless you really need it in the main table.
+
+10. Click 'Save'
+
+![image-20200521130400969](..\assets\informer_tips_dslink-002.png)
+
+This new link
+
 # Questions When Converting from v4 to v5
 
 ##  Informer 4 allows for input parameters to be set on the schedule
