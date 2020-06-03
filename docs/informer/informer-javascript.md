@@ -635,3 +635,46 @@ if ($record.preCounter === $local["prevCounter"]) {
 }
 ```
 
+### Normalize Doesn't Propagate all Values
+
+Sometimes when you normalize and you have *one-to-many* fields that are associated with *multi-valued* fields, those *one-to-many* only one iteration of the *one-to-many* fields will be populated.
+
+Here is an example of what you see even after applying the *Normalize* flow step:
+
+| ID   | One-To-Many | Multi-Valued |
+| ---- | ----------- | ------------ |
+| 1    | MM33001     | 15           |
+| 2    |             | 12           |
+| 3    | MM55221     | 10           |
+| 4    |             | 40           |
+| 5    |             | 20           |
+
+But what you really want is this:
+
+| ID   | One-To-Many | Multi-Valued |
+| ---- | ----------- | ------------ |
+| 1    | MM33001     | 15           |
+| 2    | MM33001     | 12           |
+| 3    | MM55221     | 10           |
+| 4    | MM55221     | 40           |
+| 5    | MM55221     | 20           |
+
+To achieve this, you need to use Powerscript.  
+
+After the Normalize flow step, add this Powerscript:
+
+**PropagateField**
+
+```javascript
+if ($record.One-To-Many) {
+	$local.prevOne-To-Many = $record.One-To-Many     
+} 
+
+$record.One-To-Many = $local.prevOne-To-Many || ''
+```
+
+The first "if" statement is checking to see if we have a value in the **One-To_Many** field.  The expectation is that we will have a value before we encounter any of the "empty" columns. 
+
+We then store this value and when we encounter the next rows **One-To-Many** field, if it is empty we, will populate it with the value that we had previously stored.
+
+The final line is using the `|| ''` as a precaution so that if there are any rows that do not have a **One-To-Many** field populated, we won't error out.
