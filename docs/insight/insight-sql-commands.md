@@ -82,3 +82,26 @@ WHERE database_id  = db_id('MyDB')
 EXEC(@kill);
 ```
 
+## Make Everyone System Admin
+
+If you ever get locked out of the Cognos Admin, you can run the SQL below on the **Cognos10**  Database to reset the System Admins to be "Everyone"
+
+```sql
+INSERT INTO cmreford1 
+            (propid, 
+             cmid, 
+             ord, 
+             refcmid) 
+SELECT 27, 
+       (SELECT cmid 
+        FROM   cmobjprops1 
+        WHERE  objid = '::System Administrators'), 
+       COALESCE((SELECT Max(ord) FROM cmreford1 WHERE propid=27 AND cmid=(SELECT 
+       cmid 
+       FROM cmobjprops1 WHERE objid='::System Administrators')), -1) 
+       + 1, 
+       cmid 
+FROM   cmobjprops1 
+WHERE  objid = '::Everyone' 
+```
+
