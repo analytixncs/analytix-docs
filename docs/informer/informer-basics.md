@@ -195,7 +195,9 @@ The *What if more than one value matches?* option can be left as *Only use the f
 
 The *Prefix field labels* setting allows you to add a prefix to these import fields so that you can better identify them as coming from another dataset.  It is optional.
 
-## Flow Step - Normalize
+## Flow Steps
+
+### Normalize
 
 Splits array values into individual rows for each value in the array.
 
@@ -213,7 +215,17 @@ I tested on a dataset that had multiple *array* fields in it and when I normaliz
 >
 > If you don't normalize, you will get something that looks like you have multivalued fields. 
 
-## Using the Dates in Your Filters
+## Filters
+
+Filters can be found in many places within Informer.  Their main purpose is to further limit the data that is loaded in a Dataset or Ad Hoc Report.
+
+Filters applied from different areas will work a little differently and it is important to understand how they differ.
+
+To start let's look at the different ways to use filters on a Dashboard Report.
+
+
+
+##  Filters - Using the Dates
 
 ### Date Keywords
 
