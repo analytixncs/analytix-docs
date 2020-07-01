@@ -84,6 +84,8 @@ EXEC(@kill);
 
 ## Make Everyone System Admin
 
+You can find this script in the Cognos install directory: `.\cognos\c8_64\configuration\schemas\content\sqlserver`
+
 If you ever get locked out of the Cognos Admin, you can run the SQL below on the **Cognos10**  Database to reset the System Admins to be "Everyone"
 
 ```sql
