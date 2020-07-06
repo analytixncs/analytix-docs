@@ -11,20 +11,6 @@ sidebar_label: Informer Basics
 - [Advanced Filters](https://informer5.zendesk.com/hc/en-us/articles/360001162923-6-7-Advanced-Filters)
 - [Why Datasets vs AdHoc Report](https://informer5.zendesk.com/hc/en-us/articles/360001210986-Why-Use-Datasets-vs-Ad-Hoc-Queries-)
 
-## Entrinsik Training
-
-**Wildcard for UniData** is `...`
-
-**Filtering - Variables**.  You can setup certain variables that are unique for each user.  For example, *Department* could be a variable that would be each users department so when they ran the filter it would automatically filter by their department.
-
-**Date Keywords** - WEEK_BEGIN, WEEK_END are keywords not listed in box, but are available.
-
-**How are sales people doing against budget** - Where is the budget data and how does it link to other data.
-
-**Codes** Can be used in a Datasource mapping and apply the code to the field.
-
-**Datasource - Workspaces** - allows you to create a virtual database from csv files.
-
 ## Creating a Dataset from an Ad-Hoc Report
 
 A dataset and an Ad-Hoc report  have many of the same features, however the dataset is the preferred format if you plan on scheduling the query to run at certain intervals and what multiple users to be able to use reports built from the dataset.
@@ -223,7 +209,17 @@ Filters applied from different areas will work a little differently and it is im
 
 To start let's look at the different ways to use filters on a Dashboard Report.
 
+### Variables / User Fields
 
+User Fields can be created on the Administration panel by click on the **User Fields** option.
+
+Once a user field has been created, you can assign it to a user(s) and give it a value.  Then you can access any user field in either criteria or filters to limit the data based on the value in these users fields.
+
+
+
+
+
+**Filtering - Variables**.  You can setup certain variables that are unique for each user.  For example, *Department* could be a variable that would be each users department so when they ran the filter it would automatically filter by their department.
 
 ##  Filters - Using the Dates
 
@@ -234,6 +230,8 @@ Using Date keywords in your filters will allow you to get dynamic date filtering
 Here are the keywords:
 
 ![1573243161315](../assets/informer_tips_003.png)
+
+**WEEK_BEGIN, WEEK_END** are keywords not listed in box above, but are available to use.
 
 All keywords resolve to a single date.  For example **TODAY** will be today's date.  **YEAR_BEGIN** will be January 1st of the current year.  I believe **NOW** is the only keyword to incorporate the current time.
 
