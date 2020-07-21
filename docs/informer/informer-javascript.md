@@ -437,7 +437,7 @@ Here are the predefined keywords you can use in your Power Script. [Informer Doc
 | _       | object/function | Lodash v3 library. [lodash](https://lodash.com)              |
 | moment  | function        | moment date manipulation library. [momentjs](https://momentjs.com) |
 
-To declare a variable use the `var` keyword. 
+To declare a variable use the `var` keyword.  However, within the Powerscripts it seems you do not have to "declare" variables that you will be using. 
 
 ```javascript
 var gtp = $inputs['greaterThanPrice'] || 0;
@@ -451,6 +451,22 @@ if($record.baseCost >= gtp) {
 Do not `return` anything from the Power Script.  Simply change the value of what you want.
 
 You can create multiple fields in a single Power Script.
+
+### Using $inputs
+
+Many times on your Datasets, you will create *inputs*.  These are values that your end user will be prompted to enter upon the reloading of the Dataset.  
+
+Usually these *inputs* are used in your criteria, however, there may be times when you want to use the value either in a calculation of another field or to simply display as a new field in the result set.  
+
+You will be able to access these *inputs* in Calculated Fields and Powerscripts using the **$inputs** object.
+
+To access an input value, use the following syntax:
+
+```javascript
+$record.nameOfInput = $inputs['nameOfInput']
+```
+
+
 
 ### Using $local
 
