@@ -11,7 +11,19 @@ sidebar_label: Informer Basics
 - [Advanced Filters](https://informer5.zendesk.com/hc/en-us/articles/360001162923-6-7-Advanced-Filters)
 - [Why Datasets vs AdHoc Report](https://informer5.zendesk.com/hc/en-us/articles/360001210986-Why-Use-Datasets-vs-Ad-Hoc-Queries-)
 
-## Creating a Dataset from an Ad-Hoc Report
+## Datasets vs Ad Hoc Reports
+
+The big difference between Ad Hoc Report and Datasets are that the data in a **Dataset** is persisted, whereas the data in an **Ad Hoc Report** is temporary.  The reason this is important is that a single dataset could drive multiple users Charts and exports, whereas an Ad Hoc Report would need to be run for each user.  This means hitting the database and waiting for the query behind the Ad Hoc report to run.
+
+Datasets also bring a number of other benefits.  
+
+- **Single source of truth** - A single dataset can provide data to multiple charts and exports for many users, thus making sure all users are seeing the same data.
+- **Less stress on the database** - Given that the data in a Dataset is persisted.  The dataset can be scheduled to reload one or more times a day and then reports will access this data instead of running each time a report is requested.
+- **Stored Visuals** - You can create common visuals and store them on the Dataset.  This allows end users to quickly see the data in the dataset visualized.
+- **Stored Filters** - You can store common filters making it easy for users to filter the data with a single click.
+- **Comparison boards and Dashboards** - Datasets are needed to be able to create and use Comparison boards and Dashboards
+
+## Creating a Dataset from an Ad Hoc Report
 
 A dataset and an Ad-Hoc report  have many of the same features, however the dataset is the preferred format if you plan on scheduling the query to run at certain intervals and what multiple users to be able to use reports built from the dataset.
 
