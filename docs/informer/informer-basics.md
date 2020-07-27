@@ -227,11 +227,9 @@ User Fields can be created on the Administration panel by click on the **User Fi
 
 Once a user field has been created, you can assign it to a user(s) and give it a value.  Then you can access any user field in either criteria or filters to limit the data based on the value in these users fields.
 
-
-
-
-
 **Filtering - Variables**.  You can setup certain variables that are unique for each user.  For example, *Department* could be a variable that would be each users department so when they ran the filter it would automatically filter by their department.
+
+
 
 ##  Filters - Using the Dates
 
@@ -344,6 +342,30 @@ When you choose Distinct Values on a Date field, you will initially be presented
 In our example, filter by Nov and Dec of 2019 and 2020, you would need to add two Distinct value filters.  The first for the years and the second for the months.  It would like like this:
 
 ![1578949720984](../assets/informer_tips_date-filters-006.png)
+
+## Filters - Reports
+
+When you filter any type of report, there are two places where you can filter the report.  
+
+The two places are at the top level of the report and the other is when you are inside and editing the report.
+
+![image-20200727134604915](..\assets\informer_tips_filters-reports-001.png)
+
+When filtering at this level, it is only for your user.  Only your user will see it.
+
+If you want all users to see the filter, you will need to click on the **Edit** button and set your filter in this area.
+
+Once you click on the Edit button, click on the vertical ellipsis by the Dataset name and choose **Custom Filter**
+
+![image-20200727135103551](..\assets\informer_tips_filters-reports-002.png) 
+
+After you have created your filter, you can click on the **Apply** button.
+
+![image-20200727135222389](..\assets\informer_tips_filters-reports-003.png)
+
+This will "bake in" the filter to your report.  The other option would be to Save the filter by clicking on the save icon.  However, the user who created and saved the filter and other super users will be the only one who will be able to see and apply the filter. 
+
+Saving the filter is useful if you have a complex filter that you want saved on your report.  Sometimes, to create a complex filter, you need saved portions of it.
 
 ## Datasets
 
