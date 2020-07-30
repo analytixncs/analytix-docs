@@ -111,7 +111,9 @@ ORDER BY ec_db_Desc, ec_ProcessName desc
 
 If it is McClatchy follow the [McClatchy Run Control Settings](#McClatchy-Run-Control-Settings)
 
-## McClatchy Run Control Settings
+## McClatchy 
+
+### Run Control Settings
 
 For all three McClatchy InSight servers, you cannot run the standard query to get run control information.  This is because McClatchy has multiple sites/companies sending data over to each server.  It was set up in such a way that if one of those companies didn't send over data, the others would still load.  This means that not all companies run control information will be the same.
 
@@ -176,6 +178,14 @@ You final list will look something like this:
 "MCCCM-STC"|"InSight Export"|04/03/20|"21:04:32"|no|5
 "MCCCM-STC"|"InSight Draw"|04/04/20|"24:00:00"|no|5
 ```
+
+### Connecting to MCC Servers
+
+When you click on the Dashboard icon on one of the McClatchy servers, it launches IE with a localhost based URL, but for some reason McClatchy sites need to use the host name.
+Below are the links for each site.
+[MCC Central - http://mcc-c-ins-cst-01.mcc.loc/ibmcognos](http://mcc-c-ins-cst-01.mcc.loc/ibmcognos)
+[MCC East - http://mcc-c-ins-01.mcc.loc/ibmcognos](http://mcc-c-ins-01.mcc.loc/ibmcognos)
+[MCC West - http://mcc-c-ins-wst-01.mcc.loc/ibmcognos](http://mcc-c-ins-wst-01.mcc.loc/ibmcognos)
 
 ## IBM Cognos Service won't Start / Cubes won't Build
 
