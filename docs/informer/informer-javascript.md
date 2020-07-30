@@ -212,6 +212,56 @@ I will give you two patterns that should answer most of your replace needs.
    Now it will only replace if it finds 3 whitespace characters in a succession. 
 2. **Replace Words** - `brandname.replace(/ABC/gi, 'CBA')` Notice the the regex expression is just the text you want to look for with NO quotes.  I have also add the `gi` switches so that it searches and replaces all occurrences and ignores case while doing it.
 
+### Extract Month or Year or Day from Date field
+
+If you have a date field and what to extract a portion of it (Day, Month, Year), the easiest way to do that is using the [*moment*](https://momentjs.com/) library that is available in Informer.
+
+Here is an example:
+
+```javascript
+// Extract Month from issuedate date field
+// Note MM = 01, MMM = 'Nov', 'Dec', etc, MMMM = 'November', etc.
+moment(issuedate).format('MM')
+
+//Extract Year from issuedate date field
+moment(issuedate).format('YYYY')
+
+```
+
+Here is a list of common arguments that can be passed to the format function.  Note, you can combine these in any way.  
+
+For example: **'YYYY-MM-DD'** would produce **'2020-01-01'**
+
+| Argument | Output         | Description                       |
+| :------- | :------------- | :-------------------------------- |
+| YYYY     | 2019           | 4 digit year                      |
+| YY       | 19             | 2 digit year                      |
+| MMMM     | August         | Full month name                   |
+| MMM      | Aug            | Abbreviated month name            |
+| MM       | 08             | 2 digit month                     |
+| M        | 8              | 1 digit month                     |
+| DDD      | 225            | Day of the year                   |
+| DD       | 13             | Day of the month                  |
+| Do       | 13th           | Day of the month with ordinal     |
+| dddd     | Wednesday      | Full day name                     |
+| ddd      | Wed            | Abbreviated day name              |
+| HH       | 17             | Hours in 24 hour time             |
+| hh       | 05             | Hours in 12 hour time             |
+| mm       | 32             | Minutes                           |
+| ss       | 19             | Seconds                           |
+| a        | am / pm        | Ante or post meridiem             |
+| A        | AM / PM        | Capitalized ante or post meridiem |
+| ZZ       | +0900          | Timezone offset from UTC          |
+| X        | 1410715640.579 | Unix timestamp in seconds         |
+| XX       | 1410715640579  | Unix timestamp in milliseconds    |
+
+To extract the **Quarter** number from a date, you will need to just use a different function from moment.
+
+```javascript
+//Extract Quarter number from issuedate date field
+moment(issuedate).quarter() // returns a number from 1 to 4
+```
+
 
 
 ### Mimicking the IN keyword
@@ -516,6 +566,81 @@ Use the keyword **delete** followed by the column you want removed.
 delete $record.columnToDelete
 ```
 
+### Using $fields Metadata
+
+The **$fields** object has a key for each field in your query and each of those has some metadata on it that you can view and/or change.
+
+Here is the shape of the object:
+
+```javascript
+{
+    issueYear: {
+        dataType: 'string' | 'double' | 'int',
+        label: '' // Viewable label
+        position: // Position in output grid (int)
+        name: // This is the name as it is referred to in Calculated fields or Powerscripts
+    },
+    field2: {
+        dataType: 'string' | 'double' | 'int',
+        label: '' // Viewable label
+        position: // Position in output grid (int)
+        name: // This is the name as it is referred to in Calculated fields or Powerscripts
+    }, 
+    ...
+}
+```
+
+There are some other metadata available, but it isn't very useful.  If you want to query this data yourself, here is code that will let you view all of the properties on a field in the $field object.
+
+```javascript
+// Inspect $fields object for a single field
+$record.fieldInspect = Object.keys($fields.issueDate).map(key => [key, $fields.issueDate[key]])
+```
+
+I have found this useful for changing a datatype of a field.  Informer will makes its best guess at the data type of a field.  Sometimes, you don't want its best guess.  For example, if you have created a Year field from a Date field, Informer will try and make that a number, which is a pain to format.  You can turn this into a string field as follows:
+
+```javascript
+// Get the year of the issue date 
+$record.issueYear = moment($record.issuedate).format('YYYY')
+// Create a join column from issueYear and RepId to use to join to the goals spreadsheet
+$record.joinField = `${$record.issueYear}-${$record.repcode}`
+$fields.issueYear.dataType = 'string'
+```
+
+### $query Object
+
+I haven't found a use for this, but here is the shape of the $query object:
+
+```javascript
+{
+	domain: object
+	_events: object
+	_eventsCount: number
+	_maxListeners: undefined
+	limit: number: 
+	errorHandlers: object
+	throughHandlers: object
+	postHandlers: object
+	preHandlers: object
+	options: object
+	params: object
+	fields: object
+	payload: object
+	dataTypes: object
+	handler: function
+	language: string
+	user: string
+	_promise: object
+	preInvokedAt: object
+	preCompletedAt: object
+	handlerInvokedAt: object
+	handlerCompletedAt: object
+	result: object
+	postInvokedAt: object
+	postCompletedAt: object
+}
+```
+
 
 
 ## Powerscript Examples
@@ -572,7 +697,7 @@ This above code is simply creating the two new fields that we want.
 
 I will start by saying this code is not recommended for large datasets.  It slows down the load considerably.  However, it is always worth a try to see if will help.
 
-The scenario that call for this is a dataset that is loading a group of fields that includes some **multivalued** fields and that also runs a **Normalize** flow step on these multivalued fields.
+The scenario that calls for this is a dataset that is loading a group of fields that includes some **multivalued** fields and that also runs a **Normalize** flow step on these multivalued fields.
 
 This results in "duplication" of the data in non-multivalued fields.  Makes sense and works fine, unless you have a numeric NON multivalued field that you want to aggregate on.  This results in an over aggregation of this field.
 
@@ -625,6 +750,8 @@ Lastly, create a Powerscript called "OneToManyFix" (or whatever you want to call
 
 Past the following code in the Powerscript.
 
+> Make sure to update the $record.fieldToFix to the field(s) that need to be "zeroed" out on certain records.
+
 ```javascript
 // Initialize "prevCounter" in the local object if undefined
 if (!$local["prevCounter"]) {
@@ -634,22 +761,16 @@ if (!$local["prevCounter"]) {
 // If it is, then this is a "Duplicate" and we should zero out any numeric
 // variables that we want to aggregate
 if ($record.preCounter === $local["prevCounter"]) {
-    $record.beforeTaxAmt = 0
+    // These will be all the fields that you do not want to be duplicated.
+	// These fields will be numeric fields
+    $record.fieldToFix = 0
+    // any other fields to fix
 }
 // update our local copy of the counter to the current one.
 $local["prevCounter"] = $record.preCounter
 ```
 
-You are not done yet!  You need to customize the contents of the second if statement
 
-```javascript
-if ($record.preCounter === $local["prevCounter"]) {
-// These will be all the fields that you do not want to be duplicated.
-// These fields will be numeric fields
-    $record.beforeTaxAmt = 0
-    // add yours here
-}
-```
 
 ### Normalize Doesn't Propagate all Values
 
@@ -694,3 +815,9 @@ The first "if" statement is checking to see if we have a value in the **One-To_M
 We then store this value and when we encounter the next rows **One-To-Many** field, if it is empty we, will populate it with the value that we had previously stored.
 
 The final line is using the `|| ''` as a precaution so that if there are any rows that do not have a **One-To-Many** field populated, we won't error out.
+
+## Calculations on Aggregated Values
+
+As of Informer 5.2.1, you can not create an expression using fields that you aggregated.
+
+For example, you have created a pivot table with **Rep** and **Brand** as Rows and then have Total aggregations on **Net Revenue** and **Goal**, but you also what a **Variance** column (**Net Revenue - Goal**).  There is currently not a way to do this via their standard tools.
