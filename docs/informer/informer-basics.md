@@ -11,7 +11,19 @@ sidebar_label: Informer Basics
 - [Advanced Filters](https://informer5.zendesk.com/hc/en-us/articles/360001162923-6-7-Advanced-Filters)
 - [Why Datasets vs AdHoc Report](https://informer5.zendesk.com/hc/en-us/articles/360001210986-Why-Use-Datasets-vs-Ad-Hoc-Queries-)
 
-## Creating a Dataset from an Ad-Hoc Report
+## Datasets vs Ad Hoc Reports
+
+The big difference between Ad Hoc Report and Datasets are that the data in a **Dataset** is persisted, whereas the data in an **Ad Hoc Report** is temporary.  The reason this is important is that a single dataset could drive multiple users Charts and exports, whereas an Ad Hoc Report would need to be run for each user.  This means hitting the database and waiting for the query behind the Ad Hoc report to run.
+
+Datasets also bring a number of other benefits.  
+
+- **Single source of truth** - A single dataset can provide data to multiple charts and exports for many users, thus making sure all users are seeing the same data.
+- **Less stress on the database** - Given that the data in a Dataset is persisted.  The dataset can be scheduled to reload one or more times a day and then reports will access this data instead of running each time a report is requested.
+- **Stored Visuals** - You can create common visuals and store them on the Dataset.  This allows end users to quickly see the data in the dataset visualized.
+- **Stored Filters** - You can store common filters making it easy for users to filter the data with a single click.
+- **Comparison boards and Dashboards** - Datasets are needed to be able to create and use Comparison boards and Dashboards
+
+## Creating a Dataset from an Ad Hoc Report
 
 A dataset and an Ad-Hoc report  have many of the same features, however the dataset is the preferred format if you plan on scheduling the query to run at certain intervals and what multiple users to be able to use reports built from the dataset.
 
@@ -215,11 +227,9 @@ User Fields can be created on the Administration panel by click on the **User Fi
 
 Once a user field has been created, you can assign it to a user(s) and give it a value.  Then you can access any user field in either criteria or filters to limit the data based on the value in these users fields.
 
-
-
-
-
 **Filtering - Variables**.  You can setup certain variables that are unique for each user.  For example, *Department* could be a variable that would be each users department so when they ran the filter it would automatically filter by their department.
+
+
 
 ##  Filters - Using the Dates
 
@@ -332,6 +342,30 @@ When you choose Distinct Values on a Date field, you will initially be presented
 In our example, filter by Nov and Dec of 2019 and 2020, you would need to add two Distinct value filters.  The first for the years and the second for the months.  It would like like this:
 
 ![1578949720984](../assets/informer_tips_date-filters-006.png)
+
+## Filters - Reports
+
+When you filter any type of report, there are two places where you can filter the report.  
+
+The two places are at the top level of the report and the other is when you are inside and editing the report.
+
+![image-20200727134604915](..\assets\informer_tips_filters-reports-001.png)
+
+When filtering at this level, it is only for your user.  Only your user will see it.
+
+If you want all users to see the filter, you will need to click on the **Edit** button and set your filter in this area.
+
+Once you click on the Edit button, click on the vertical ellipsis by the Dataset name and choose **Custom Filter**
+
+![image-20200727135103551](..\assets\informer_tips_filters-reports-002.png) 
+
+After you have created your filter, you can click on the **Apply** button.
+
+![image-20200727135222389](..\assets\informer_tips_filters-reports-003.png)
+
+This will "bake in" the filter to your report.  The other option would be to Save the filter by clicking on the save icon.  However, the user who created and saved the filter and other super users will be the only one who will be able to see and apply the filter. 
+
+Saving the filter is useful if you have a complex filter that you want saved on your report.  Sometimes, to create a complex filter, you need saved portions of it.
 
 ## Datasets
 
