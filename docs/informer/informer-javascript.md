@@ -816,8 +816,122 @@ We then store this value and when we encounter the next rows **One-To-Many** fie
 
 The final line is using the `|| ''` as a precaution so that if there are any rows that do not have a **One-To-Many** field populated, we won't error out.
 
-## Calculations on Aggregated Values
+### Calculations on Aggregated Values
 
 As of Informer 5.2.1, you can not create an expression using fields that you aggregated.
 
-For example, you have created a pivot table with **Rep** and **Brand** as Rows and then have Total aggregations on **Net Revenue** and **Goal**, but you also what a **Variance** column (**Net Revenue - Goal**).  There is currently not a way to do this via their standard tools.
+For example, you have created a pivot table with **Year**, **Rep** and **Brand** as Rows and then have Total aggregations on **Net Revenue** and **Goal**, but you also what a **Variance** column (**Net Revenue - Goal**).  There is currently not a way to do this via their standard tools.
+
+To accomplish this, you will need to calculate the aggregates at each level that you need them and create a new field for the Variance, or whatever other type of calculation that you need to do with the aggregated values.
+
+Before you can start, you need to determine what your aggregation levels are going to be.  In the above example, we have chosen, **Year, Rep and Brand**.
+
+We are going to create a *groupKey* for each of these levels and use that key to aggregate the totals in the **$local** object that Powerscript provides.
+
+This is the first Powerscript that will be needed:
+
+```javascript
+// Create a column for issueYear
+$record.issueYear = vIssueYear
+
+//*****************************************************
+// Start the aggregation process
+//*****************************************************
+/* It will create and generate the three levels of aggregate
+   data that will be used in the second Powerscript to calculate the three levels of
+   aggregates of the Yield calculations.
+   The three groups are:
+   issueYear (groupKey1)
+   issueYear + RepId (groupKey2)
+   issueYear + RepId + Brand (groupKey3) 
+*/
+// Define the groupKey to be used across aggregates
+groupKey3 = `${vIssueYear}-${$record.repcode}-${$record.brandcode}`
+groupKey2 = `${vIssueYear}-${$record.repcode}`
+groupKey1 = `${vIssueYear}`
+
+// Initialize each group key
+$local[groupKey3] = $local[groupKey3] ? $local[groupKey3] :  {sumGoal: 0, sumNet: 0, sumGross: 0}
+$local[groupKey2] = $local[groupKey2] ? $local[groupKey2] :  {sumGoal: 0, sumNet: 0, sumGross: 0}
+$local[groupKey1] = $local[groupKey1] ? $local[groupKey1] :  {sumGoal: 0, sumNet: 0, sumGross: 0}
+
+// check if the imported goal is not null and make sure it is a number
+importedGoal = parseFloat($record.imp2020AnnualGoal) || 0
+
+// Add current records amount to the running total for each group key
+// GROUPKEY3
+$local[groupKey3].sumGoal = $local[groupKey3].sumGoal + importedGoal
+$local[groupKey3].sumNet = $local[groupKey3].sumNet + $record.repnetcost
+$local[groupKey3].sumGross = $local[groupKey3].sumGross + $record.repgrosscost
+// GROUPKEY2
+$local[groupKey2].sumGoal = $local[groupKey2].sumGoal + importedGoal
+$local[groupKey2].sumNet = $local[groupKey2].sumNet + $record.repnetcost 
+$local[groupKey2].sumGross = $local[groupKey2].sumGross + $record.repgrosscost
+// GROUPKEY1
+$local[groupKey1].sumGoal = $local[groupKey1].sumGoal + importedGoal
+$local[groupKey1].sumNet = $local[groupKey1].sumNet + $record.repnetcost
+$local[groupKey1].sumGross = $local[groupKey1].sumGross + $record.repgrosscost
+```
+
+Now we have objects on the $local object that have totals for each level.  The object shape will look like this:
+
+```javascript
+$local = {
+  [groupKey1]: {
+    sumGoal: float,
+    sumNet: float,
+    sumGross: float
+  },
+    [groupKey2]: {
+    sumGoal: float,
+    sumNet: float,
+    sumGross: float
+  },
+    [groupKey3]: {
+    sumGoal: float,
+    sumNet: float,
+    sumGross: float
+  },
+}
+```
+
+**Step 2**
+
+After we have aggregated to the levels that we need, you will need to run a Flush Flow step:
+
+![image-20200731124814556](..\assets\informer-javasript-calcaggr-001.png)
+
+**Step 3**
+
+The last step is another Powerscript that will do the calculations needed on the stored aggregations.
+
+```javascript
+/*
+This is the second Powerscript.
+It needs to be run AFTER a Flush flow step.
+It will calculate the aggregate calculations at the three different groupings.
+Also this will create a field for each group key named
+groupKey1, groupKey2, groupKey3
+*/
+
+// Get the year of the issue date 
+vIssueYear = moment($record.issuedate).format('YYYY')
+
+// Define the groupKey to be used across aggregates - Must be the same as those defined in the first Powerscript
+groupKey1 = `${vIssueYear}`
+groupKey2 = `${vIssueYear}-${$record.repcode}`
+groupKey3 = `${vIssueYear}-${$record.repcode}-${$record.brandcode}`
+
+// GROUPKEY1
+$record.groupKey1 = groupKey1
+$record.GoalVarianceByYear = ($local[groupKey1].sumNet - $local[groupKey1].sumGoal)
+
+// GROUPKEY2
+$record.groupKey2 = groupKey2
+$record.GoalVarianceByYearRep = ($local[groupKey2].sumNet - $local[groupKey2].sumGoal)
+
+// GROUPKEY3
+$record.groupKey3 = groupKey3
+//No variance calculated because no goals loaded at this level
+```
+
