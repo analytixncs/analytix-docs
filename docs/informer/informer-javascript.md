@@ -820,19 +820,26 @@ The final line is using the `|| ''` as a precaution so that if there are any row
 
 As of Informer 5.2.1, you can not create an expression using fields that you aggregated.
 
-For example, you have created a pivot table with **Year**, **Rep** and **Brand** as Rows and then have Total aggregations on **Net Revenue** and **Goal**, but you also what a **Variance** column (**Net Revenue - Goal**).  There is currently not a way to do this via their standard tools.
+For example, you have created a pivot table with **Year** and **Rep**as Rows and then have Total aggregations on **Net Revenue** and **Net Invoice**, but you also what a **Variance** column (**Net Revenue - Net Invoice**).  There is currently not a way to do this via their standard tools.
 
 To accomplish this, you will need to calculate the aggregates at each level that you need them and create a new field for the Variance, or whatever other type of calculation that you need to do with the aggregated values.
 
-Before you can start, you need to determine what your aggregation levels are going to be.  In the above example, we have chosen, **Year, Rep and Brand**.
+Before you can start, you need to determine what your aggregation levels are going to be.  In the above example, we have chosen, **Year and Rep**.
 
 We are going to create a *groupKey* for each of these levels and use that key to aggregate the totals in the **$local** object that Powerscript provides.
 
 This is the first Powerscript that will be needed:
 
+> NOTE: There is a helper function called **returnNumber** which will accept anything and return a valid number.  If you don't pass a valid number, it returns 0.
+
 ```javascript
+// Get the year of the issue date 
+vIssueYear = moment($record.issuedate).format('YYYY')
+
 // Create a column for issueYear
 $record.issueYear = vIssueYear
+// Make sure the datatype for issueYear is a String
+$fields.issueYear.dataType = 'string'
 
 //*****************************************************
 // Start the aggregation process
@@ -843,34 +850,35 @@ $record.issueYear = vIssueYear
    The three groups are:
    issueYear (groupKey1)
    issueYear + RepId (groupKey2)
-   issueYear + RepId + Brand (groupKey3) 
 */
 // Define the groupKey to be used across aggregates
-groupKey3 = `${vIssueYear}-${$record.repcode}-${$record.brandcode}`
-groupKey2 = `${vIssueYear}-${$record.repcode}`
 groupKey1 = `${vIssueYear}`
+groupKey2 = `${vIssueYear}-${$record.salesrep_id_assoc_id}` 
 
 // Initialize each group key
-$local[groupKey3] = $local[groupKey3] ? $local[groupKey3] :  {sumGoal: 0, sumNet: 0, sumGross: 0}
-$local[groupKey2] = $local[groupKey2] ? $local[groupKey2] :  {sumGoal: 0, sumNet: 0, sumGross: 0}
-$local[groupKey1] = $local[groupKey1] ? $local[groupKey1] :  {sumGoal: 0, sumNet: 0, sumGross: 0}
-
-// check if the imported goal is not null and make sure it is a number
-importedGoal = parseFloat($record.imp2020AnnualGoal) || 0
+$local[groupKey1] = $local[groupKey1] ? $local[groupKey1] :  {sumNet: 0, sumInvoice: 0, Group1Set: false}
+$local[groupKey2] = $local[groupKey2] ? $local[groupKey2] :  {sumNet: 0, sumInvoice: 0, Group2Set: false}
 
 // Add current records amount to the running total for each group key
-// GROUPKEY3
-$local[groupKey3].sumGoal = $local[groupKey3].sumGoal + importedGoal
-$local[groupKey3].sumNet = $local[groupKey3].sumNet + $record.repnetcost
-$local[groupKey3].sumGross = $local[groupKey3].sumGross + $record.repgrosscost
-// GROUPKEY2
-$local[groupKey2].sumGoal = $local[groupKey2].sumGoal + importedGoal
-$local[groupKey2].sumNet = $local[groupKey2].sumNet + $record.repnetcost 
-$local[groupKey2].sumGross = $local[groupKey2].sumGross + $record.repgrosscost
 // GROUPKEY1
-$local[groupKey1].sumGoal = $local[groupKey1].sumGoal + importedGoal
-$local[groupKey1].sumNet = $local[groupKey1].sumNet + $record.repnetcost
-$local[groupKey1].sumGross = $local[groupKey1].sumGross + $record.repgrosscost
+$local[groupKey1].sumNet = $local[groupKey1].sumNet + $record.orderNetAmt 
+$local[groupKey1].sumInvoice = $local[groupKey1].sumInvoice + returnNumber($record.invoiceID_assoc_invamount)
+
+// GROUPKEY2
+$local[groupKey2].sumNet = $local[groupKey2].sumNet + $record.orderNetAmt 
+$local[groupKey2].sumInvoice = $local[groupKey2].sumInvoice + returnNumber($record.invoiceID_assoc_invamount)
+
+//------------------------------------------------------------------------------------
+//- FUNCTIONS 
+//------------------------------------------------------------------------------------
+//* takes a value in and returns a number (parsed as float)
+function returnNumber(numberIn) {
+    let parsedNumber = parseFloat(numberIn)
+	if (isNaN(parsedNumber)) {
+        return 0
+	} 
+    return parsedNumber
+}
 ```
 
 Now we have objects on the $local object that have totals for each level.  The object shape will look like this:
@@ -878,19 +886,14 @@ Now we have objects on the $local object that have totals for each level.  The o
 ```javascript
 $local = {
   [groupKey1]: {
-    sumGoal: float,
+    sumInvoice: float,
     sumNet: float,
-    sumGross: float
+    Group1Set: float
   },
     [groupKey2]: {
-    sumGoal: float,
+    sumInvoice: float,
     sumNet: float,
-    sumGross: float
-  },
-    [groupKey3]: {
-    sumGoal: float,
-    sumNet: float,
-    sumGross: float
+    Group2Set: float
   },
 }
 ```
@@ -915,23 +918,41 @@ groupKey1, groupKey2, groupKey3
 */
 
 // Get the year of the issue date 
-vIssueYear = moment($record.issuedate).format('YYYY')
+vIssueYear = $record.issueYear
 
 // Define the groupKey to be used across aggregates - Must be the same as those defined in the first Powerscript
 groupKey1 = `${vIssueYear}`
-groupKey2 = `${vIssueYear}-${$record.repcode}`
-groupKey3 = `${vIssueYear}-${$record.repcode}-${$record.brandcode}`
+groupKey2 = `${vIssueYear}-${$record.salesrep_id_assoc_id}`
 
 // GROUPKEY1
-$record.groupKey1 = groupKey1
-$record.GoalVarianceByYear = ($local[groupKey1].sumNet - $local[groupKey1].sumGoal)
+// This If statement allows us to only return the total once.
+// By doing this, we can use the Total Aggregation function which keeps things more consistent
+if (!$local[groupKey1].Group1Set) {
+		//Create a field for the GroupKey and each of the Totals for the groupKey
+    $record.groupKey1 = groupKey1
+    $record.RepNetByYear_Total = $local[groupKey1].sumNet
+    $record.RepInvTotalForYear_Total = $local[groupKey1].sumInvoice
+    $record.NetInv_VarianceByYear_Total = ($local[groupKey1].sumNet - $local[groupKey1].sumInvoice)    
+    $local[groupKey1].Group1Set = true
+}
+
 
 // GROUPKEY2
-$record.groupKey2 = groupKey2
-$record.GoalVarianceByYearRep = ($local[groupKey2].sumNet - $local[groupKey2].sumGoal)
+// Same as for GroupKey1, but using groupKey2
+if (!$local[groupKey2].Group2Set) {
+    $record.groupKey2 = groupKey2
+    $record.RepNetByYearRep_Total = $local[groupKey2].sumNet
+    $record.RepInvTotalForRepYear_Total = $local[groupKey2].sumInvoice
+    $record.NetInv_VarianceByYearRep_Total = ($local[groupKey2].sumNet - $local[groupKey2].sumInvoice)  
+    $local[groupKey2].Group2Set = true
+}
 
-// GROUPKEY3
-$record.groupKey3 = groupKey3
-//No variance calculated because no goals loaded at this level
+$fields.RepNetByYear.dataType = 'number'
+$fields.RepInvTotalForYear.dataType = 'number'
+$fields.NetInv_VarianceByYear.dataType = 'number'
+
+$fields.RepNetByYearRep.dataType = 'number'
+$fields.RepInvTotalForRepYear.dataType = 'number'
+$fields.NetInv_VarianceByYearRep.dataType = 'number'
 ```
 
