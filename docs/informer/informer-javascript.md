@@ -947,12 +947,20 @@ if (!$local[groupKey2].Group2Set) {
     $local[groupKey2].Group2Set = true
 }
 
-$fields.RepNetByYear.dataType = 'number'
-$fields.RepInvTotalForYear.dataType = 'number'
-$fields.NetInv_VarianceByYear.dataType = 'number'
+$fields.RepNetByYear_Total.dataType = 'number'
+$fields.RepInvTotalForYear_Total.dataType = 'number'
+$fields.NetInv_VarianceByYear_Total.dataType = 'number'
 
-$fields.RepNetByYearRep.dataType = 'number'
-$fields.RepInvTotalForRepYear.dataType = 'number'
-$fields.NetInv_VarianceByYearRep.dataType = 'number'
+$fields.RepNetByYearRep_Total.dataType = 'number'
+$fields.RepInvTotalForRepYear_Total.dataType = 'number'
+$fields.NetInv_VarianceByYearRep_Total.dataType = 'number'
 ```
+
+| Issue Year | Rep Id | Net Revenue | Invoice Revenue |
+| ---------- | ------ | ----------- | --------------- |
+| 2019       | MM     | 100         | 75              |
+| 2019       | SW     | 50          | 50              |
+| 2020       | MM     | 125         | 100             |
+| 2020       | SW     | 25          | 20              |
+| 2020       | TE     | 75          | 75              |
 
