@@ -19,6 +19,35 @@ duplicate key in object 'dbo.stg_fct_SubscriptionDraw'. The duplicate key value 
 
 If you see `Violation of PRIMARY KEY constraint 'PK_stg_fct_SubscriptionDraw'` then you will need to follows these steps to fix the issue.
 
+The below query will check for all issues with Duplicate Draw.  Take each one of the return Subscription ID values and update the cmSubscriptionDraw.asc file appropriately. 
+
+```sql
+;WITH cte 
+     AS (SELECT * 
+         FROM   fil_subscriptiondraw (nolock) 
+         WHERE  startdate > enddate) 
+SELECT * 
+FROM   fil_subscriptiondraw f (nolock) 
+       JOIN (SELECT d.startdate, 
+                    d.databaseid, 
+                    d.subscriptionid 
+             FROM   cte d 
+                    JOIN fil_subscriptiondraw (nolock) f 
+                      ON f.startdate = d.startdate 
+                         AND f.databaseid = d.databaseid 
+                         AND f.subscriptionid = d.subscriptionid 
+             GROUP  BY d.startdate, 
+                       d.databaseid, 
+                       d.subscriptionid 
+             HAVING Count(*) > 1) d 
+         ON f.startdate = d.startdate 
+            AND f.databaseid = d.databaseid 
+            AND f.subscriptionid = d.subscriptionid 
+            AND f.startdate > f.enddate 
+```
+
+> The below information for fixing duplicate subscription draw records will only fix a single issue.  Instead, use the above method.
+
 ```sql
 select * from stg_fct_SubscriptionDraw
 where sudr_key = 3455136 --This is the key from the error message
