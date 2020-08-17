@@ -964,3 +964,23 @@ $fields.NetInv_VarianceByYearRep_Total.dataType = 'number'
 | 2020       | SW     | 25          | 20              |
 | 2020       | TE     | 75          | 75              |
 
+## Using the momentjs Date Library
+
+I will try to show you the most common uses of **momentjs** within Informer, however, you can get more information from the **momentjs** website.
+
+- [momentjs Docs](https://momentjs.com/docs/)
+- [momentjs Guides](https://momentjs.com/guides/)
+
+**Extract Year, Month or Day from Date**
+
+```javascript
+// Extract pieces from a date
+// $record.issuedate is a Date type
+year = moment($record.issuedate).format('YYYY') // Year
+month = moment($record.issuedate).format('MM') // month number with preceeding zero if needed
+day = moment($record.issuedate).format('DD') // day number with preceeding zero if needed
+
+// If the field is a string, but you know the format of the date, you can do the following:
+momentDateField = moment($record.dateString, 'MM/DD/YYYY')
+```
+
