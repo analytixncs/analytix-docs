@@ -557,7 +557,47 @@ Here is a sample of JSON output from a sample Dataset:
 ]
 ```
 
+# Copying Dataset to Different Datasource
 
+If you develop a Dataset in one Datasource and want to move or copy it to a new Datasource, you will need to follow these steps.
+
+**Step 1**
+
+Make a copy of the Dataset in question.  This is very important, you must have a COPY of the dataset.
+
+**Step 2**
+
+Highlight the copied Dataset, click on the Actions menu and choose **Bundle and download**
+
+![image-20200831121453939](..\assets\informer_tips_dscopy-001.png)
+
+**Step 3**
+
+**Delete** the Dataset that you just *bundled and downloaded*.  You need to do this so that in the next step when we reimport the dataset (even though we will point to a different Datasource) it doesn't conflict with an existing dataset.
+
+**Step 4**
+
+The **Bundle and download** step will have created a ***tgz*** file in your download directory.  This is the file that you will need to drag and drop onto the Dataset window.
+
+![image-20200831122201761](..\assets\informer_tips_dscopy-002.png)
+
+Once you drop this file in the Dataset window, it will pop up with a dialog where you can set the options for the import.
+
+You can choose to import items like Teams, User, Tags or Folders.
+
+You can also change the default owner.
+
+You will want to leave the Update rule to "Overwrite if Newer".
+
+And lastly, if you want this imported Dataset to point to a new datasource, then change the datasource listed in the "Select Datasource" section.
+
+You want to also leave it as "Merge with existing datasource".
+
+![image-20200831122230323](..\assets\informer_tips_dscopy-003.png)
+
+Click on Save and then verify that the new Dataset has been created.
+
+I have seen times where if steps are not followed, that the target Datasource may get renamed.  If this ever happens you simply need to rename the Datasource back to its original name.
 
 # Creating a Datasource Link
 
