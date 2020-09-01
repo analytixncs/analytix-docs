@@ -1,0 +1,854 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Informer JavaScript Use · Naviga Analytics</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="There are two primary ways that you can use JavaScript in Informer to enhance your data.  Both of these ways come in the form of **Flow Steps**."/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Informer JavaScript Use · Naviga Analytics"/><meta property="og:type" content="website"/><meta property="og:url" content=".//index.html"/><meta property="og:description" content="There are two primary ways that you can use JavaScript in Informer to enhance your data.  Both of these ways come in the form of **Flow Steps**."/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/Naviga_Logo_Dark_Icon.png" alt="Naviga Analytics"/><h2 class="headerTitleWithLogo">Naviga Analytics</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/docs/analytix/analytix-bi-overview.html" target="_self">Analytix</a></li><li class=""><a href="/docs/bi/bi-resources.html" target="_self">BI</a></li><li class=""><a href="/docs/insight/insight.html" target="_self">InSight</a></li><li class="siteNavGroupActive"><a href="/docs/informer/informer-basics.html" target="_self">Informer</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Informer Docs</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Informer Docs</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/informer/informer-basics.html">Informer Basics</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/docs/informer/informer-javascript.html">Informer JavaScript Use</a></li><li class="navListItem"><a class="navItem" href="/docs/informer/informer-system.html">Informer System Stuff</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Informer JavaScript Use</h1></header><article><div><span><p>There are two primary ways that you can use JavaScript in Informer to enhance your data.  Both of these ways come in the form of <strong>Flow Steps</strong>.</p>
+<p>You can add <strong>Flow Steps</strong> to either a <em>Ad Hoc Report</em> or a <em>Dataset</em>.  They will act the same, however all examples in this document will be on <em>Datasets</em>.</p>
+<p>The two Flow Steps that you use JavaScript in are <strong>Calculated Fields</strong> and <strong>Power Scripts</strong>.</p>
+<blockquote>
+<p>NOTE: If a Calculated Field is acting irrationally, copy the script text, remove the flow step and recreate it.  This is after you have concluded that the issue is not in the logic of your script.</p>
+</blockquote>
+<p>A <strong>Calculated Field</strong> will allow you to use JavaScript to define a single field.  This can use existing fields in the logic as well.</p>
+<p>A <strong>Powerscript</strong> is different from a Calculated Field in that it will allow you to create multiple fields with a single script.</p>
+<h2><a class="anchor" aria-hidden="true" id="calculated-fields"></a><a href="#calculated-fields" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Calculated Fields</h2>
+<p>To add a Calculated Field to a Dataset, you will first need to Edit the Dataset that you want to add the field to.</p>
+<p>Once in the Edit screen click on the plus sign by the <strong>Flow Steps</strong>.  You will be presented with a menu where you will choose <strong>Add Field/Calculated Field</strong>.</p>
+<p><img src="../assets/CalcField_001.png" alt="image-20200219102437594"></p>
+<p>You will be presented with the Calculate Field window below:</p>
+<p><img src="../assets/CalcField_002.png" alt="image-20200219102751668"></p>
+<ol>
+<li><strong>Label</strong> - This will be the new field name that your calculated field will create.  The Alias will be created for you automatically.</li>
+<li><strong>Code Window</strong> - This is where you will put your JavaScript code for the new field</li>
+<li><strong>Helper Buttons</strong> - These buttons are just helpers.  The only one you really need is the first one.  This is the <em>inputs</em> buttons.  It will allow you to choose the existing fields in your dataset to use in your calculation of the new field.</li>
+</ol>
+<p>It is important to understand how Informer uses the JavaScript in your calculated field.</p>
+<p>Understand that the <strong>Dataset</strong> is like a query in that it will return a number of rows.  Each of those rows will have the same fields (obviously, each row will have different values for the fields).</p>
+<p>Informer will take each row of fields from the dataset and pass it to the <strong>Calculated Field</strong> code.</p>
+<p>Informer will then evaluate all the JavaScript code that you enter and the actual field value will be the whatever is returned by the last expression in the code.</p>
+<p>So now that we know that each row of data is passed to the <strong>Calculated Field Flow Step</strong>, then it follows that we have access to all the fields and their values in our calculated field code.</p>
+<p>That means we can use field values to make decisions on what to output as our new calculated field.</p>
+<p>Before we get into examples, there is one other concept to understand.  The actual field value of the calculated field will be the whatever is returned by the last expression in the code.</p>
+<p>For example, if you put the following in the Code Window:</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-string">'one'</span>
+<span class="hljs-string">'two'</span>
+<span class="hljs-string">'this is what the field will be'</span>
+</code></pre>
+<p>The last string <em>'this is what the field will be'</em> is what will be returned for the field value.</p>
+<h2><a class="anchor" aria-hidden="true" id="calculated-field-examples"></a><a href="#calculated-field-examples" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Calculated Field Examples</h2>
+<p>While the following examples are contrived, each of them will try to show some of the most useful JavaScript features that you can use within <strong>Calculated Fields</strong>.</p>
+<h3><a class="anchor" aria-hidden="true" id="calculated-fields-with-multi-value-fields"></a><a href="#calculated-fields-with-multi-value-fields" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Calculated Fields with Multi-value Fields</h3>
+<p>When working with a field that is Multi-Valued within a Calculated field, you will get an JavaScript array to work with.</p>
+<p>For example, if you have the following data:</p>
+<table>
+<thead>
+<tr><th>Order #</th><th>Customer</th><th>OrderAmounts</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>Cust_01</td><td>120,250, 75</td></tr>
+<tr><td>2</td><td>Cust_02</td><td>50</td></tr>
+<tr><td>3</td><td>Cust_03</td><td></td></tr>
+</tbody>
+</table>
+<p>When you access the <em>Order Amounts</em> field in your calculated field you will get the following for each row:</p>
+<table>
+<thead>
+<tr><th>Order #</th><th>Value in Calc Field for OrderAmounts</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>[120, 250, 75]</td></tr>
+<tr><td>2</td><td>[50]</td></tr>
+<tr><td>3</td><td>[]</td></tr>
+</tbody>
+</table>
+<p>Once you understand this, then you can effectively work with Multi-Valued fields within Calculated fields.</p>
+<p>Let's say that you want to take the above data and get a total for each multi-valued field.</p>
+<p>You could use this code:</p>
+<pre><code class="hljs css language-javascript">orderAmounts.reduce(<span class="hljs-function">(<span class="hljs-params">sum, val</span>) =&gt;</span> sum += val, <span class="hljs-number">0</span>)
+</code></pre>
+<p>You may want to read up on the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce">Array's reduce</a> function.</p>
+<p>The main takeaway here is that multi-valued fields are represented as JavaScript arrays in Calculated fields (and Power Scripts).</p>
+<h3><a class="anchor" aria-hidden="true" id="field-concatenation-using--and-template-literals"></a><a href="#field-concatenation-using--and-template-literals" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Field Concatenation using + and Template Literals</h3>
+<p>This first example is simply going to concatenate two fields together into a new field.  However, we are going to do it two ways.  The first, easiest way will show you how JavaScript concatenation works.  The second way is going to use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals">Template Literals</a> a powerful new way to create and concatenate strings in JavaScript.</p>
+<p>In this example, we will concatenate the Brand Id and Brand Name with a hyphen separating them.  The new field will be called &quot;Full Brand&quot;</p>
+<p><strong>Easy String Concatenation</strong></p>
+<p>To start with, you will need the field names.  It is best to use the Input button to the right of the code window.  When you press it, it will show you a list of fields from you dataset.  Here we will choose <em>Brand Id</em>.</p>
+<p><img src="../assets/CalcField_Example_01_01.png" alt="image-20200219105723150"></p>
+<p>This will insert the field name into our code window.  Be aware that the field name shown in the code may be different that what is shown in the input button's drop down.  This is because sometimes fields have Aliases put on them to make them more human readable.  This is yet another reason to ALWAYS use the input button to get your field names.</p>
+<p>To concatenate items in JavaScript, simply use the + operator.  This is what would appear in the Code Window.</p>
+<pre><code class="hljs css language-javascript">brandcode + <span class="hljs-string">'-'</span> + brandname 
+</code></pre>
+<p>You may be wondering what happens if one of the values you are concatenating is a number.  This is important.  JavaScript will coerce the types when needed.  For example, if you had two numbers <code>1 + 2</code> this will actually add the numbers together and return <code>3</code>. However, if you have a mixture of string and numbers  concatenated by a + operator, then the numbers will be coerced to string and thus be concatenated.</p>
+<p><strong>Template Literal Concatenation</strong></p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals">Template Literals</a> are very cool!  First, if the above explanation about coerced values confused you, then take heart, because with Template Literals, you do not have to worry about this.</p>
+<p>Here is the same example as above, but with template literals.</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-string">`<span class="hljs-subst">${brandcode}</span> - <span class="hljs-subst">${brandname}</span>`</span>
+</code></pre>
+<p>Lets go over the syntax.</p>
+<p>A template literal is enclosed in back ticks.  Not a single quote, but a back tick, usually located on the same key as the tilde (~).</p>
+<p>Next, if you need to include a field value, you will use a dollar sign followed by curly braces with the field value inside of the curly braces.  This just tells the template literal to evaluate what is inside those curly braces.  In our example, that means returning the value that is in the field.</p>
+<p>Here is what it looks like in Informer:</p>
+<p><img src="../assets/CalcField_Example_01_02.png" alt="image-20200219112035272"></p>
+<h3><a class="anchor" aria-hidden="true" id="sql-case-when-in-javascript"></a><a href="#sql-case-when-in-javascript" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>SQL Case When in JavaScript</h3>
+<p>A common thing to do in SQL when you want to modify your output based on the value of a field is to use a CASE ... WHEN statement.</p>
+<p>In JavaScript, this can be accomplished with <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else"><strong>if...then...else</strong></a> statements or a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch"><strong>switch</strong></a> statement.</p>
+<p>Both accomplish the same thing, however if you have many cases you want to check for, then the <strong>switch</strong> statement can sometimes be more readable.</p>
+<h3><a class="anchor" aria-hidden="true" id="wildcard-searching"></a><a href="#wildcard-searching" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Wildcard Searching</h3>
+<p>Sometimes the field you are creating will be based on if another field is like some value.  Usually we would call this a wildcard search and use an asterisks (*) to denote the &quot;wildcard&quot;.</p>
+<p>In JavaScript you will instead use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String Functions</a> to search within strings.  The easiest to use in the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/includes">includes</a> function.  Other useful functions are <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/startsWith">startsWith</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/endsWith">endsWith</a>.</p>
+<p>Each of these functions (<em>includes, startsWith</em> and <em>endsWith</em>) return a Boolean (true or false).  You can then use this return value to decide what to do.</p>
+<p><strong>includes Example</strong></p>
+<p>This example will use the includes string function to see if the Brand Name has any spaces in it.  If it does, then we will return the brandname with the spaces removed, otherwise just return the brandname.</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">if</span> (brandname.includes(<span class="hljs-string">' '</span>)) {
+  <span class="hljs-string">'Includes Spaces'</span>
+} <span class="hljs-keyword">else</span> {
+  <span class="hljs-string">'NO Spaces'</span>
+}
+</code></pre>
+<p>The <strong>brandname</strong> is a String field.  This is important, as the <em>includes</em> function only works on string fields.</p>
+<p>How can you tell what is a &quot;string&quot;, when you click on the <em>inputs</em> button on the right of the <em>Code Window</em> you will see a drop down that displays the fields in your dataset.  Informer is nice to you and tells you exactly what data types the fields are.  You will see strings (&quot;TEXT FIELDS&quot;), Numbers and Dates.</p>
+<p><img src="../assets/CalcField_Example_02_01.png" alt="img"></p>
+<p>I'm sure you asking, what if I have a field that is a number data type, but I want to search in it like a string?  For example, the Order No field above is a number, but maybe you want to search it with the <em>includes</em> function.  You can do this!</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">if</span> (orderno.toString().includes(<span class="hljs-string">'1'</span>)) {
+  <span class="hljs-string">'Includes 1'</span>
+} <span class="hljs-keyword">else</span> {
+  <span class="hljs-string">'Does not include 1'</span>
+}
+</code></pre>
+<p>You can use the <em>toString()</em> function to convert the number to a string so that you can use the <em>includes</em> function on it.</p>
+<p>The <em>startsWith</em> and <em>endsWith</em> work just the same as includes, except they look for the search string at either the start or the end of the field value.</p>
+<h3><a class="anchor" aria-hidden="true" id="replacing-values-in-a-string"></a><a href="#replacing-values-in-a-string" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Replacing Values in a String</h3>
+<p>In this example, you will replace all occurrences of a space in a fields value.  To do this you will use the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace">replace</a> function that each string has access to.</p>
+<pre><code class="hljs css language-javascript">brandname.replace(<span class="hljs-regexp">/\s/g</span>, <span class="hljs-string">''</span>)
+</code></pre>
+<p>The replace function has two arguments, the first is what do I search for to replace and the second is the string to replace what I found of the first argument.</p>
+<p>The first argument can be either a string value or a regular expression.</p>
+<blockquote>
+<p>If you use a String for the first argument, it will only replace the FIRST occurrence of the string pattern that is found.  This usually is not what you are looking for when using the replace function.  Therefore, you will probably want to use a regular expression.</p>
+</blockquote>
+<p>Regular expressions can be bit tricky.  There are books written on how to use and create them. If you want to explore regular expression deeper, just search google and you will find a lot.</p>
+<p>I will give you two patterns that should answer most of your replace needs.</p>
+<blockquote>
+<p>The regex expression is found inside the <code>/.../</code> forward slashes.  The characters after the final forward slash will be can either <code>g</code> or <code>i</code> or both.  <code>g</code> means global.  So search the whole string and find all matches.  The <code>i</code> means ignore case when doing your search.</p>
+</blockquote>
+<ol>
+<li><strong>Replace Spaces</strong> - <code>/\s/g</code>  the stuff inside the forward slashes will be the regular expression. Here the \s is stating the we want to match any whitespace (spaces, tabs, new line characters and carriage returns).
+If you want to replace whitespace only where there are more than a certain number, you can modify your regex like this:
+<code>/\s{3}/g</code>
+Now it will only replace if it finds 3 whitespace characters in a succession.</li>
+<li><strong>Replace Words</strong> - <code>brandname.replace(/ABC/gi, 'CBA')</code> Notice the the regex expression is just the text you want to look for with NO quotes.  I have also add the <code>gi</code> switches so that it searches and replaces all occurrences and ignores case while doing it.</li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="extract-month-or-year-or-day-from-date-field"></a><a href="#extract-month-or-year-or-day-from-date-field" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Extract Month or Year or Day from Date field</h3>
+<p>If you have a date field and what to extract a portion of it (Day, Month, Year), the easiest way to do that is using the <a href="https://momentjs.com/"><em>moment</em></a> library that is available in Informer.</p>
+<p>Here is an example:</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">// Extract Month from issuedate date field</span>
+<span class="hljs-comment">// Note MM = 01, MMM = 'Nov', 'Dec', etc, MMMM = 'November', etc.</span>
+moment(issuedate).format(<span class="hljs-string">'MM'</span>)
+
+<span class="hljs-comment">//Extract Year from issuedate date field</span>
+moment(issuedate).format(<span class="hljs-string">'YYYY'</span>)
+
+</code></pre>
+<p>Here is a list of common arguments that can be passed to the format function.  Note, you can combine these in any way.</p>
+<p>For example: <strong>'YYYY-MM-DD'</strong> would produce <strong>'2020-01-01'</strong></p>
+<table>
+<thead>
+<tr><th style="text-align:left">Argument</th><th style="text-align:left">Output</th><th style="text-align:left">Description</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align:left">YYYY</td><td style="text-align:left">2019</td><td style="text-align:left">4 digit year</td></tr>
+<tr><td style="text-align:left">YY</td><td style="text-align:left">19</td><td style="text-align:left">2 digit year</td></tr>
+<tr><td style="text-align:left">MMMM</td><td style="text-align:left">August</td><td style="text-align:left">Full month name</td></tr>
+<tr><td style="text-align:left">MMM</td><td style="text-align:left">Aug</td><td style="text-align:left">Abbreviated month name</td></tr>
+<tr><td style="text-align:left">MM</td><td style="text-align:left">08</td><td style="text-align:left">2 digit month</td></tr>
+<tr><td style="text-align:left">M</td><td style="text-align:left">8</td><td style="text-align:left">1 digit month</td></tr>
+<tr><td style="text-align:left">DDD</td><td style="text-align:left">225</td><td style="text-align:left">Day of the year</td></tr>
+<tr><td style="text-align:left">DD</td><td style="text-align:left">13</td><td style="text-align:left">Day of the month</td></tr>
+<tr><td style="text-align:left">Do</td><td style="text-align:left">13th</td><td style="text-align:left">Day of the month with ordinal</td></tr>
+<tr><td style="text-align:left">dddd</td><td style="text-align:left">Wednesday</td><td style="text-align:left">Full day name</td></tr>
+<tr><td style="text-align:left">ddd</td><td style="text-align:left">Wed</td><td style="text-align:left">Abbreviated day name</td></tr>
+<tr><td style="text-align:left">HH</td><td style="text-align:left">17</td><td style="text-align:left">Hours in 24 hour time</td></tr>
+<tr><td style="text-align:left">hh</td><td style="text-align:left">05</td><td style="text-align:left">Hours in 12 hour time</td></tr>
+<tr><td style="text-align:left">mm</td><td style="text-align:left">32</td><td style="text-align:left">Minutes</td></tr>
+<tr><td style="text-align:left">ss</td><td style="text-align:left">19</td><td style="text-align:left">Seconds</td></tr>
+<tr><td style="text-align:left">a</td><td style="text-align:left">am / pm</td><td style="text-align:left">Ante or post meridiem</td></tr>
+<tr><td style="text-align:left">A</td><td style="text-align:left">AM / PM</td><td style="text-align:left">Capitalized ante or post meridiem</td></tr>
+<tr><td style="text-align:left">ZZ</td><td style="text-align:left">+0900</td><td style="text-align:left">Timezone offset from UTC</td></tr>
+<tr><td style="text-align:left">X</td><td style="text-align:left">1410715640.579</td><td style="text-align:left">Unix timestamp in seconds</td></tr>
+<tr><td style="text-align:left">XX</td><td style="text-align:left">1410715640579</td><td style="text-align:left">Unix timestamp in milliseconds</td></tr>
+</tbody>
+</table>
+<p>To extract the <strong>Quarter</strong> number from a date, you will need to just use a different function from moment.</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">//Extract Quarter number from issuedate date field</span>
+moment(issuedate).quarter() <span class="hljs-comment">// returns a number from 1 to 4</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="mimicking-the-in-keyword"></a><a href="#mimicking-the-in-keyword" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Mimicking the IN keyword</h3>
+<p>In JavaScript there is not an &quot;IN&quot; keyword like there is in SQL.  However, the technique shown below will help you mimic this feature.</p>
+<p>You use the &quot;IN&quot; keyword when you have a question like:</p>
+<blockquote>
+<p>Return all the customers whose name matches one of &quot;a list of customer names...&quot;</p>
+</blockquote>
+<p>In SQL, it would look like <code>customername IN ('name1', 'name2', 'name3')</code></p>
+<p>To do this in an Informer Calculated Field, you will create an Array that holds all of the values you are looking for and then use the Array's prototype function <strong>includes</strong> to determine if a field is in those array values.</p>
+<h4><a class="anchor" aria-hidden="true" id="match-full"></a><a href="#match-full" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Match Full</h4>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">var</span> matchCodes = [<span class="hljs-string">'Luxottica USA'</span>, <span class="hljs-string">'Audi UK'</span>, <span class="hljs-string">'Google'</span>]
+
+<span class="hljs-keyword">if</span> (matchCodes.includes(advname)) {
+    <span class="hljs-string">'Full Match'</span>
+} <span class="hljs-keyword">else</span> {
+    <span class="hljs-string">'Criteria Not Met'</span>
+}
+</code></pre>
+<p>You have seen the <strong>includes</strong> function used on a string field.  Here we are using it on an Array looking to see if any of the values stored in <code>matchCodes</code> matches the <code>advname</code> field value.  If it does, <code>true</code> will be returned.</p>
+<blockquote>
+<p>NOTE: When you use the <strong>includes</strong> function on a <em>string</em> you get the effect of a Wild Card search.  Meaning that if any part of the string matches your search it returns true.</p>
+<p>However, when using the <strong>includes</strong> function on an <em>array</em>, it will search for items in the array that are an exact match to what you are searching for.  To do wild card searches on arrays, see the <a href="#wild-match-array-values">Wild Match Array Values</a></p>
+</blockquote>
+<p>However, this will look for full matches, not partial.  To enable &quot;wildcard&quot; searches against a list of values, you need to change the above up a little bit.</p>
+<h4><a class="anchor" aria-hidden="true" id="wild-match-array-values"></a><a href="#wild-match-array-values" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Wild Match Array Values</h4>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">var</span> wildMatchCodes = [<span class="hljs-string">'Luxottica USA'</span>, <span class="hljs-string">'Audi UK'</span>, <span class="hljs-string">'Google'</span>, <span class="hljs-string">'AMC'</span>]
+
+<span class="hljs-keyword">if</span> (wildMatchCodes.some(<span class="hljs-function"><span class="hljs-params">wildValue</span> =&gt;</span> advname.includes(wildValue))) {
+    <span class="hljs-string">'Wild Match'</span>
+} <span class="hljs-keyword">else</span> {
+    <span class="hljs-string">'Criteria Not Met'</span>
+}
+</code></pre>
+<p>In the above example, we used the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some">some</a> Array function, which accepts a function as an argument.  What the some function does, is send each value in the array, one at a time, through the passed function <code>wildValue =&gt; advname.includes(wildValue)</code></p>
+<p>That function will run once for every item in the <strong>wildMatchCodes</strong> array.  We will then use the <strong>includes</strong> string function to see if the <strong>advname</strong> field value <em>includes</em> the wildValue.  <a href="#wildcard-searching">See Wildcard Searching</a> for details on using the includes with string values.</p>
+<blockquote>
+<p>To change any of these to be NOT IN, simply add the JavaScript not operator- ! to the return value.</p>
+</blockquote>
+<h3><a class="anchor" aria-hidden="true" id="building-a-complex-example"></a><a href="#building-a-complex-example" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Building a Complex Example</h3>
+<p>You can combine all of the above techniques to get the final result that you need.  In this example we will be working with the <code>campaignCode</code> and <code>billNameId</code> fields.</p>
+<p>When building complex scenarios it is very important that before you start to code anything, you have a clear written plan of what your scenario is.</p>
+<p>I find it is best to work backwards.  So start with what will the final values be in your field.  Then define what criteria must be met for each of the values to become the selected value.</p>
+<p>This process is best understood with an example, so let's get started.</p>
+<h4><a class="anchor" aria-hidden="true" id="define-the-final-field"></a><a href="#define-the-final-field" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Define The Final Field</h4>
+<p>First, we need to name our final field.  It will be called <strong>FinalOrderType</strong>.</p>
+<p><strong>Define our final Values</strong></p>
+<p>Before we can even start with criteria, we must know what the final options for the values can be.</p>
+<p>These values are</p>
+<ul>
+<li>Corporate</li>
+<li>Private</li>
+<li>Unknown</li>
+</ul>
+<p>Next, define what criteria must be met for each of these to &quot;win&quot; at being the final value for our new field.</p>
+<p>I find it make it easier to understand if we define these criteria in a table listing the field the criteria applies to, the Operation and the Detail.</p>
+<h4><a class="anchor" aria-hidden="true" id="define-requirements"></a><a href="#define-requirements" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Define Requirements</h4>
+<p>The requirements for <strong>Corporate</strong> becoming the final value are:</p>
+<table>
+<thead>
+<tr><th>Field</th><th>Operation</th><th>Detail</th></tr>
+</thead>
+<tbody>
+<tr><td>campaignCode</td><td>Starts With</td><td>'3' OR 'P'</td></tr>
+<tr><td>campaignCode</td><td>Must Not Match</td><td>'3C11CUDO','3C11CDOP','3C11CDOS',<br />'P1203CUD','P1207CUD','P1BETOP','P1BEAWW',<br />'P1303BLK','3C17WWG2', 'PIAGENT'</td></tr>
+<tr><td>campaignCode</td><td>Must Not Start With</td><td>'PHW','PWW','HW1','HWK','PM1','PK5','PMB',<br />'PMR','PF5','PMS','PFB','HRI','PRI','PKM','PM6','PM7',<br /> 'PI', 'PWWW'</td></tr>
+</tbody>
+</table>
+<p>The requirements for <strong>Private</strong> becoming the final value are much simpler, but we still keep our table format:</p>
+<table>
+<thead>
+<tr><th>Field</th><th>Operation</th><th>Detail</th></tr>
+</thead>
+<tbody>
+<tr><td>billNameId</td><td>Greater than</td><td>3</td></tr>
+</tbody>
+</table>
+<p>The requirements for <strong>Unknown</strong> becoming the final value is the easiest and doesn’t require a table.</p>
+<table>
+<thead>
+<tr><th>Requirement</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Unknown</strong> is the default value if no other conditions are met for the other values.</td></tr>
+</tbody>
+</table>
+<h4><a class="anchor" aria-hidden="true" id="build-your-code"></a><a href="#build-your-code" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Build your Code</h4>
+<p>Now we can start coding.  Since the criteria for the first value (Corporate) is complex, we will code each of the requirements and store the result in a variable.  These variables can then be combined later.</p>
+<p>We will start with the <strong>first criteria</strong> requirement.</p>
+<table>
+<thead>
+<tr><th>Field</th><th>Operation</th><th>Detail</th></tr>
+</thead>
+<tbody>
+<tr><td>campaignCode</td><td>Starts With</td><td>'3' OR 'P'</td></tr>
+</tbody>
+</table>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">// Returns true for any row where the campaignCode starts with 3 or P</span>
+<span class="hljs-keyword">var</span> criteria_startWith = campaignCode.startsWith(<span class="hljs-string">'3'</span>) || campaignCode.toLowerCase().startsWith(<span class="hljs-string">'p'</span>) 
+</code></pre>
+<p>We have created a variable <strong>criteria_startWith</strong> that holds the result of either <strong>true</strong> or <strong>false</strong>.</p>
+<p>It will hold true if the current rows campaignCode value starts with either a '3' or 'P'.</p>
+<p>The <strong>next requirement</strong>:</p>
+<table>
+<thead>
+<tr><th>Field</th><th>Operation</th><th>Detail</th></tr>
+</thead>
+<tbody>
+<tr><td>campaignCode</td><td>Must Not Match</td><td>'3C11CUDO','3C11CDOP','3C11CDOS',<br />'P1203CUD','P1207CUD','P1BETOP','P1BEAWW',<br />'P1303BLK','3C17WWG2', 'PIAGENT'</td></tr>
+</tbody>
+</table>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">var</span> campCodeMatchList = [<span class="hljs-string">'3C11CUDO'</span>,<span class="hljs-string">'3C11CDOP'</span>,<span class="hljs-string">'3C11CDOS'</span>,<span class="hljs-string">'P1203CUD'</span>,<span class="hljs-string">'P1207CUD'</span>,<span class="hljs-string">'P1BETOP'</span>,<span class="hljs-string">'P1BEAWW'</span>,<span class="hljs-string">'P1303BLK'</span>,<span class="hljs-string">'3C17WWG2'</span>, <span class="hljs-string">'PIAGENT'</span>]
+<span class="hljs-comment">// Returns true for any row where campaignCode is NOT IN the campCodeMatchList</span>
+<span class="hljs-keyword">var</span> criteria_CCNotIn = !campCodeMatchList.includes(campaignCode)
+
+</code></pre>
+<p>To check this criteria, we must first create an array with all of the values that the campaignCode must NOT match.  Then we use the <a href="#match-full">Match Full</a> technique to see if the current campaignCode matches and values in the array.  But, since this is a must NOT match criteria, we throw the not operator (!) in front of the expression: <code>!campCodeMatchList.includes(campaignCode)</code></p>
+<p>The <strong>last requirement:</strong></p>
+<table>
+<thead>
+<tr><th>Field</th><th>Operation</th><th>Detail</th></tr>
+</thead>
+<tbody>
+<tr><td>campaignCode</td><td>Must Not Start With</td><td>'PHW','PWW','HW1','HWK','PM1','PK5','PMB',<br />'PMR','PF5','PMS','PFB','HRI','PRI','PKM','PM6','PM7',<br /> 'PI', 'PWWW'</td></tr>
+</tbody>
+</table>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">// Returns true for any row where the campaignCode does NOT start with a value from the campCodeNOTStartsWithList.</span>
+<span class="hljs-keyword">var</span> campCodeNOTStartsWithList = [<span class="hljs-string">'PHW'</span>,<span class="hljs-string">'PWW'</span>,<span class="hljs-string">'HW1'</span>,<span class="hljs-string">'HWK'</span>,<span class="hljs-string">'PM1'</span>,<span class="hljs-string">'PK5'</span>,<span class="hljs-string">'PMB'</span>,<span class="hljs-string">'PMR'</span>,<span class="hljs-string">'PF5'</span>,<span class="hljs-string">'PMS'</span>,<span class="hljs-string">'PFB'</span>,<span class="hljs-string">'HRI'</span>,<span class="hljs-string">'PRI'</span>,<span class="hljs-string">'PKM'</span>,<span class="hljs-string">'PM6'</span>,<span class="hljs-string">'PM7'</span>, <span class="hljs-string">'PI'</span>, <span class="hljs-string">'PWWW'</span>] 
+<span class="hljs-keyword">var</span> criteria_CCNotStartsWith = !campCodeNOTStartsWithList.some(<span class="hljs-function"><span class="hljs-params">swValue</span> =&gt;</span> campaignCode.startsWith(swValue))
+</code></pre>
+<p>To check this criteria, we must first create an array with all of the values that the campaignCode must NOT START with.   Then we use the <a href="#Wild-Match-Array-Values">Wild Match Array Values</a> technique to campaignCode's that start with the values in our array.  Lastly, since this is a NOT condition, we apply the JavaScript not (!) operator to the result.</p>
+<p>Now we have three variables that will each tell us if the campaignCode for the given row complies with one of the conditions set forth in our table.  Since all conditions must be true for the campaignCode to &quot;pass&quot;, we will combine these variable in an if statement.</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">if</span> (criteria_startWith &amp;&amp; criteria_CCNotIn &amp;&amp; campCodeNOTStartsWithList) {
+    <span class="hljs-string">'Corporate'</span>
+} <span class="hljs-keyword">else</span> ...
+</code></pre>
+<p>We are using the JavaScript <strong>&amp;&amp;</strong> operator to find out if all of these variables are true.  It is equivalent to saying</p>
+<p><em>If criteria_startWith is true and criteria_CCNotIn is true and campCodeNOTStartsWithList then ...</em></p>
+<p>We can test for the <strong>second requirement</strong> by taking on another if statement to the else and the final else will handle everything that doesn't match the first two requirements.</p>
+<p><strong>Final If Statement</strong></p>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">if</span> (criteria_startWith &amp;&amp; criteria_CCNotIn &amp;&amp; campCodeNOTStartsWithList) {
+    <span class="hljs-string">'Corporate'</span>
+} <span class="hljs-keyword">else</span> 
+  <span class="hljs-comment">// This if would check the billing status, but I don't know where that field is  </span>
+  <span class="hljs-keyword">if</span> (billNameId &gt; <span class="hljs-number">3</span>) {
+    <span class="hljs-string">'Freen'</span>
+} <span class="hljs-keyword">else</span> {
+    <span class="hljs-string">'Grace Status'</span>
+}
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="final-code"></a><a href="#final-code" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Final Code</h4>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">// Returns true for any row where the campaignCode starts with 3 or P</span>
+<span class="hljs-keyword">var</span> criteria_startWith = campaignCode.startsWith(<span class="hljs-string">'3'</span>) || campaignCode.toLowerCase().startsWith(<span class="hljs-string">'p'</span>) 
+
+<span class="hljs-keyword">var</span> campCodeMatchList = [<span class="hljs-string">'3C11CUDO'</span>,<span class="hljs-string">'3C11CDOP'</span>,<span class="hljs-string">'3C11CDOS'</span>,<span class="hljs-string">'P1203CUD'</span>,<span class="hljs-string">'P1207CUD'</span>,<span class="hljs-string">'P1BETOP'</span>,<span class="hljs-string">'P1BEAWW'</span>,<span class="hljs-string">'P1303BLK'</span>,<span class="hljs-string">'3C17WWG2'</span>, <span class="hljs-string">'PIAGENT'</span>]
+<span class="hljs-comment">// Returns true for any row where campaignCode is NOT IN the campCodeMatchList</span>
+<span class="hljs-keyword">var</span> criteria_CCNotIn = !campCodeMatchList.includes(campaignCode)
+
+<span class="hljs-comment">// Returns true for any row where the campaignCode does NOT start with a value from the campCodeNOTStartsWithList.</span>
+<span class="hljs-keyword">var</span> campCodeNOTStartsWithList = [<span class="hljs-string">'PHW'</span>,<span class="hljs-string">'PWW'</span>,<span class="hljs-string">'HW1'</span>,<span class="hljs-string">'HWK'</span>,<span class="hljs-string">'PM1'</span>,<span class="hljs-string">'PK5'</span>,<span class="hljs-string">'PMB'</span>,<span class="hljs-string">'PMR'</span>,<span class="hljs-string">'PF5'</span>,<span class="hljs-string">'PMS'</span>,<span class="hljs-string">'PFB'</span>,<span class="hljs-string">'HRI'</span>,<span class="hljs-string">'PRI'</span>,<span class="hljs-string">'PKM'</span>,<span class="hljs-string">'PM6'</span>,<span class="hljs-string">'PM7'</span>, <span class="hljs-string">'PI'</span>, <span class="hljs-string">'PWWW'</span>] 
+<span class="hljs-keyword">var</span> criteria_CCNotStartsWith = !campCodeNOTStartsWithList.some(<span class="hljs-function"><span class="hljs-params">swValue</span> =&gt;</span> campaignCode.startsWith(swValue))
+
+<span class="hljs-comment">//------Billing Status check ---//</span>
+
+<span class="hljs-keyword">if</span> (criteria_startWith &amp;&amp; criteria_CCNotIn &amp;&amp; campCodeNOTStartsWithList) {
+    <span class="hljs-string">'Corporate'</span>
+} <span class="hljs-keyword">else</span> 
+  <span class="hljs-comment">// This if would check the billing status, but I don't know where that field is  </span>
+  <span class="hljs-keyword">if</span> (billNameId &gt; <span class="hljs-number">3</span>) {
+    <span class="hljs-string">'Freen'</span>
+} <span class="hljs-keyword">else</span> {
+    <span class="hljs-string">'Grace Status'</span>
+}
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="powerscripts"></a><a href="#powerscripts" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Powerscripts</h2>
+<p>Power Scripts are advanced scripts (JavaScript) that gives you complete control over the data.  A Power Script is JavaScript with a sandboxed script context</p>
+<p>Here are the predefined keywords you can use in your Power Script. <a href="https://informer5.zendesk.com/hc/en-us/articles/115005113823">Informer Docs</a></p>
+<table>
+<thead>
+<tr><th>Keyword</th><th>Type</th><th>Desc</th></tr>
+</thead>
+<tbody>
+<tr><td>$record</td><td>object</td><td>The current row. You may modify this row.</td></tr>
+<tr><td>$index</td><td>number</td><td>The current row number (row 1 = index 0)</td></tr>
+<tr><td>$omit()</td><td>function</td><td>When called, removes the current row</td></tr>
+<tr><td>$fields</td><td>object</td><td>Field metadata</td></tr>
+<tr><td>$field</td><td>function</td><td>Function to describe a field: $field('location').label('Loc')</td></tr>
+<tr><td>$inputs</td><td>object</td><td>User Inputs</td></tr>
+<tr><td>$local</td><td>object</td><td>Variable that is not cleared from on record to the next</td></tr>
+<tr><td>_</td><td>object/function</td><td>Lodash v3 library. <a href="https://lodash.com">lodash</a></td></tr>
+<tr><td>moment</td><td>function</td><td>moment date manipulation library. <a href="https://momentjs.com">momentjs</a></td></tr>
+</tbody>
+</table>
+<p>To declare a variable use the <code>var</code> keyword.  However, within the Powerscripts it seems you do not have to &quot;declare&quot; variables that you will be using.</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">var</span> gtp = $inputs[<span class="hljs-string">'greaterThanPrice'</span>] || <span class="hljs-number">0</span>;
+<span class="hljs-keyword">if</span>($record.baseCost &gt;= gtp) {
+    $record.isGreaterThan = <span class="hljs-literal">true</span>
+} <span class="hljs-keyword">else</span> {
+    $record.isGreaterThan = <span class="hljs-literal">false</span>
+}
+</code></pre>
+<p>Do not <code>return</code> anything from the Power Script.  Simply change the value of what you want.</p>
+<p>You can create multiple fields in a single Power Script.</p>
+<h3><a class="anchor" aria-hidden="true" id="using-inputs"></a><a href="#using-inputs" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Using $inputs</h3>
+<p>Many times on your Datasets, you will create <em>inputs</em>.  These are values that your end user will be prompted to enter upon the reloading of the Dataset.</p>
+<p>Usually these <em>inputs</em> are used in your criteria, however, there may be times when you want to use the value either in a calculation of another field or to simply display as a new field in the result set.</p>
+<p>You will be able to access these <em>inputs</em> in Calculated Fields and Powerscripts using the <strong>$inputs</strong> object.</p>
+<p>To access an input value, use the following syntax:</p>
+<pre><code class="hljs css language-javascript">$record.nameOfInput = $inputs[<span class="hljs-string">'nameOfInput'</span>]
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="using-local"></a><a href="#using-local" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Using $local</h3>
+<p>The $local keyword is very powerful in that it persists throughout the load process.  First thing to understand is that it is an Object.  Which means, you can declare multiple local persistent variables using the $local keyword:</p>
+<pre><code class="hljs css language-javascript">$local.count = <span class="hljs-number">0</span>;
+$local.otherVariable = <span class="hljs-string">"x"</span>;
+</code></pre>
+<p>However, if you were to declare the $local variables as above, they would be reset every time.  To declare these types of variables, you must first check if they exists, if they do, continue, if they don't, then create them:</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">if</span>(!$local.count) { <span class="hljs-comment">// if this var doesn't exist then</span>
+  $local.count = <span class="hljs-number">0</span> <span class="hljs-comment">// initialize it</span>
+}
+<span class="hljs-comment">// Another method that does the same thing</span>
+$local.count = ($local.count) ? $local.count : <span class="hljs-number">0</span>
+
+<span class="hljs-comment">// Last way to do the same thing</span>
+$local.count = ($local.hasOwnProperty(<span class="hljs-string">'count'</span>)) ? $local.count : <span class="hljs-number">0</span>
+</code></pre>
+<p>If you wanted to create a row count variable, you would pick one of the above methods to perform the initialization and then increment the count and store in a <code>$record</code> variable.</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">if</span>(!$local.count) { <span class="hljs-comment">// if this var doesn't exist then</span>
+  $local.count = <span class="hljs-number">0</span> <span class="hljs-comment">// initialize it</span>
+}
+<span class="hljs-comment">//This will create a rowCount record for every row</span>
+<span class="hljs-comment">//the ++ at the end of the $local.count will increment AFTER it assigns </span>
+<span class="hljs-comment">//whatever is in $local.count.  This just means your first row will be 0.</span>
+$record.rowCount = $local.count++
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="numbers-and-other-gotchas"></a><a href="#numbers-and-other-gotchas" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Numbers and Other Gotchas</h3>
+<p>You must be aware of the data type of the fields you are using and if there are any <em>Null</em> values in the fields you are using.</p>
+<p>For Example, if you wanted to get a running total by Customer (AdvName) and the field you were using to get this running total (priceActAmt) had null values in it, you would need to take that into account in your script.</p>
+<h3><a class="anchor" aria-hidden="true" id="delete-a-column"></a><a href="#delete-a-column" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Delete a column</h3>
+<p>Use the keyword <strong>delete</strong> followed by the column you want removed.</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">delete</span> $record.columnToDelete
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="using-fields-metadata"></a><a href="#using-fields-metadata" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Using $fields Metadata</h3>
+<p>The <strong>$fields</strong> object has a key for each field in your query and each of those has some metadata on it that you can view and/or change.</p>
+<p>Here is the shape of the object:</p>
+<pre><code class="hljs css language-javascript">{
+    <span class="hljs-attr">issueYear</span>: {
+        <span class="hljs-attr">dataType</span>: <span class="hljs-string">'string'</span> | <span class="hljs-string">'double'</span> | <span class="hljs-string">'int'</span>,
+        <span class="hljs-attr">label</span>: <span class="hljs-string">''</span> <span class="hljs-comment">// Viewable label</span>
+        <span class="hljs-attr">position</span>: <span class="hljs-comment">// Position in output grid (int)</span>
+        name: <span class="hljs-comment">// This is the name as it is referred to in Calculated fields or Powerscripts</span>
+    },
+    <span class="hljs-attr">field2</span>: {
+        <span class="hljs-attr">dataType</span>: <span class="hljs-string">'string'</span> | <span class="hljs-string">'double'</span> | <span class="hljs-string">'int'</span>,
+        <span class="hljs-attr">label</span>: <span class="hljs-string">''</span> <span class="hljs-comment">// Viewable label</span>
+        <span class="hljs-attr">position</span>: <span class="hljs-comment">// Position in output grid (int)</span>
+        name: <span class="hljs-comment">// This is the name as it is referred to in Calculated fields or Powerscripts</span>
+    }, 
+    ...
+}
+</code></pre>
+<p>There are some other metadata available, but it isn't very useful.  If you want to query this data yourself, here is code that will let you view all of the properties on a field in the $field object.</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">// Inspect $fields object for a single field</span>
+$record.fieldInspect = <span class="hljs-built_in">Object</span>.keys($fields.issueDate).map(<span class="hljs-function"><span class="hljs-params">key</span> =&gt;</span> [key, $fields.issueDate[key]])
+</code></pre>
+<p>I have found this useful for changing a datatype of a field.  Informer will makes its best guess at the data type of a field.  Sometimes, you don't want its best guess.  For example, if you have created a Year field from a Date field, Informer will try and make that a number, which is a pain to format.  You can turn this into a string field as follows:</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">// Get the year of the issue date </span>
+$record.issueYear = moment($record.issuedate).format(<span class="hljs-string">'YYYY'</span>)
+<span class="hljs-comment">// Create a join column from issueYear and RepId to use to join to the goals spreadsheet</span>
+$record.joinField = <span class="hljs-string">`<span class="hljs-subst">${$record.issueYear}</span>-<span class="hljs-subst">${$record.repcode}</span>`</span>
+$fields.issueYear.dataType = <span class="hljs-string">'string'</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="query-object"></a><a href="#query-object" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>$query Object</h3>
+<p>I haven't found a use for this, but here is the shape of the $query object:</p>
+<pre><code class="hljs css language-javascript">{
+    <span class="hljs-attr">domain</span>: object
+    <span class="hljs-attr">_events</span>: object
+    <span class="hljs-attr">_eventsCount</span>: number
+    <span class="hljs-attr">_maxListeners</span>: <span class="hljs-literal">undefined</span>
+    <span class="hljs-attr">limit</span>: number: 
+    errorHandlers: object
+    <span class="hljs-attr">throughHandlers</span>: object
+    <span class="hljs-attr">postHandlers</span>: object
+    <span class="hljs-attr">preHandlers</span>: object
+    <span class="hljs-attr">options</span>: object
+    <span class="hljs-attr">params</span>: object
+    <span class="hljs-attr">fields</span>: object
+    <span class="hljs-attr">payload</span>: object
+    <span class="hljs-attr">dataTypes</span>: object
+    <span class="hljs-attr">handler</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>
+    <span class="hljs-title">language</span>: <span class="hljs-title">string</span>
+    <span class="hljs-title">user</span>: <span class="hljs-title">string</span>
+    <span class="hljs-title">_promise</span>: <span class="hljs-title">object</span>
+    <span class="hljs-title">preInvokedAt</span>: <span class="hljs-title">object</span>
+    <span class="hljs-title">preCompletedAt</span>: <span class="hljs-title">object</span>
+    <span class="hljs-title">handlerInvokedAt</span>: <span class="hljs-title">object</span>
+    <span class="hljs-title">handlerCompletedAt</span>: <span class="hljs-title">object</span>
+    <span class="hljs-title">result</span>: <span class="hljs-title">object</span>
+    <span class="hljs-title">postInvokedAt</span>: <span class="hljs-title">object</span>
+    <span class="hljs-title">postCompletedAt</span>: <span class="hljs-title">object</span>
+}
+</span></code></pre>
+<h2><a class="anchor" aria-hidden="true" id="powerscript-examples"></a><a href="#powerscript-examples" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Powerscript Examples</h2>
+<h3><a class="anchor" aria-hidden="true" id="getting-total-by-advertiser-and--of-total-by-advertiser"></a><a href="#getting-total-by-advertiser-and--of-total-by-advertiser" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Getting Total By Advertiser and % of Total By Advertiser</h3>
+<p>The <code>$local</code> variable can be very powerful by itself, but when used in conjunction with the <strong>Flush</strong> flow step, you can do a number of other things.</p>
+<p>It is important to understand that the <code>$local</code> object will persist between running a Power Script and a <strong>Flush</strong> flow step.</p>
+<p><strong>Goal</strong></p>
+<p>The goal is to get a field that sums the revenue for an advertiser and then uses that to calculate the percentage of total for every row.</p>
+<blockquote>
+<p>This is vastly different from the <strong>Percent of Total</strong> flow step as this is based on the Grand Total versus totals by advertiser.</p>
+</blockquote>
+<p>To do this we need three flow steps.</p>
+<ol>
+<li><strong>Power Script Flow Step</strong> - used to calculate the Total Revenue for each Advertiser.  This information will have to be stored in the <code>$local</code> object so that it is persisted.</li>
+<li><strong>Flush</strong> - Starts a new pass of the data with our <code>$local</code> object intact.</li>
+<li><strong>Power Script Flow Step</strong> - used to calculate the % of Total Revenue per Advertiser and create the fields
+<ul>
+<li><strong>$record.percentOfTotalByAdv</strong> - This is the field we want, the % of Total Revenue by Advertiser.</li>
+<li><strong>$record.TotalByAdv</strong> - This is the subtotal for each advertiser.  We really don't need to expose this as a record, but it is useful for testing.</li>
+</ul></li>
+</ol>
+<p>Here is what the Flow steps look like:</p>
+<p><img src="../assets/informer_tips_date-powerscript-001.png" alt="image-20200213150630405"></p>
+<p><strong>Power Script - Aggregate Rev By Advertiser</strong></p>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">// The usual initialization code</span>
+<span class="hljs-keyword">if</span> (!$local[$record.advCode]) {
+    $local[$record.advCode] = <span class="hljs-number">0</span>    
+}
+<span class="hljs-comment">// Add current records amount to the running total</span>
+$local[$record.advCode] = $local[$record.advCode] + $record.orderNetAmt 
+</code></pre>
+<p>The unique thing that is happening in the <strong>Aggregate Rev By Advertiser</strong> Power Script, is that we are create a different object property on the <code>$local</code> object for each advCode (advertiser).  This allows us to keep a different total for each Advertiser.</p>
+<p>Next we just run the <strong>Flush</strong> Flow step.</p>
+<p><strong>Power Script - Percent Of Adv Total</strong></p>
+<pre><code class="hljs css language-javascript">$record.percentOfTotalByAdv = ($record.orderNetAmt / $local[$record.advCode])
+$record.TotalByAdv = $local[$record.advCode]
+</code></pre>
+<p>This above code is simply creating the two new fields that we want.</p>
+<h3><a class="anchor" aria-hidden="true" id="proper-aggregations-in-normalized-data"></a><a href="#proper-aggregations-in-normalized-data" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Proper Aggregations in Normalized data</h3>
+<p>I will start by saying this code is not recommended for large datasets.  It slows down the load considerably.  However, it is always worth a try to see if will help.</p>
+<p>The scenario that calls for this is a dataset that is loading a group of fields that includes some <strong>multivalued</strong> fields and that also runs a <strong>Normalize</strong> flow step on these multivalued fields.</p>
+<p>This results in &quot;duplication&quot; of the data in non-multivalued fields.  Makes sense and works fine, unless you have a numeric NON multivalued field that you want to aggregate on.  This results in an over aggregation of this field.</p>
+<p>For example, if we had a dataset that contained the following:</p>
+<table>
+<thead>
+<tr><th>Field Name</th><th>Multivalued?</th></tr>
+</thead>
+<tbody>
+<tr><td>Order ID</td><td>NO</td></tr>
+<tr><td>Order Total</td><td>NO</td></tr>
+<tr><td>Order Line Number</td><td>YES</td></tr>
+<tr><td>Order Line Amount</td><td>YES</td></tr>
+</tbody>
+</table>
+<p>Then the normalized dataset would look like this:</p>
+<table>
+<thead>
+<tr><th>Order ID</th><th>Order Total</th><th>Order Line Number</th><th>Order Line Amount</th></tr>
+</thead>
+<tbody>
+<tr><td>A</td><td>100</td><td>A001</td><td>50</td></tr>
+<tr><td>A</td><td>100</td><td>A002</td><td>50</td></tr>
+<tr><td>B</td><td>500</td><td>B001</td><td>500</td></tr>
+<tr><td>C</td><td>600</td><td>C001</td><td>200</td></tr>
+<tr><td>C</td><td>600</td><td>C002</td><td>300</td></tr>
+<tr><td>C</td><td>600</td><td>C003</td><td>100</td></tr>
+</tbody>
+</table>
+<p>If you try to aggregate on the Order Total field you will get the incorrect amount because that line has been &quot;duplicated&quot; because of the normalization.</p>
+<blockquote>
+<p>NOTE: This is as intended and is to be expected.</p>
+</blockquote>
+<p>Since this is how Informer works, we will need to get around this another way.  This is can be accomplished via a Powerscript.</p>
+<p>What we are trying to do is to get the dataset to look like this:</p>
+<table>
+<thead>
+<tr><th>Order ID</th><th>Order Total</th><th>Order Line Number</th><th>Order Line Amount</th></tr>
+</thead>
+<tbody>
+<tr><td>A</td><td>100</td><td>A001</td><td>50</td></tr>
+<tr><td>A</td><td>0</td><td>A002</td><td>50</td></tr>
+<tr><td>B</td><td>500</td><td>B001</td><td>500</td></tr>
+<tr><td>C</td><td>600</td><td>C001</td><td>200</td></tr>
+<tr><td>C</td><td>0</td><td>C002</td><td>300</td></tr>
+<tr><td>C</td><td>0</td><td>C003</td><td>100</td></tr>
+</tbody>
+</table>
+<p>To do this, we will need to do two things.  First, you must add a counter to your Dataset and name it <strong>preCounter</strong></p>
+<p><img src="../assets/informer-javascript_powerscript_001" alt="image-20200427153828821"></p>
+<p>The counter creation will be the first Flow step.</p>
+<p>Next do any other flow steps that need to happen before the Normalize (it is Ok if it is none), then do the Normalize Flow step.</p>
+<p>Lastly, create a Powerscript called &quot;OneToManyFix&quot; (or whatever you want to call it).</p>
+<p>Past the following code in the Powerscript.</p>
+<blockquote>
+<p>Make sure to update the $record.fieldToFix to the field(s) that need to be &quot;zeroed&quot; out on certain records.</p>
+</blockquote>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">// Initialize "prevCounter" in the local object if undefined</span>
+<span class="hljs-keyword">if</span> (!$local[<span class="hljs-string">"prevCounter"</span>]) {
+    $local[<span class="hljs-string">"prevCounter"</span>] = <span class="hljs-number">1</span>
+}
+<span class="hljs-comment">// Check to see if our stored counter variable is the same as the current one</span>
+<span class="hljs-comment">// If it is, then this is a "Duplicate" and we should zero out any numeric</span>
+<span class="hljs-comment">// variables that we want to aggregate</span>
+<span class="hljs-keyword">if</span> ($record.preCounter === $local[<span class="hljs-string">"prevCounter"</span>]) {
+    <span class="hljs-comment">// These will be all the fields that you do not want to be duplicated.</span>
+    <span class="hljs-comment">// These fields will be numeric fields</span>
+    $record.fieldToFix = <span class="hljs-number">0</span>
+    <span class="hljs-comment">// any other fields to fix</span>
+}
+<span class="hljs-comment">// update our local copy of the counter to the current one.</span>
+$local[<span class="hljs-string">"prevCounter"</span>] = $record.preCounter
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="normalize-doesnt-propagate-all-values"></a><a href="#normalize-doesnt-propagate-all-values" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Normalize Doesn't Propagate all Values</h3>
+<p>Sometimes when you normalize and you have <em>one-to-many</em> fields that are associated with <em>multi-valued</em> fields, those <em>one-to-many</em> only one iteration of the <em>one-to-many</em> fields will be populated.</p>
+<p>Here is an example of what you see even after applying the <em>Normalize</em> flow step:</p>
+<table>
+<thead>
+<tr><th>ID</th><th>One-To-Many</th><th>Multi-Valued</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>MM33001</td><td>15</td></tr>
+<tr><td>2</td><td></td><td>12</td></tr>
+<tr><td>3</td><td>MM55221</td><td>10</td></tr>
+<tr><td>4</td><td></td><td>40</td></tr>
+<tr><td>5</td><td></td><td>20</td></tr>
+</tbody>
+</table>
+<p>But what you really want is this:</p>
+<table>
+<thead>
+<tr><th>ID</th><th>One-To-Many</th><th>Multi-Valued</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>MM33001</td><td>15</td></tr>
+<tr><td>2</td><td>MM33001</td><td>12</td></tr>
+<tr><td>3</td><td>MM55221</td><td>10</td></tr>
+<tr><td>4</td><td>MM55221</td><td>40</td></tr>
+<tr><td>5</td><td>MM55221</td><td>20</td></tr>
+</tbody>
+</table>
+<p>To achieve this, you need to use Powerscript.</p>
+<p>After the Normalize flow step, add this Powerscript:</p>
+<p><strong>PropagateField</strong></p>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">if</span> ($record.One-To-Many) {
+    $local.prevOne-To-Many = $record.One-To-Many     
+} 
+
+$record.One-To-Many = $local.prevOne-To-Many || <span class="hljs-string">''</span>
+</code></pre>
+<p>The first &quot;if&quot; statement is checking to see if we have a value in the <strong>One-To_Many</strong> field.  The expectation is that we will have a value before we encounter any of the &quot;empty&quot; columns.</p>
+<p>We then store this value and when we encounter the next rows <strong>One-To-Many</strong> field, if it is empty we, will populate it with the value that we had previously stored.</p>
+<p>The final line is using the <code>|| ''</code> as a precaution so that if there are any rows that do not have a <strong>One-To-Many</strong> field populated, we won't error out.</p>
+<h3><a class="anchor" aria-hidden="true" id="calculations-on-aggregated-values"></a><a href="#calculations-on-aggregated-values" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Calculations on Aggregated Values</h3>
+<p>As of Informer 5.2.1, you can not create an expression using fields that you aggregated.</p>
+<p>For example, you have created a pivot table with <strong>Year</strong> and <strong>Rep</strong>as Rows and then have Total aggregations on <strong>Net Revenue</strong> and <strong>Net Invoice</strong>, but you also what a <strong>Variance</strong> column (<strong>Net Revenue - Net Invoice</strong>).  There is currently not a way to do this via their standard tools.</p>
+<p>To accomplish this, you will need to calculate the aggregates at each level that you need them and create a new field for the Variance, or whatever other type of calculation that you need to do with the aggregated values.</p>
+<p>Before you can start, you need to determine what your aggregation levels are going to be.  In the above example, we have chosen, <strong>Year and Rep</strong>.</p>
+<p>We are going to create a <em>groupKey</em> for each of these levels and use that key to aggregate the totals in the <strong>$local</strong> object that Powerscript provides.</p>
+<p>This is the first Powerscript that will be needed:</p>
+<blockquote>
+<p>NOTE: There is a helper function called <strong>returnNumber</strong> which will accept anything and return a valid number.  If you don't pass a valid number, it returns 0.</p>
+</blockquote>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">// Get the year of the issue date </span>
+vIssueYear = moment($record.issuedate).format(<span class="hljs-string">'YYYY'</span>)
+
+<span class="hljs-comment">// Create a column for issueYear</span>
+$record.issueYear = vIssueYear
+<span class="hljs-comment">// Make sure the datatype for issueYear is a String</span>
+$fields.issueYear.dataType = <span class="hljs-string">'string'</span>
+
+<span class="hljs-comment">//*****************************************************</span>
+<span class="hljs-comment">// Start the aggregation process</span>
+<span class="hljs-comment">//*****************************************************</span>
+<span class="hljs-comment">/* It will create and generate the three levels of aggregate
+   data that will be used in the second Powerscript to calculate the three levels of
+   aggregates of the Yield calculations.
+   The three groups are:
+   issueYear (groupKey1)
+   issueYear + RepId (groupKey2)
+*/</span>
+<span class="hljs-comment">// Define the groupKey to be used across aggregates</span>
+groupKey1 = <span class="hljs-string">`<span class="hljs-subst">${vIssueYear}</span>`</span>
+groupKey2 = <span class="hljs-string">`<span class="hljs-subst">${vIssueYear}</span>-<span class="hljs-subst">${$record.salesrep_id_assoc_id}</span>`</span> 
+
+<span class="hljs-comment">// Initialize each group key</span>
+$local[groupKey1] = $local[groupKey1] ? $local[groupKey1] :  {<span class="hljs-attr">sumNet</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">sumInvoice</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">Group1Set</span>: <span class="hljs-literal">false</span>}
+$local[groupKey2] = $local[groupKey2] ? $local[groupKey2] :  {<span class="hljs-attr">sumNet</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">sumInvoice</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">Group2Set</span>: <span class="hljs-literal">false</span>}
+
+<span class="hljs-comment">// Add current records amount to the running total for each group key</span>
+<span class="hljs-comment">// GROUPKEY1</span>
+$local[groupKey1].sumNet = $local[groupKey1].sumNet + $record.orderNetAmt 
+$local[groupKey1].sumInvoice = $local[groupKey1].sumInvoice + returnNumber($record.invoiceID_assoc_invamount)
+
+<span class="hljs-comment">// GROUPKEY2</span>
+$local[groupKey2].sumNet = $local[groupKey2].sumNet + $record.orderNetAmt 
+$local[groupKey2].sumInvoice = $local[groupKey2].sumInvoice + returnNumber($record.invoiceID_assoc_invamount)
+
+<span class="hljs-comment">//------------------------------------------------------------------------------------</span>
+<span class="hljs-comment">//- FUNCTIONS </span>
+<span class="hljs-comment">//------------------------------------------------------------------------------------</span>
+<span class="hljs-comment">//* takes a value in and returns a number (parsed as float)</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">returnNumber</span>(<span class="hljs-params">numberIn</span>) </span>{
+    <span class="hljs-keyword">let</span> parsedNumber = <span class="hljs-built_in">parseFloat</span>(numberIn)
+    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">isNaN</span>(parsedNumber)) {
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+    } 
+    <span class="hljs-keyword">return</span> parsedNumber
+}
+</code></pre>
+<p>Now we have objects on the $local object that have totals for each level.  The object shape will look like this:</p>
+<pre><code class="hljs css language-javascript">$local = {
+  [groupKey1]: {
+    <span class="hljs-attr">sumInvoice</span>: float,
+    <span class="hljs-attr">sumNet</span>: float,
+    <span class="hljs-attr">Group1Set</span>: float
+  },
+    [groupKey2]: {
+    <span class="hljs-attr">sumInvoice</span>: float,
+    <span class="hljs-attr">sumNet</span>: float,
+    <span class="hljs-attr">Group2Set</span>: float
+  },
+}
+</code></pre>
+<p><strong>Step 2</strong></p>
+<p>After we have aggregated to the levels that we need, you will need to run a Flush Flow step:</p>
+<p><img src="..\assets\informer-javasript-calcaggr-001.png" alt="image-20200731124814556"></p>
+<p><strong>Step 3</strong></p>
+<p>The last step is another Powerscript that will do the calculations needed on the stored aggregations.</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">/*
+This is the second Powerscript.
+It needs to be run AFTER a Flush flow step.
+It will calculate the aggregate calculations at the three different groupings.
+Also this will create a field for each group key named
+groupKey1, groupKey2, groupKey3
+*/</span>
+
+<span class="hljs-comment">// Get the year of the issue date </span>
+vIssueYear = $record.issueYear
+
+<span class="hljs-comment">// Define the groupKey to be used across aggregates - Must be the same as those defined in the first Powerscript</span>
+groupKey1 = <span class="hljs-string">`<span class="hljs-subst">${vIssueYear}</span>`</span>
+groupKey2 = <span class="hljs-string">`<span class="hljs-subst">${vIssueYear}</span>-<span class="hljs-subst">${$record.salesrep_id_assoc_id}</span>`</span>
+
+<span class="hljs-comment">// GROUPKEY1</span>
+<span class="hljs-comment">// This If statement allows us to only return the total once.</span>
+<span class="hljs-comment">// By doing this, we can use the Total Aggregation function which keeps things more consistent</span>
+<span class="hljs-keyword">if</span> (!$local[groupKey1].Group1Set) {
+        <span class="hljs-comment">//Create a field for the GroupKey and each of the Totals for the groupKey</span>
+    $record.groupKey1 = groupKey1
+    $record.RepNetByYear_Total = $local[groupKey1].sumNet
+    $record.RepInvTotalForYear_Total = $local[groupKey1].sumInvoice
+    $record.NetInv_VarianceByYear_Total = ($local[groupKey1].sumNet - $local[groupKey1].sumInvoice)    
+    $local[groupKey1].Group1Set = <span class="hljs-literal">true</span>
+}
+
+
+<span class="hljs-comment">// GROUPKEY2</span>
+<span class="hljs-comment">// Same as for GroupKey1, but using groupKey2</span>
+<span class="hljs-keyword">if</span> (!$local[groupKey2].Group2Set) {
+    $record.groupKey2 = groupKey2
+    $record.RepNetByYearRep_Total = $local[groupKey2].sumNet
+    $record.RepInvTotalForRepYear_Total = $local[groupKey2].sumInvoice
+    $record.NetInv_VarianceByYearRep_Total = ($local[groupKey2].sumNet - $local[groupKey2].sumInvoice)  
+    $local[groupKey2].Group2Set = <span class="hljs-literal">true</span>
+}
+
+$fields.RepNetByYear_Total.dataType = <span class="hljs-string">'number'</span>
+$fields.RepInvTotalForYear_Total.dataType = <span class="hljs-string">'number'</span>
+$fields.NetInv_VarianceByYear_Total.dataType = <span class="hljs-string">'number'</span>
+
+$fields.RepNetByYearRep_Total.dataType = <span class="hljs-string">'number'</span>
+$fields.RepInvTotalForRepYear_Total.dataType = <span class="hljs-string">'number'</span>
+$fields.NetInv_VarianceByYearRep_Total.dataType = <span class="hljs-string">'number'</span>
+</code></pre>
+<table>
+<thead>
+<tr><th>Issue Year</th><th>Rep Id</th><th>Net Revenue</th><th>Invoice Revenue</th></tr>
+</thead>
+<tbody>
+<tr><td>2019</td><td>MM</td><td>100</td><td>75</td></tr>
+<tr><td>2019</td><td>SW</td><td>50</td><td>50</td></tr>
+<tr><td>2020</td><td>MM</td><td>125</td><td>100</td></tr>
+<tr><td>2020</td><td>SW</td><td>25</td><td>20</td></tr>
+<tr><td>2020</td><td>TE</td><td>75</td><td>75</td></tr>
+</tbody>
+</table>
+<h2><a class="anchor" aria-hidden="true" id="using-the-momentjs-date-library"></a><a href="#using-the-momentjs-date-library" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Using the momentjs Date Library</h2>
+<p>I will try to show you the most common uses of <strong>momentjs</strong> within Informer, however, you can get more information from the <strong>momentjs</strong> website.</p>
+<ul>
+<li><a href="https://momentjs.com/docs/">momentjs Docs</a></li>
+<li><a href="https://momentjs.com/guides/">momentjs Guides</a></li>
+</ul>
+<p><strong>Extract Year, Month or Day from Date</strong></p>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">// Extract pieces from a date</span>
+<span class="hljs-comment">// $record.issuedate is a Date type</span>
+year = moment($record.issuedate).format(<span class="hljs-string">'YYYY'</span>) <span class="hljs-comment">// Year</span>
+month = moment($record.issuedate).format(<span class="hljs-string">'MM'</span>) <span class="hljs-comment">// month number with preceeding zero if needed</span>
+day = moment($record.issuedate).format(<span class="hljs-string">'DD'</span>) <span class="hljs-comment">// day number with preceeding zero if needed</span>
+
+<span class="hljs-comment">// If the field is a string, but you know the format of the date, you can do the following:</span>
+momentDateField = moment($record.dateString, <span class="hljs-string">'MM/DD/YYYY'</span>)
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/informer/informer-basics.html"><span class="arrow-prev">← </span><span>Informer Basics</span></a><a class="docs-next button" href="/docs/informer/informer-system.html"><span>Informer System Stuff</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#calculated-fields">Calculated Fields</a></li><li><a href="#calculated-field-examples">Calculated Field Examples</a><ul class="toc-headings"><li><a href="#calculated-fields-with-multi-value-fields">Calculated Fields with Multi-value Fields</a></li><li><a href="#field-concatenation-using--and-template-literals">Field Concatenation using + and Template Literals</a></li><li><a href="#sql-case-when-in-javascript">SQL Case When in JavaScript</a></li><li><a href="#wildcard-searching">Wildcard Searching</a></li><li><a href="#replacing-values-in-a-string">Replacing Values in a String</a></li><li><a href="#extract-month-or-year-or-day-from-date-field">Extract Month or Year or Day from Date field</a></li><li><a href="#mimicking-the-in-keyword">Mimicking the IN keyword</a></li><li><a href="#building-a-complex-example">Building a Complex Example</a></li></ul></li><li><a href="#powerscripts">Powerscripts</a><ul class="toc-headings"><li><a href="#using-inputs">Using $inputs</a></li><li><a href="#using-local">Using $local</a></li><li><a href="#numbers-and-other-gotchas">Numbers and Other Gotchas</a></li><li><a href="#delete-a-column">Delete a column</a></li><li><a href="#using-fields-metadata">Using $fields Metadata</a></li><li><a href="#query-object">$query Object</a></li></ul></li><li><a href="#powerscript-examples">Powerscript Examples</a><ul class="toc-headings"><li><a href="#getting-total-by-advertiser-and--of-total-by-advertiser">Getting Total By Advertiser and % of Total By Advertiser</a></li><li><a href="#proper-aggregations-in-normalized-data">Proper Aggregations in Normalized data</a></li><li><a href="#normalize-doesnt-propagate-all-values">Normalize Doesn't Propagate all Values</a></li><li><a href="#calculations-on-aggregated-values">Calculations on Aggregated Values</a></li></ul></li><li><a href="#using-the-momentjs-date-library">Using the momentjs Date Library</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/Naviga_Logo_Dark_Icon.png" alt="Naviga Analytics" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/analytix/analytix-setup.html">Getting Started With Analytix</a><a href="/docs/bi/bi-auditors.html">BI Docs</a></div><div><h5>naviga</h5><a href="http://navigaglobal.com/" target="_blank">Website</a><a href="http://navigaglobal.com/blog/" target="_blank">naviga Blog</a><a href="https://twitter.com/navigaglobal" target="_blank">Twitter</a><a href="https://www.facebook.com/navigaglobal" target="_blank">Facebook</a><a href="https://www.linkedin.com/company/navigaglobal" target="_blank">LinkedIn</a></div><div><h5>More</h5><a href="/docs/analytix/analytix-bi-overview.html">Analytix Docs</a><a href="/docs/bi/bi-resources.html">BI Docs</a></div></section><a href="https://navigaglobal.com" target="_blank"><img src="/img/Naviga_Logo_Dark_Verticle.png" alt="naviga - Venture Forward" width="226" height="42" style="margin:1em auto;display:block;width:226px"/></a><section class="copyright">Copyright © 2020 naviga</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: 'ccd2672198948e3c79646332385b98fb',
+                indexName: 'analytix',
+                inputSelector: '#search_input_react',
+                algoliaOptions: {}
+              });
+            </script></body></html>

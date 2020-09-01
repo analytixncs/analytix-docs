@@ -1,0 +1,293 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>InSight Docs · Naviga Analytics</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## Export Control Query"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="InSight Docs · Naviga Analytics"/><meta property="og:type" content="website"/><meta property="og:url" content=".//index.html"/><meta property="og:description" content="## Export Control Query"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/Naviga_Logo_Dark_Icon.png" alt="Naviga Analytics"/><h2 class="headerTitleWithLogo">Naviga Analytics</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/docs/analytix/analytix-bi-overview.html" target="_self">Analytix</a></li><li class=""><a href="/docs/bi/bi-resources.html" target="_self">BI</a></li><li class="siteNavGroupActive siteNavItemActive"><a href="/docs/insight/insight.html" target="_self">InSight</a></li><li class=""><a href="/docs/informer/informer-basics.html" target="_self">Informer</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>InSight Docs</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">InSight Docs</h3><ul class=""><li class="navListItem navListItemActive"><a class="navItem" href="/docs/insight/insight.html">InSight Docs</a></li><li class="navListItem"><a class="navItem" href="/docs/insight/insight-sql-commands.html">InSight SQL Commands</a></li><li class="navListItem"><a class="navItem" href="/docs/insight/insight-duplicate-issues.html">InSight Duplicate Fixes</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">InSight Docs</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="export-control-query"></a><a href="#export-control-query" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Export Control Query</h2>
+<p>Use the below query to determine what the run control needs to be set to for the next load.</p>
+<pre><code class="hljs css language-sql"><span class="hljs-keyword">SELECT</span> ec_processname, 
+         ec_db_Desc,
+       <span class="hljs-keyword">CONVERT</span>(<span class="hljs-built_in">VARCHAR</span>, ec_processstamp, <span class="hljs-number">1</span>)   DateDone, 
+       <span class="hljs-keyword">CONVERT</span>(<span class="hljs-built_in">VARCHAR</span>, ec_processstamp, <span class="hljs-number">108</span>) TimeDone 
+<span class="hljs-keyword">FROM</span>   circulationinsightstaging..stg_dim_exportcontrol
+<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> ec_db_Desc, ec_ProcessName <span class="hljs-keyword">desc</span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="restoring-insight-staging-database"></a><a href="#restoring-insight-staging-database" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Restoring InSight Staging Database</h2>
+<p>It is important to keep the Staging database in sync with the export files that are coming over from the Circulation system.</p>
+<p>Normally, this happens automatically.  As data is loaded, each subsequent day's export files have the correct data to keep everything in sync.</p>
+<p>However, if there is a load failure, the InSight Staging database must be restored to a previous point in time so that the export files can be loaded.</p>
+<p>Once you have restored the Staging database, you must run the following query to find out what data the next set of Circulation export files must contain.</p>
+<pre><code class="hljs css language-sql"><span class="hljs-keyword">SELECT</span> ec_processname, 
+         ec_db_Desc,
+       <span class="hljs-keyword">CONVERT</span>(<span class="hljs-built_in">VARCHAR</span>, ec_processstamp, <span class="hljs-number">1</span>)   DateDone, 
+       <span class="hljs-keyword">CONVERT</span>(<span class="hljs-built_in">VARCHAR</span>, ec_processstamp, <span class="hljs-number">108</span>) TimeDone 
+<span class="hljs-keyword">FROM</span>   circulationinsightstaging..stg_dim_exportcontrol
+<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> ec_db_Desc, ec_ProcessName <span class="hljs-keyword">desc</span>
+</code></pre>
+<p>This information is what is needed to set the Circulation Run Control properly.</p>
+<p>To restore the InSight Staging database you must first log into SQL Server on the server with the issue.</p>
+<p>Right click on the <strong>CirculationInSightStaging</strong> database, choose Tasks/Restore/Database</p>
+<p><img src="../assets/insightstaging_001.png" alt="image-20200309100105452"></p>
+<p>The next screen you see in SQL Server after choosing to restore a database will be:</p>
+<p><img src="../assets/insightstaging_002.png" alt="image-20200309101506140"></p>
+<p>In the name of the Staging database backup you will see the date of the backup expressed as <strong>YYYYMMDD</strong>.</p>
+<p>Now you must choose the appropriate backup to restore.  Most of the time this will be the last backup created and will be auto populated.  However, sometimes you may need to choose an earlier backup.  Just be aware of which backup you are restoring.</p>
+<p>Usually the backups are stored on the E drive. <code>E:\Backups\Databases\CirculationInSightStaging</code>.  You can view the options you have to restore there or use the <strong>Timeline</strong> button in the SQL Server Restore Database dialog.</p>
+<h2><a class="anchor" aria-hidden="true" id="restart-with-run-control-reset"></a><a href="#restart-with-run-control-reset" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Restart with Run Control Reset</h2>
+<p>if you ever see that green play button, it means that the load failed. All subsequent “Pending” messages just mean they are waiting for the previous error to be fixed.</p>
+<p><img src="../assets/insight_Procs_RestartWithRunControl_001.png" alt="1586265383492"></p>
+<p>If you even see this, it means that the load have been in a failed state for more than one day, which means run control will NEED to be set before a reload can happen.</p>
+<p>To get the load back on track when you are in this state, you will need to do the following:</p>
+<p><strong>Delete Data Files</strong></p>
+<p>Go to the <code>E:\CirculationInSight\Data\DataFiles</code> directory and delete any files that exist in that directory.</p>
+<p>There probably won’t be any, but if there are, they will be <code>*.asc</code> or <code>*.tmp</code> files.</p>
+<p>Then you must delete any folders that conform to the format in the image below. YYYMMDD-n.</p>
+<p>You need to do this so that when we delete the jobs, the load won't immediately start again.  Instead it will wait for the next set of ASC files.</p>
+<p><img src="../assets/insight_Procs_RestartWithRunControl_002.png" alt="1586265515701"></p>
+<p><strong>Delete The Suspended Jobs</strong></p>
+<p>Next, you will need to go to the Circulation InSight Admin panel and click on the &quot;x&quot; by each pending or failed job.</p>
+<p><img src="../assets/insight_Procs_RestartWithRunControl_003.png" alt="1586267548398"></p>
+<p>After you have deleted each job, you screen should look something like this:</p>
+<p><img src="../assets/insight_Procs_RestartWithRunControl_004.png" alt="1586267641623"></p>
+<p><strong>Restore the Staging Database</strong></p>
+<p><a href="#restoring-insight-staging-database">Next restore the staging database</a></p>
+<p><strong>Run Control Setting</strong></p>
+<p>Lastly, you will need to find the appropriate run control settings and reset the run control.</p>
+<p>If the site is NOT McClatchy, you can simply run this query in after the database has been restored:</p>
+<pre><code class="hljs css language-sql"><span class="hljs-keyword">SELECT</span> ec_processname, 
+         ec_db_Desc,
+       <span class="hljs-keyword">CONVERT</span>(<span class="hljs-built_in">VARCHAR</span>, ec_processstamp, <span class="hljs-number">1</span>)   DateDone, 
+       <span class="hljs-keyword">CONVERT</span>(<span class="hljs-built_in">VARCHAR</span>, ec_processstamp, <span class="hljs-number">108</span>) TimeDone 
+<span class="hljs-keyword">FROM</span>   circulationinsightstaging..stg_dim_exportcontrol
+<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> ec_db_Desc, ec_ProcessName <span class="hljs-keyword">desc</span>
+</code></pre>
+<p>If it is McClatchy follow the <a href="#McClatchy-Run-Control-Settings">McClatchy Run Control Settings</a></p>
+<h2><a class="anchor" aria-hidden="true" id="mcclatchy"></a><a href="#mcclatchy" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>McClatchy</h2>
+<h3><a class="anchor" aria-hidden="true" id="run-control-settings"></a><a href="#run-control-settings" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Run Control Settings</h3>
+<p>For all three McClatchy InSight servers, you cannot run the standard query to get run control information.  This is because McClatchy has multiple sites/companies sending data over to each server.  It was set up in such a way that if one of those companies didn't send over data, the others would still load.  This means that not all companies run control information will be the same.</p>
+<p>To find the run control information, you must get it for each site.  This information is located in the following directory - <code>E:\CirculationInSight\Data\DataFiles\backups\</code></p>
+<p>This directory will contains Zip files of each days loads.  The tricky part is to find the correct zip file to pull the run control information from.</p>
+<p>A good rule of thumb is look at the date of the Staging Database Backup file that you restored.</p>
+<p><img src="../assets/insight_Procs_RestartWithRunControl_005.png" alt="1586273244518"></p>
+<p>This is the backup that I restored, it is dated 4/4/2020 at 3:53am.</p>
+<p>Now, go into the backups directory and look at the zip files.  The zip file that is needed is the first one dated prior to the backup that was just restored.</p>
+<p>You can see the one data 4/3/2020 at 9:54 pm is the first zip file before our backup data.</p>
+<p><img src="../assets/insight_Procs_RestartWithRunControl_006.png" alt="1586273661176"></p>
+<p>Next, open up the zip file and navigate to <code>pbs\exchange</code>. In this directory you will find one folder for each site that you need to pull run control information for.</p>
+<p>You must go to each of these sites folders, expand and navigate to <code>sitename\cm\insight</code>  and then open the <strong>cmExportControl.asc</strong> file and copy that information to a new notepad.</p>
+<p><img src="../assets/insight_Procs_RestartWithRunControl_007.png" alt="1586273856158"></p>
+<p>You final list will look something like this:</p>
+<pre><code class="hljs"><span class="hljs-string">"MCCCM-BLX"</span>|<span class="hljs-string">"InSight Export"</span>|<span class="hljs-number">04</span>/<span class="hljs-number">03</span>/<span class="hljs-number">20</span>|<span class="hljs-string">"21:01:32"</span>|no|<span class="hljs-number">5</span>
+<span class="hljs-string">"MCCCM-BLX"</span>|<span class="hljs-string">"InSight Draw"</span>|<span class="hljs-number">04</span>/<span class="hljs-number">04</span>/<span class="hljs-number">20</span>|<span class="hljs-string">"24:00:00"</span>|no|<span class="hljs-number">5</span>
+
+<span class="hljs-string">"MCCCM-BRD"</span>|<span class="hljs-string">"InSight Export"</span>|<span class="hljs-number">04</span>/<span class="hljs-number">03</span>/<span class="hljs-number">20</span>|<span class="hljs-string">"21:03:02"</span>|no|<span class="hljs-number">5</span>
+<span class="hljs-string">"MCCCM-BRD"</span>|<span class="hljs-string">"InSight Draw"</span>|<span class="hljs-number">04</span>/<span class="hljs-number">04</span>/<span class="hljs-number">20</span>|<span class="hljs-string">"24:00:00"</span>|no|<span class="hljs-number">5</span>
+
+<span class="hljs-string">"MCCCM-CLB"</span>|<span class="hljs-string">"InSight Export"</span>|<span class="hljs-number">04</span>/<span class="hljs-number">03</span>/<span class="hljs-number">20</span>|<span class="hljs-string">"21:07:32"</span>|no|<span class="hljs-number">5</span>
+<span class="hljs-string">"MCCCM-CLB"</span>|<span class="hljs-string">"InSight Draw"</span>|<span class="hljs-number">04</span>/<span class="hljs-number">04</span>/<span class="hljs-number">20</span>|<span class="hljs-string">"24:00:00"</span>|no|<span class="hljs-number">5</span>
+
+<span class="hljs-string">"MCCCM-CLT"</span>|<span class="hljs-string">"InSight Export"</span>|<span class="hljs-number">04</span>/<span class="hljs-number">03</span>/<span class="hljs-number">20</span>|<span class="hljs-string">"21:06:02"</span>|no|<span class="hljs-number">5</span>
+<span class="hljs-string">"MCCCM-CLT"</span>|<span class="hljs-string">"InSight Draw"</span>|<span class="hljs-number">04</span>/<span class="hljs-number">04</span>/<span class="hljs-number">20</span>|<span class="hljs-string">"24:00:00"</span>|no|<span class="hljs-number">5</span>
+
+<span class="hljs-string">"MCCCM-COL"</span>|<span class="hljs-string">"InSight Export"</span>|<span class="hljs-number">04</span>/<span class="hljs-number">03</span>/<span class="hljs-number">20</span>|<span class="hljs-string">"21:00:47"</span>|no|<span class="hljs-number">5</span>
+<span class="hljs-string">"MCCCM-COL"</span>|<span class="hljs-string">"InSight Draw"</span>|<span class="hljs-number">04</span>/<span class="hljs-number">04</span>/<span class="hljs-number">20</span>|<span class="hljs-string">"24:00:00"</span>|no|<span class="hljs-number">5</span>
+
+<span class="hljs-string">"MCCCM-HHI"</span>|<span class="hljs-string">"InSight Export"</span>|<span class="hljs-number">04</span>/<span class="hljs-number">03</span>/<span class="hljs-number">20</span>|<span class="hljs-string">"20:00:08"</span>|no|<span class="hljs-number">5</span>
+<span class="hljs-string">"MCCCM-HHI"</span>|<span class="hljs-string">"InSight Draw"</span>|<span class="hljs-number">04</span>/<span class="hljs-number">04</span>/<span class="hljs-number">20</span>|<span class="hljs-string">"24:00:00"</span>|no|<span class="hljs-number">5</span>
+
+<span class="hljs-string">"MCCCM-MAC"</span>|<span class="hljs-string">"InSight Export"</span>|<span class="hljs-number">04</span>/<span class="hljs-number">03</span>/<span class="hljs-number">20</span>|<span class="hljs-string">"21:08:17"</span>|no|<span class="hljs-number">5</span>
+<span class="hljs-string">"MCCCM-MAC"</span>|<span class="hljs-string">"InSight Draw"</span>|<span class="hljs-number">04</span>/<span class="hljs-number">04</span>/<span class="hljs-number">20</span>|<span class="hljs-string">"24:00:00"</span>|no|<span class="hljs-number">5</span>
+
+<span class="hljs-string">"MCCCM-MIA"</span>|<span class="hljs-string">"InSight Export"</span>|<span class="hljs-number">04</span>/<span class="hljs-number">03</span>/<span class="hljs-number">20</span>|<span class="hljs-string">"21:00:10"</span>|no|<span class="hljs-number">5</span>
+<span class="hljs-string">"MCCCM-MIA"</span>|<span class="hljs-string">"InSight Draw"</span>|<span class="hljs-number">04</span>/<span class="hljs-number">04</span>/<span class="hljs-number">20</span>|<span class="hljs-string">"24:00:00"</span>|no|<span class="hljs-number">5</span>
+
+<span class="hljs-string">"MCCCM-MYB"</span>|<span class="hljs-string">"InSight Export"</span>|<span class="hljs-number">04</span>/<span class="hljs-number">03</span>/<span class="hljs-number">20</span>|<span class="hljs-string">"21:02:17"</span>|no|<span class="hljs-number">5</span>
+<span class="hljs-string">"MCCCM-MYB"</span>|<span class="hljs-string">"InSight Draw"</span>|<span class="hljs-number">04</span>/<span class="hljs-number">04</span>/<span class="hljs-number">20</span>|<span class="hljs-string">"24:00:00"</span>|no|<span class="hljs-number">5</span>
+
+<span class="hljs-string">"MCCCM-RAL"</span>|<span class="hljs-string">"InSight Export"</span>|<span class="hljs-number">04</span>/<span class="hljs-number">03</span>/<span class="hljs-number">20</span>|<span class="hljs-string">"21:03:47"</span>|no|<span class="hljs-number">5</span>
+<span class="hljs-string">"MCCCM-RAL"</span>|<span class="hljs-string">"InSight Draw"</span>|<span class="hljs-number">04</span>/<span class="hljs-number">04</span>/<span class="hljs-number">20</span>|<span class="hljs-string">"24:00:00"</span>|no|<span class="hljs-number">5</span>
+
+<span class="hljs-string">"MCCCM-RHL"</span>|<span class="hljs-string">"InSight Export"</span>|<span class="hljs-number">04</span>/<span class="hljs-number">03</span>/<span class="hljs-number">20</span>|<span class="hljs-string">"21:06:47"</span>|no|<span class="hljs-number">5</span>
+<span class="hljs-string">"MCCCM-RHL"</span>|<span class="hljs-string">"InSight Draw"</span>|<span class="hljs-number">04</span>/<span class="hljs-number">04</span>/<span class="hljs-number">20</span>|<span class="hljs-string">"24:00:00"</span>|no|<span class="hljs-number">5</span>
+
+<span class="hljs-string">"MCCCM-STC"</span>|<span class="hljs-string">"InSight Export"</span>|<span class="hljs-number">04</span>/<span class="hljs-number">03</span>/<span class="hljs-number">20</span>|<span class="hljs-string">"21:04:32"</span>|no|<span class="hljs-number">5</span>
+<span class="hljs-string">"MCCCM-STC"</span>|<span class="hljs-string">"InSight Draw"</span>|<span class="hljs-number">04</span>/<span class="hljs-number">04</span>/<span class="hljs-number">20</span>|<span class="hljs-string">"24:00:00"</span>|no|<span class="hljs-number">5</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="connecting-to-mcc-servers"></a><a href="#connecting-to-mcc-servers" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Connecting to MCC Servers</h3>
+<p>When you click on the Dashboard icon on one of the McClatchy servers, it launches IE with a localhost based URL, but for some reason McClatchy sites need to use the host name.
+Below are the links for each site.
+<a href="http://mcc-c-ins-cst-01.mcc.loc/ibmcognos">MCC Central - http://mcc-c-ins-cst-01.mcc.loc/ibmcognos</a>
+<a href="http://mcc-c-ins-01.mcc.loc/ibmcognos">MCC East - http://mcc-c-ins-01.mcc.loc/ibmcognos</a>
+<a href="http://mcc-c-ins-wst-01.mcc.loc/ibmcognos">MCC West - http://mcc-c-ins-wst-01.mcc.loc/ibmcognos</a></p>
+<h2><a class="anchor" aria-hidden="true" id="ibm-cognos-service-wont-start--cubes-wont-build"></a><a href="#ibm-cognos-service-wont-start--cubes-wont-build" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>IBM Cognos Service won't Start / Cubes won't Build</h2>
+<p>The first thing to check if the cubes don't build is the <strong>IBM Cognos</strong> Service:</p>
+<p>If the the service isn't started, try to start it.  It is starts, rerun the Cube build.  If, however, the <strong>IBM Cognos</strong> service will not start, then you will need to check the IBM Cognos Configuration application.</p>
+<p>To do this, find the  <strong>IBM Cognos Configuration</strong> application and start it.</p>
+<p>You may see two Icons when you search for the <strong>IBM Cognos Configuration</strong> app.  If the one you choose, doesn't look like the image below, try the other one.</p>
+<p>You will need to go to &quot;Data Access -&gt; Content Manager -&gt; cognos10&quot;.  Click in the &quot;User ID and password&quot; section and click on the edit button.</p>
+<p><img src="../assets/insight_Procs_cognosconfig_001.png" alt="1586369727175"></p>
+<p>When you do this, you will be presented with a dialog that will allow you to enter the credentials to log into the SQL Server database.  Update these to be correct.</p>
+<p><img src="../assets/insight_Procs_cognosconfig_002.png" alt="1586370221249"></p>
+<p>Once done, choose File / Save and then File / Exit.  It will ask if you want to start the service.  Say yes.</p>
+<h3><a class="anchor" aria-hidden="true" id="cognos10--cognos10audit-dbs-corrupt"></a><a href="#cognos10--cognos10audit-dbs-corrupt" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>cognos10 / cognos10audit DBs corrupt</h3>
+<p>Another reason for the IBM Cognos service to not start is because the cognos10 and cognos10audit databases are corrupted.  This usually only happens on a new install.</p>
+<blockquote>
+<p>Be aware if you follow these steps on an existing installation you will loose the information stored in these cognos databases.  Not sure exactly what this is, but it could be user security settings or other information that would be difficult to restore.  Just be aware</p>
+</blockquote>
+<p><strong>Step 1</strong></p>
+<p>Drop the cognos10 and cognos10audit databases from the SQL Server Management studio query window.</p>
+<pre><code class="hljs css language-sql"><span class="hljs-keyword">USE</span> [<span class="hljs-keyword">master</span>]
+<span class="hljs-keyword">GO</span>
+
+<span class="hljs-keyword">DROP</span> <span class="hljs-keyword">DATABASE</span> [cognos10]
+<span class="hljs-keyword">GO</span>
+<span class="hljs-keyword">DROP</span> <span class="hljs-keyword">DATABASE</span> [cognos10audit]
+<span class="hljs-keyword">GO</span>
+
+</code></pre>
+<p>Exit and restart SQL Server Management Studio.</p>
+<p><strong>Step 2</strong></p>
+<p>Go to the location of the databases, usually <code>e:\databases</code> and delete the following:</p>
+<ul>
+<li>cognos10.mdf</li>
+<li>cognos10_log.ldf</li>
+<li>cognos10audit.mdf</li>
+<li>cognos10audit_log.ldf</li>
+</ul>
+<p><strong>Step 3</strong></p>
+<p>Create two new databases.</p>
+<p>First let's create the <strong>cognos10</strong> database:</p>
+<p><img src="..\assets\insight-ibmcognosnewdb_001.png" alt="image-20200430162547231"></p>
+<p>This will bring up the <strong>New Database</strong> dialog.</p>
+<p><img src="..\assets\insight-ibmcognosnewdb_002.png" alt="image-20200430163639838"></p>
+<p>On the <strong>General</strong> page set the following</p>
+<ol>
+<li>Fill in the database name with <strong>cognos10</strong></li>
+<li>Add the insightd user as the owner</li>
+<li>Set the initial size of the database to be 18 MB</li>
+<li>Make sure the path is directed to the database directory.</li>
+</ol>
+<p>On the <strong>Options</strong> page set the following:</p>
+<p><img src="..\assets\insight-ibmcognosnewdb_003.png" alt="image-20200430163958891"></p>
+<ol>
+<li>Collation to SQL_Latin1_General_CP1_CI_AS</li>
+<li>Recovery Model to Simple</li>
+</ol>
+<p><strong>Click OK</strong></p>
+<p>Now, do the same thing for the <strong>cognos10audit</strong> database.</p>
+<p><strong>General Page settings for cognos10audit</strong></p>
+<p><img src="..\assets\insight-ibmcognosnewdb_004.png" alt="image-20200430164648702"></p>
+<p><strong>Options Page settings for cognos10audit</strong></p>
+<p><img src="..\assets\insight-ibmcognosnewdb_005.png" alt="image-20200430164804502"></p>
+<p><strong>Step 4</strong></p>
+<p>Open <strong>Cognos Configuration</strong> application and reset the credentials for these two new databases.</p>
+<p>First, under the <strong><em>Environment / Logging / Database /cognosaudit10</em></strong> node, reenter the databases login information.  This should be</p>
+<p><strong>username:</strong> sa</p>
+<p>**password: **Ins1ght</p>
+<p><img src="..\assets\insight-ibmcognosnewdb_006.png" alt="image-20200430165311924"></p>
+<p>Do the same thing for the <strong><em>Data Access / Content Manager / cognos10</em></strong> node</p>
+<p><img src="..\assets\insight-ibmcognosnewdb_007.png" alt="image-20200430165541681"></p>
+<p><strong>Step 6</strong></p>
+<p>Save the configuration and the start or restart the IBM Cognos service.</p>
+<p><img src="..\assets\insight-ibmcognosnewdb_008.png" alt="image-20200430165729229"></p>
+<h2><a class="anchor" aria-hidden="true" id="error-in-transformer"></a><a href="#error-in-transformer" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Error In Transformer</h2>
+<p><strong>Transformer can't read the database</strong></p>
+<p>Found this was caused when a new InSight 2014 server was built and then reports from an InSight V10 were imported into this server.</p>
+<p>The easiest solution was to restore the <strong>cognos10</strong> SQL Server database back to before the reports were imported.</p>
+<h2><a class="anchor" aria-hidden="true" id="insight-objects-not-showing-in-circulation-dashboard"></a><a href="#insight-objects-not-showing-in-circulation-dashboard" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>InSight Objects not Showing in Circulation Dashboard</h2>
+<p>We have had a few AWS servers that were previously set up, however, when logging into the Circulation dashboard, you are presented with a screen that looks like this:</p>
+<p><img src="..\assets\insight-ibmcognosnotshowing_002.png" alt="image-20200514145703857"></p>
+<p>If you go to My Home or any other &quot;My Content&quot;, you will find nothing.  This does NOT mean that anything needs to be reinstalled.  We found a couple of things that need to be done to fix this issue.</p>
+<p><strong>Step One</strong></p>
+<p>Restore a backup of the Cognos10 database in SQL Server.</p>
+<p><img src="..\assets\insight-ibmcognosnotshowing_003.png" alt="image-20200514150511502"></p>
+<p>You can test after restoring the Database, but you will most likely need to go through the next steps.</p>
+<p><strong>Step Two</strong></p>
+<p>Start the <strong>IBM Cognos Configuration</strong> application.</p>
+<p>In here we need to make sure that the security is setup properly for the domain of the site we are working with.</p>
+<p>You will navigate to Security/Authentication/<strong>domain of site</strong>.  On the pane the displays to the right, you will click on Binding Credentials and enter the user <strong>insight.app</strong> with the CORRECT password.</p>
+<p>Obviously, the password needs to be correct.  You can test the password by right clicking on the domain and choosing test.</p>
+<p><img src="..\assets\insight-ibmcognosnotshowing_001.png" alt="image-20200514144339410"></p>
+<h2><a class="anchor" aria-hidden="true" id="user-access-to-insight"></a><a href="#user-access-to-insight" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>User Access to InSight</h2>
+<p>When you setup a new system.  The <em>insight.app</em> user is given system admin privileges.  The users however need to be give <strong>BI Professional</strong> rights.</p>
+<p>Log into the Cognos Admin and go to Security/User, Groups, and Roles/Cognos.  Then click on the &quot;More...&quot; by BI Professional.</p>
+<p><img src="..\assets\insight-users_001.png" alt="image-20200527145350241"></p>
+<p>Choose <strong>Set Members</strong>.  You will see the screen below, where you will click on <strong>Add...</strong></p>
+<p><img src="..\assets\insight-users_002.png" alt="image-20200527145740548"></p>
+<p>From the Add screen navigate to the Users or Groups that you want to add.</p>
+<h2><a class="anchor" aria-hidden="true" id="information-to-gather-on-stalled--failed-load"></a><a href="#information-to-gather-on-stalled--failed-load" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Information To Gather on Stalled / Failed Load</h2>
+<p>Check the event log to find out if the server was restarted.  To do this, filter the Windows Logs / System events by the following event ids:</p>
+<p>41, 1074, 6006, 6008</p>
+<p>Check the task manager to log the resources consumed by insightd service &amp; SQL Server.  That will help to figure out the culprit.</p>
+<p>Run <code>sp_whoisactive</code> to check the queries running at that time and the resource consumption and save to csv.****</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-next button" href="/docs/insight/insight-sql-commands.html"><span class="function-name-prevnext">InSight SQL Commands</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#export-control-query">Export Control Query</a></li><li><a href="#restoring-insight-staging-database">Restoring InSight Staging Database</a></li><li><a href="#restart-with-run-control-reset">Restart with Run Control Reset</a></li><li><a href="#mcclatchy">McClatchy</a><ul class="toc-headings"><li><a href="#run-control-settings">Run Control Settings</a></li><li><a href="#connecting-to-mcc-servers">Connecting to MCC Servers</a></li></ul></li><li><a href="#ibm-cognos-service-wont-start--cubes-wont-build">IBM Cognos Service won't Start / Cubes won't Build</a><ul class="toc-headings"><li><a href="#cognos10--cognos10audit-dbs-corrupt">cognos10 / cognos10audit DBs corrupt</a></li></ul></li><li><a href="#error-in-transformer">Error In Transformer</a></li><li><a href="#insight-objects-not-showing-in-circulation-dashboard">InSight Objects not Showing in Circulation Dashboard</a></li><li><a href="#user-access-to-insight">User Access to InSight</a></li><li><a href="#information-to-gather-on-stalled--failed-load">Information To Gather on Stalled / Failed Load</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/Naviga_Logo_Dark_Icon.png" alt="Naviga Analytics" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/analytix/analytix-setup.html">Getting Started With Analytix</a><a href="/docs/bi/bi-auditors.html">BI Docs</a></div><div><h5>naviga</h5><a href="http://navigaglobal.com/" target="_blank">Website</a><a href="http://navigaglobal.com/blog/" target="_blank">naviga Blog</a><a href="https://twitter.com/navigaglobal" target="_blank">Twitter</a><a href="https://www.facebook.com/navigaglobal" target="_blank">Facebook</a><a href="https://www.linkedin.com/company/navigaglobal" target="_blank">LinkedIn</a></div><div><h5>More</h5><a href="/docs/analytix/analytix-bi-overview.html">Analytix Docs</a><a href="/docs/bi/bi-resources.html">BI Docs</a></div></section><a href="https://navigaglobal.com" target="_blank"><img src="/img/Naviga_Logo_Dark_Verticle.png" alt="naviga - Venture Forward" width="226" height="42" style="margin:1em auto;display:block;width:226px"/></a><section class="copyright">Copyright © 2020 naviga</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: 'ccd2672198948e3c79646332385b98fb',
+                indexName: 'analytix',
+                inputSelector: '#search_input_react',
+                algoliaOptions: {}
+              });
+            </script></body></html>

@@ -1,0 +1,434 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>BI FAQ · Naviga Analytics</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="- [BI Populator Command Line Arguments](#bi-populator-command-line-arguments)"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="BI FAQ · Naviga Analytics"/><meta property="og:type" content="website"/><meta property="og:url" content=".//index.html"/><meta property="og:description" content="- [BI Populator Command Line Arguments](#bi-populator-command-line-arguments)"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/Naviga_Logo_Dark_Icon.png" alt="Naviga Analytics"/><h2 class="headerTitleWithLogo">Naviga Analytics</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/docs/analytix/analytix-bi-overview.html" target="_self">Analytix</a></li><li class="siteNavGroupActive"><a href="/docs/bi/bi-resources.html" target="_self">BI</a></li><li class=""><a href="/docs/insight/insight.html" target="_self">InSight</a></li><li class=""><a href="/docs/informer/informer-basics.html" target="_self">Informer</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>BI/Core Support Docs</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">BI Maintenance</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/bi/bi-database-core-mapping.html">BI Database Core Mapping</a></li><li class="navListItem"><a class="navItem" href="/docs/bi/bi-auditors.html">Running The BI Auditors</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">BI Resources</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/bi/bi-resources.html">BI Resources</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">BI/Core Support Docs</h3><ul class=""><li class="navListItem navListItemActive"><a class="navItem" href="/docs/bi/bi-faq.html">BI FAQ</a></li><li class="navListItem"><a class="navItem" href="/docs/support/adbase-core-faqs.html">Adbase Core FAQS</a></li><li class="navListItem"><a class="navItem" href="/docs/support/bi-chargetypes.html">BI ChargeTypes Explained</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Common SQL Core/BI</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/support/sql-bi-common-queries.html">Common BI Queries</a></li><li class="navListItem"><a class="navItem" href="/docs/support/sql-core-common-queries.html">Common Core Queries</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">BI FAQ</h1></header><article><div><span><ul>
+<li><a href="#bi-populator-command-line-arguments">BI Populator Command Line Arguments</a></li>
+<li><a href="#dmuser-sysadmin-setting">dmUser SysAdmin Setting</a></li>
+<li><a href="#spread-logic-may-cause-large-spread-amount">Spread Logic may Cause Large Spread Amount</a></li>
+<li><a href="#bi-populator-object-id-filter-mapping">BI Populator Object Id Filter Mapping</a></li>
+<li><a href="#shbiinterface-table-codes">shBIInterface Table Codes</a></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="bi-populator-command-line-arguments"></a><a href="#bi-populator-command-line-arguments" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>BI Populator Command Line Arguments</h2>
+<p>The following command line arguments may be used to run the BI Populator from the command line prompt or to schedule the BI Populator to run using Schedule Admin.</p>
+<p>In the table, parameters are enclosed to indicate information that needs to be supplied by the user. When entering the actual parameter (e.g., the user name), do not use the &lt;&gt; symbols. For example, to enter the user name and password for a particular user and schedule an automatic run, you would type the following.</p>
+<p><code>-U username -P password –auto –date 01/01/2006</code></p>
+<table>
+<thead>
+<tr><th style="text-align:left">Argument <div style="width:175px"></div></th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align:left">-U &lt;username&gt;</td><td>Identifies the user for automatic login. Enter the AdBase User name to login.</td></tr>
+<tr><td style="text-align:left">-P &lt;password&gt;</td><td>Provides the password for automatic login. Enter the AdBase password to login.</td></tr>
+<tr><td style="text-align:left">-auto</td><td>Runs the BI Populator in automatic mode. This means that the BI Populator executes automatically without a user having to click the Populate button. Once processing is complete, the BI Populator will automatically exit. This argument is primarily for use in Schedule Admin.</td></tr>
+<tr><td style="text-align:left">-continuous</td><td>Runs the BI Populator in automatic mode. This means that the BI Populator executes automatically without a user having to click the Populate button. Unlike the -auto argument, once the process is complete, the BI Populator continues to</td></tr>
+<tr><td style="text-align:left">-date &lt;start date&gt;</td><td>Specifies the start date in the absolute date format (mm/dd/yyyy).</td></tr>
+<tr><td style="text-align:left">-D &lt;# days in future&gt;</td><td>Specifies the start date as the number of days from the current date.</td></tr>
+<tr><td style="text-align:left">-duration &lt;# days&gt;</td><td>Specifies the end date as the number of days after the start date.</td></tr>
+<tr><td style="text-align:left">-crdate</td><td>Specifies selection by the create date, rather than the last edit date. Using this argument is essentially the same as checking the Use create date box in the BI Populator window. When using this argument, do not specify a date. NOTE: If you do not use the crdate or ledate argument in the command line, BI Populator will run using whichever setting was selected the last time the utility was exited.</td></tr>
+<tr><td style="text-align:left">-ledate</td><td>Specifies selection by the last edit date, rather than the create date. Using this argument is essentially the same as checking the Use last edit date box in the BI Populator window. When using this argument, do not specify a date.</td></tr>
+<tr><td style="text-align:left">-customer</td><td>Specifies customer population will be performed.</td></tr>
+<tr><td style="text-align:left">-customerfile &lt;filepath&gt;</td><td>Specifies a file containing a list of customer IDs to be populated. Note that if you use this argument, you do not have to use the -customer argument. The presence of the -customerfile argument specifies customer population will be performed.</td></tr>
+<tr><td style="text-align:left">-contract</td><td>Specifies contract population will be performed.</td></tr>
+<tr><td style="text-align:left">-contractfile &lt;file path&gt;</td><td>Specifies a file containing a list of contract IDs to be populated. Note that if you use this argument, you do not have to use the -contract argument. The presence of the -contractfile argument specifies that contract population will be performed.</td></tr>
+<tr><td style="text-align:left">-gl</td><td>Specifies GL population will be performed.</td></tr>
+<tr><td style="text-align:left">-invoicefile &lt;file path&gt;</td><td>Specifies a file containing a list of invoice IDs to be populated. Note that if you use this argument, you do not have to use the -gl argument. The presence of the -invoicefile argument specifies that invoice population will be performed.</td></tr>
+<tr><td style="text-align:left">-debitfile &lt;file path&gt;</td><td>Specifies a file containing a list of debit IDs to be populated. Note that if you use this argument, you do not have to use the -gl argument. The presence of the -debitfile argument specifies that debit population will be performed.</td></tr>
+<tr><td style="text-align:left">-paymentfile &lt;file path&gt;</td><td>Specifies a file containing a list of payment IDs to be populated. Note that if you use this argument, you do not have to use the -gl argument. The presence of the -paymentfile argument specifies that payment population will be performed.</td></tr>
+<tr><td style="text-align:left">-creditfile &lt;file path&gt;</td><td>Specifies a file containing a list of credit IDs to be populated. Note that if you use this argument, you do not have to use the -gl argument. The presence of the -creditfile argument specifies that credit population will be performed.</td></tr>
+<tr><td style="text-align:left">-adorder</td><td>Specifies ad order population will be performed.</td></tr>
+<tr><td style="text-align:left">-adorderfile &lt;file path&gt;</td><td>Specifies a file containing a list of ad order IDs to be populated. Note that if you use this argument, you do not have to use the -adorder argument. The presence of the -adorderfile argument specifies that credit population will be performed.</td></tr>
+<tr><td style="text-align:left">-leavesettings</td><td>If you run two copies of the BI Populator, they interfere with each other’s settings. A copy of the BI Populator called with this argument will avoid updating the settings, leaving the original copy of the BI Populator alone.</td></tr>
+</tbody>
+</table>
+<hr>
+<div style="page-break-after: always;"></div>
+## dmUser SysAdmin Setting
+<p>A setting in System Admin 🡒  Tools/System Level Information 🡒 Other Settings tab called “Update Existing dmUser Entry” is used to control when a user is moved to a new sales team, region, territory or company.</p>
+<p><img src="../assets/bi_core_mapping-sysadmin.jpg" alt=""></p>
+<h3><a class="anchor" aria-hidden="true" id="update-existing-dmuser-entry---checked"></a><a href="#update-existing-dmuser-entry---checked" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Update Existing dmUser Entry - CHECKED</h3>
+<p>When this option is checked, any change made to the sales rep’s Team, Region, Territory or Company within system admin is reflected by updating the existing row in the dmUser table.</p>
+<h3><a class="anchor" aria-hidden="true" id="update-existing-dmuser-entry---unchecked"></a><a href="#update-existing-dmuser-entry---unchecked" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Update Existing dmUser Entry - UNCHECKED</h3>
+<p>If this option is not checked, than when a change is made to a sales rep’s Team, Region, Territory or Company a new row is created in dmUser for that sales rep, but his old row still exists.</p>
+<p><img src="../assets/bi-faq-dmUserSysAdmin.jpg" alt="img"></p>
+<p><strong>What Does This Mean</strong></p>
+<p>These options affect how the Sold By rep’s transactions are able to be reported.</p>
+<p>Every transaction (ad taken) has a Sold By sales rep attached to it.  This is a field that is set in Adbooker.</p>
+<p>When this option is Unchecked it will effectively let the Sold By rep’s transactions “move” with him when he moves to a new sales team, territory or region.</p>
+<p>For example, Rep JDoe is on Team Alpha in '17 and in Dec '17 he sold 10 ads in which he was the rep in the Sold By field in Ad Booker.  If we were to run a report for Dec '17 for Team Alpha, Rep JDoe’s sales would be included in the total.</p>
+<p><strong>Update Existing dmUser Entry - CHECKED</strong></p>
+<p>If in Jan ’18 Rep JDoe was moved to Team Beta and Option 1 was set in System Admin, the same report, Dec '17 for Team Alpha, Rep JDoe’s sales would NO longer be included in the total.</p>
+<p><strong>Update Existing dmUser Entry - UNCHECKED</strong></p>
+<p>However if this option is checked in System Admin, the above report would be the same both before and after Rep JDoe was moved to Team Beta.</p>
+<p>Be aware the Rep JDoe always is the Sold By rep on the ads.  This just allows you to choose what Team, Region, Territory or Company those ads should show up in.</p>
+<h3><a class="anchor" aria-hidden="true" id="be-careful-changing-this-option"></a><a href="#be-careful-changing-this-option" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>BE CAREFUL Changing This Option</h3>
+<p>If you have been populating the BI Database with this option unchecked and then decide you want it checked.  You will need to run a process in the BI Populator to make sure the data is consistent.</p>
+<p>If you change this setting, from being un-checked to being checked, there is a function in BiPopulator to update the existing entries in BI. This would merge all entries for a sales rep to point to one record in BI.</p>
+<p>Some sites start with the setting unchecked, but realize they want to change this and go to one record per sales rep. To update existing data to have one row vs. multiple you can use a function in BI Populator:</p>
+<p><img src="../assets/bi-faq-bipopfixtable.jpg" alt="1543509375900"></p>
+<p>You click on ‘Fix The Table’ and it goes through all the <a href="bi-database-core-mapping#dmuser">dmUser</a> records and merges them into one per sales rep. <strong>Note:</strong> Always do this in a <strong>separate</strong> BI Populator session here you are logged in with a user that is NOT
+the same as the Automated BI Populator.</p>
+<hr>
+<div style="page-break-after: always;"></div>
+## Spread Logic may Cause Large Spread Amount
+<blockquote>
+<p>First seen in 2009</p>
+</blockquote>
+<p>First and foremost this is not a bug in the sense that there is an error in the code.  As you will see it is caused by how the spread is calculated.</p>
+<p>The spread algorithm is designed to spread an amount, like order level charges, credits, etc, across all other charges and distribute a weighted amount to each.</p>
+<p>Here is how the algorithm figures the weights:</p>
+<p>Assume we are spreading a $50 Order Level charge across an ad with 3 revenue entries</p>
+<p><img src="../assets/bi-faq-spreadlogic.jpg" alt="1539022078765"></p>
+<ol>
+<li>Add all the revenue amounts together that we are going to spread the order level charge across.  (Amount Column)</li>
+<li>Divide each line item amount by the total amount to get a weighted percentage of how much of the spread amount to allocate to this line item.</li>
+<li>Multiply the Spread Amount by the calculated percentage found in step 2 to get the spread amount allocation.</li>
+</ol>
+<p>This works fine until you run into a situation with line items as follows:</p>
+<p><img src="../assets/bi-faq-spreadlogic2.jpg" alt="1539022127954"></p>
+<p>You can see that because the final total is a small number our percentages are very high, but in the end add to a total of 100% and the spread amount add to the correct number.</p>
+<p>This is most commonly seen in Till forbid ads.</p>
+<hr>
+<div style="page-break-after: always;"></div>
+## BI Populator Object Id Filter Mapping
+<p>The BI Populator allows you to manually populate individual records from the Object Id Filters tab.  Below is a mapping to the fields that are being referenced on this tab.</p>
+<p><img src="../assets/bi-faq-ObjectIdFilterMap.jpg" alt="1539022454846"></p>
+<h2><a class="anchor" aria-hidden="true" id="shbiinterface-table-codes"></a><a href="#shbiinterface-table-codes" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>shBIInterface Table Codes</h2>
+<p>The shBIInteface table in the AdBase core database is a table used to tell the BI Populator to populate information that will not get picked up by the BI Populator's normal check.</p>
+<p>Usually, it is utility applications like RepSetter that will populate this table when it is run by users.</p>
+<pre><code class="hljs css language-sql"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> shbiInterface
+</code></pre>
+<p>One of the fields in the shBIInterface table is the <code>FunctionCode</code> field.  This code represents what type of populating is going to occur. The other field of importance is the <code>ApplicationId</code> which tells us which application wrote the record in the shBIInterface table.  Lastly, the ObjectId, is the associated ID to be populated.  Whether the ObjectID represents an AdOrderID or CustomerID or something else, depends on the <code>FunctionCode</code> .</p>
+<h3><a class="anchor" aria-hidden="true" id="function-codes"></a><a href="#function-codes" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Function Codes</h3>
+<p>Below is a list of the <strong>function codes</strong> and their enumerations.</p>
+<table>
+<thead>
+<tr><th style="text-align:left">Function</th><th>Function Code</th></tr>
+</thead>
+<tbody>
+<tr><td style="text-align:left"><center><strong>Contract related functions</strong></center></td><td></td></tr>
+<tr><td style="text-align:left">ShBIInterfacePopulateContract</td><td>1</td></tr>
+<tr><td style="text-align:left">ShBIInterfacePurgeContract</td><td>2</td></tr>
+<tr><td style="text-align:left"><center><strong>Invoice related functions</strong></center></td><td></td></tr>
+<tr><td style="text-align:left">ShBIInterfacePopulateInvoice</td><td>101</td></tr>
+<tr><td style="text-align:left">ShBIInterfacePurgeInvoice</td><td>102</td></tr>
+<tr><td style="text-align:left">ShBIInterfaceInvoiceClosedDate</td><td>103</td></tr>
+<tr><td style="text-align:left"><center><strong>Debit related functions</strong></center></td><td></td></tr>
+<tr><td style="text-align:left">ShBIInterfacePopulateDebit</td><td>201</td></tr>
+<tr><td style="text-align:left">ShBIInterfacePurgeDebit</td><td>202</td></tr>
+<tr><td style="text-align:left">ShBIInterfaceDebitClosedDate</td><td>203</td></tr>
+<tr><td style="text-align:left"><center><strong>Payment related functions</strong></center></td><td></td></tr>
+<tr><td style="text-align:left">ShBIInterfacePopulatePayment</td><td>301</td></tr>
+<tr><td style="text-align:left">ShBIInterfacePurgePayment</td><td>302</td></tr>
+<tr><td style="text-align:left">ShBIInterfacePaymentClosedDate</td><td>303</td></tr>
+<tr><td style="text-align:left"><center><strong>Credit related functions</strong></center></td><td></td></tr>
+<tr><td style="text-align:left">ShBIInterfacePopulateCredit</td><td>401</td></tr>
+<tr><td style="text-align:left">ShBIInterfacePurgeCredit</td><td>402</td></tr>
+<tr><td style="text-align:left">ShBIInterfaceCreditClosedDate</td><td>403</td></tr>
+<tr><td style="text-align:left"><center><strong>Ad order related functions</strong></center></td><td></td></tr>
+<tr><td style="text-align:left">ShBIInterfacePopulateAdOrder</td><td>501</td></tr>
+<tr><td style="text-align:left">ShBIInterfacePurgeAdOrder</td><td>502</td></tr>
+<tr><td style="text-align:left">ShBIInterfaceAdOrderQueueStatus</td><td>503</td></tr>
+<tr><td style="text-align:left">ShBIInterfaceAdOrderInvoicedAlready</td><td>504</td></tr>
+<tr><td style="text-align:left">ShBIInterfaceAdOrderEditorialInsert</td><td>505</td></tr>
+<tr><td style="text-align:left">ShBIInterfaceAdOrderPrimarySalesRep</td><td>506</td></tr>
+<tr><td style="text-align:left"><center><strong>Miscellaneous functions</strong></center></td><td></td></tr>
+<tr><td style="text-align:left">ShBIInterfacePopulateCustomer</td><td>901</td></tr>
+<tr><td style="text-align:left">ShBIInterfaceStatementNumber</td><td>902</td></tr>
+<tr><td style="text-align:left">ShBIInterfaceSyncAccountingPeriods</td><td>903</td></tr>
+<tr><td style="text-align:left">ShBIInterfaceLast</td><td>90</td></tr>
+</tbody>
+</table>
+<h3><a class="anchor" aria-hidden="true" id="application-ids"></a><a href="#application-ids" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Application Ids</h3>
+<p>Below is a list of the Application Ids and their associated application descriptions.</p>
+<table>
+<thead>
+<tr><th>Application</th><th>Id</th></tr>
+</thead>
+<tbody>
+<tr><td>AdBookingAppId</td><td>1</td></tr>
+<tr><td>ContactManagementAppId</td><td>2</td></tr>
+<tr><td>GraphicsManagementAppId</td><td>3</td></tr>
+<tr><td>LockAdminAppId</td><td>4</td></tr>
+<tr><td>GalleyoutAppId</td><td>5</td></tr>
+<tr><td>AdRaterAppId</td><td>6</td></tr>
+<tr><td>ProductManagerAppId</td><td>7</td></tr>
+<tr><td>AdOrderExportAppId</td><td>8</td></tr>
+<tr><td>ScheduleSrvAppId</td><td>9</td></tr>
+<tr><td>AdmarcCustomerExportAppId</td><td>10</td></tr>
+<tr><td>AIMCustomerExportAppId</td><td>11</td></tr>
+<tr><td>OfficePayMgrAppId</td><td>12</td></tr>
+<tr><td>OutputAppId</td><td>13</td></tr>
+<tr><td>AdOneExportAppId</td><td>14</td></tr>
+<tr><td>Layout8000ExportId</td><td>15</td></tr>
+<tr><td>CashReceiptsId</td><td>16</td></tr>
+<tr><td>CustomerBalanceUtilityId</td><td>17</td></tr>
+<tr><td>DisplayAdImporterId</td><td>18</td></tr>
+<tr><td>InvoiceGeneratorId</td><td>19</td></tr>
+<tr><td>RemoteDataAppId</td><td>20</td></tr>
+<tr><td>TillForbidExtenderAppId</td><td>21</td></tr>
+<tr><td>RemoteMaintAppId</td><td>22</td></tr>
+<tr><td>AdOrderPurgeUtilityId</td><td>23</td></tr>
+<tr><td>CustomerPurgeUtilityId</td><td>24</td></tr>
+<tr><td>RemoteClientDataSenderAppId</td><td>25</td></tr>
+<tr><td>CreditManagerUtilityId</td><td>26</td></tr>
+<tr><td>ContractRenewUtilityId</td><td>27</td></tr>
+<tr><td>DBTableUtilityId</td><td>28</td></tr>
+<tr><td>WorkFlowUtilityId</td><td>29</td></tr>
+<tr><td>SystemAdminId</td><td>30</td></tr>
+<tr><td>AdbaseWebServerAppId</td><td>31</td></tr>
+<tr><td>GEACCustomerExportId</td><td>32</td></tr>
+<tr><td>PaymentDaemonId</td><td>33</td></tr>
+<tr><td>GEACCreditImporterId</td><td>34</td></tr>
+<tr><td>NovaInterfaceId</td><td>35</td></tr>
+<tr><td>FinanceManagerId</td><td>36</td></tr>
+<tr><td>GEACContractExportId</td><td>37</td></tr>
+<tr><td>WebExporterId</td><td>38</td></tr>
+<tr><td>GraphicPurgeUtilityId</td><td>39</td></tr>
+<tr><td>ContractManagerAppId</td><td>40</td></tr>
+<tr><td>BlindBoxReplyManagerId</td><td>41</td></tr>
+<tr><td>LockBoxUtilityId</td><td>42</td></tr>
+<tr><td>WriteOffUtilityId</td><td>43</td></tr>
+<tr><td>NovaViaWarpInterfaceAppId</td><td>44</td></tr>
+<tr><td>AuthorizeDotNetInterfaceAppId</td><td>45</td></tr>
+<tr><td>CrainCustomerExportId</td><td>46</td></tr>
+<tr><td>CrainContractExportId</td><td>47</td></tr>
+<tr><td>AdBaseXMLImporterAppId</td><td>48</td></tr>
+<tr><td>UserFieldsImportId</td><td>49</td></tr>
+<tr><td>HighPlainsAdOrderExportId</td><td>50</td></tr>
+<tr><td>HighPlainsCustomerExportId</td><td>51</td></tr>
+<tr><td>GannettCustomerImporter</td><td>52</td></tr>
+<tr><td>PlainDealerImportAppId</td><td>53</td></tr>
+<tr><td>ExpireAdsId</td><td>54</td></tr>
+<tr><td>PaymentPlusAXId</td><td>55 // Payment Plus  interface</td></tr>
+<tr><td>SAOEImportAppId</td><td>56</td></tr>
+<tr><td>ICVerifyAXId</td><td>57</td></tr>
+<tr><td>SuperChargeInterfaceId</td><td>58</td></tr>
+<tr><td>SmartStreamAdOrderExportId</td><td>59</td></tr>
+<tr><td>MactivePGLExportId</td><td>60</td></tr>
+<tr><td>SmartStreamInterfaceId</td><td>61</td></tr>
+<tr><td>PlainDealerAdOrderExportId</td><td>62</td></tr>
+<tr><td>CampaignManagerAppId</td><td>63</td></tr>
+<tr><td>ImportEditorialInformationAppId</td><td>64</td></tr>
+<tr><td>PlainDealerCCInterfaceId</td><td>65</td></tr>
+<tr><td>Annapolis8000ExportId</td><td>66</td></tr>
+<tr><td>PlanPagExportId</td><td>67</td></tr>
+<tr><td>SJCC8000ExportId</td><td>68</td></tr>
+<tr><td>SystemTranslatorUtilityId</td><td>69</td></tr>
+<tr><td>AdBaseWebServerId</td><td>70</td></tr>
+<tr><td>AppSettingsManagerId</td><td>71</td></tr>
+<tr><td>DataAnalysisReportId</td><td>72</td></tr>
+<tr><td>DataAnalysisToolId</td><td>73</td></tr>
+<tr><td>SpokaneCustomerExportId</td><td>74</td></tr>
+<tr><td>WebDbManagerId</td><td>75</td></tr>
+<tr><td>XMLWebExporterId</td><td>76</td></tr>
+<tr><td>DataImportAppId</td><td>77</td></tr>
+<tr><td>SpokaneCustomerImportId</td><td>78</td></tr>
+<tr><td>AdjustmentManagerAppId</td><td>79</td></tr>
+<tr><td>PlanPagImportId</td><td>100</td></tr>
+<tr><td>AdQuoterId</td><td>101</td></tr>
+<tr><td>ExternalLoginAppId</td><td>102</td></tr>
+<tr><td>InvoiceAutoPayAppId</td><td>103</td></tr>
+<tr><td>CustomerExportId</td><td>104</td></tr>
+<tr><td>CreditBalImportId</td><td>105</td></tr>
+<tr><td>GraphicsExporterAppId</td><td>106</td></tr>
+<tr><td>RefundCheckExporterAppId</td><td>107</td></tr>
+<tr><td>TellanAXAppId</td><td>108</td></tr>
+<tr><td>GLExporterAppId</td><td>109</td></tr>
+<tr><td>VerisignPayflowAppId</td><td>110</td></tr>
+<tr><td>AutoLaunchToolAppId</td><td>111</td></tr>
+<tr><td>CustomerImportAppId</td><td>112</td></tr>
+<tr><td>AdTrackingExportAppId</td><td>113</td></tr>
+<tr><td>TimesPicayune8000ExporterId</td><td>114</td></tr>
+<tr><td>AdbaseXMLExporterAppId</td><td>115</td></tr>
+<tr><td>AmosCustomerExportAppId</td><td>116</td></tr>
+<tr><td>SanJoseGLExportAppId</td><td>117</td></tr>
+<tr><td>ContraCostaGLExportAppId</td><td>118</td></tr>
+<tr><td>NewarkOrderExporterAppId</td><td>119</td></tr>
+<tr><td>SJCCGLExportAppId</td><td>120</td></tr>
+<tr><td>SystemNodeMonitorAppId</td><td>121</td></tr>
+<tr><td>AdbaseSystemNodeManagerAppId</td><td>122</td></tr>
+<tr><td>AdbaseToPMPAdtrackAppId</td><td>123</td></tr>
+<tr><td>AdjustmentsMonitorAppId</td><td>124</td></tr>
+<tr><td>AdbasePurgeUtilityAppId</td><td>125</td></tr>
+<tr><td>RevenueExportAppId</td><td>126</td></tr>
+<tr><td>BIPopulatorAppId</td><td>127</td></tr>
+<tr><td>EmailAlertManagerId</td><td>128</td></tr>
+<tr><td>GatewayPaymentsMgrAppId</td><td>129</td></tr>
+<tr><td>InCollectionsMarkerId</td><td>130</td></tr>
+<tr><td>BalanceUtilityId</td><td>131</td></tr>
+<tr><td>IpixManagerId</td><td>132</td></tr>
+<tr><td>BIImporterAppId</td><td>133</td></tr>
+<tr><td>Fayetteville8000ExportId</td><td>134</td></tr>
+<tr><td>RangerExportAppId</td><td>135</td></tr>
+<tr><td>USPSConversionUtilityAppId</td><td>136</td></tr>
+<tr><td>StatementNumberToolAppId</td><td>137</td></tr>
+<tr><td>TimesPicayuneUSGExportAppId</td><td>138</td></tr>
+<tr><td>TimesPicayunePPBillingExportAppId</td><td>139</td></tr>
+<tr><td>MactivePlannerAppId</td><td>140</td></tr>
+<tr><td>AdbaseXMLDistributorAppId</td><td>141</td></tr>
+<tr><td>MactiveLoginAuditTrailId</td><td>142</td></tr>
+<tr><td>XMLCustomerTransportId</td><td>143</td></tr>
+<tr><td>CallFXExportAppId</td><td>144</td></tr>
+<tr><td>BIUtilityAppId</td><td>145</td></tr>
+<tr><td>BIInterfaceAppId</td><td>146</td></tr>
+<tr><td>KubraInterfaceAppId</td><td>147</td></tr>
+<tr><td>ScheduleAdminAppId</td><td>148</td></tr>
+<tr><td>MGDSIProjectedCountsAppId</td><td>149</td></tr>
+<tr><td>MGDSIFinalCountsAppId</td><td>150</td></tr>
+<tr><td>AdPayManagerId</td><td>151</td></tr>
+<tr><td>MobileAdPackPreprintId</td><td>152</td></tr>
+<tr><td>BonusSpendingUtilityAppId</td><td>153</td></tr>
+<tr><td>MactiveImageManagerId</td><td>154</td></tr>
+<tr><td>MactiveImageUtilityAppId</td><td>155</td></tr>
+<tr><td>DorfmanInterfaceAppId</td><td>156</td></tr>
+<tr><td>Newark8000ExportId</td><td>157</td></tr>
+<tr><td>VVPaymentInterfaceAppId</td><td>158</td></tr>
+<tr><td>LiveProcessorInterfaceAppId</td><td>159</td></tr>
+<tr><td>BookedSizeUpdaterAppId</td><td>160</td></tr>
+<tr><td>MediaLinkAppId</td><td>161</td></tr>
+<tr><td>PlaceholderOrderAppId</td><td>162</td></tr>
+<tr><td>DocumentEpxorterAppId</td><td>163</td></tr>
+<tr><td>StandardReportsAppId</td><td>164</td></tr>
+<tr><td>CyberSourceAppId</td><td>165</td></tr>
+<tr><td>AdbaseToYahooHotJobsId</td><td>166</td></tr>
+<tr><td>CustomerStatusUtilityId</td><td>167</td></tr>
+<tr><td>SDEPayInterfaceId</td><td>168</td></tr>
+<tr><td>ContractImportAppId</td><td>169</td></tr>
+<tr><td>GraphicsImporterAppId</td><td>170</td></tr>
+<tr><td>PaywareAppId</td><td>171</td></tr>
+<tr><td>DirectDebitToolAppId</td><td>172</td></tr>
+<tr><td>AdbaseARAppId</td><td>173</td></tr>
+<tr><td>InterfaceDateUtilityId</td><td>174</td></tr>
+<tr><td>PreprintCountToolAppId</td><td>175</td></tr>
+<tr><td>DJBizSerivicesInterfaceAppId</td><td>176</td></tr>
+<tr><td>CreditCardUtility</td><td>193</td></tr>
+<tr><td>EPSImporterAppId</td><td>194</td></tr>
+<tr><td>PaymentCutoffUtilityAppId</td><td>195</td></tr>
+<tr><td>SalesforceUpdaterAppId</td><td>196</td></tr>
+<tr><td>TagOrderToolAppId</td><td>197</td></tr>
+<tr><td>BatchCheckerAppId</td><td>198</td></tr>
+<tr><td>DJBizPayToolAppId</td><td>199</td></tr>
+<tr><td>OASExporterAppId</td><td>200</td></tr>
+<tr><td>PDFLinkerAppId</td><td>201</td></tr>
+<tr><td>AdbasePrintAuditAppId</td><td>202</td></tr>
+<tr><td>PersonalFinanceManagerAppId</td><td>203</td></tr>
+<tr><td>WebInventoryManagerAppId</td><td>204</td></tr>
+<tr><td>PaymentTokenManagerAppId</td><td>205</td></tr>
+<tr><td>BraintreePaymentAppId</td><td>206</td></tr>
+<tr><td>GraphicsUpdaterAppId</td><td>207</td></tr>
+<tr><td>XmlImporterFolderServerAppId</td><td>208</td></tr>
+<tr><td>SSPCustomerExportAppId</td><td>209</td></tr>
+<tr><td>OneViewAppId</td><td>210</td></tr>
+<tr><td>EdgilEccOAppId</td><td>211</td></tr>
+<tr><td>ElavonProtoBaseAppId</td><td>212</td></tr>
+<tr><td>AutoPlannerAppId</td><td>213</td></tr>
+<tr><td>BcContentMgmtSubsystemId</td><td>214</td></tr>
+<tr><td>BcSpaceMgmtSubsystemId</td><td>215</td></tr>
+<tr><td>TrafficManagerAppId</td><td>216</td></tr>
+<tr><td>SCANDARFinanceChargerAppId</td><td>217</td></tr>
+<tr><td>OneViewSelfServiceAppId</td><td>218</td></tr>
+<tr><td>FTNIAppId</td><td>219</td></tr>
+<tr><td>PayFlowTokenAppId</td><td>220</td></tr>
+<tr><td>SPHWorldPayAppId</td><td>221</td></tr>
+<tr><td>EPXAppId</td><td>222</td></tr>
+<tr><td>EdgilPayWayAppId</td><td>223</td></tr>
+<tr><td>FDHelperAppId</td><td>224</td></tr>
+<tr><td>Newsday8000ExportId</td><td>225</td></tr>
+<tr><td>AdServingAppId</td><td>226</td></tr>
+<tr><td>PreSalesAppId</td><td>227</td></tr>
+<tr><td>MSSExportAppId</td><td>228</td></tr>
+<tr><td>AdSafeExportId</td><td>229</td></tr>
+<tr><td>BroadcastFormatImporterId</td><td>230</td></tr>
+<tr><td>BroadcastPostProductionId</td><td>231</td></tr>
+<tr><td>BroadcastFeedbackImporterId</td><td>232</td></tr>
+<tr><td>GLRemapperAppId</td><td>233</td></tr>
+<tr><td>ASIStatsUtilityAppId</td><td>234</td></tr>
+<tr><td>IntegrationServicesAppId</td><td>235</td></tr>
+<tr><td>RelationUpdateInterfaceId</td><td>236</td></tr>
+<tr><td>MonerisAppId</td><td>237</td></tr>
+<tr><td>EPSFPurgerAppId</td><td>238</td></tr>
+<tr><td>GoalToolAppId</td><td>239</td></tr>
+<tr><td>ChasePaymentTechAppId</td><td>240</td></tr>
+<tr><td>ISNPDFXMLExporterAppId</td><td>241</td></tr>
+<tr><td>ImportEditorialInfoAppId</td><td>242</td></tr>
+<tr><td>PrintQueueToolAppId</td><td>243</td></tr>
+<tr><td>ReportToolAppId</td><td>244</td></tr>
+<tr><td>FirstDataAppId</td><td>245</td></tr>
+<tr><td>FieldedDataModUtilAppId</td><td>246</td></tr>
+<tr><td>DJContractAccrualExportAppId</td><td>247</td></tr>
+<tr><td>FinanceChargerAppId</td><td>248</td></tr>
+</tbody>
+</table>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/bi/bi-resources.html"><span class="arrow-prev">← </span><span>BI Resources</span></a><a class="docs-next button" href="/docs/support/adbase-core-faqs.html"><span>Adbase Core FAQS</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#bi-populator-command-line-arguments">BI Populator Command Line Arguments</a></li><li><a href="#dmuser-sysadmin-setting">dmUser SysAdmin Setting</a><ul class="toc-headings"><li><a href="#update-existing-dmuser-entry---checked">Update Existing dmUser Entry - CHECKED</a></li><li><a href="#update-existing-dmuser-entry---unchecked">Update Existing dmUser Entry - UNCHECKED</a></li><li><a href="#be-careful-changing-this-option">BE CAREFUL Changing This Option</a></li></ul></li><li><a href="#spread-logic-may-cause-large-spread-amount">Spread Logic may Cause Large Spread Amount</a></li><li><a href="#bi-populator-object-id-filter-mapping">BI Populator Object Id Filter Mapping</a></li><li><a href="#shbiinterface-table-codes">shBIInterface Table Codes</a><ul class="toc-headings"><li><a href="#function-codes">Function Codes</a></li><li><a href="#application-ids">Application Ids</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/Naviga_Logo_Dark_Icon.png" alt="Naviga Analytics" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/analytix/analytix-setup.html">Getting Started With Analytix</a><a href="/docs/bi/bi-auditors.html">BI Docs</a></div><div><h5>naviga</h5><a href="http://navigaglobal.com/" target="_blank">Website</a><a href="http://navigaglobal.com/blog/" target="_blank">naviga Blog</a><a href="https://twitter.com/navigaglobal" target="_blank">Twitter</a><a href="https://www.facebook.com/navigaglobal" target="_blank">Facebook</a><a href="https://www.linkedin.com/company/navigaglobal" target="_blank">LinkedIn</a></div><div><h5>More</h5><a href="/docs/analytix/analytix-bi-overview.html">Analytix Docs</a><a href="/docs/bi/bi-resources.html">BI Docs</a></div></section><a href="https://navigaglobal.com" target="_blank"><img src="/img/Naviga_Logo_Dark_Verticle.png" alt="naviga - Venture Forward" width="226" height="42" style="margin:1em auto;display:block;width:226px"/></a><section class="copyright">Copyright © 2020 naviga</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: 'ccd2672198948e3c79646332385b98fb',
+                indexName: 'analytix',
+                inputSelector: '#search_input_react',
+                algoliaOptions: {}
+              });
+            </script></body></html>

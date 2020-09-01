@@ -1,0 +1,182 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Using AccessPoint / IE Plugin Setup · Naviga Analytics</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="---"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Using AccessPoint / IE Plugin Setup · Naviga Analytics"/><meta property="og:type" content="website"/><meta property="og:url" content=".//index.html"/><meta property="og:description" content="---"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/Naviga_Logo_Dark_Icon.png" alt="Naviga Analytics"/><h2 class="headerTitleWithLogo">Naviga Analytics</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/docs/analytix/analytix-bi-overview.html" target="_self">Analytix</a></li><li class=""><a href="/docs/bi/bi-resources.html" target="_self">BI</a></li><li class=""><a href="/docs/insight/insight.html" target="_self">InSight</a></li><li class=""><a href="/docs/informer/informer-basics.html" target="_self">Informer</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Analytix Support Docs</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Analytix Intro</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-bi-overview.html">Analytix and BI Overview</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Analytix Setup/Main</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-preinstall-checklist.html">Analytix Pre Install Checklist</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-install.html">Analytix Install/Upgrade Guide</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-setup.html">Analytix Setup</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-admin-guide.html">Analytix Admin Guide</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-custom-scripts.html">Analytix Custom Scripts</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-auto-export-email.html">Analytix Auto Export and Email</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-source-control.html">Analytix Source Control</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Analytix User Guides</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-salesflash-userguide.html">Salesflash User Guide</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Analytix Developer Guides</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-salesflash-developerguide.html">Salesflash Developer Guide</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-training-aggr-function.html">AGGR Function Training</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-training-set-analysis.html">The Power of Set Analysis</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-balance-to-gl.html">Balancing Analytix to Core</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-exchange-rate.html">Exchange Rate / Foreign Currency in Analytix</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Analytix Support Docs</h3><ul class=""><li class="navListItem navListItemActive"><a class="navItem" href="/docs/analytix/analytix-using-accesspoint.html">Using AccessPoint / IE Plugin Setup</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-salesflash-vs-advertisinganalytix.html">SalesFlash versus AdvertisingAnalytix</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-help-advanced-search.html">Qlikview Advanced Search</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-server-management.html">Qlikview Server Management</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-server-objects.html">Qlikview Server Objects</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-license-management.html">Qlikview License (CALs) Management</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-bookmark-management.html">Qlikview Bookmark Management</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-reduce-data.html">Remove Data from Qlikview App</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-miscellaneous-support.html">Qlikview Miscellaneous Support</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Using AccessPoint / IE Plugin Setup</h1></header><article><div><span><hr>
+<ul>
+<li><a href="#how-to-access-analytix">How to Access Analytix</a>
+<ul>
+<li><a href="#analytix-url">Analytix URL</a></li>
+<li><a href="#accesspoint-home-page">AccessPoint Home Page</a></li>
+</ul></li>
+<li><a href="#the-ie-plugin">The IE Plugin</a>
+<ul>
+<li><a href="#ie-setup-and-troubleshooting">IE Setup and Troubleshooting</a></li>
+</ul></li>
+<li><a href="#opening-an-analytix-application">Opening an Analytix Application</a></li>
+<li><a href="#difference-between-plugin-and-full-browser-version">Difference between Plugin and Full Browser Version</a></li>
+</ul>
+<hr>
+<div style="page-break-after: always;"></div>
+<h2><a class="anchor" aria-hidden="true" id="how-to-access-analytix"></a><a href="#how-to-access-analytix" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>How to Access Analytix</h2>
+<p>Analytix is a web based application. This means that you will access the Analytix application using a web browser.</p>
+<p>It is recommended that you use Microsoft's IE 11 browser as there is a plugin that can be installed to make working with Analytix a bit easier.</p>
+<p>With that said, it is not required that you use the plugin or IE 11.  You may use any modern browser to access Analytix.  Please note that all documentation and screenshots of the Analytix applications are based on the plugin in an IE 11 browser.</p>
+<h3><a class="anchor" aria-hidden="true" id="analytix-url"></a><a href="#analytix-url" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Analytix URL</h3>
+<p>As with any other website, you will need a URL to get to the home page for Analyix.  This can be obtained from your network administrator or whoever is in charge of getting Analytix setup for your company.</p>
+<p>The URL will be in the format of:</p>
+<p><strong><a href="http://dnsname/qlikview">http://dnsname/qlikview</a></strong> OR</p>
+<p><strong><a href="http://ipaddress/qlikview">http://ipaddress/qlikview</a></strong></p>
+<p>The IP Address format will be a series of number (10.25.26.100).  You site administrator may also choose to map this IP address to a DNS Name to make it easier for you to remember the URL.</p>
+<p>Either way will get you to the proper place.</p>
+<p>Once you have entered the proper URL, you will be redirected to the Analytix homepage.  This homepage is called AccessPoint.</p>
+<p>Before you are able to see AccessPoint you will be presented with a login dialog.  Since Analytix is a secure application, you will need to provide login information to get to it.</p>
+<p>Your site administrator will provide you will login details, however, for most installations the login will be the same login you use to get to your AdBase servers (Citrix or other option).</p>
+<p>Make sure that you enter your user name in the format of <strong>DOMAIN\Username</strong>, not just your username.  The domain is very important.</p>
+<hr>
+<h3><a class="anchor" aria-hidden="true" id="accesspoint-home-page"></a><a href="#accesspoint-home-page" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>AccessPoint Home Page</h3>
+<p>Once you have authenticated, you will be able to see the AccessPoint home page.</p>
+<p>It will look something like this:</p>
+<p><img src="../assets/ACCESSPOINT-Main1.png" alt=""></p>
+<p>The main items you need to be aware of are:</p>
+<ol>
+<li><strong>The Plugin</strong> - If you are using IE 11 (you should be), here is the link for the Internet Explorer plugin.</li>
+<li><strong>Category</strong> - This will allow you to only the Analytix applications that you want to see.  Never leave the category set to &quot;All&quot;.  Most sites will have a &quot;Production&quot; category for their main applications.</li>
+<li><strong>Analyix Applications</strong> - These are all of your Analytix application.</li>
+</ol>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="the-ie-plugin"></a><a href="#the-ie-plugin" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>The IE Plugin</h2>
+<p>As stated before, it is recommended that you use Internet Explorer 11 with the IE Plugin installed.</p>
+<p>To install the plugin simply click the download link and install the downloaded EXE as any other windows application.  <strong>Note</strong>: Some companies restrict their users ability to install programs.  if this is the case, then you will need to contact your IT department to install the plugin.</p>
+<p>After the plugin is install, you will need to reload the AccessPoint homepage.  When you do, you should see a status message at the bottom of your browser window or popup message asking you to give the IE Plugin permission to run.  You must say yes for the plugin to work.</p>
+<h3><a class="anchor" aria-hidden="true" id="ie-setup-and-troubleshooting"></a><a href="#ie-setup-and-troubleshooting" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>IE Setup and Troubleshooting</h3>
+<p>If you experience issues seeing pop up dialogs such as the Current Selections or Bookmark dialogs, then you most likely need to disable protected mode in Internet Explorer.</p>
+<p>To do this</p>
+<ol>
+<li><p>Open Internet Explorer</p></li>
+<li><p>Navigate to the AccessPoint webpage</p></li>
+<li><p>Click the gear icon in the top right, click Internet options
+<img src="../assets/ACCESSPOINT-IE2.png" alt="1539007617571"></p></li>
+<li><p>Go to the Security tab, click Trusted sites and ensure that <em>Enable Protected Mode</em> is <strong>unchecked</strong>.
+<img src="../assets/ACCESSPOINT-IE3.png" alt="1539007657797"></p></li>
+<li><p>Click on the Sites button</p></li>
+<li><p>Make sure that the Analytix URL is listed in the Add this website to the zone field</p>
+<p>Note, that the address could either be an IP address, which is a series or numbers (100.25.251.125) OR a DNS entry which will be a name that your administrator has defined.  Either way, it should be pre populated for you as long as you were on the AccessPoint page when you started this process.
+<img src="../assets/ACCESSPOINT-IE42.png" alt="1539007737213"></p></li>
+<li><p>Click Add, then Close</p></li>
+<li><p>Click Apply, then OK</p></li>
+<li><p>Restart Internet Explorer</p></li>
+</ol>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="opening-an-analytix-application"></a><a href="#opening-an-analytix-application" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Opening an Analytix Application</h2>
+<p>Before you open an Analytix application, you really should select a category.  Your system admin will tell you which category your production Analytix resides in, however it most likely will be called <strong>Production</strong>.</p>
+<p>Once you have chosen the &quot;Production&quot; category, you will see the following:</p>
+<p><img src="../assets/ACCESSPOINT-Open1.png" alt=""></p>
+<p>To open an application, either click on the image of the application or click on the named link of the application that you want to open.</p>
+<p>This will open the application in either the plugin or as a &quot;Full Browser Version&quot; which is the application without the plugin.</p>
+<p>If you use the plug in, the screen will look like the image below.  Note that the toolbar has color icons.</p>
+<p><strong><em>Plugin version</em></strong></p>
+<p><img src="../assets/ACCESSPOINT-IE1.png" alt=""></p>
+<p>If you are using the full browser version, then the toolbar will be in black and white.</p>
+<p><strong><em>Full Browser Version</em></strong></p>
+<p><img src="../assets/ACCESSPOINT-JS1.png" alt=""></p>
+<h3><a class="anchor" aria-hidden="true" id="choosing-plugin-or-full-browser-version"></a><a href="#choosing-plugin-or-full-browser-version" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Choosing Plugin or Full Browser Version</h3>
+<p>If you click on the <strong>view details</strong> link under each application, you will see a popup box with some additional information.</p>
+<p><img src="../assets/ACCESSPOINT-ViewDetails1.png" alt=""></p>
+<p>You will see the different options available to you for opening the application.  If you are in IE with the plugin installed, then you will have the &quot;Internet Explorer Plugin&quot; option available.  All other browsers will have the &quot;Full Browser Version&quot; and possibly the &quot;Small Device Version&quot;.</p>
+<p>Simply click on the option you wish to use to open Analytix.  If you have the IE Plugin version available, that is the suggested option to use.</p>
+<p>The &quot;Remove last document state&quot; button is only useful when opening Analytix in the &quot;Full Browser Version&quot;.  This will reset your Analytix session so you start out on the &quot;Selection Criteria&quot; screen when opening Analytix.</p>
+<h2><a class="anchor" aria-hidden="true" id="difference-between-plugin-and-full-browser-version"></a><a href="#difference-between-plugin-and-full-browser-version" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Difference between Plugin and Full Browser Version</h2>
+<p>There are a few significant differences when you are not using the plugin to view Analytix.</p>
+<ol>
+<li><strong>Document State</strong> - The Full Browser Version retains the last document state when you quick your browsing session.  For example, if you are on the Advertising Tab and have 10 products selected and then exit your browser, when you open Analytix again using the Full Browser Version, you will be back on the Advertising tab, with those 10 products selected.  This is in contract to the IE plugin where every time you start Analytix, you have no selections and are on the Selection Criteria tab.</li>
+<li><strong>Chart Creation</strong> - If you are creating charts, the IE plugin greatly simplifies this process.</li>
+<li><strong>Bookmark and Object Access</strong> - Accessing and sharing bookmarks and objects differ depending on if you are using the plugin or not.</li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="bookmarkobject-access"></a><a href="#bookmarkobject-access" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Bookmark/Object Access</h3>
+<h4><a class="anchor" aria-hidden="true" id="ie-version"></a><a href="#ie-version" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>IE Version</h4>
+<p>If using the Plugin in Internet Explorer, the easiest way to access your bookmarks will be by pressing the F2 key or clicking on the Server Objects icon in the toolbar.</p>
+<p><img src="../assets/ACCESSPOINT-SOIcon1.png" alt=""></p>
+<p>This will open the <strong>Server Object Pane</strong>, where you will be able to see all of your Bookmarks and Objects as well as all shared Bookmarks and Objects.</p>
+<h4><a class="anchor" aria-hidden="true" id="full-browser-version"></a><a href="#full-browser-version" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Full Browser Version</h4>
+<p>To access your bookmarks in the full browser version, you will need to find an empty area of the screen and right-click, then choose <strong>Repository</strong> or click on the Repository icon in the toolbar.</p>
+<p><img src="../assets/ACCESSPOINT-RepositoryIcon.png" alt=""></p>
+<p>The Repository allows you to view your own and shared bookmarks and objects.</p>
+<p><img src="../assets/ACCESSPOINT-Repository.png" alt=""></p>
+<p>There are two drop downs in the repository dialog.</p>
+<ol>
+<li>Allows you to choose to see Your items or Shared items or both.</li>
+<li>Allows you to choose the sorting of Objects and Bookmarks.</li>
+</ol>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/analytix/analytix-exchange-rate.html"><span class="arrow-prev">← </span><span>Exchange Rate / Foreign Currency in Analytix</span></a><a class="docs-next button" href="/docs/analytix/analytix-salesflash-vs-advertisinganalytix.html"><span class="function-name-prevnext">SalesFlash versus AdvertisingAnalytix</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#how-to-access-analytix">How to Access Analytix</a><ul class="toc-headings"><li><a href="#analytix-url">Analytix URL</a></li><li><a href="#accesspoint-home-page">AccessPoint Home Page</a></li></ul></li><li><a href="#the-ie-plugin">The IE Plugin</a><ul class="toc-headings"><li><a href="#ie-setup-and-troubleshooting">IE Setup and Troubleshooting</a></li></ul></li><li><a href="#opening-an-analytix-application">Opening an Analytix Application</a><ul class="toc-headings"><li><a href="#choosing-plugin-or-full-browser-version">Choosing Plugin or Full Browser Version</a></li></ul></li><li><a href="#difference-between-plugin-and-full-browser-version">Difference between Plugin and Full Browser Version</a><ul class="toc-headings"><li><a href="#bookmarkobject-access">Bookmark/Object Access</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/Naviga_Logo_Dark_Icon.png" alt="Naviga Analytics" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/analytix/analytix-setup.html">Getting Started With Analytix</a><a href="/docs/bi/bi-auditors.html">BI Docs</a></div><div><h5>naviga</h5><a href="http://navigaglobal.com/" target="_blank">Website</a><a href="http://navigaglobal.com/blog/" target="_blank">naviga Blog</a><a href="https://twitter.com/navigaglobal" target="_blank">Twitter</a><a href="https://www.facebook.com/navigaglobal" target="_blank">Facebook</a><a href="https://www.linkedin.com/company/navigaglobal" target="_blank">LinkedIn</a></div><div><h5>More</h5><a href="/docs/analytix/analytix-bi-overview.html">Analytix Docs</a><a href="/docs/bi/bi-resources.html">BI Docs</a></div></section><a href="https://navigaglobal.com" target="_blank"><img src="/img/Naviga_Logo_Dark_Verticle.png" alt="naviga - Venture Forward" width="226" height="42" style="margin:1em auto;display:block;width:226px"/></a><section class="copyright">Copyright © 2020 naviga</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: 'ccd2672198948e3c79646332385b98fb',
+                indexName: 'analytix',
+                inputSelector: '#search_input_react',
+                algoliaOptions: {}
+              });
+            </script></body></html>

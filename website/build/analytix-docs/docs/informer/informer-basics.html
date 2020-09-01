@@ -1,0 +1,477 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Informer Basics · Naviga Analytics</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## Informer Support Links"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Informer Basics · Naviga Analytics"/><meta property="og:type" content="website"/><meta property="og:url" content=".//index.html"/><meta property="og:description" content="## Informer Support Links"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/Naviga_Logo_Dark_Icon.png" alt="Naviga Analytics"/><h2 class="headerTitleWithLogo">Naviga Analytics</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/docs/analytix/analytix-bi-overview.html" target="_self">Analytix</a></li><li class=""><a href="/docs/bi/bi-resources.html" target="_self">BI</a></li><li class=""><a href="/docs/insight/insight.html" target="_self">InSight</a></li><li class="siteNavGroupActive siteNavItemActive"><a href="/docs/informer/informer-basics.html" target="_self">Informer</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Informer Docs</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Informer Docs</h3><ul class=""><li class="navListItem navListItemActive"><a class="navItem" href="/docs/informer/informer-basics.html">Informer Basics</a></li><li class="navListItem"><a class="navItem" href="/docs/informer/informer-javascript.html">Informer JavaScript Use</a></li><li class="navListItem"><a class="navItem" href="/docs/informer/informer-system.html">Informer System Stuff</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Informer Basics</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="informer-support-links"></a><a href="#informer-support-links" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Informer Support Links</h2>
+<ul>
+<li><a href="https://informer5.zendesk.com/hc/en-us/articles/360001162923-6-7-Advanced-Filters">Advanced Filters</a></li>
+<li><a href="https://informer5.zendesk.com/hc/en-us/articles/360001210986-Why-Use-Datasets-vs-Ad-Hoc-Queries-">Why Datasets vs AdHoc Report</a></li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="datasets-vs-ad-hoc-reports"></a><a href="#datasets-vs-ad-hoc-reports" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Datasets vs Ad Hoc Reports</h2>
+<p>The big difference between Ad Hoc Report and Datasets are that the data in a <strong>Dataset</strong> is persisted, whereas the data in an <strong>Ad Hoc Report</strong> is temporary.  The reason this is important is that a single dataset could drive multiple users Charts and exports, whereas an Ad Hoc Report would need to be run for each user.  This means hitting the database and waiting for the query behind the Ad Hoc report to run.</p>
+<p>Datasets also bring a number of other benefits.</p>
+<ul>
+<li><strong>Single source of truth</strong> - A single dataset can provide data to multiple charts and exports for many users, thus making sure all users are seeing the same data.</li>
+<li><strong>Less stress on the database</strong> - Given that the data in a Dataset is persisted.  The dataset can be scheduled to reload one or more times a day and then reports will access this data instead of running each time a report is requested.</li>
+<li><strong>Stored Visuals</strong> - You can create common visuals and store them on the Dataset.  This allows end users to quickly see the data in the dataset visualized.</li>
+<li><strong>Stored Filters</strong> - You can store common filters making it easy for users to filter the data with a single click.</li>
+<li><strong>Comparison boards and Dashboards</strong> - Datasets are needed to be able to create and use Comparison boards and Dashboards</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="creating-a-dataset-from-an-ad-hoc-report"></a><a href="#creating-a-dataset-from-an-ad-hoc-report" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Creating a Dataset from an Ad Hoc Report</h2>
+<p>A dataset and an Ad-Hoc report  have many of the same features, however the dataset is the preferred format if you plan on scheduling the query to run at certain intervals and what multiple users to be able to use reports built from the dataset.</p>
+<p>For example, if you had 10 users who needed the data from a query and it was built as an Ad-Hoc report, the database would be hit 10 times to produce the data.  Once for each user running the report.</p>
+<p>However, if the query was build as a Dataset and was scheduled to be reloaded every 6 hours, then those 10 users could access the data with just a single run of the query against the DB every 6 hours.</p>
+<p>This is a change from Informer 4, so you will see that all of the base reports and imported reports come into Informer 5 as Ad-Hoc reports.  Luckily, it is very easy to convert these Ad-Hoc reports into Datasets.</p>
+<h3><a class="anchor" aria-hidden="true" id="step-1"></a><a href="#step-1" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Step 1</h3>
+<p>Find the report you want to covert to a Dataset, open it and run it.</p>
+<p><img src="../assets/informer_tips_dataset_001.png" alt="image-20200227150927583"></p>
+<p>This is very important, as the report must have data in it for you to get the &quot;Create Dataset&quot; option.</p>
+<h3><a class="anchor" aria-hidden="true" id="step-2"></a><a href="#step-2" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Step 2</h3>
+<p>Click on the vertical 3 dots in the right corner and choose &quot;Create Dataset&quot;</p>
+<p><img src="../assets/informer_tips_dataset_002.png" alt="image-20200227151705836"></p>
+<p>This will bring up a dialog where you can name your Dataset and give it a description.</p>
+<p>Once done with that you will be taken to the Dataset view of the report you converted.</p>
+<p><img src="../assets/informer_tips_dataset_003.png" alt="image-20200227151858789"></p>
+<h2><a class="anchor" aria-hidden="true" id="informer-tips"></a><a href="#informer-tips" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Informer Tips</h2>
+<h3><a class="anchor" aria-hidden="true" id="current-month---yoy-using-criteria"></a><a href="#current-month---yoy-using-criteria" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Current Month - YOY Using Criteria</h3>
+<p>To pull data for the current month from both this year and last year from a dataset, you can use the following <strong>Criteria</strong></p>
+<p><img src="../assets/informer_tips_002.png" alt="1573242474960"></p>
+<p>This is accomplished by creating a Group in the Criteria section of a query.</p>
+<p>Since you want to get data from both the current month and the current month from the previous year, make sure to mark the group as &quot;Match one of&quot;</p>
+<p><img src="../assets/informer_tips_001.PNG" alt="img"></p>
+<p>Next, add criteria and choose the date field you want to filter on.  The first criteria will be using the <em>inclusive between</em> comparison.  This will allow you to choose two values for the between to match on.</p>
+<p>To make this dynamic, so that you do not need to change the criteria every month, you can use informer <em>keywords</em> to populate our between values.  You can access a list of the keywords from within Informer as well:</p>
+<p><img src="../assets/informer_tips_003.png" alt="1573243161315"></p>
+<p>You will populate the two values with <strong>MONTH_BEGIN</strong> and <strong>MONTH_END</strong>.  This will instruct informer to look at today's date to determine what is the starting and ending of the month.</p>
+<p>This will give us the current month's data, but we also want last years data for the same month.</p>
+<p>Add a new Criteria row and using the same date field as the other criteria do another <em>inclusive between</em> comparison, but this time instruct informer to pull last years data.  Using Informer's keywords <strong>MONTH_BEGIN-1Y</strong> and <strong>MONTH_END-1Y</strong>.</p>
+<p>Notice all that was needed was using the Years modifier and specifying how many years to subtract.</p>
+<h3><a class="anchor" aria-hidden="true" id="current-month---yoy-using-a-calculated-field"></a><a href="#current-month---yoy-using-a-calculated-field" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Current Month - YOY Using a Calculated Field</h3>
+<p>A calculated field won't limit your dataset, but you can use it to create a field using JavaScript to pull only specific data.</p>
+<p>This field doesn't make sense, but, create a Flow Step -&gt; Calculated Field:</p>
+<p><img src="../assets/informer_tips_005.png" alt="img"></p>
+<p>If you want to have a field that only contains priceActAmout for rows with a startDate of 2018, do this:</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">if</span>(moment(startDate).year() === moment().year()<span class="hljs-number">-1</span>) {
+    priceActAmt
+} <span class="hljs-keyword">else</span> {
+    <span class="hljs-number">0</span>
+}
+</code></pre>
+<p>See the <a href="./informer-javascript/#calculated-fields">Informer JavaScript Docs</a> for more examples of Calculated Fields.</p>
+<h3><a class="anchor" aria-hidden="true" id="viewing-a-dataset-query"></a><a href="#viewing-a-dataset-query" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Viewing a Dataset Query</h3>
+<p>When creating complex criteria, it is sometimes nice to be able to see the query that Informer constructs.  This will allow you to verify that your criteria is actually doing what you want it to.</p>
+<p>The following can be done when <em>editing</em> a <strong>Dataset</strong> or <strong>Report</strong>.</p>
+<p>Just click on the ellipses near the Query title and choose <strong>View code</strong></p>
+<p><img src="../assets/informer_tips_004.png" alt="1573243670998"></p>
+<p>This will pop up a window called <strong>Query code</strong>. It won't look pretty, but you will be able to see how Informer has interpreted how you built your criteria.</p>
+<p>Here is an example:</p>
+<pre><code class="hljs css language-sql"><span class="hljs-keyword">SELECT</span> INET.CAMPAIGNS <span class="hljs-keyword">WITH</span> (EVAL <span class="hljs-string">"OCONV(CAMPAIGN.TYPE,'MCU')"</span> = <span class="hljs-string">"M"</span> <span class="hljs-keyword">AND</span> EVAL <span class="hljs-string">"OCONV(STATUS.CODE,'MCU')"</span> NE <span class="hljs-string">"AC"</span> <span class="hljs-keyword">AND</span> EVAL <span class="hljs-string">"OCONV(STATUS.CODE,'MCU')"</span> NE <span class="hljs-string">"DE"</span> <span class="hljs-keyword">AND</span> EVAL <span class="hljs-string">"OCONV(STATUS.CODE,'MCU')"</span> NE <span class="hljs-string">"KI"</span> <span class="hljs-keyword">AND</span> EVAL <span class="hljs-string">"OCONV(STATUS.CODE,'MCU')"</span> UNLIKE <span class="hljs-string">"Q..."</span> <span class="hljs-keyword">AND</span> ((START.DATE &gt;= <span class="hljs-string">"11/01/2019"</span> <span class="hljs-keyword">AND</span> START.DATE &lt;= <span class="hljs-string">"11/30/2019"</span>) <span class="hljs-keyword">OR</span> (START.DATE &gt;= <span class="hljs-string">"11/01/2018"</span> <span class="hljs-keyword">AND</span> START.DATE &lt;= <span class="hljs-string">"11/30/2018"</span>)))
+<span class="hljs-keyword">LIST</span> INET.CAMPAIGNS EVAL <span class="hljs-string">"CHAR(244):CHAR(171):CONVERT(CHAR(253),CHAR(250),CONVERT(CHAR(252),CHAR(249),CONVERT(CHAR(251),CHAR(248),CONVERT(CHAR(32),CHAR(7),CONVERT(CHAR(4),CHAR(245),CONVERT(CHAR(13),CHAR(247),CONVERT(CHAR(10),CHAR(246),SUBR('-OCONVS',CAMPAIGN.ID,'MD00'):CHAR(166):ADV.NAME:CHAR(166):AGENCY.NAME:CHAR(166):WEB.GROUP:CHAR(166):STATUS.CODE:CHAR(166):SUBR('-OCONVS',START.DATE,'D4/'):CHAR(166):SUBR('-OCONVS',END.DATE,'D4/'):CHAR(166):SUBR('-OCONVS',COST,'MD22'):CHAR(166):SUBR('-OCONVS',COMMISSION,'MD22'):CHAR(166):SUBR('ESC.AT.V5',WEB.SITE):CHAR(166):SUBR('ESC.AT.V5',PRICE.DESC):CHAR(166):SUBR('ESC.AT.V5',SUBR('-OCONVS',PRICE.START.DATE,'D4/')):CHAR(166):SUBR('ESC.AT.V5',SUBR('-OCONVS',PRICE.END.DATE,'D4/')):CHAR(166):SUBR('ESC.AT.V5',SUBR('-OCONVS',PRICE.PER.UNIT,'MD55')):CHAR(166):SUBR('ESC.AT.V5',SUBR('-OCONVS',PRICE.QTY,'MD00')):CHAR(166):SUBR('ESC.AT.V5',SUBR('-OCONVS',PRICE.EXT,'MD22')):CHAR(166):SUBR('ESC.AT.V5',SUBR('-OCONVS',PRICE.ACTUAL.IMPS,'MD00')):CHAR(166):SUBR('ESC.AT.V5',SUBR('-OCONVS',PRICE.ACT.AMT,'MD22')):CHAR(166):SUBR('ESC.AT.V5',SUBR('-OCONVS',TRANS('INF_INET.ORDERS',PRICE.LINEID,'ACT.AMT','X'),'MD22')):CHAR(166):STATUS.DESC:CHAR(166):WEB.GROUP.NAME))))))):CHAR(187)"</span> CNV <span class="hljs-string">""</span> FMT <span class="hljs-string">"80L"</span> ID.SUP COUNT.SUP COL.SPCS <span class="hljs-number">0</span> HDR.SUP COL.SUP REQUIRE.SELECT
+</code></pre>
+<p>You can go to <a href="http://www.dpriver.com/pp/sqlformat.htm">Instant SQL Formatter</a> to clean up the above query ... a little.</p>
+<p>If you look at the <a href="#current-month---yoy_using_criteria">Current Month - YOY Example</a>, we create a group and did two <em>inclusive between</em> comparisons on Start Date.  If you look at the SQL below, you will see that part of the code start at line 6.</p>
+<pre><code class="hljs css language-sql"><span class="hljs-keyword">SELECT</span> inet.campaigns <span class="hljs-keyword">with</span> (eval <span class="hljs-string">"OCONV(CAMPAIGN.TYPE,'MCU')"</span> = <span class="hljs-string">"M"</span> 
+<span class="hljs-keyword">AND</span>    eval <span class="hljs-string">"OCONV(STATUS.CODE,'MCU')"</span> ne <span class="hljs-string">"AC"</span> 
+<span class="hljs-keyword">AND</span>    eval <span class="hljs-string">"OCONV(STATUS.CODE,'MCU')"</span> ne <span class="hljs-string">"DE"</span> 
+<span class="hljs-keyword">AND</span>    eval <span class="hljs-string">"OCONV(STATUS.CODE,'MCU')"</span> ne <span class="hljs-string">"KI"</span> 
+<span class="hljs-keyword">AND</span>    eval <span class="hljs-string">"OCONV(STATUS.CODE,'MCU')"</span> unlike <span class="hljs-string">"Q..."</span> 
+<span class="hljs-keyword">AND</span>    (( 
+                     start.date &gt;= <span class="hljs-string">"11/01/2019"</span> 
+              <span class="hljs-keyword">AND</span>    start.date &lt;= <span class="hljs-string">"11/30/2019"</span>) 
+       <span class="hljs-keyword">OR</span>     ( 
+                     start.date &gt;= <span class="hljs-string">"11/01/2018"</span> 
+              <span class="hljs-keyword">AND</span>    start.date &lt;= <span class="hljs-string">"11/30/2018"</span>))) <span class="hljs-keyword">list</span> inet.campaigns eval <span class="hljs-string">"CHAR(244):CHAR(171):CONVERT(CHAR(253),CHAR(250),CONVERT(CHAR(252),CHAR(249),CONVERT(CHAR(251),CHAR(248),CONVERT(CHAR(32),CHAR(7),CONVERT(CHAR(4),CHAR(245),CONVERT(CHAR(13),CHAR(247),CONVERT(CHAR(10),CHAR(246),SUBR('-OCONVS',CAMPAIGN.ID,'MD00'):CHAR(166):ADV.NAME:CHAR(166):AGENCY.NAME:CHAR(166):WEB.GROUP:CHAR(166):STATUS.CODE:CHAR(166):SUBR('-OCONVS',START.DATE,'D4/'):CHAR(166):SUBR('-OCONVS',END.DATE,'D4/'):CHAR(166):SUBR('-OCONVS',COST,'MD22'):CHAR(166):SUBR('-OCONVS',COMMISSION,'MD22'):CHAR(166):SUBR('ESC.AT.V5',WEB.SITE):CHAR(166):SUBR('ESC.AT.V5',PRICE.DESC):CHAR(166):SUBR('ESC.AT.V5',SUBR('-OCONVS',PRICE.START.DATE,'D4/')):CHAR(166):SUBR('ESC.AT.V5',SUBR('-OCONVS',PRICE.END.DATE,'D4/')):CHAR(166):SUBR('ESC.AT.V5',SUBR('-OCONVS',PRICE.PER.UNIT,'MD55')):CHAR(166):SUBR('ESC.AT.V5',SUBR('-OCONVS',PRICE.QTY,'MD00')):CHAR(166):SUBR('ESC.AT.V5',SUBR('-OCONVS',PRICE.EXT,'MD22')):CHAR(166):SUBR('ESC.AT.V5',SUBR('-OCONVS',PRICE.ACTUAL.IMPS,'MD00')):CHAR(166):SUBR('ESC.AT.V5',SUBR('-OCONVS',PRICE.ACT.AMT,'MD22')):CHAR(166):SUBR('ESC.AT.V5',SUBR('-OCONVS',TRANS('INF_INET.ORDERS',PRICE.LINEID,'ACT.AMT','X'),'MD22')):CHAR(166):STATUS.DESC:CHAR(166):WEB.GROUP.NAME))))))):CHAR(187)"</span> cnv <span class="hljs-string">""</span> fmt <span class="hljs-string">"80L"</span> id.sup count.sup col.spcs <span class="hljs-number">0</span> hdr.sup col.sup require.SELECT
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="loading-external-attribute-data"></a><a href="#loading-external-attribute-data" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Loading External Attribute Data</h2>
+<p>If you have external attribute data (Excel, CSV, etc) you can load this into a dataset in Informer and than &quot;add&quot; this data to another dataset via a Flow Step.</p>
+<p>One example of external data that would work would be extra customer attributes that are not in the main database, old account number, other name, etc.</p>
+<p>Until I research it more, I'm don't think this would be a way you could bring in Goal or Budget data, however, I could be wrong.</p>
+<p>The easy application is external data with a  1 to 1 mapping to another data point.</p>
+<p>Here is an easy example.  I have a dataset in Informer with a bunch of information, one of them being the Agency Name.  I also have an external spreadsheet with the <strong>Agency Name</strong> and an <strong>Agency Alias</strong>.</p>
+<p>The end goal is to link the spreadsheet to the dataset on <strong>Agency Name</strong>.</p>
+<p>To do this, you first must create a dataset from your external spreadsheet.  You can accomplish this in a number of ways, here are two:</p>
+<ol>
+<li><p>Go to the <strong>Datasets page</strong> in Informer and drag and drop your Excel file
+<img src="../assets/informer_tips_006.png" alt="1574192288686"></p>
+<p>You will the dialog above, simply drop the file here.</p>
+<p><img src="../assets/informer_tips_007.png" alt="1574192477192"></p></li>
+</ol>
+<p>Give the dataset a name and choose the sheet (this is an excel file) that the data is located on.</p>
+<ol start="2">
+<li><p>Or, Click on the New Dataset button and choose upload a file:</p>
+<p><img src="../assets/informer_tips_009.png" alt="1574192719800"></p>
+<p>Then choose a file and fill in the Dataset name and Sheet name where data is located.</p>
+<p><img src="../assets/informer_tips_008.png" alt="1574192675476"></p>
+<p>Click Save.</p></li>
+</ol>
+<p>This will upload the data in the external file and create a new Dataset.  You will see it in your list of Datasets:</p>
+<p><img src="../assets/informer_tips_010.png" alt="1574192840659"></p>
+<p>To get the Agency Alias into another Dataset, simply open the Dataset that you want to append the external data to and create a field using the Flow Step, <em>Add Field/Fields from another Dataset</em></p>
+<p><img src="../assets/informer_tips_011.png" alt="1574193038428"></p>
+<p>This Flow will have you select the dataset where the target field resides (AgencyAliasExternal Dataset) and then you must link these Datasets by choosing the fields from each dataset that will create the link.  In our case, it is simply the Agency Name.</p>
+<p><img src="../assets/informer_tips_012.png" alt="1574193254407"></p>
+<p>The other important setting is choosing the fields you would like to.  Click and add the fields that you want.  In this example, it is just the Agency Alias.</p>
+<p>The <em>What if more than one value matches?</em> option can be left as <em>Only use the first value</em>.</p>
+<p>The <em>Prefix field labels</em> setting allows you to add a prefix to these import fields so that you can better identify them as coming from another dataset.  It is optional.</p>
+<h2><a class="anchor" aria-hidden="true" id="flow-steps"></a><a href="#flow-steps" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Flow Steps</h2>
+<h3><a class="anchor" aria-hidden="true" id="normalize"></a><a href="#normalize" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Normalize</h3>
+<p>Splits array values into individual rows for each value in the array.</p>
+<p>I tested on a dataset that had multiple <em>array</em> fields in it and when I normalized on all of the array fields, it &quot;lined&quot; up the arrays.</p>
+<p><strong>Without Normalize flow step:</strong></p>
+<p><img src="../assets/informer_tips_013.png" alt="1576164558349"></p>
+<p><strong>With the Normalize flow step:</strong></p>
+<p><img src="../assets/informer_tips_013-2.png" alt="1576165545982"></p>
+<blockquote>
+<p>If your query contains a one to many join (think order to order details type query), Normalize will duplicate the &quot;one&quot; fields for each &quot;many&quot;.</p>
+<p>If you don't normalize, you will get something that looks like you have multivalued fields.</p>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="filters"></a><a href="#filters" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Filters</h2>
+<p>Filters can be found in many places within Informer.  Their main purpose is to further limit the data that is loaded in a Dataset or Ad Hoc Report.</p>
+<p>Filters applied from different areas will work a little differently and it is important to understand how they differ.</p>
+<p>To start let's look at the different ways to use filters on a Dashboard Report.</p>
+<h3><a class="anchor" aria-hidden="true" id="variables--user-fields"></a><a href="#variables--user-fields" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Variables / User Fields</h3>
+<p>User Fields can be created on the Administration panel by click on the <strong>User Fields</strong> option.</p>
+<p>Once a user field has been created, you can assign it to a user(s) and give it a value.  Then you can access any user field in either criteria or filters to limit the data based on the value in these users fields.</p>
+<p><strong>Filtering - Variables</strong>.  You can setup certain variables that are unique for each user.  For example, <em>Department</em> could be a variable that would be each users department so when they ran the filter it would automatically filter by their department.</p>
+<h2><a class="anchor" aria-hidden="true" id="filters---using-the-dates"></a><a href="#filters---using-the-dates" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Filters - Using the Dates</h2>
+<h3><a class="anchor" aria-hidden="true" id="date-keywords"></a><a href="#date-keywords" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Date Keywords</h3>
+<p>Using Date keywords in your filters will allow you to get dynamic date filtering.  Meaning this filtering will update based on the current date when the filter is run.</p>
+<p>Here are the keywords:</p>
+<p><img src="../assets/informer_tips_003.png" alt="1573243161315"></p>
+<p><strong>WEEK_BEGIN, WEEK_END</strong> are keywords not listed in box above, but are available to use.</p>
+<p>All keywords resolve to a single date.  For example <strong>TODAY</strong> will be today's date.  <strong>YEAR_BEGIN</strong> will be January 1st of the current year.  I believe <strong>NOW</strong> is the only keyword to incorporate the current time.</p>
+<p>The Keywords by themselves would allow us to do a whole lot, but the <strong>modifiers</strong> really add power.</p>
+<p>The modifiers allow you to take the date returned by the Keyword and change it by years, quarters, months, weeks or days.</p>
+<p>For example, if the filter needed is Start of the Year <strong>two years ago</strong> through the Current Start of the Year.  If today's date is 5/5/2020, the filter being requested is:</p>
+<p><strong>01/01/2018</strong> through <strong>01/01/2020</strong></p>
+<p>Using the modifiers we can accomplish this as follows:</p>
+<ul>
+<li><strong>YEAR_BEGIN-2y</strong> = 01/01/2018</li>
+<li><strong>YEAR_BEGIN</strong> = 01/01/2020</li>
+</ul>
+<blockquote>
+<p>You can have one modifier modifying each Date Keyword.  You <strong>cannot</strong> do something like this: YEAR_BEGIN-2y+2m</p>
+<p>To accomplish this you would instead do:</p>
+<p>YEAR_BEGIN-22m</p>
+</blockquote>
+<blockquote>
+<p><strong>BUG ALERT</strong> - I did find an issue when trying to use YEAR_BEGIN with no modifiers.  It didn't return anything.  To make it return the current YEAR_BEGIN adding a + or - after it seemed to work:
+<strong>YEAR_BEGIN+</strong></p>
+</blockquote>
+<p><strong>To create a filter</strong> using Date Keywords, select the Date keyword option, which will show in your filter options if you are on a field typed as Date.</p>
+<p><img src="../assets/informer_tips_date-filters-001.png" alt="1578944607855"></p>
+<p>This will present you with a side bar area where you can build your filter.</p>
+<p>When building your filter, another feature of Date keywords that you need to understand is how to tell your filter how to <em>filter</em> on the date keyword you create.  You have the following options:</p>
+<p><img src="../assets/informer_tips_date-filters-002.png" alt="1578944723488"></p>
+<blockquote>
+<p>In the example below, assume the <strong><em>Date Keyword</em></strong> is <strong>YEAR_BEGIN</strong> and it will return a date of <strong>01/01/2020</strong> and the field being filtered is <strong>StartDate</strong></p>
+</blockquote>
+<ul>
+<li><p><strong>on</strong> - Only return records that match the date returned by your Date Keyword.</p>
+<blockquote>
+<p><strong>StartDate = 01/01/2020</strong></p>
+</blockquote></li>
+<li><p><strong>on or before</strong> - Return records where dates are less than or equal to the date returned by your Date Keyword.</p>
+<blockquote>
+<p><strong>StartDate &lt;= 01/01/2020</strong></p>
+</blockquote></li>
+<li><p><strong>before</strong> -  Return records where dates are less than the date returned by your Date Keyword.</p>
+<blockquote>
+<p><strong>StartDate &lt; 01/01/2020</strong></p>
+</blockquote></li>
+<li><p><strong>on or after</strong> -  Return records where dates are greater than or equal to the date returned by your Date Keyword.</p>
+<blockquote>
+<p><strong>StartDate &gt;= 01/01/2020</strong></p>
+</blockquote></li>
+<li><p><strong>after</strong> - Return records where dates are greater than the date returned by your Date Keyword.</p>
+<blockquote>
+<p><strong>StartDate &gt; 01/01/2020</strong></p>
+</blockquote></li>
+</ul>
+<p>You can create multiple rows in your filter to achieve the filter that you want.</p>
+<p>An example would be creating a filter that would select all dates from the beginning of the previous year, to the end of the current year.  Please note there are multiple ways to structure this filter, I will only present one.</p>
+<p>If today's date is 5/5/2020, our filter should do the following</p>
+<p><strong>StartDate &gt;=01/01/2019 and StartDate &lt; 01/01/2021</strong></p>
+<p><img src="../assets/informer_tips_date-filters-003.png" alt="1578947893225"></p>
+<h3><a class="anchor" aria-hidden="true" id="date-relative-to-now"></a><a href="#date-relative-to-now" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Date Relative to Now</h3>
+<p><strong>Date Relative to Now</strong> creates a filter that lets you look into the past or future in relation to today's date.   The first field will be either 'Next' or 'Past'. The middle field is a positive integer that needs the final field to tell the filter if it will be days, weeks, months or years.</p>
+<p><img src="../assets/informer_tips_date-filters-004.png" alt="1578948578949"></p>
+<p>Keep in mind that when filtering for the Next/Past of anything, it doesn't take the current date to be part of the Next/Past selection.</p>
+<blockquote>
+<p><strong>Past WILL</strong> include today's date in the filtered dates</p>
+<p><strong>Next WILL NOT</strong> include today's date in the filtered dates</p>
+</blockquote>
+<p><strong>Some examples based on Today's Date of 1/13/2020</strong></p>
+<ul>
+<li><strong>Past 2 Days</strong> - Returns 1/11/2020-1/13/2020</li>
+<li><strong>Past 2 Weeks</strong> - Returns 12/30/2019-1/13/2020</li>
+<li><strong>Next 2 Months</strong> Returns 1/14/2020 - 3/31/2020 - Notice it returned the <em>Next</em> full 2 months</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="date-range"></a><a href="#date-range" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Date Range</h3>
+<p>The tried and true date range is simply that.  Enter a starting and an ending date range to filter on.</p>
+<h3><a class="anchor" aria-hidden="true" id="distinct-values"></a><a href="#distinct-values" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Distinct Values</h3>
+<p>Allows filtering by Years, Months, etc.  If the filter needed is Nov and Dec of 2019, 2020, Distinct Values will get you there.</p>
+<p>When you choose Distinct Values on a Date field, you will initially be presented with the years available in the date field to select.  However, by clicking on the ellipses you will have the option to change the date period to something else.</p>
+<p><img src="../assets/informer_tips_date-filters-005.png" alt="1578949557137"></p>
+<p>In our example, filter by Nov and Dec of 2019 and 2020, you would need to add two Distinct value filters.  The first for the years and the second for the months.  It would like like this:</p>
+<p><img src="../assets/informer_tips_date-filters-006.png" alt="1578949720984"></p>
+<h2><a class="anchor" aria-hidden="true" id="filters---reports"></a><a href="#filters---reports" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Filters - Reports</h2>
+<p>When you filter any type of report, there are two places where you can filter the report.</p>
+<p>The two places are at the top level of the report and the other is when you are inside and editing the report.</p>
+<p><img src="..\assets\informer_tips_filters-reports-001.png" alt="image-20200727134604915"></p>
+<p>When filtering at this level, it is only for your user.  Only your user will see it.</p>
+<p>If you want all users to see the filter, you will need to click on the <strong>Edit</strong> button and set your filter in this area.</p>
+<p>Once you click on the Edit button, click on the vertical ellipsis by the Dataset name and choose <strong>Custom Filter</strong></p>
+<p><img src="..\assets\informer_tips_filters-reports-002.png" alt="image-20200727135103551"></p>
+<p>After you have created your filter, you can click on the <strong>Apply</strong> button.</p>
+<p><img src="..\assets\informer_tips_filters-reports-003.png" alt="image-20200727135222389"></p>
+<p>This will &quot;bake in&quot; the filter to your report.  The other option would be to Save the filter by clicking on the save icon.  However, the user who created and saved the filter and other super users will be the only one who will be able to see and apply the filter.</p>
+<p>Saving the filter is useful if you have a complex filter that you want saved on your report.  Sometimes, to create a complex filter, you need saved portions of it.</p>
+<h2><a class="anchor" aria-hidden="true" id="datasets"></a><a href="#datasets" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Datasets</h2>
+<p>The data in a Dataset will be persisted.  Meaning that once loaded, it will be available for future use, while the Ad Hoc query's data is dumped after it is done being used.</p>
+<p>Persisted but not updated data would work for historical data, but for reporting that requires current data the dataset data must be refreshed at certain intervals to be useful.</p>
+<p>You can do this by scheduling a job to run to refresh your datasets.</p>
+<h3><a class="anchor" aria-hidden="true" id="copying-datasets"></a><a href="#copying-datasets" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Copying Datasets</h3>
+<p>It is very easy to make a copy of an existing Dataset.  Simply click on the vertical ellipses in the upper right hand corner of the Dataset screen and choose Copy.  Give your copy a new name.</p>
+<blockquote>
+<p>This will NOT copy any Visuals or Filters that you have stored in the Dataset.  To get Filters and/or Visuals copied into a new dataset, following the Bundle Copy method below.</p>
+</blockquote>
+<p><img src="..\assets\informer_tips_datasetcopy-001.png" alt="image-20200518105542330"></p>
+<h3><a class="anchor" aria-hidden="true" id="bundle-copy-a-dataset"></a><a href="#bundle-copy-a-dataset" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Bundle Copy a Dataset</h3>
+<p>You will want to use this method to copy a Dataset if you want to retain the Filters and Visuals that exist on the Dataset being copied.</p>
+<h2><a class="anchor" aria-hidden="true" id="jobs--emails"></a><a href="#jobs--emails" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Jobs &amp; Emails</h2>
+<p>Jobs are the Informer way to take some sort of action.</p>
+<ul>
+<li>Emails are sent as part of a Jobs.</li>
+<li>Jobs are also used to schedule the reload datasets.</li>
+</ul>
+<p>You can pair the reloading with Actions like emailing, however, you don't have to.  Each dataset in a Job has a check box &quot;Refresh on job run&quot; that will determine if the dataset will be refreshed before the other actions in the Job are run.</p>
+<p><img src="../assets/informer_tips_jobs-001.png" alt="image-20200210093208408"></p>
+<p>A job is made up of two parts, the <strong>Data</strong> and the <strong>Actions</strong>.</p>
+<p>You can have a Job with just Data (probably for a reload) or just Actions, you don't need both.</p>
+<h3><a class="anchor" aria-hidden="true" id="job-data-options"></a><a href="#job-data-options" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Job Data Options</h3>
+<p>The data for a job can be either a <strong>Dataset</strong> or a <strong>Query</strong>.  The Query being one of your Ad-Hoc Reports.</p>
+<p>You can have multiple <strong>Data</strong> objects in a single job.  This would allow you to refresh both data objects as well as send email that included data from both Data objects.</p>
+<h3><a class="anchor" aria-hidden="true" id="job-actions"></a><a href="#job-actions" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Job Actions</h3>
+<p>You have five actions that you can perform in a job.  They are:</p>
+<ul>
+<li><strong>Send an Email</strong> - Sends an email to users that enter.  This is an option where a single email will be generated and you will have to fill out the email addresses that the email is going to.  This is useful for reports that you know who the recipient will be</li>
+<li><strong><a href="https://informer5.zendesk.com/hc/en-us/articles/360032985372-3-3-Send-an-Email-Burst">Send an email burst</a></strong> - An email burst uses the data in the dataset to get the email addresses to send emails and data to.  This is what I would call a loop and reduce, since it will not only use an email field in the dataset to determine who to send the email to, but will also reduce the data so that the email recipient only gets the data they are &quot;associated&quot; with.</li>
+<li><strong>Send to FTP</strong> - Sends to an FTP site</li>
+<li><strong>Send to file system</strong> - Exports to the host boxes files system.</li>
+<li><strong>Export Saved List</strong> - this will create  list in a Datasource</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="email-burst-job-action"></a><a href="#email-burst-job-action" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Email Burst Job Action</h3>
+<p>An email burst uses the data in the dataset to get the email addresses to send emails and data to.</p>
+<p>This is what I would call a loop and reduce, since it will not only use an email field in the dataset to determine who to send the email to, but will also reduce the data so that the email recipient only gets the data they are &quot;associated&quot; with.</p>
+<p>You can choose to attach the data associated with the user email and/or include the full set of data.</p>
+<p><img src="../assets/informer_tips_jobs-002.png" alt="image-20200210094850978"></p>
+<h3><a class="anchor" aria-hidden="true" id="alerts-for-failed-jobs"></a><a href="#alerts-for-failed-jobs" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Alerts for Failed Jobs</h3>
+<p>There is no direct way to get an email or other notification that a job has failed, however, you can load up informer as a Datasource and create a report from the metadata stored within.</p>
+<p><a href="informer-system">Setup Informer Metadata Datasource</a></p>
+<h3><a class="anchor" aria-hidden="true" id="export-a-pivot-table-via-a-job"></a><a href="#export-a-pivot-table-via-a-job" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Export a Pivot Table via a Job</h3>
+<p>When you create a Pivot Table, you can manually export it to a CSV file.  You cannot export it to any other format like PDF, etc.</p>
+<p>You also will NOT have an option to export a pivot table through a Job.</p>
+<p>Jobs only have access to the top level data.  Meaning any visualizations you create on a Dataset or through an Ad Hoc Report will not be available in a Job for export.</p>
+<p>You can however, in a round about way, make your visualization available to the end users who receive emails via your Jobs.</p>
+<p><strong>What is the End Result</strong></p>
+<p>Instead of email the users an Excel file or CSV file, we will be emailing them a link to a visual on a Dataset.  The &quot;Visual&quot; will be of the Pivot table.</p>
+<p>Once they have access this Pivot table, they will be able to export it at that point to a CSV or Excel file.</p>
+<p><strong>Step 1</strong></p>
+<p>The first step is to create the Pivot Table that you want your end users to have access to.</p>
+<p>This can be done directly on the Dataset or through a Dataview report.  However, even if you create the visual through a Dataview report, it will still be saved on the Dataset.</p>
+<p>From a Dataview report, create the desired Pivot table and then click on the horizontal ellipsis in the right hand corner and choose &quot;Save pivot to visuals&quot;</p>
+<p><img src="../assets/informer_tips_pivotjob-001.png" alt="image-20200508113612663"></p>
+<p>This will not save the pivot anywhere in the report, but instead will save it to the underlying Dataset that is driving the report.</p>
+<p>You can then view the saved visual by opening the Dataset and clicking on the &quot;Visuals&quot; icon:</p>
+<p><img src="G:\MarkNCS2019\analytix-docs\docs\assets\informer_tips_pivotjob-002.png" alt="image-20200508114425051"></p>
+<p>You can also create new visuals from this area also.</p>
+<p>Just click on the New Visual / Tables / Pivot:</p>
+<p><img src="..\assets\informer_tips_pivotjob-003.png" alt="image-20200508114539615"></p>
+<p><strong>Step 2</strong></p>
+<p>Now that you have create a visual, you will need to &quot;Generate external link&quot; for the visual.</p>
+<p>From the Visuals page, select the visual you want to export by simply clicking once on the visual and then clicking on the horizontal ellipses in the bottom right and select &quot;Generate external link&quot;</p>
+<p><img src="..\assets\informer_tips_pivotjob-004.png" alt="image-20200508115351892"></p>
+<p>This will bring up the following dialog:</p>
+<p><img src="G:\MarkNCS2019\analytix-docs\docs\assets\informer_tips_pivotjob-005.png" alt="image-20200508115650990"></p>
+<p>Click on <strong>Copy</strong> and store this link in notepad for later use.</p>
+<p><strong>Step 3</strong></p>
+<p>Get that link to whomever needs it.  This can be done via a Job that runs everytime the dataset refreshes, or you could send it out once to the people who need it and let them know that every day around X time, there will be new data.</p>
+<p>If you set up a job, it is as simple as putting the Dataset in a job and then setting up an email action to</p>
+<p><img src="..\assets\informer_tips_pivotjob-006.png" alt="image-20200508120536589"></p>
+<h2><a class="anchor" aria-hidden="true" id="data-access-tokens"></a><a href="#data-access-tokens" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Data Access Tokens</h2>
+<p>Data Access Tokens allow you to access your Dataset from a command line interface using cURL or HTTPie.</p>
+<p>You can also use the curl output to access the data via a browser or in a program that supports rest APIs.</p>
+<p>Here is an example of a cURL Data Access Token:</p>
+<pre><code class="hljs css language-javascript">curl <span class="hljs-string">"https://digital20192.msglcloud.com:8082/api/datasets/cafe1b00-9544-4799-a06a-184ebc4e4bd9/export/json?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOiIyNTk0ZWNjNi1mYmY1LTRlZTgtYmJmNy0zOTEyNDNhMWU4NjkiLCJpYXQiOjE1ODA3NDQ3MzIuMzIzfQ.GPmK56XqmiEww_D6kSWZHh1FNSeqaadePg706u1qkEg"</span>
+</code></pre>
+<p>If you just take what is in quotes, you can paste into a browser or into another application.</p>
+<p>Output can be in JSON, XML or CSV.</p>
+<p>Here is a sample of JSON output from a sample Dataset:</p>
+<pre><code class="hljs css language-json">[
+    {
+        <span class="hljs-attr">"name_id_assoc_companyName"</span>: <span class="hljs-string">"MERLE NORMAN COSMETICS"</span>,
+        <span class="hljs-attr">"salesrep_id_assoc_repName"</span>: [
+            <span class="hljs-string">"Nora Smith"</span>
+        ],
+        <span class="hljs-attr">"id"</span>: <span class="hljs-string">"MENO*LOC1*16"</span>,
+        <span class="hljs-attr">"advName"</span>: <span class="hljs-string">"MERLE NORMAN COSMETICS"</span>,
+        <span class="hljs-attr">"agencyName"</span>: <span class="hljs-string">""</span>,
+        <span class="hljs-attr">"brandName"</span>: <span class="hljs-string">"DOMESTIC"</span>,
+        <span class="hljs-attr">"baseCost"</span>: <span class="hljs-number">1140</span>
+    },
+    {
+        <span class="hljs-attr">"name_id_assoc_companyName"</span>: <span class="hljs-string">"BMW of North America, LLC"</span>,
+        <span class="hljs-attr">"salesrep_id_assoc_repName"</span>: [
+            <span class="hljs-string">"Wayne Burrows"</span>
+        ],
+        <span class="hljs-attr">"id"</span>: <span class="hljs-string">"244008*A1*48"</span>,
+        <span class="hljs-attr">"advName"</span>: <span class="hljs-string">"BMW of North America, LLC"</span>,
+        <span class="hljs-attr">"agencyName"</span>: <span class="hljs-string">"Mediavest/Starcom"</span>,
+        <span class="hljs-attr">"brandName"</span>: <span class="hljs-string">"3 Series"</span>,
+        <span class="hljs-attr">"baseCost"</span>: <span class="hljs-number">42962.7</span>
+    },
+    {
+        <span class="hljs-attr">"name_id_assoc_companyName"</span>: <span class="hljs-string">"BIOMARIS USA"</span>,
+        <span class="hljs-attr">"salesrep_id_assoc_repName"</span>: [
+            <span class="hljs-string">"LUCIOUS, LOLA"</span>
+        ],
+        <span class="hljs-attr">"id"</span>: <span class="hljs-string">"BIUS.1*LOC1*4"</span>,
+        <span class="hljs-attr">"advName"</span>: <span class="hljs-string">"BIOMARIS USA"</span>,
+        <span class="hljs-attr">"agencyName"</span>: <span class="hljs-string">""</span>,
+        <span class="hljs-attr">"brandName"</span>: <span class="hljs-string">"DOMESTIC"</span>,
+        <span class="hljs-attr">"baseCost"</span>: <span class="hljs-number">1908.68</span>
+    },
+  ...
+]
+</code></pre>
+<h1><a class="anchor" aria-hidden="true" id="copying-dataset-to-different-datasource"></a><a href="#copying-dataset-to-different-datasource" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Copying Dataset to Different Datasource</h1>
+<p>If you develop a Dataset in one Datasource and want to move or copy it to a new Datasource, you will need to follow these steps.</p>
+<p><strong>Step 1</strong></p>
+<p>Make a copy of the Dataset in question.  This is very important, you must have a COPY of the dataset.</p>
+<p><strong>Step 2</strong></p>
+<p>Highlight the copied Dataset, click on the Actions menu and choose <strong>Bundle and download</strong></p>
+<p><img src="..\assets\informer_tips_dscopy-001.png" alt="image-20200831121453939"></p>
+<p><strong>Step 3</strong></p>
+<p><strong>Delete</strong> the Dataset that you just <em>bundled and downloaded</em>.  You need to do this so that in the next step when we reimport the dataset (even though we will point to a different Datasource) it doesn't conflict with an existing dataset.</p>
+<p><strong>Step 4</strong></p>
+<p>The <strong>Bundle and download</strong> step will have created a <strong><em>tgz</em></strong> file in your download directory.  This is the file that you will need to drag and drop onto the Dataset window.</p>
+<p><img src="..\assets\informer_tips_dscopy-002.png" alt="image-20200831122201761"></p>
+<p>Once you drop this file in the Dataset window, it will pop up with a dialog where you can set the options for the import.</p>
+<p>You can choose to import items like Teams, User, Tags or Folders.</p>
+<p>You can also change the default owner.</p>
+<p>You will want to leave the Update rule to &quot;Overwrite if Newer&quot;.</p>
+<p>And lastly, if you want this imported Dataset to point to a new datasource, then change the datasource listed in the &quot;Select Datasource&quot; section.</p>
+<p>You want to also leave it as &quot;Merge with existing datasource&quot;.</p>
+<p><img src="..\assets\informer_tips_dscopy-003.png" alt="image-20200831122230323"></p>
+<p>Click on Save and then verify that the new Dataset has been created.</p>
+<p>I have seen times where if steps are not followed, that the target Datasource may get renamed.  If this ever happens you simply need to rename the Datasource back to its original name.</p>
+<h1><a class="anchor" aria-hidden="true" id="creating-a-datasource-link"></a><a href="#creating-a-datasource-link" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Creating a Datasource Link</h1>
+<p>If you have two mappings that are not linked, but do have a field in common, you may create your own link in Informer.</p>
+<ol>
+<li>Go to Datasources</li>
+<li>Select the Datasource with the mappings you want to link and double click it.
+If you have Prod, Test and/or Dev environments, you will need to create the link for each environment that you need it in.</li>
+<li>Click on the link icon (second icon from the top) at the very left panel.</li>
+<li>Click on &quot;New Link&quot; and choose how you want to link your mappings.</li>
+</ol>
+<p><img src="..\assets\informer_tips_dslink-001.png" alt="image-20200521130048559"></p>
+<ol start="5">
+<li><p>At the datasource page, click on 'New Link' and Select <strong>&quot;U2&quot;</strong></p></li>
+<li><p>Populate the '<strong>From Mapping</strong>' and '<strong>To Mapping</strong>' with the mappings you are trying to link in the system. These are the Files on the U2 side of things.</p></li>
+<li><p>Provide a '<strong>Link Name</strong>' for the link. This is how the link will appear if you try to search for it in the system and when you are navigating through your various mappings when building out a Dataset.</p></li>
+<li><p>Select the field in the '<strong>From Mapping</strong>' file that will match up with the @ID field in the 'To Mapping' file.</p></li>
+<li><p>Select whether or not you wish to embed this link. If a link is embedded, all of the fields in the 'To Mapping' file will appear as though they belong to the 'From Mapping' file when you are selecting fields to add to a Dataset.</p>
+<blockquote>
+<p>I would recommend to not embed the link unless you really need it in the main table.</p>
+</blockquote></li>
+<li><p>Click 'Save'</p></li>
+</ol>
+<p><img src="..\assets\informer_tips_dslink-002.png" alt="image-20200521130400969"></p>
+<p>This new link</p>
+<h1><a class="anchor" aria-hidden="true" id="questions-when-converting-from-v4-to-v5"></a><a href="#questions-when-converting-from-v4-to-v5" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Questions When Converting from v4 to v5</h1>
+<h2><a class="anchor" aria-hidden="true" id="informer-4-allows-for-input-parameters-to-be-set-on-the-schedule"></a><a href="#informer-4-allows-for-input-parameters-to-be-set-on-the-schedule" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Informer 4 allows for input parameters to be set on the schedule</h2>
+<p>I am assuming this means setting some sort of filtering criteria for what will be emailed/exported for a job.</p>
+<p>If the Job's data is an <strong>Ad Hoc Report</strong> and it has query Inputs associated with it, when you create a Job with that report and click on run the Job editor window, you will be presented with the <em>Query Inputs</em> dialog, where you can enter the inputs.</p>
+<p><img src="../assets/informer_tips_v4-v5_001.png" alt="1586186067004"></p>
+<p>When you click on run, you will see the Inputs dialog:</p>
+<p><img src="../assets/informer_tips_v4-v5_002.png" alt="1586186135921"></p>
+<p>Whatever you enter as inputs will be used on all subsequent runs of the Job.</p>
+<p><strong>Datasets</strong></p>
+<p>You can do the same with a Dataset, but the standard practice with a dataset will be to have one job that reloads it and the other jobs that use a <strong>post filter</strong>, to narrow the data and set to the appropriate users.</p>
+<p><strong>Post Filter</strong></p>
+<p>Many times, your need to only set a select set of data to users can be accomplished using a <strong>Post Filter</strong> or by using an action such as the &quot;Sen an email burst&quot;.</p>
+<p>The post filter is located here:</p>
+<p><img src="../assets/informer_tips_v4-v5_003.png" alt="1586191934643"></p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-next button" href="/docs/informer/informer-javascript.html"><span class="function-name-prevnext">Informer JavaScript Use</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#informer-support-links">Informer Support Links</a></li><li><a href="#datasets-vs-ad-hoc-reports">Datasets vs Ad Hoc Reports</a></li><li><a href="#creating-a-dataset-from-an-ad-hoc-report">Creating a Dataset from an Ad Hoc Report</a><ul class="toc-headings"><li><a href="#step-1">Step 1</a></li><li><a href="#step-2">Step 2</a></li></ul></li><li><a href="#informer-tips">Informer Tips</a><ul class="toc-headings"><li><a href="#current-month---yoy-using-criteria">Current Month - YOY Using Criteria</a></li><li><a href="#current-month---yoy-using-a-calculated-field">Current Month - YOY Using a Calculated Field</a></li><li><a href="#viewing-a-dataset-query">Viewing a Dataset Query</a></li></ul></li><li><a href="#loading-external-attribute-data">Loading External Attribute Data</a></li><li><a href="#flow-steps">Flow Steps</a><ul class="toc-headings"><li><a href="#normalize">Normalize</a></li></ul></li><li><a href="#filters">Filters</a><ul class="toc-headings"><li><a href="#variables--user-fields">Variables / User Fields</a></li></ul></li><li><a href="#filters---using-the-dates">Filters - Using the Dates</a><ul class="toc-headings"><li><a href="#date-keywords">Date Keywords</a></li><li><a href="#date-relative-to-now">Date Relative to Now</a></li><li><a href="#date-range">Date Range</a></li><li><a href="#distinct-values">Distinct Values</a></li></ul></li><li><a href="#filters---reports">Filters - Reports</a></li><li><a href="#datasets">Datasets</a><ul class="toc-headings"><li><a href="#copying-datasets">Copying Datasets</a></li><li><a href="#bundle-copy-a-dataset">Bundle Copy a Dataset</a></li></ul></li><li><a href="#jobs--emails">Jobs &amp; Emails</a><ul class="toc-headings"><li><a href="#job-data-options">Job Data Options</a></li><li><a href="#job-actions">Job Actions</a></li><li><a href="#email-burst-job-action">Email Burst Job Action</a></li><li><a href="#alerts-for-failed-jobs">Alerts for Failed Jobs</a></li><li><a href="#export-a-pivot-table-via-a-job">Export a Pivot Table via a Job</a></li></ul></li><li><a href="#data-access-tokens">Data Access Tokens</a></li><li><a href="#informer-4-allows-for-input-parameters-to-be-set-on-the-schedule">Informer 4 allows for input parameters to be set on the schedule</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/Naviga_Logo_Dark_Icon.png" alt="Naviga Analytics" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/analytix/analytix-setup.html">Getting Started With Analytix</a><a href="/docs/bi/bi-auditors.html">BI Docs</a></div><div><h5>naviga</h5><a href="http://navigaglobal.com/" target="_blank">Website</a><a href="http://navigaglobal.com/blog/" target="_blank">naviga Blog</a><a href="https://twitter.com/navigaglobal" target="_blank">Twitter</a><a href="https://www.facebook.com/navigaglobal" target="_blank">Facebook</a><a href="https://www.linkedin.com/company/navigaglobal" target="_blank">LinkedIn</a></div><div><h5>More</h5><a href="/docs/analytix/analytix-bi-overview.html">Analytix Docs</a><a href="/docs/bi/bi-resources.html">BI Docs</a></div></section><a href="https://navigaglobal.com" target="_blank"><img src="/img/Naviga_Logo_Dark_Verticle.png" alt="naviga - Venture Forward" width="226" height="42" style="margin:1em auto;display:block;width:226px"/></a><section class="copyright">Copyright © 2020 naviga</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: 'ccd2672198948e3c79646332385b98fb',
+                indexName: 'analytix',
+                inputSelector: '#search_input_react',
+                algoliaOptions: {}
+              });
+            </script></body></html>

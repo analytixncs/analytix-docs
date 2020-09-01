@@ -1,0 +1,391 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Common BI Queries · Naviga Analytics</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="- [SalesFlash Not Invoiced Rules](#salesflash-not-invoiced-rules)"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Common BI Queries · Naviga Analytics"/><meta property="og:type" content="website"/><meta property="og:url" content=".//index.html"/><meta property="og:description" content="- [SalesFlash Not Invoiced Rules](#salesflash-not-invoiced-rules)"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/Naviga_Logo_Dark_Icon.png" alt="Naviga Analytics"/><h2 class="headerTitleWithLogo">Naviga Analytics</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/docs/analytix/analytix-bi-overview.html" target="_self">Analytix</a></li><li class="siteNavGroupActive"><a href="/docs/bi/bi-resources.html" target="_self">BI</a></li><li class=""><a href="/docs/insight/insight.html" target="_self">InSight</a></li><li class=""><a href="/docs/informer/informer-basics.html" target="_self">Informer</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Common SQL Core/BI</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">BI Maintenance</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/bi/bi-database-core-mapping.html">BI Database Core Mapping</a></li><li class="navListItem"><a class="navItem" href="/docs/bi/bi-auditors.html">Running The BI Auditors</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">BI Resources</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/bi/bi-resources.html">BI Resources</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">BI/Core Support Docs</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/bi/bi-faq.html">BI FAQ</a></li><li class="navListItem"><a class="navItem" href="/docs/support/adbase-core-faqs.html">Adbase Core FAQS</a></li><li class="navListItem"><a class="navItem" href="/docs/support/bi-chargetypes.html">BI ChargeTypes Explained</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Common SQL Core/BI</h3><ul class=""><li class="navListItem navListItemActive"><a class="navItem" href="/docs/support/sql-bi-common-queries.html">Common BI Queries</a></li><li class="navListItem"><a class="navItem" href="/docs/support/sql-core-common-queries.html">Common Core Queries</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Common BI Queries</h1></header><article><div><span><ul>
+<li><a href="#salesflash-not-invoiced-rules">SalesFlash Not Invoiced Rules</a></li>
+<li><a href="#salescomm-rep">SalesComm Rep</a></li>
+<li><a href="#schedule-ids-and-salescomm-rep">Schedule Ids and SalesComm Rep</a></li>
+<li><a href="#fctgl-simple-query">fctGL Simple Query</a></li>
+<li><a href="#contract-tables-query">Contract Tables Query</a></li>
+<li><a href="#shapp-settings">shApp Settings</a></li>
+<li><a href="#gl-number-from-adordernumber">GL Number From AdOrderNumber</a></li>
+<li><a href="#agency-or-parent-relationship">Agency or Parent Relationship</a></li>
+<li><a href="#rate-information-from-dmrate">Rate Information From dmRate</a></li>
+<li><a href="#client-location-(address)">Client Location (Address)</a></li>
+<li><a href="#bridgemulticlient-query">BridgeMultiClient Query</a></li>
+</ul>
+<hr>
+<p>Most of these queries have <code>where</code> statements which allow you to limit the query by some field.  While these are pretty obvious to find, they will be show in the following way:</p>
+<blockquote>
+<p>Limited By: <strong>field limited by</strong></p>
+</blockquote>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="salesflash-not-invoiced-rules"></a><a href="#salesflash-not-invoiced-rules" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>SalesFlash Not Invoiced Rules</h2>
+<p>This query will return the fields that QVD_ALL's Combined Revenue build uses to determine which ads are considered not invoiced.</p>
+<p>You can use this query to verify that an ad should not be in Sales Flash.</p>
+<blockquote>
+<p><strong>Not Invoiced Ad Rules</strong></p>
+<p>dmAdOrderBools.DoNotBill_Flag = 'FALSE'</p>
+<p>(dmAdOrderBools.Quote_Flag = 'FALSE' OR QuoteToOrder_Flag = 'TRUE')</p>
+<p>dmAdInsertBools.isPublished_Flag = 'TRUE'</p>
+<p>fctInsertChargeSummary.ChargeType = 'CHARGE'</p>
+<p>fctInsertChargeDetail.InvoicedAlready_Flag = 'FALSE'</p>
+</blockquote>
+<blockquote>
+<p>Limited By: <strong>fad.adordernumber</strong></p>
+</blockquote>
+<pre><code class="hljs css language-sql"><span class="hljs-keyword">SELECT</span> fadbool.donotbill_flag, 
+       fadbool.quote_flag, 
+       fadbool.quotetoorder_flag, 
+       fs.chargetype, 
+       fd.invoicedalready_flag, 
+       finbool.ispublished_flag 
+<span class="hljs-keyword">FROM</span>   fctadorder fad, 
+       fctinsertion fin, 
+       fctinsertchargesummary fs, 
+       fctinsertchargedetail fd, 
+       dmadorderbools fadbool, 
+       dmadinsertbools finbool 
+<span class="hljs-keyword">WHERE</span>  fad.id = fin.fctadorder_id 
+       <span class="hljs-keyword">AND</span> fin.id = fs.insertion_id 
+       <span class="hljs-keyword">AND</span> fs.id = fd.insertchargesummary_id 
+       <span class="hljs-keyword">AND</span> fad.adorderbools_id = fadbool.id 
+       <span class="hljs-keyword">AND</span> fin.adinsertbools_id = finbool.id 
+       <span class="hljs-keyword">AND</span> fad.adordernumber = <span class="hljs-string">'0000000000'</span>; 
+</code></pre>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="salescomm-rep"></a><a href="#salescomm-rep" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>SalesComm Rep</h2>
+<blockquote>
+<p>Limited By: <strong>fad.adordernumber</strong></p>
+</blockquote>
+<pre><code class="hljs css language-sql"><span class="hljs-keyword">SELECT</span> fad.adordernumber,
+       fsc.adorderid_adbase,
+       u.userloginname,
+       fsc.*
+<span class="hljs-keyword">FROM</span>   fctsalescomm fsc,
+       dmuser u,
+       fctadorder fad
+<span class="hljs-keyword">WHERE</span>  fad.adorderid_adbase = fsc.adorderid_adbase
+       <span class="hljs-keyword">AND</span> fsc.salesrep_user_id = u.id
+       <span class="hljs-keyword">AND</span> fad.adordernumber = <span class="hljs-string">'0000000000'</span>
+</code></pre>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="schedule-ids-and-salescomm-rep"></a><a href="#schedule-ids-and-salescomm-rep" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Schedule Ids and SalesComm Rep</h2>
+<p>This query is useful when you want to see the Soldby as well as the SalesComm reps.  It also shows the types of Schedules and their Ids.</p>
+<blockquote>
+<p>NOTE: Be aware that fctSalesComm rep has a many to many relationship with fctInsertion.</p>
+</blockquote>
+<blockquote>
+<p>Limited By: <strong>fad.adordernumber</strong></p>
+</blockquote>
+<pre><code class="hljs css language-sql"><span class="hljs-comment">--------------------------------------------------------------------------</span>
+<span class="hljs-comment">--Returns a Schedule ID, Schedule type, fctInsertion.ID, InsertDate</span>
+<span class="hljs-comment">--SoldBy Rep and SalesComm Rep</span>
+<span class="hljs-comment">--For a more Compact View, comment out the following:</span>
+<span class="hljs-comment">--InsertionID and InsertDate in the SELECT statement</span>
+<span class="hljs-comment">--The Order By clause</span>
+<span class="hljs-comment">--then add a Distinct to the SELECT statement</span>
+<span class="hljs-comment">--------------------------------------------------------------------------</span>
+<span class="hljs-keyword">SELECT</span>
+  fad.AdOrderID_Adbase,
+  fad.AdOrderNumber,
+  fin.ID <span class="hljs-keyword">as</span> InsertionID,
+  iDate.CalendarDate <span class="hljs-keyword">as</span> InsertDate,
+  <span class="hljs-keyword">CASE</span> <span class="hljs-keyword">WHEN</span> fin.RUNSCHEDULEID_ADBASE &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">THEN</span> fin.RUNSCHEDULEID_ADBASE
+       <span class="hljs-keyword">WHEN</span> fin.FLIGHTSCHEDULEID_ADBASE &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">THEN</span> fin.FLIGHTSCHEDULEID_ADBASE
+       <span class="hljs-keyword">WHEN</span> fin.PRPSCHEDULEID_ADBASE &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">THEN</span> fin.PRPSCHEDULEID_ADBASE
+       <span class="hljs-keyword">ELSE</span> <span class="hljs-number">0</span> <span class="hljs-keyword">END</span>
+    <span class="hljs-keyword">AS</span> ScheduleID,
+  <span class="hljs-keyword">CASE</span> <span class="hljs-keyword">WHEN</span> fin.RUNSCHEDULEID_ADBASE &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">THEN</span> <span class="hljs-string">'RunSchedule'</span>
+       <span class="hljs-keyword">WHEN</span> fin.FLIGHTSCHEDULEID_ADBASE &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">THEN</span> <span class="hljs-string">'FlightSchedule'</span>
+       <span class="hljs-keyword">WHEN</span> fin.PRPSCHEDULEID_ADBASE &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">THEN</span> <span class="hljs-string">'PreprintSchedule'</span>
+       <span class="hljs-keyword">ELSE</span> <span class="hljs-string">'OtherSchedule'</span> <span class="hljs-keyword">END</span>
+    <span class="hljs-keyword">AS</span> ScheduleType,
+  sbUser.USERLOGINNAME <span class="hljs-keyword">AS</span> SoldByRep,
+  scUser.USERLOGINNAME <span class="hljs-keyword">AS</span> SalesCommRep
+<span class="hljs-keyword">FROM</span> fctAdorder fad <span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> fctInsertion fin <span class="hljs-keyword">ON</span> fad.id = fin.fctadorder_id
+  <span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> DMUSER sbUser <span class="hljs-keyword">ON</span> fin.COMMISSIONEDREP_USER_ID = sbUser.ID
+  <span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> dmdate iDate <span class="hljs-keyword">ON</span> fin.INSERT_DATE_ID = iDate.ID
+  <span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> fctSalesComm sc <span class="hljs-keyword">ON</span> fin.ID = sc.INSERTION_ID
+  <span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">JOIN</span> DMUSER scUser <span class="hljs-keyword">ON</span> sc.SALESREP_USER_ID = scUser.ID
+<span class="hljs-keyword">WHERE</span> fad.adordernumber = <span class="hljs-string">'0000000000'</span>
+<span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> iDate.CALENDARDATE;
+</code></pre>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="fctgl-simple-query"></a><a href="#fctgl-simple-query" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>fctGL Simple Query</h2>
+<p>This is a simple query that shows commonly used columns in fctGL as used by Analytix.  It is multiplying the transamount by -1 and only including glType of 0.</p>
+<blockquote>
+<p>Limited By: <strong>adordernumber</strong></p>
+</blockquote>
+<pre><code class="hljs css language-sql"><span class="hljs-keyword">SELECT</span> g.transamount * <span class="hljs-number">-1</span> <span class="hljs-keyword">AS</span> TRANSAMOUNT, 
+       g.runscheduleid_adbase, 
+       g.prpscheduleid_adbase, 
+       g.flightscheduleid_adbase, 
+       g.transactionnumber, 
+       g.adproduct_id, 
+       g.lastpopulatedate, 
+       g.gllineitemid_adbase, 
+       <span class="hljs-string">'-------&gt;'</span>         <span class="hljs-keyword">AS</span> [<span class="hljs-keyword">ALL</span> <span class="hljs-keyword">COLUMNS</span>], 
+       g.* 
+<span class="hljs-keyword">FROM</span>   fctarsummary <span class="hljs-keyword">far</span>, 
+       fctgl g 
+<span class="hljs-keyword">WHERE</span>  far.id = g.arsummary_id 
+       <span class="hljs-keyword">AND</span> g.gltype = <span class="hljs-number">0</span> 
+       <span class="hljs-keyword">AND</span> adordernumber = <span class="hljs-string">'000000000'</span> 
+</code></pre>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="contract-tables-query"></a><a href="#contract-tables-query" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Contract Tables Query</h2>
+<p>Query showing the joins between the common BI Contract tables.</p>
+<pre><code class="hljs css language-sql"><span class="hljs-keyword">SELECT</span> ordererClient.id <span class="hljs-keyword">AS</span> OrdererClient, 
+       ordererClient.namelast_bsn, 
+       <span class="hljs-string">'-----&gt;'</span>         <span class="hljs-keyword">AS</span> fctContractFields, 
+       fc.*, 
+       cd.instancename, 
+       <span class="hljs-string">'-----&gt;'</span>         <span class="hljs-keyword">AS</span> fctContractFulFillmentFields, 
+       fcf.* 
+<span class="hljs-keyword">FROM</span>   fctcontract fc 
+       <span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> dmcontractdetails cd 
+               <span class="hljs-keyword">ON</span> fc.contractdetails_id = cd.id 
+       <span class="hljs-keyword">LEFT</span> <span class="hljs-keyword">OUTER</span> <span class="hljs-keyword">JOIN</span> fctcontractfulfillment fcf 
+                    <span class="hljs-keyword">ON</span> fcf.contractdetails_id = cd.id 
+       <span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> bridgecontractclient bcc 
+               <span class="hljs-keyword">ON</span> bcc.groupcontractclient_id = fc.groupcontractclient_id 
+       <span class="hljs-keyword">INNER</span> <span class="hljs-keyword">JOIN</span> dmclient ordererClient 
+               <span class="hljs-keyword">ON</span> ordererClient.id = bcc.ordererclient_id 
+<span class="hljs-keyword">WHERE</span>  ordererClient.accountnumber_adbase = <span class="hljs-string">'000000'</span> 
+</code></pre>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="shapp-settings"></a><a href="#shapp-settings" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>shApp Settings</h2>
+<p>While this needs to be run on the <strong>Core</strong> database, it is used find out which users have run the BI Populator.</p>
+<p>The programid of 127 indicates the BI Populator.</p>
+<pre><code class="hljs css language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">DISTINCT</span> s.userid, 
+                u.loginname 
+<span class="hljs-keyword">FROM</span>   shappsettings s, 
+       usrusers u 
+<span class="hljs-keyword">WHERE</span>  programid = <span class="hljs-number">127</span> 
+       <span class="hljs-keyword">AND</span> s.userid = u.userid 
+</code></pre>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="gl-number-from-adordernumber"></a><a href="#gl-number-from-adordernumber" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>GL Number From AdOrderNumber</h2>
+<p>Returns GL Information for a given Ad Order Number.</p>
+<blockquote>
+<p>Limited by: <strong>fad.adordernumber</strong></p>
+</blockquote>
+<pre><code class="hljs css language-sql"><span class="hljs-keyword">SELECT</span> g.glnumber             <span class="hljs-keyword">AS</span> BI_GLNumber, 
+       g.glname               <span class="hljs-keyword">AS</span> BI_GLName, 
+       fad.adordernumber      <span class="hljs-keyword">AS</span> BI_ADORDERNUMBER, 
+       fad.adorderid_adbase   <span class="hljs-keyword">AS</span> BI_AdOrderID, 
+       f.runscheduleid_adbase <span class="hljs-keyword">AS</span> BI_RunScheduleID, 
+       g.id                   <span class="hljs-keyword">AS</span> BI_GLAccountID 
+<span class="hljs-keyword">FROM</span>   fctinsertion f, 
+       fctinsertchargesummary fs, 
+       fctadorder fad, 
+       fctinsertchargedetail fd, 
+       dmglaccounts g 
+<span class="hljs-keyword">WHERE</span>  f.id = fs.insertion_id 
+       <span class="hljs-keyword">AND</span> fad.id = f.fctadorder_id 
+       <span class="hljs-keyword">AND</span> fs.id = fd.insertchargesummary_id 
+       <span class="hljs-keyword">AND</span> fd.glaccounts_id = g.id 
+       <span class="hljs-keyword">AND</span> fad.adordernumber = <span class="hljs-string">'0000000000'</span> 
+</code></pre>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="agency-or-parent-relationship"></a><a href="#agency-or-parent-relationship" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Agency or Parent Relationship</h2>
+<blockquote>
+<p>Limited by: <strong>accountnumber_adbase</strong></p>
+</blockquote>
+<h3><a class="anchor" aria-hidden="true" id="agencyclient"></a><a href="#agencyclient" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Agency/Client</h3>
+<pre><code class="hljs css language-sql"><span class="hljs-keyword">SELECT</span>
+  c.namelast_bsn,
+  c.accountnumber_adbase,
+  r.*
+<span class="hljs-keyword">FROM</span> dmrelationshipagency r,
+  dmclient c
+<span class="hljs-keyword">WHERE</span> r.client_client_id = c.id
+      <span class="hljs-keyword">AND</span> agency_client_id = (<span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">id</span>
+                          <span class="hljs-keyword">FROM</span> dmclient
+                          <span class="hljs-keyword">WHERE</span> accountnumber_adbase = <span class="hljs-string">'000000'</span>)
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="parentchild"></a><a href="#parentchild" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Parent/Child</h3>
+<pre><code class="hljs css language-sql"><span class="hljs-keyword">SELECT</span>
+  c.namelast_bsn,
+  c.accountnumber_adbase,
+  r.*
+<span class="hljs-keyword">FROM</span> dmrelationshipparent r,
+  dmclient c
+<span class="hljs-keyword">WHERE</span> r.CHILD_CLIENT_ID= c.id
+      <span class="hljs-keyword">AND</span> parent_client_id = (<span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">id</span>
+                          <span class="hljs-keyword">FROM</span> dmclient
+                          <span class="hljs-keyword">WHERE</span> accountnumber_adbase = <span class="hljs-string">'3218887650'</span>)
+</code></pre>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="rate-information-from-dmrate"></a><a href="#rate-information-from-dmrate" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Rate Information From dmRate</h2>
+<blockquote>
+<p>Limited by: <strong>adordernumber</strong></p>
+</blockquote>
+<pre><code class="hljs css language-sql"><span class="hljs-keyword">SELECT</span> fctinsertchargedetail.rtchargeid_adbase <span class="hljs-keyword">AS</span> RTCHARGEID, 
+       fctadorder.adordernumber, 
+       dmdate.calendardate                     <span class="hljs-keyword">AS</span> EFFECTIVEDATE, 
+       dmrateinfo.ratename, 
+       dmrateinfo.taxschedulename 
+<span class="hljs-keyword">FROM</span>   fctadorder, 
+       fctinsertion, 
+       fctinsertchargesummary, 
+       fctinsertchargedetail, 
+       dmrateinfo, 
+       dmdate 
+<span class="hljs-keyword">WHERE</span>  fctadorder.id = fctinsertion.fctadorder_id 
+       <span class="hljs-keyword">AND</span> fctinsertion.id = fctinsertchargesummary.insertion_id 
+       <span class="hljs-keyword">AND</span> fctinsertchargesummary.id = 
+           fctinsertchargedetail.insertchargesummary_id 
+       <span class="hljs-keyword">AND</span> fctinsertchargedetail.rateinfo_id = dmrateinfo.id 
+       <span class="hljs-keyword">AND</span> fctinsertion.insert_date_id = dmdate.id 
+       <span class="hljs-keyword">AND</span> fctadorder.adordernumber = <span class="hljs-string">'00000000000'</span>; 
+</code></pre>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="client-location-address"></a><a href="#client-location-address" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Client Location (Address)</h2>
+<p>In BI, the dmClient is only linked to an address through the following tables:</p>
+<ul>
+<li><strong>FCTADORDER</strong> - Using
+<ul>
+<li>PrimaryOrderer_Client_id/Location_id</li>
+<li>PrimaryPayer_Client_id/Location_id</li>
+</ul></li>
+<li><strong>FCTINSERTION</strong> - Using
+<ul>
+<li>PrimaryOrderer_Client_id/Location_id</li>
+<li>PrimaryPayer_Client_id/Location_id</li>
+</ul></li>
+<li><strong>FCTARSUMMARY</strong> - Using
+<ul>
+<li>AROrderer_Client_id/Location_id</li>
+<li>ARPayer_Client_id/Location_id</li>
+</ul></li>
+<li><strong>FCTGL</strong> - Using
+<ul>
+<li>Client_id/Location_id</li>
+</ul></li>
+</ul>
+<p>The example below gets the PrimaryOrderer's location by going through the fctAdOrder table.  This could return multiple address for a customer if they have ads linked to an old address and ads linked to a new address.</p>
+<blockquote>
+<p>Limited by: <strong>accountnumber_adbase</strong></p>
+</blockquote>
+<pre><code class="hljs css language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">DISTINCT</span> c.accountnumber_adbase, 
+                c.namelast_bsn, 
+                l.address1, 
+                l.* 
+<span class="hljs-keyword">FROM</span>   fctadorder f, 
+       dmclient c, 
+       dmlocation l 
+<span class="hljs-keyword">WHERE</span>  f.primaryorderer_client_id = c.id 
+       <span class="hljs-keyword">AND</span> f.primaryorderer_location_id = l.id 
+       <span class="hljs-keyword">AND</span> c.accountnumber_adbase = <span class="hljs-string">''</span> 
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="fctclientcoverage-option"></a><a href="#fctclientcoverage-option" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>fctClientCoverage Option</h3>
+<p>The direct way (but rarely used way) is to link through the fctClientCoverage table.  If you only want the current address, look for ccovercurrentrecord_Flag = 'TRUE'.</p>
+<blockquote>
+<p>Limited by: <strong>accountnumber_adbase</strong></p>
+</blockquote>
+<pre><code class="hljs css language-sql"><span class="hljs-keyword">SELECT</span> c.accountnumber_adbase, 
+       c.namelast_bsn, 
+       l.address1, 
+<span class="hljs-keyword">FROM</span>   fctclientcoverage cc, 
+       dmclient c, 
+       dmlocation l 
+<span class="hljs-keyword">WHERE</span>  cc.client_id = c.id 
+       <span class="hljs-keyword">AND</span> cc.location_id = l.id 
+       <span class="hljs-keyword">AND</span> cc.ccovercurrentrecord_flag = <span class="hljs-string">'TRUE'</span> 
+       <span class="hljs-keyword">AND</span> c.accountnumber_adbase = <span class="hljs-string">''</span> 
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="bridgemulticlient-query"></a><a href="#bridgemulticlient-query" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>BridgeMultiClient Query</h2>
+<p>There are a number of Bridge tables in the BI Database.  Every Bridge table has a corresponding Group table, however the Group table is only used so the database can enforce referential integrity through foreign keys.</p>
+<p>When querying the data, we do not need to use the Group tables, simply bypass them and link directly to the Bridge table.</p>
+<p>For the BridgeMultiClient, you would like directly from
+<strong>fctInsertion.groupMultiClient_id</strong> to <strong>bridgeMultiClient.groupMultiClient_id</strong></p>
+<blockquote>
+<p>Limited by: adorderid_adbase</p>
+</blockquote>
+<pre><code class="hljs css language-sql"><span class="hljs-keyword">SELECT</span> fin.adorderid_adbase, 
+       b.advertisertype, 
+       c.accountnumber_adbase, 
+       c.namelast_bsn, 
+       b.* 
+<span class="hljs-keyword">FROM</span>   fctinsertion fin, 
+       bridgemulticlient b, 
+       dmclient c 
+<span class="hljs-keyword">WHERE</span>  fin.groupmulticlient_id = b.groupmulticlient_id 
+       <span class="hljs-keyword">AND</span> b.client_id = c.id 
+       <span class="hljs-keyword">AND</span> fin.adorderid_adbase = <span class="hljs-number">000</span>
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/support/bi-chargetypes.html"><span class="arrow-prev">← </span><span class="function-name-prevnext">BI ChargeTypes Explained</span></a><a class="docs-next button" href="/docs/support/sql-core-common-queries.html"><span>Common Core Queries</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#salesflash-not-invoiced-rules">SalesFlash Not Invoiced Rules</a></li><li><a href="#salescomm-rep">SalesComm Rep</a></li><li><a href="#schedule-ids-and-salescomm-rep">Schedule Ids and SalesComm Rep</a></li><li><a href="#fctgl-simple-query">fctGL Simple Query</a></li><li><a href="#contract-tables-query">Contract Tables Query</a></li><li><a href="#shapp-settings">shApp Settings</a></li><li><a href="#gl-number-from-adordernumber">GL Number From AdOrderNumber</a></li><li><a href="#agency-or-parent-relationship">Agency or Parent Relationship</a><ul class="toc-headings"><li><a href="#agencyclient">Agency/Client</a></li><li><a href="#parentchild">Parent/Child</a></li></ul></li><li><a href="#rate-information-from-dmrate">Rate Information From dmRate</a></li><li><a href="#client-location-address">Client Location (Address)</a><ul class="toc-headings"><li><a href="#fctclientcoverage-option">fctClientCoverage Option</a></li></ul></li><li><a href="#bridgemulticlient-query">BridgeMultiClient Query</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/Naviga_Logo_Dark_Icon.png" alt="Naviga Analytics" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/analytix/analytix-setup.html">Getting Started With Analytix</a><a href="/docs/bi/bi-auditors.html">BI Docs</a></div><div><h5>naviga</h5><a href="http://navigaglobal.com/" target="_blank">Website</a><a href="http://navigaglobal.com/blog/" target="_blank">naviga Blog</a><a href="https://twitter.com/navigaglobal" target="_blank">Twitter</a><a href="https://www.facebook.com/navigaglobal" target="_blank">Facebook</a><a href="https://www.linkedin.com/company/navigaglobal" target="_blank">LinkedIn</a></div><div><h5>More</h5><a href="/docs/analytix/analytix-bi-overview.html">Analytix Docs</a><a href="/docs/bi/bi-resources.html">BI Docs</a></div></section><a href="https://navigaglobal.com" target="_blank"><img src="/img/Naviga_Logo_Dark_Verticle.png" alt="naviga - Venture Forward" width="226" height="42" style="margin:1em auto;display:block;width:226px"/></a><section class="copyright">Copyright © 2020 naviga</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: 'ccd2672198948e3c79646332385b98fb',
+                indexName: 'analytix',
+                inputSelector: '#search_input_react',
+                algoliaOptions: {}
+              });
+            </script></body></html>

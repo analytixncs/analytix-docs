@@ -1,0 +1,92 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Qlikview Developer Cookbook · Naviga Analytics</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="---"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Qlikview Developer Cookbook · Naviga Analytics"/><meta property="og:type" content="website"/><meta property="og:url" content=".//index.html"/><meta property="og:description" content="---"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/Naviga_Logo_Dark_Icon.png" alt="Naviga Analytics"/><h2 class="headerTitleWithLogo">Naviga Analytics</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/docs/analytix/analytix-bi-overview.html" target="_self">Analytix</a></li><li class=""><a href="/docs/bi/bi-resources.html" target="_self">BI</a></li><li class=""><a href="/docs/insight/insight.html" target="_self">InSight</a></li><li class=""><a href="/docs/informer/informer-basics.html" target="_self">Informer</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Qlikview Developer Cookbook</h1></header><article><div><span><hr>
+<p>This document hopes to be a journal of different techniques that I have used to accomplish tasks within Analytix and Qlikview.</p>
+<h2><a class="anchor" aria-hidden="true" id="loading-spreadsheets-with-wildcard--star-is-"></a><a href="#loading-spreadsheets-with-wildcard--star-is-" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Loading Spreadsheets with Wildcard / Star is *</h2>
+<p>First and foremost, the Qlikview option of <code>star is *</code> cannot be used with in Section Application, hence it is only useful when using Section Access for security purposes.</p>
+<p>Now, the scenario is this, a site wants to create a new field called <strong>Product Cluster</strong> and this field is based on Product and AdType combinations.  The twist is that their spreadsheet looks something like this:</p>
+<p><img src="C:\Users\mark.mccoid\Documents\AnalytixDevelopment\analytix-docs\docs\assets\analytix-cookbook-001.png" alt="1560972957229"></p>
+<p>Those blank AdTypes are supposed to mean match all AdTypes for that product and assign the given cluster.</p>
+<p>First off, let's change the blanks to '*', to make life easier:</p>
+<p><img src="C:\Users\mark.mccoid\Documents\AnalytixDevelopment\analytix-docs\docs\assets\analytix-cookbook-002.png" alt="1560973090763"></p>
+<p>A few things that we need to keep in mind as we build a table for this.</p>
+<ol>
+<li>If a valid Product/AdType combination exists in the spreadsheet, we do not want to create a duplicate when we &quot;fill in&quot; the '*' fields.</li>
+<li>In the code below, any Product / AdType combinations from the database, but not called out in the spreadsheet, will be given a &quot;Cluster&quot; value of <strong>UNDEFINED.</strong></li>
+<li>I am letting the two fields <em>ProductName</em> and <em>AdTypeCombo</em> create a synthetic key to be joined, however, you may choose to create a your own, single key to make this join.</li>
+</ol>
+<p>This code assumes you have a spreadsheet <strong>ClusterText.xlsx</strong> with fields</p>
+<ul>
+<li>ProductName</li>
+<li>AdType</li>
+<li>Cluster</li>
+</ul>
+<pre><code class="hljs css language-sql">// Need to <span class="hljs-keyword">replace</span> the <span class="hljs-string">"UNDEFINED"</span> Cluster <span class="hljs-keyword">name</span> <span class="hljs-keyword">with</span> <span class="hljs-keyword">any</span> that were defined <span class="hljs-keyword">in</span>
+// the productcluster spreadsheet 
+// Loading <span class="hljs-keyword">only</span> those <span class="hljs-keyword">rows</span> <span class="hljs-keyword">with</span> an * <span class="hljs-keyword">for</span> AdType
+// Creating a <span class="hljs-keyword">mapping</span> <span class="hljs-keyword">match</span> <span class="hljs-keyword">field</span> that includes Product concatenated <span class="hljs-keyword">with</span> <span class="hljs-string">"-UNDEFINED"</span>
+// This will <span class="hljs-keyword">update</span> <span class="hljs-keyword">only</span> those <span class="hljs-keyword">rows</span> that were filled <span class="hljs-keyword">in</span>
+UpdateClusterMap:
+<span class="hljs-keyword">Mapping</span> <span class="hljs-keyword">LOAD</span> ProductName &amp; <span class="hljs-string">'-UNDEFINED'</span> , 
+     Cluster
+<span class="hljs-keyword">FROM</span> ..\<span class="hljs-keyword">Include</span>\CustomScripts\SalesFlash\Samples\ClusterTest.xlsx
+(ooxml, embedded labels, <span class="hljs-keyword">table</span> <span class="hljs-keyword">is</span> Sheet1)
+<span class="hljs-keyword">Where</span> AdType = <span class="hljs-string">'*'</span>;
+
+// <span class="hljs-keyword">Load</span> <span class="hljs-keyword">initial</span> cluster <span class="hljs-keyword">table</span>
+// <span class="hljs-keyword">Create</span> <span class="hljs-string">"FillJoin"</span> <span class="hljs-keyword">field</span> <span class="hljs-keyword">to</span> be used <span class="hljs-keyword">by</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">Exists</span> clause
+// <span class="hljs-keyword">to</span> find Product/AdType combinations that were <span class="hljs-keyword">not</span> defined <span class="hljs-keyword">in</span> ProductCluster <span class="hljs-keyword">table</span>
+ProductCluster:
+<span class="hljs-keyword">LOAD</span> ProductName <span class="hljs-keyword">as</span> ProductNameCluster, 
+     AdType <span class="hljs-keyword">as</span> AdTypeCluster, 
+     ProductName &amp; <span class="hljs-string">'-'</span> &amp; AdType <span class="hljs-keyword">as</span> FillJoin,
+     Cluster
+<span class="hljs-keyword">FROM</span> ..\<span class="hljs-keyword">Include</span>\CustomScripts\SalesFlash\Samples\ClusterTest.xlsx
+(ooxml, embedded labels, <span class="hljs-keyword">table</span> <span class="hljs-keyword">is</span> Sheet1)
+<span class="hljs-keyword">WHERE</span> AdType &lt;&gt; <span class="hljs-string">'*'</span>;
+
+// <span class="hljs-keyword">Create</span> a <span class="hljs-keyword">table</span> that contains <span class="hljs-keyword">all</span> permutations <span class="hljs-keyword">of</span> Product <span class="hljs-keyword">and</span> AdType that <span class="hljs-keyword">do</span> <span class="hljs-keyword">not</span> exist 
+// <span class="hljs-keyword">in</span> the ProductCluster table.
+ClusterFill:
+<span class="hljs-keyword">LOAD</span>
+    ProductName <span class="hljs-keyword">as</span> ProductClusterFill,
+    AdTypeCombo <span class="hljs-keyword">as</span> AdTypeClusterFill,
+    ApplyMap(<span class="hljs-string">'UpdateClusterMap'</span>, ProductName &amp; <span class="hljs-string">'-UNDEFINED'</span>, <span class="hljs-string">'UNDEFINED'</span>) <span class="hljs-keyword">as</span> ClusterFill
+Resident AdProduct
+<span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">Exists</span>(FillJoin, ProductName &amp; <span class="hljs-string">'-'</span> &amp; AdTypeCombo);
+
+// Concatenate the ProductCluster and ClusterFill tables into a single table
+FinalProductCluster:
+<span class="hljs-keyword">Load</span> ProductNameCluster <span class="hljs-keyword">as</span> ProductName, 
+    AdTypeCluster <span class="hljs-keyword">as</span> AdTypeCombo, 
+    Cluster
+Resident ProductCluster;
+Concatenate
+<span class="hljs-keyword">LOAD</span>
+    ProductClusterFill <span class="hljs-keyword">as</span> ProductName,
+    AdTypeClusterFill <span class="hljs-keyword">as</span> AdTypeCombo,
+    ClusterFill <span class="hljs-keyword">as</span> Cluster
+Resident ClusterFill;
+
+// Get rid of work tables
+<span class="hljs-keyword">Drop</span> <span class="hljs-keyword">table</span> ProductCluster;
+<span class="hljs-keyword">Drop</span> <span class="hljs-keyword">Table</span> ClusterFill;
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#loading-spreadsheets-with-wildcard--star-is-">Loading Spreadsheets with Wildcard / Star is *</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/Naviga_Logo_Dark_Icon.png" alt="Naviga Analytics" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/analytix/analytix-setup.html">Getting Started With Analytix</a><a href="/docs/bi/bi-auditors.html">BI Docs</a></div><div><h5>naviga</h5><a href="http://navigaglobal.com/" target="_blank">Website</a><a href="http://navigaglobal.com/blog/" target="_blank">naviga Blog</a><a href="https://twitter.com/navigaglobal" target="_blank">Twitter</a><a href="https://www.facebook.com/navigaglobal" target="_blank">Facebook</a><a href="https://www.linkedin.com/company/navigaglobal" target="_blank">LinkedIn</a></div><div><h5>More</h5><a href="/docs/analytix/analytix-bi-overview.html">Analytix Docs</a><a href="/docs/bi/bi-resources.html">BI Docs</a></div></section><a href="https://navigaglobal.com" target="_blank"><img src="/img/Naviga_Logo_Dark_Verticle.png" alt="naviga - Venture Forward" width="226" height="42" style="margin:1em auto;display:block;width:226px"/></a><section class="copyright">Copyright © 2020 naviga</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: 'ccd2672198948e3c79646332385b98fb',
+                indexName: 'analytix',
+                inputSelector: '#search_input_react',
+                algoliaOptions: {}
+              });
+            </script></body></html>

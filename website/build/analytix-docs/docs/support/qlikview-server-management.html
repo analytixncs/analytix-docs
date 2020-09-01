@@ -1,0 +1,264 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Qlikview Server Management · Naviga Analytics</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## Installation and Setup of Qlikview Server"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Qlikview Server Management · Naviga Analytics"/><meta property="og:type" content="website"/><meta property="og:url" content=".//index.html"/><meta property="og:description" content="## Installation and Setup of Qlikview Server"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/Naviga_Logo_Dark_Icon.png" alt="Naviga Analytics"/><h2 class="headerTitleWithLogo">Naviga Analytics</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/docs/analytix/analytix-bi-overview.html" target="_self">Analytix</a></li><li class=""><a href="/docs/bi/bi-resources.html" target="_self">BI</a></li><li class=""><a href="/docs/insight/insight.html" target="_self">InSight</a></li><li class=""><a href="/docs/informer/informer-basics.html" target="_self">Informer</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Analytix Support Docs</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Analytix Intro</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-bi-overview.html">Analytix and BI Overview</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Analytix Setup/Main</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-preinstall-checklist.html">Analytix Pre Install Checklist</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-install.html">Analytix Install/Upgrade Guide</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-setup.html">Analytix Setup</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-admin-guide.html">Analytix Admin Guide</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-custom-scripts.html">Analytix Custom Scripts</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-auto-export-email.html">Analytix Auto Export and Email</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-source-control.html">Analytix Source Control</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Analytix User Guides</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-salesflash-userguide.html">Salesflash User Guide</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Analytix Developer Guides</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-salesflash-developerguide.html">Salesflash Developer Guide</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-training-aggr-function.html">AGGR Function Training</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-training-set-analysis.html">The Power of Set Analysis</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-balance-to-gl.html">Balancing Analytix to Core</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-exchange-rate.html">Exchange Rate / Foreign Currency in Analytix</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Analytix Support Docs</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-using-accesspoint.html">Using AccessPoint / IE Plugin Setup</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-salesflash-vs-advertisinganalytix.html">SalesFlash versus AdvertisingAnalytix</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-help-advanced-search.html">Qlikview Advanced Search</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/docs/support/qlikview-server-management.html">Qlikview Server Management</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-server-objects.html">Qlikview Server Objects</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-license-management.html">Qlikview License (CALs) Management</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-bookmark-management.html">Qlikview Bookmark Management</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-reduce-data.html">Remove Data from Qlikview App</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-miscellaneous-support.html">Qlikview Miscellaneous Support</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Qlikview Server Management</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="installation-and-setup-of-qlikview-server"></a><a href="#installation-and-setup-of-qlikview-server" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Installation and Setup of Qlikview Server</h2>
+<h3><a class="anchor" aria-hidden="true" id="install-qlikview-server"></a><a href="#install-qlikview-server" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Install Qlikview Server</h3>
+<p>Run the QVServer install application applicable for your hardware.</p>
+<ol>
+<li><p>Click Next to get started:
+<img src="../assets/qvs-install-01.png" alt="1554986288374"></p></li>
+<li><p>Select your region and click Next:
+<img src="../assets/qvs-installation-02.png" alt="1554986725222"></p></li>
+<li><p>Accept the license agreement and click Next:
+<img src="../assets/qvs-installation-03.png" alt="1554986953257"></p></li>
+<li><p>Enter your customer information and click Next:
+<img src="../assets/qvs-installation-04.png" alt="1554986976641"></p></li>
+<li><p>You will be presented with a default location to install Qlikview Server to.  The default is fine, but if you want to move it to a different drive, click the change button and make that modification, then click Next:
+<img src="../assets/qvs-installation-05.png" alt="1554986990737"></p></li>
+<li><p>Next you will be presented with different install configurations.  The default for most sites is the “Full Installation, Single machine with Qlikview Webserver”.  This will install all components on a single machine.  For more complex installation where different components will be installed on different machines the site will need to have Qlikview Publisher which is an additional cost.
+Select your configuration and click Next:
+<img src="../assets/qvs-installation-06.png" alt="1554987023368"></p></li>
+<li><p>You will now be asked to specify a user who will run the Qlikview services.  This user should have been created in the pre installation steps.  Make sure that you use the format of Domain\Username.
+<img src="../assets/qvs-installation-07.png" alt="1554987090375"></p></li>
+<li><p>You will now select how you want Qlikview to authenticate users who will have access to the QMC (Qlikview Management Console).
+Always select “Use Qlikview Administrators Group”  this will create a new user group called Qlikview Administrators Group.  It will automatically add the user doing the install to this group.  You may add other users as you see fit after the installation.
+Click Next to continue.
+<img src="../assets/qvs-installation-08.png" alt="1554987103824"></p></li>
+<li><p>Click on Install to being the installation
+<img src="../assets/qvs-installation-09.png" alt="1554987118966"></p></li>
+<li><p>Click finish to complete the installation.
+<img src="../assets/qvs-installation-10.png" alt="1554987148403"></p></li>
+<li><p>After this installation application finishes, you must start the services that installed created.  To do this go to start Services.msc.  You will see the five services shown below.  Start each one:
+<img src="../assets/qvs-installation-11.png" alt="1554987181798"></p></li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="qlikview-management-console-qmc"></a><a href="#qlikview-management-console-qmc" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Qlikview Management Console (QMC)</h3>
+<p>The QMC is the hub for managing all things Qlikview.  We use the QMC to view the status of the loads, to create the load schedule and to initially set up what files Analytix will load.</p>
+<h4><a class="anchor" aria-hidden="true" id="initial-qmc-setup"></a><a href="#initial-qmc-setup" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Initial QMC Setup</h4>
+<p>There are some initial setups that need to be completed before we schedule the loads.</p>
+<p>First and foremost we must license Qlikview server so that it will allow us to make changes.</p>
+<p>Licensing is done by going to the System tab, then the Licenses Sub tab and then clicking on the Qlikview Server option in the left hand side of the screen.</p>
+<p><img src="../assets/qvs-qmc-setup-01.png" alt="1554987279186"></p>
+<p>Now, select the Qlikview Server License tab on the right hand side of the screen:</p>
+<p><img src="../assets/qvs-qmc-setup-02.png" alt="1554990371365"></p>
+<p>Here you will need to enter the Serial Number and Control number for this Qlikview installation.</p>
+<p>Next Enter the Owner information section.  This will simply be the Name of the click and Organization.  This does not affect the licensing.</p>
+<p>Lastly, click Apply License and QV Server will access the Qlikview website and retrieve the Qlikview license servers.  If for some reason you do not have internet access, you can go to the Qlik.com website to get an LEF (License Enabler File) for the installation.</p>
+<h4><a class="anchor" aria-hidden="true" id="system---qlikview-server-setup"></a><a href="#system---qlikview-server-setup" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>System - Qlikview Server Setup</h4>
+<ol>
+<li><p>Start by going to the System tab and then on the Setup sub tab, expand the Qlikview Servers section and click on the server name that is showing:
+<img src="../assets/qvs-qmc-setup-init-01.png" alt="1554990475334"></p></li>
+<li><p>In the right hand panel go to the Folders tab.  Here we will set up where Qlikview is going to look for our Analytix files:</p>
+<p><img src="../assets/qvs-qmc-setup-init-02.png" alt="1554990515779"></p>
+<p>The Root folder can be left to the default directory.  This is where all of the *.PGO files will be stored.  They are system files that keep track of licensing and session information.  It is best to keep them separate from the Analytix File.</p>
+<p>We now want to “Mount” the folder that contains our Analytix files.  This is usually in the root like C:, D:, etc. in an directory named Analytix.</p>
+<p>Give it a Name (Analytix) and then either click on the folder to browse for the path or type it in.
+Click Apply.</p></li>
+<li><p>Next go to the Logging tab:
+<img src="../assets/qvs-qmc-setup-init-03.png" alt="1554990610158"></p>
+<p>Here we will just change the frequency with which Qlikview splits the log files.  I usually will set this to weekly.</p>
+<p>Click apply.</p>
+<p>We leave Audit logging off unless there is an issue.  Audit Logging will log all actions each users take when in a session.  These files can get large, so only use this if necessary.</p></li>
+<li><p>Next go to the Security tab:</p>
+<p><img src="../assets/qvs-qmc-setup-init-04.png" alt="1554990692688"></p>
+<p>Here we simply want to make sure that under the Authentication section that the Prohibit anonymous has been selected.</p></li>
+</ol>
+<h4><a class="anchor" aria-hidden="true" id="system---qlikview-web-server-setup"></a><a href="#system---qlikview-web-server-setup" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>System - Qlikview Web Server Setup</h4>
+<ol>
+<li><p>In the System/Setup section go to the Qlikview Web Servers folder, expand it and select the Web server showing:
+<img src="../assets/qvs-qmc-setup-web-01.png" alt="1554990860425"></p></li>
+<li><p>Go to the AccessPoint page and make sure the Default Preferred Client is set to IE Plugin and that the Plugin Download section has a check in the “Show link” check box.  This will ensure users can download the plugin.
+<img src="../assets/qvs-qmc-setup-web-02.png" alt="1554990893164"></p>
+<p>Click Apply.</p></li>
+</ol>
+<h2><a class="anchor" aria-hidden="true" id="scheduling-analytix-loads"></a><a href="#scheduling-analytix-loads" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Scheduling Analytix Loads</h2>
+<p>Once Qlikview is set up and pointing to your Analytix files, you need to set up the load schedule so that your Analytix files have the latest data in them.</p>
+<p>To start go to the QMC Documents tab:</p>
+<p><img src="../assets/qvs-qmc-sched-01.png" alt="1554991287883"></p>
+<p>The QVW files listed outside of the Analytix directory are sample files.</p>
+<p>These files are located in the C:\ProgramData\QlikTech\Documents directory.  You may simply go to this directory and delete them.</p>
+<p>The files that we want to schedule are located in the Analytix folder in the Documents tab.</p>
+<p>To start expand the Analytix directory and the QVD, QVW and SOURCE directories.</p>
+<p><img src="../assets/qvs-qmc-sched-02.png" alt="1554991305427"></p>
+<p>On the left hand side you will see all of the files that are in the directories you specified.</p>
+<p>On the right hand side you will see sub tabs with settings for the file selected on the left hand panel.</p>
+<p>To set the reload schedule we are interested in the “Reload” tab. Remember that the settings will affect the file selected.</p>
+<p>Before we get into the settings of the Reload tab, I want to go over how the reloads work.</p>
+<p>When we load Analytix, we must load the files in a certain sequence, because files are dependent upon other one being loaded with data.</p>
+<p>Within QlikView you are able to schedule each file to run based on a number of options, one of them is on the successful completion of another files loading.  This is how we “string together” our files to load in a certain order.</p>
+<p>So, we will schedule a single file to load at a certain time.  This is our driver file so to speak.  Once it finishes successfully there will be another file that will run based on the previous files completion.</p>
+<p>Our driver file is QVD_ALL.qvw in the QVD directory.</p>
+<p>Select the QVD_ALL.qvw file and then select the reload tab:</p>
+<p><img src="../assets/qvs-qmc-sched-03.png" alt="1554991368606"></p>
+<p>Select the Daily radio button and set it to run once a day at 4:00 AM.  Click Apply.</p>
+<p>Now that we have are driver scheduled we will start setting up the load chain for the other files.</p>
+<h3><a class="anchor" aria-hidden="true" id="loading-the-source-files"></a><a href="#loading-the-source-files" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Loading the Source Files</h3>
+<p>After <strong>QVD_ALL</strong> has finished we need to load the Analytix source files.  Right now, these include:</p>
+<ol>
+<li>SOURCE_AdvertisingAnlaytix.qvw</li>
+<li>SOURCE_SalesFlash.qvw</li>
+<li>SOURCE_Contracts.qvw</li>
+<li>SOURCE_ARAnalytix.qvw</li>
+</ol>
+<p>If you are only going to give one of two final applications to your users, then only schedule those that you are going to be using.  There may be more that are added after this documentation is finished.</p>
+<p>First select <strong>SOURCE_AdvertisingAnalytix.qvw</strong> from the left hand pane and make sure you are in the reload tab on the right hand pane.</p>
+<p><img src="../assets/qvs-qmc-sched-04.png" alt="1554991470436"></p>
+<p>Select the “On event of Another Task” option and choose “Successful” in the first drop down and from the second drop down choose Analytix/QVD_ALL.qvw that you scheduled.</p>
+<p>This says to only start loading the SOURCE file after the <strong>QVD_ALL</strong> file has been successfully loaded.</p>
+<p>You now must do this same process for the rest of the SOURCE files.</p>
+<p>Just like the files in the SOURCE directory need <strong>QVD_ALL.qvw</strong> to reload successfully before they can be reloaded, the files in the QVW directory cannot be reloaded until the files in the SOURCE directory are reloaded successfully.</p>
+<p>We will set up the files in the QVW directory the same way as the SOURCE directory.  Here is how the <strong>AdvertisingAnalytix.qvw</strong> reload tab would look:</p>
+<p><img src="../assets/qvs-qmc-sched-05.png" alt="1554991578384"></p>
+<h3><a class="anchor" aria-hidden="true" id="visual-representation-of-load-chain"></a><a href="#visual-representation-of-load-chain" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Visual Representation of Load Chain</h3>
+<p><img src="../assets/qvs-qmc-sched-06.png" alt="1554991644040"></p>
+<p><strong>Here is a summary of how to create this load chain:</strong></p>
+<ol>
+<li><p>Schedule <strong>QVD_ALL.qvw</strong> to load at a specified time of day (or multiple times if desired using the Hourly option.)</p></li>
+<li><p>Schedule <strong>SOURCE_AdvertisingAnalytix.qvw</strong> to load when <strong>QVD_ALL.qvw</strong> has finished successfully.
+<img src="../assets/qvs-qmc-loadchain-01.png" alt="1554991788473"></p>
+<p>Click the <strong>Apply</strong> button!</p></li>
+<li><p>Schedule SOURCE_SalesFlash.qvw to load when QVD_ALL.qvw has finished successfully.
+<img src="../assets/qvs-qmc-loadchain-02.png" alt="1554991825716"></p>
+<p>Click the <strong>Apply</strong> button!</p></li>
+<li><p>Schedule SOURCE_Contracts.qvw to load when QVD_ALL.qvw has finished successfully.
+<img src="../assets/qvs-qmc-loadchain-03.png" alt="1554991840116"></p>
+<p>Click the <strong>Apply</strong> button!</p></li>
+<li><p>Schedule SOURCE_ARAnalytix.qvw to load when QVD_ALL.qvw has finished successfully.
+<img src="../assets/qvs-qmc-loadchain-04.png" alt="1554991855149"></p>
+<p>Click the <strong>Apply</strong> button!</p></li>
+<li><p>Schedule AdvertisingAnalytix.qvw to load when SOURCE_AdvertisingAnalytix.qvw finishes.
+<img src="../assets/qvs-qmc-loadchain-05.png" alt="1554991914340"></p>
+<p>Click the <strong>Apply</strong> button!</p></li>
+<li><p>Schedule SalesFlash.qvw to load when SOURCE_SalesFlash.qvw finishes.
+<img src="../assets/qvs-qmc-loadchain-06.png" alt="1554991927438"></p>
+<p>Click the <strong>Apply</strong> button!</p></li>
+<li><p>Schedule Contracts.qvw to load when SOURCE_Contracts.qvw finishes.
+<img src="../assets/qvs-qmc-loadchain-07.png" alt="1554991939436"></p>
+<p>Click the <strong>Apply</strong> button!</p></li>
+<li><p>Schedule ARAnalytix.qvw to load when SOURCE_ARAnalytix.qvw finishes.
+<img src="../assets/qvs-qmc-loadchain-08.png" alt="1554991956502">
+Click the <strong>Apply</strong> button!</p></li>
+</ol>
+<p>The other thing that you need to do for all the files in the QVW directory is to assign them a Category.  This will allow them to be singled out in AccessPoint.</p>
+<p>To do this you will select each of the files in the QVW directory just as we did when scheduling them, however, we will now be on the Document Information sub tab:</p>
+<p><img src="../assets/qvs-qmc-loadchain-09.png" alt="1554992111893"></p>
+<p>Simply type the name of the Category into the input box and press apply.  For subsequent files, just choose from the “Select Category” drop down.</p>
+<h2><a class="anchor" aria-hidden="true" id="using-the-qmc-to-restart-and-monitor-loads"></a><a href="#using-the-qmc-to-restart-and-monitor-loads" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Using the QMC to Restart and Monitor Loads</h2>
+<p>After the setup has been completed, the main use of the QMC is to allow you to manually start a reload and to monitor the reload activity.  You will be able to view how long the loads take and if any error occurred.</p>
+<p>First you will log into the QMC <em><a href="http://yourservername:4780/qmc">http://yourservername:4780/qmc</a></em>.</p>
+<p>You will be taken to the <strong>Tasks</strong> panel on the <strong>Status</strong> tab:</p>
+<p><img src="../assets/qvs-qmc-tasks-01.png" alt="1554993827263"></p>
+<ol>
+<li>You will see one or more folders that contain the loads.  For Analytix, you should have a production load and potentially other folders that load data from another database like Test or Train.</li>
+<li>These are actual QVW files that will be loaded. Notice the + sign.  This indicates that there are other loads that are dependent on the QVD_ALL being loaded.  If you want a full load, you just need to reload the QVD_ALL file and all QVW files below will be loaded.</li>
+<li>To start the reloading of a particular QVW file, click on the ▶ button corresponding to the QVW file that you want reloaded.  Do note that any file nested underneath the file you are reloading will also be reloaded.</li>
+<li>Make sure the &quot;Automatic refresh of task list&quot; is checked.  This will avoid confusion and continuously update the display so that you know what state your load is in.</li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="showing-task-details"></a><a href="#showing-task-details" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Showing Task Details</h3>
+<p>If a task fails or if you would like more details on the running times of tasks, you can get this by clicking on the &quot;Show Task Details&quot; link in the upper right hand corner of the Tasks panel.</p>
+<p><img src="../assets/qvs-qmc-tasks-02.png" alt="1554994107997"></p>
+<p>Note that in the above screenshot, the &quot;Show Task Details&quot; link has change to &quot;Hide Task Details&quot;.</p>
+<p>When you are in the Task Details sections, it will display details about the QVW selected in the left hand pane.</p>
+<p>In the Task Details pane (Right hand side), you have four tabs:</p>
+<ol>
+<li><strong>Task Details</strong> - Basic information about the selected QVW's load trigger and other information about the file.</li>
+<li><strong>Task History</strong> - Displays execution times, durations and status.  Use this pane to see how long reload are taking and if there were any errors.
+<img src="../assets/qvs-qmc-taskdetails-01.png" alt="1554996219082"></li>
+<li><strong>Task Log</strong> - Displays a log of the last load.  If there was a failure, this is not the best log for finding the issue.  The better log is located in the QVW's directory and named the same as the QVW but with a &quot;.log&quot; extension.
+<img src="../assets/qvs-qmc-taskdetails-02.png" alt="1554996324733"></li>
+<li><strong>Document Log</strong> - I do not use this.</li>
+</ol>
+<h3><a class="anchor" aria-hidden="true" id="qvs-statistics"></a><a href="#qvs-statistics" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>QVS Statistics</h3>
+<p>The QVS Statistics panel allows you see the active users who have a document open &quot;Active Users&quot; Panel.</p>
+<p><img src="../assets/qvs-qmc-stats-01.png" alt="1554996478548"></p>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="stop--start-qlikview-services-batch-file"></a><a href="#stop--start-qlikview-services-batch-file" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Stop / Start Qlikview Services Batch File</h2>
+<p>Sometimes it is useful to restart the Qlikview services every night.  The easiest way to do this is to create a scheduled task with Windows Task Scheduler that runs a simple batch file.</p>
+<p>The batch file will contain the following commands:</p>
+<pre><code class="hljs css language-powershell">net stop <span class="hljs-string">"Qlikview Directory Service Connector"</span>
+net stop <span class="hljs-string">"Qlikview Distribution Service"</span>
+net stop <span class="hljs-string">"Qlikview Management Service"</span>
+net stop <span class="hljs-string">"Qlikview Server"</span>
+net stop <span class="hljs-string">"Qlikview Webserver"</span>
+
+net start <span class="hljs-string">"Qlikview Directory Service Connector"</span>
+net start <span class="hljs-string">"Qlikview Distribution Service"</span>
+net start <span class="hljs-string">"Qlikview Management Service"</span>
+net start <span class="hljs-string">"Qlikview Server"</span>
+net start <span class="hljs-string">"Qlikview Webserver"</span>
+</code></pre>
+<p>These commands take less than a minute or two to run, but still make sure you do not schedule the task to run during a reload or during peak usage times for Qlikview.</p>
+<hr>
+<div style="page-break-after: always;"></div>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/analytix/analytix-help-advanced-search.html"><span class="arrow-prev">← </span><span>Qlikview Advanced Search</span></a><a class="docs-next button" href="/docs/support/qlikview-server-objects.html"><span>Qlikview Server Objects</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#installation-and-setup-of-qlikview-server">Installation and Setup of Qlikview Server</a><ul class="toc-headings"><li><a href="#install-qlikview-server">Install Qlikview Server</a></li><li><a href="#qlikview-management-console-qmc">Qlikview Management Console (QMC)</a></li></ul></li><li><a href="#scheduling-analytix-loads">Scheduling Analytix Loads</a><ul class="toc-headings"><li><a href="#loading-the-source-files">Loading the Source Files</a></li><li><a href="#visual-representation-of-load-chain">Visual Representation of Load Chain</a></li></ul></li><li><a href="#using-the-qmc-to-restart-and-monitor-loads">Using the QMC to Restart and Monitor Loads</a><ul class="toc-headings"><li><a href="#showing-task-details">Showing Task Details</a></li><li><a href="#qvs-statistics">QVS Statistics</a></li></ul></li><li><a href="#stop--start-qlikview-services-batch-file">Stop / Start Qlikview Services Batch File</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/Naviga_Logo_Dark_Icon.png" alt="Naviga Analytics" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/analytix/analytix-setup.html">Getting Started With Analytix</a><a href="/docs/bi/bi-auditors.html">BI Docs</a></div><div><h5>naviga</h5><a href="http://navigaglobal.com/" target="_blank">Website</a><a href="http://navigaglobal.com/blog/" target="_blank">naviga Blog</a><a href="https://twitter.com/navigaglobal" target="_blank">Twitter</a><a href="https://www.facebook.com/navigaglobal" target="_blank">Facebook</a><a href="https://www.linkedin.com/company/navigaglobal" target="_blank">LinkedIn</a></div><div><h5>More</h5><a href="/docs/analytix/analytix-bi-overview.html">Analytix Docs</a><a href="/docs/bi/bi-resources.html">BI Docs</a></div></section><a href="https://navigaglobal.com" target="_blank"><img src="/img/Naviga_Logo_Dark_Verticle.png" alt="naviga - Venture Forward" width="226" height="42" style="margin:1em auto;display:block;width:226px"/></a><section class="copyright">Copyright © 2020 naviga</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: 'ccd2672198948e3c79646332385b98fb',
+                indexName: 'analytix',
+                inputSelector: '#search_input_react',
+                algoliaOptions: {}
+              });
+            </script></body></html>

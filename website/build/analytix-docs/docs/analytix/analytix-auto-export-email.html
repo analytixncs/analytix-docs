@@ -1,0 +1,279 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Analytix Auto Export and Email · Naviga Analytics</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## Introduction"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Analytix Auto Export and Email · Naviga Analytics"/><meta property="og:type" content="website"/><meta property="og:url" content=".//index.html"/><meta property="og:description" content="## Introduction"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/Naviga_Logo_Dark_Icon.png" alt="Naviga Analytics"/><h2 class="headerTitleWithLogo">Naviga Analytics</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class="siteNavGroupActive"><a href="/docs/analytix/analytix-bi-overview.html" target="_self">Analytix</a></li><li class=""><a href="/docs/bi/bi-resources.html" target="_self">BI</a></li><li class=""><a href="/docs/insight/insight.html" target="_self">InSight</a></li><li class=""><a href="/docs/informer/informer-basics.html" target="_self">Informer</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Analytix Setup/Main</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Analytix Intro</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-bi-overview.html">Analytix and BI Overview</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Analytix Setup/Main</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-preinstall-checklist.html">Analytix Pre Install Checklist</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-install.html">Analytix Install/Upgrade Guide</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-setup.html">Analytix Setup</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-admin-guide.html">Analytix Admin Guide</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-custom-scripts.html">Analytix Custom Scripts</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/docs/analytix/analytix-auto-export-email.html">Analytix Auto Export and Email</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-source-control.html">Analytix Source Control</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Analytix User Guides</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-salesflash-userguide.html">Salesflash User Guide</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Analytix Developer Guides</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-salesflash-developerguide.html">Salesflash Developer Guide</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-training-aggr-function.html">AGGR Function Training</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-training-set-analysis.html">The Power of Set Analysis</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-balance-to-gl.html">Balancing Analytix to Core</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-exchange-rate.html">Exchange Rate / Foreign Currency in Analytix</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Analytix Support Docs</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-using-accesspoint.html">Using AccessPoint / IE Plugin Setup</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-salesflash-vs-advertisinganalytix.html">SalesFlash versus AdvertisingAnalytix</a></li><li class="navListItem"><a class="navItem" href="/docs/analytix/analytix-help-advanced-search.html">Qlikview Advanced Search</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-server-management.html">Qlikview Server Management</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-server-objects.html">Qlikview Server Objects</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-license-management.html">Qlikview License (CALs) Management</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-bookmark-management.html">Qlikview Bookmark Management</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-reduce-data.html">Remove Data from Qlikview App</a></li><li class="navListItem"><a class="navItem" href="/docs/support/qlikview-miscellaneous-support.html">Qlikview Miscellaneous Support</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Analytix Auto Export and Email</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="introduction"></a><a href="#introduction" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Introduction</h2>
+<p>Qlikview does not have a native solution, other than NPrinting, which is an expensive add on, that enables you to export and email users charts on a schedule.</p>
+<p>We have created a set of macros that, when following this document, will enable you to export charts to an Excel file and email them to a set of recipients.</p>
+<blockquote>
+<p>Be aware that the more charts you create to be sent on a schedule, makes maintenance more difficult.  We have found that most sites use between 1-5 charts set to export and email.</p>
+</blockquote>
+<p>Here is an example of what this process will allow you to do.</p>
+<p>Let's say that the chart below is the cart that we want to export and email to people.</p>
+<p><img src="..\assets\AutoEmail-01.jpg" alt="img"></p>
+<p>Notice that the first dimension is the SoldBy_SalesTeam. This is going to be our GroupField.  The field we choose as the <strong>GroupField</strong> is going to be the field that we “loop and reduce” on.</p>
+<p>Loop and Reduce means that we will filter by each SalesTeam and then export that as an Excel file, which will mean that we will have 4 excel files from the above chart.  One XLS file for each Sales Team.</p>
+<p>As each XLS file is created, it will be emailed to whatever email address is attached to it in the data model.  The email field must be called <strong>OutputEmail</strong>.</p>
+<p>All of these steps are controlled using macros within Analytix.</p>
+<h2><a class="anchor" aria-hidden="true" id="step-1---create-qvw-and-add-macro-functions"></a><a href="#step-1---create-qvw-and-add-macro-functions" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Step 1 - Create QVW And Add Macro Functions</h2>
+<p>To make this automatic, we need to create a new QVW and run the macros through a batch file.</p>
+<p>So step one is to make a copy of the Analytix QVW file that you want to run auto exported reports out of.  This usually is the <strong>SalesFlash.qvw</strong> file.</p>
+<p>In the QVW directory make a copy of the <strong>SalesFlash.qvw</strong> called <strong>SalesFlashAutoExport.qvw.</strong></p>
+<p>Next download the needed macro functions which are found within the AML (Analytix Macro Library) Auto Export Functions and install them.</p>
+<blockquote>
+<p><a href="../assets/downloads/AML-AutoExportMacros.txt">AML-AutoExportMacros.txt</a></p>
+</blockquote>
+<p>To install these additional macros, open up your new QVW and choose <strong><em>Tools/Edit Module...</em></strong> from the menu.</p>
+<p>This will open up the macro editor.  Scroll to the bottom and paste the contents of the AML-<strong>AutoExportMacros.txt</strong> file</p>
+<h3><a class="anchor" aria-hidden="true" id="set-module-security"></a><a href="#set-module-security" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Set Module Security</h3>
+<p>This is very import and if not set properly, you export will NOT work.</p>
+<p>Go to the Edit Module dialog (Tools/Edit Module...) and set:</p>
+<ul>
+<li><strong>Requested Module Security</strong> = System Access</li>
+<li><strong>Current Local Security</strong> = Allow System Access</li>
+</ul>
+<p><img src="..\assets\autoexport-005.jpg" alt="img"></p>
+<h2><a class="anchor" aria-hidden="true" id="step-2---create-your-chart"></a><a href="#step-2---create-your-chart" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Step 2 - Create your Chart</h2>
+<p>Next you will need to create the chart that you want to setup to auto export.  It is important to make note of this charts Object ID.</p>
+<p>The Object ID can be found on the Properties sheet of the chart you are working with.</p>
+<p><img src="..\assets\autoexport-002.jpg" alt="img"></p>
+<p>In this case I have renamed the Object ID to ExportChart.  This will be used when we create the driving macro.</p>
+<h2><a class="anchor" aria-hidden="true" id="step-3---create-your-group-field"></a><a href="#step-3---create-your-group-field" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Step 3 - Create your Group Field</h2>
+<p>Depending on your chart and needs, you will choose the field that you will designate as the <strong>Group Field</strong>.  As stated before, this is the field that will be used to <em>loop and reduce</em> your data.</p>
+<p>The Group Field will determine what the contents of each excel file will be.  For example, the below chart will have a Group Field of SoldBy_SalesTeam, so our process will filter by each Sales Team and create an Excel file for each team.</p>
+<p><img src="..\assets\autoexport-003.jpg" alt="img"></p>
+<p>If you were creating a report that you wanted sent out to all of your sales reps, then the Group Field would most likely be SoldBy_RepLoginName.</p>
+<h2><a class="anchor" aria-hidden="true" id="step-4---create-control-variables"></a><a href="#step-4---create-control-variables" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Step 4 - Create Control Variables</h2>
+<p>You will need to create two variables:</p>
+<ul>
+<li><strong>vExportLocation</strong> - determines where the exported Excel files will be stored.</li>
+<li><strong>vRunExport</strong> - will be used in a later step to determine if we are to run the export.</li>
+</ul>
+<p>To create a variable, go to the Settings Menu, then Variable Overview.  Click on Add and type in the variable name .</p>
+<p><img src="..\assets\autoexport-004.jpg" alt="img"></p>
+<p>After you have created it, find it in the list and click on it.  Then go to the Definition and enter the definition.</p>
+<ul>
+<li>vExportLocation = The full path.  Make sure the location exists on your hard drive.</li>
+<li>vRunExport = 0</li>
+</ul>
+<p>You can optionally create the variables <strong>vEmailSubject</strong> and <strong>vEmailBody</strong>. These will allow you to customize the email subject and body for the email sent.</p>
+<h2><a class="anchor" aria-hidden="true" id="step-5---create-the-export-driver-macro"></a><a href="#step-5---create-the-export-driver-macro" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Step 5 - Create the Export Driver Macro</h2>
+<p>Now we need to create the macro that is going to start this whole process.  To do this go to Tools/Edit Module and go to the end of all the code:</p>
+<p><img src="..\assets\autoexport-006.jpg" alt="img"></p>
+<p>At the end, enter the following:</p>
+<pre><code class="hljs css language-vbscript"><span class="hljs-keyword">sub</span> ExportDriver
+  <span class="hljs-keyword">if</span> AML_GetVariableContents(<span class="hljs-string">"vRunExport"</span>) = <span class="hljs-number">1</span>  <span class="hljs-keyword">then</span>    
+    <span class="hljs-keyword">call</span> AML_PrintToExcel(<span class="hljs-string">"vExportLocation"</span>, <span class="hljs-string">"ExportChart"</span>, 
+            <span class="hljs-string">"SoldBy_SalesTeam"</span>, <span class="hljs-string">"OutputEmailFieldName"</span>)
+    ActiveDocument.GetApplication.Quit
+  <span class="hljs-keyword">end</span> <span class="hljs-keyword">if</span>
+<span class="hljs-keyword">end</span> <span class="hljs-keyword">sub</span> 
+</code></pre>
+<p>Now you must change the parameters on the call to <code>AML_PrintToExcel</code> to match your information.</p>
+<pre><code class="hljs css language-vbscript"><span class="hljs-keyword">call</span> AML_PrintToExcel(<span class="hljs-string">"vExportLocation"</span>, 
+<span class="hljs-string">"ExportChart"</span>, <span class="hljs-string">"SoldBy_SalesTeam"</span>, <span class="hljs-string">"OutputEmailFieldName"</span>)
+</code></pre>
+<ul>
+<li><strong>vExportLocation</strong> - The variable you created in step 4 that contains the location where you want the XLS files stored.</li>
+<li><strong>ExportChart</strong> - The Object ID of the chart you are exporting.</li>
+<li><strong>SoldBy_SalesTeam</strong> - The Group Field name.  This is the name of a field in the existing data model.  You will have one XLS file for each value in this field.  If you simply want to export the whole table into a single file pass &quot;&quot; for the Group Field Name.</li>
+<li><strong>OutputEmailFieldName</strong> - The name of the field which holds the email addresses you want to send emails to.  To disable email sending pass &quot;&quot; for the OutputEmailFieldName.</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="step-6---customize-email-macro"></a><a href="#step-6---customize-email-macro" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Step 6 - Customize Email Macro</h2>
+<p>To be able to email, you need to tell our macro what SMTP server to use to send the emails.</p>
+<p>This configuration information is set in the AML_SendEmail sub routine.</p>
+<p>Open “Edit Module” (Tools/Edit Module) and go to the AML_SendEmail sub routine.</p>
+<pre><code class="hljs css language-vbscript">objEmail.Configuration.Fields(
+<span class="hljs-string">"http://schemas.microsoft.com/cdo/configuration/sendusing"</span>) = <span class="hljs-number">2</span>  
+<span class="hljs-string">"http://schemas.microsoft.com/cdo/configuration/smtpserver"</span>) = <span class="hljs-string">"smtp.yourserver.com"</span>  
+<span class="hljs-string">"http://schemas.microsoft.com/cdo/configuration/smtpserverport"</span>) = <span class="hljs-number">465</span>  
+<span class="hljs-string">"http://schemas.microsoft.com/cdo/configuration/smtpauthenticate"</span>) = <span class="hljs-number">1</span> 
+<span class="hljs-string">"http://schemas.microsoft.com/cdo/configuration/smtpconnectiontimeout"</span>) = <span class="hljs-number">60</span>
+<span class="hljs-string">"http://schemas.microsoft.com/cdo/configuration/sendusername"</span>)= <span class="hljs-string">"username"</span> 
+<span class="hljs-string">"http://schemas.microsoft.com/cdo/configuration/sendpassword"</span>) = <span class="hljs-string">"password"</span> 
+<span class="hljs-string">"http://schemas.microsoft.com/cdo/configuration/smtpusessl"</span>) = <span class="hljs-literal">True</span>  
+
+</code></pre>
+<p>You will want to modify the following four entries to comply with your SMTP Server:</p>
+<pre><code class="hljs css language-vbscript"><span class="hljs-string">"http://schemas.microsoft.com/cdo/configuration/smtpserver"</span>) = <span class="hljs-string">"smtp.yourserver.com"</span>  
+<span class="hljs-string">"http://schemas.microsoft.com/cdo/configuration/smtpserverport"</span>) = <span class="hljs-number">465</span>  
+<span class="hljs-string">"http://schemas.microsoft.com/cdo/configuration/sendusername"</span>)= <span class="hljs-string">"username"</span> 
+<span class="hljs-string">"http://schemas.microsoft.com/cdo/configuration/sendpassword"</span>) = <span class="hljs-string">"password"</span> 
+</code></pre>
+<ul>
+<li><strong>smtpserver</strong> - this is your SMTP server.  If for some reason your Analytix box doesn’t have access to your company’s SMTP server, you can setup a gmail account and use gmail as an SMTP server.</li>
+<li><strong>smtpserverport</strong> - This is the port number for the SMTP server, gmail uses 465, most default to 25.  Contact your network administrator if you need help finding this information.</li>
+<li><strong>sendusername</strong> - The username for your SMTP server.</li>
+<li><strong>sendpassword</strong> - The password for your SMTP server.</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="step-7---trigger-setup"></a><a href="#step-7---trigger-setup" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Step 7 - Trigger Setup</h2>
+<p>Qlikview has a feature called <strong>Triggers</strong>.  With triggers, we can cause one action to happen when some other action &quot;triggers&quot; it.  In this case, we want to be able to control when the <em>ExportDriver</em> macro runs.</p>
+<p>The trigger is when the QVW is opened.  This means that every time this QVW is opened it will run the <em>ExportDriver</em> macro.  However, within the <em>ExportDriver</em> macro we will be checking the <strong>vRunExport</strong> variable and only export/email if this variable is equal to 1.</p>
+<p>To set this functionality up, go to <em>Settings/Document Properties...</em> and then click on the Triggers tab.</p>
+<p><img src="..\assets\autoexport-007.jpg" alt="img"></p>
+<p>You want to <strong>Add Action(s)</strong> to the <strong>OnOpen</strong> Document Event Trigger.  So click on <strong>OnOpen</strong> and then on the <strong>Add Action(s)…</strong> button.</p>
+<p>In the actions window, click on the Add button.</p>
+<p><img src="..\assets\autoexport-008.jpg" alt="img"></p>
+<p>In the Add Actions window click on External in the Action Type box and Run Macro in the Action box, then click OK.</p>
+<p><img src="..\assets\autoexport-009.jpg" alt="img"></p>
+<p>Enter “ExportDriver” or whatever you named your driving function in the Macro Name box and click OK.</p>
+<p><img src="..\assets\autoexport-010.jpg" alt="img"></p>
+<p>Click OK on the Document Properties window.</p>
+<p>Now whenever this document is opened it will run the <strong>ExportDriver</strong> macro.</p>
+<h2><a class="anchor" aria-hidden="true" id="step-8---create-the-batch-file"></a><a href="#step-8---create-the-batch-file" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Step 8 - Create the Batch File</h2>
+<p>The last step is to make all this happen automatically on a schedule and this done by creating a batch file that will call the QVW file.  You can then schedule that batch file to run with Windows Scheduled Task or other task scheduler.</p>
+<p>The Batch file will contain the following:</p>
+<pre><code class="hljs css language-powershell">REM ----------------------------
+REM ---<span class="hljs-literal">-Reload</span> QVW
+REM ----------------------------
+start /WAIT C:\<span class="hljs-string">"Program Files"</span>\QlikView\qv.exe /vvRunExport=<span class="hljs-number">0</span> /r AdvertisingAnalytixEMAILTEST.qvw
+
+REM -----------------------------------------------------
+REM ---<span class="hljs-literal">-Open</span> QVW and then run macro to export and email
+REM -----------------------------------------------------
+start /WAIT C:\<span class="hljs-string">"Program Files"</span>\QlikView\qv.exe /vvRunExport=<span class="hljs-number">1</span> AdvertisingAnalytixEMAILTEST.qvw
+
+</code></pre>
+<p>The first command reloads the QVW file.  Notice that we are setting the vRunExport variable to 0.  This will keep the Export Driver macro from running.  The <strong>/r</strong> directive tells Qlikview to perform a reload.</p>
+<p>The second command is what export and emails our information. Here we set the vRunExport variable to 1.  This will cause our macro to run, which will create the XLS file, email them and then close down Qlikview.</p>
+<h2><a class="anchor" aria-hidden="true" id="dynamic-criteria"></a><a href="#dynamic-criteria" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Dynamic Criteria</h2>
+<p>Since you have probably set this up so that it will run automatically, you are not going to be selecting any filter criteria before the export runs every day.   So, whatever selection criteria you selected before the last Save of the QVW file, will be the selection criteria used on each export.</p>
+<p>You may be thinking that this will never work!  I want to have a different date selection each day.</p>
+<p>What you will see below is that we can create very dynamic selection criteria that changes based on the Date as well as other things.</p>
+<p>You create dynamic criteria by using the Advanced Search option.  You invoke the Advanced Search by either Right Clicking on any list box and selecting Advanced Search or by choosing Edit/Advanced Search.</p>
+<h3><a class="anchor" aria-hidden="true" id="anatomy-of-an-advanced-search"></a><a href="#anatomy-of-an-advanced-search" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Anatomy of an Advanced Search</h3>
+<p>The Advanced Search allows you to search within field using an expression instead of using explicit values.  This will allow you to make selection based on Date formulas, like selecting the current date automatically as well as making complex selections like selecting all Sales Reps who sold more than $10,000 in the current month!</p>
+<p>Here is how it works:</p>
+<p><img src="..\assets\autoexport-011.jpg" alt="img"></p>
+<p><strong>Search In</strong> - This drop down is going to be the field that we are going to make the selection in.  So, if you have a list box for this field, when you run the Advanced Search that fields list boxes will have Green selection made in them.</p>
+<p><strong>Search Expression</strong> – This is where you will create your expression to make the selection.  This is a conditional expression that makes your selection.  It doesn’t have to be checking against the same field you have selected in the Search In drop down.</p>
+<p><strong>Go Button</strong> – The Go button will execute your Advanced Search and make it part of your search criteria.</p>
+<blockquote>
+<p>Note:  Once you close the Advanced Search dialog you will not be able to edit your Advanced Search Expression.  If it is complex, I suggest making a copy of it in case you need to recreate it.  Advanced Search expressions will be stored in Bookmarks or saved in the document if they are active at the time of saving.</p>
+</blockquote>
+<p>You can view your Advanced Search expression by going to your Current Selections dialog.</p>
+<blockquote>
+<p>You can bypass the Advanced Search dialog by simply typing in your advanced search expression in the list boxes search area.</p>
+<p><img src="C:\Users\mark.mccoid\Documents\AnalytixDevelopment\analytix-docs\docs\assets\autoexport-012.jpg" alt="1559678456799"></p>
+<p>However, all subsequent examples will be shown using the Advanced Search dialog.</p>
+</blockquote>
+<h3><a class="anchor" aria-hidden="true" id="example-of-using-advanced-search"></a><a href="#example-of-using-advanced-search" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example of using Advanced Search</h3>
+<p>Let’s say you want to have a bookmark that always selects the current month of year.  To do this we need to select the current year and the current month.</p>
+<p>First set up the current year selection.  Do this by right clicking on the Calendar Year list box and choosing Advanced Search.</p>
+<p><img src="..\assets\autoexport-013.jpg" alt="img"></p>
+<p>When the Advanced Search dialog comes up, select the <em>Insert_CalendarYear</em> in the Search In drop down and enter the following in the Search Expression:</p>
+<pre><code class="hljs css language-vbscript">=Insert_CalendarYear=<span class="hljs-built_in">Year</span>(Today())
+</code></pre>
+<p><img src="..\assets\autoexport-014.jpg" alt="img"></p>
+<p>Then press <strong>Go</strong> and then press <strong>Close</strong>.</p>
+<p>Now we need to select the current month.  To do this, right click on the Month list box and choose Advanced Search.</p>
+<p>When the Advanced Search dialog comes up, select the <em>Insert_Month</em> in the Search In drop down and enter the following in the Search Expression:</p>
+<pre><code class="hljs css language-vbscript">=Insert_Month=<span class="hljs-built_in">Month</span>(today())
+</code></pre>
+<p><img src="..\assets\autoexport-015.jpg" alt="img"></p>
+<p>Then press <strong>Go</strong> and then press <strong>Close</strong>.</p>
+<p>Now you can go to your Current Selections dialog and see that these expressions are now part of your search criteria.</p>
+<p>Also, when you save this as a bookmark these expressions  will be saved, thus making your bookmark dynamic.</p>
+<h3><a class="anchor" aria-hidden="true" id="other-advanced-search-examples"></a><a href="#other-advanced-search-examples" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Other Advanced Search Examples</h3>
+<p>Here is another example.  This searches through the <em>Insert_CalendarDate</em> field and selects Month to Date and Previous Month to Date selections.</p>
+<pre><code class="hljs css language-vbscript">=Insert_CalendarDate &gt;= MonthStart(Today()) <span class="hljs-keyword">AND</span> Insert_CalendarDate &lt;= Today()
+  <span class="hljs-keyword">OR</span>
+ Insert_CalendarDate &gt;= MonthStart(Today()<span class="hljs-number">-365</span>) <span class="hljs-keyword">AND</span> Insert_CalendarDate &lt;= Today()<span class="hljs-number">-365</span>
+
+</code></pre>
+<p><img src="..\assets\autoexport-016.jpg" alt="img"></p>
+<h3><a class="anchor" aria-hidden="true" id="advanced-search-with-aggregation-formula"></a><a href="#advanced-search-with-aggregation-formula" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Advanced Search with Aggregation Formula</h3>
+<p>Below is a cool way to use the Advanced Search.  In this example we are selecting Sales Teams that have a Net Revenue in the current year greater than $500,000.</p>
+<p><img src="..\assets\autoexport-017.jpg" alt="img"></p>
+<p>Another twist on the above formula would be to add in a date range within the year, for example, Month to date.  To do this, you would use the formula below.</p>
+<pre><code class="hljs css language-vbscript">=SUM({$&lt;Insert_CalendarYear={$(=$(SelectYear))},Insert_CalendarDate={<span class="hljs-string">"&gt;=$(=MonthStart(Today()))&lt;=$(=Today())"</span>}&gt;} $(NetRevenue)) &gt;<span class="hljs-number">40000</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="applying-a-bookmark-on-export"></a><a href="#applying-a-bookmark-on-export" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Applying a Bookmark on Export</h3>
+<p>Now that you know how to create a dynamic search, you can save that dynamic selection criterion as a bookmark.</p>
+<p>If you have set up your export to run every day automatically, we can use a macro to apply the bookmark before the export occurs.  You will do this if you want additional filters to further refine your export results.</p>
+<p>Your bookmarks may include hardcoded criteria such as Product Name, Ad Type, etc. And/Or the dynamic filters such as dates like current week of year, etc that we created using the Advanced Search functionality.</p>
+<p>Now that we have a bookmark create we can recall that bookmark and then run our export.  This functionality is encapsulated in the AML_RecallBookmark macro.</p>
+<p>To enable this functionality, create a bookmark and add the following line to your <strong>ExportDriver</strong> function:</p>
+<pre><code class="hljs css language-vbscript"><span class="hljs-keyword">call</span> AML_ApplyBookmark (<span class="hljs-string">"BookmarkName"</span>) 
+</code></pre>
+<p>The full function then will look as follows:</p>
+<pre><code class="hljs css language-vbscript"><span class="hljs-keyword">sub</span> ExportDriver
+  <span class="hljs-keyword">if</span> AML_GetVariableContents(<span class="hljs-string">"vRunExport"</span>) = <span class="hljs-number">1</span>  <span class="hljs-keyword">then</span>    
+    <span class="hljs-keyword">call</span> AML_ApplyBookmark(<span class="hljs-string">"BookmarkName"</span>)
+    <span class="hljs-keyword">call</span> AML_PrintToExcel(<span class="hljs-string">"vExportLocation"</span>, <span class="hljs-string">"ExportChart"</span>, <span class="hljs-string">"SoldBy_SalesTeam"</span>)
+    ActiveDocument.GetApplication.Quit
+  <span class="hljs-keyword">end</span> <span class="hljs-keyword">if</span>
+<span class="hljs-keyword">end</span> <span class="hljs-keyword">sub</span> 
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/analytix/analytix-custom-scripts.html"><span class="arrow-prev">← </span><span>Analytix Custom Scripts</span></a><a class="docs-next button" href="/docs/analytix/analytix-source-control.html"><span>Analytix Source Control</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#introduction">Introduction</a></li><li><a href="#step-1---create-qvw-and-add-macro-functions">Step 1 - Create QVW And Add Macro Functions</a><ul class="toc-headings"><li><a href="#set-module-security">Set Module Security</a></li></ul></li><li><a href="#step-2---create-your-chart">Step 2 - Create your Chart</a></li><li><a href="#step-3---create-your-group-field">Step 3 - Create your Group Field</a></li><li><a href="#step-4---create-control-variables">Step 4 - Create Control Variables</a></li><li><a href="#step-5---create-the-export-driver-macro">Step 5 - Create the Export Driver Macro</a></li><li><a href="#step-6---customize-email-macro">Step 6 - Customize Email Macro</a></li><li><a href="#step-7---trigger-setup">Step 7 - Trigger Setup</a></li><li><a href="#step-8---create-the-batch-file">Step 8 - Create the Batch File</a></li><li><a href="#dynamic-criteria">Dynamic Criteria</a><ul class="toc-headings"><li><a href="#anatomy-of-an-advanced-search">Anatomy of an Advanced Search</a></li><li><a href="#example-of-using-advanced-search">Example of using Advanced Search</a></li><li><a href="#other-advanced-search-examples">Other Advanced Search Examples</a></li><li><a href="#advanced-search-with-aggregation-formula">Advanced Search with Aggregation Formula</a></li><li><a href="#applying-a-bookmark-on-export">Applying a Bookmark on Export</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/Naviga_Logo_Dark_Icon.png" alt="Naviga Analytics" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/analytix/analytix-setup.html">Getting Started With Analytix</a><a href="/docs/bi/bi-auditors.html">BI Docs</a></div><div><h5>naviga</h5><a href="http://navigaglobal.com/" target="_blank">Website</a><a href="http://navigaglobal.com/blog/" target="_blank">naviga Blog</a><a href="https://twitter.com/navigaglobal" target="_blank">Twitter</a><a href="https://www.facebook.com/navigaglobal" target="_blank">Facebook</a><a href="https://www.linkedin.com/company/navigaglobal" target="_blank">LinkedIn</a></div><div><h5>More</h5><a href="/docs/analytix/analytix-bi-overview.html">Analytix Docs</a><a href="/docs/bi/bi-resources.html">BI Docs</a></div></section><a href="https://navigaglobal.com" target="_blank"><img src="/img/Naviga_Logo_Dark_Verticle.png" alt="naviga - Venture Forward" width="226" height="42" style="margin:1em auto;display:block;width:226px"/></a><section class="copyright">Copyright © 2020 naviga</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: 'ccd2672198948e3c79646332385b98fb',
+                indexName: 'analytix',
+                inputSelector: '#search_input_react',
+                algoliaOptions: {}
+              });
+            </script></body></html>
