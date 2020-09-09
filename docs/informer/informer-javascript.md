@@ -971,7 +971,7 @@ I will try to show you the most common uses of **momentjs** within Informer, how
 - [momentjs Docs](https://momentjs.com/docs/)
 - [momentjs Guides](https://momentjs.com/guides/)
 
-**Extract Year, Month or Day from Date**
+### Extract Year, Month or Day from Date
 
 ```javascript
 // Extract pieces from a date
@@ -983,4 +983,39 @@ day = moment($record.issuedate).format('DD') // day number with preceeding zero 
 // If the field is a string, but you know the format of the date, you can do the following:
 momentDateField = moment($record.dateString, 'MM/DD/YYYY')
 ```
+
+### Date Math
+
+There are many times when you will want to be able to take a date and add or subtract **days**, **months** or **years** from it.
+
+Useful resources: 
+
+- [Manipulating Dates](https://momentjs.com/docs/#/manipulating/)
+- [Date vs Time Math](https://momentjs.com/guides/#/lib-concepts/date-time-math/)
+
+**Common Date Math**
+
+The two primary functions to are `.add()` and `.subtract()`.  You pass to them a number of how much you want to add or subtract and then identify the number as day, months, years, etc.
+
+```javascript
+lastYear = moment().subtract(1, 'years').format('YYYY') // returns 4 digit year based on today's date.
+nextMonth = moment().add(1, 'months').format('MM') // Return 2 digit month for month following today's date.
+
+//Chaining 
+chainExample = moment().add(1, 'months').subtract(7, 'days')
+```
+
+Here are the Keys and their shorthands that you can use in the above functions.
+
+| Key          | Shorthand |
+| :----------- | :-------- |
+| years        | y         |
+| quarters     | Q         |
+| months       | M         |
+| weeks        | w         |
+| days         | d         |
+| hours        | h         |
+| minutes      | m         |
+| seconds      | s         |
+| milliseconds | ms        |
 

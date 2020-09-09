@@ -58,6 +58,31 @@ Now you must choose the appropriate backup to restore.  Most of the time this wi
 
 Usually the backups are stored on the E drive. `E:\Backups\Databases\CirculationInSightStaging`.  You can view the options you have to restore there or use the **Timeline** button in the SQL Server Restore Database dialog.
 
+## Manually Mark Load as Complete
+
+Sometimes a load will make it through the publish of the Database only to fail on building cubes or making backups.  Neither of these issues require a reload of that days data, but instead, if it is cubes that fail, simply reload cubes.  If it is a backup that failed, simply run the backups manually.
+
+However, this will still leave you with the a load that is failed, waiting to be restarted.  
+
+At this point, you have two options.  Either delete the load (clicking on the X by the load) or manually marking the load as complete.
+
+Marking the load as complete usually is the best option.  This leaves record of the load and what the issue was, however, it clear it so that the next load will run.
+
+To manually mark a load as complete, you will need to use the `insightctl.exe` program.
+
+- Go to `C:\Program Files\CirculationInSight\bin\insightctl` and start the `insightctl.exe` program.
+- In the command line that launches, type the following:
+  - su
+  - changeeventstatus xxxx "Complete".
+  - exit
+  - exit
+
+> Note: Step 2 above, replace the xxxx with the Event ID from the InSight Web Admin of the load you want to mark as complete.
+
+Here is what it will look like with an incorrect entry first:
+
+![image-20200908125954542](..\assets\insight-markloadcomplete_001.png)
+
 ## Restart with Run Control Reset
 
 if you ever see that green play button, it means that the load failed. All subsequent “Pending” messages just mean they are waiting for the previous error to be fixed.
