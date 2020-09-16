@@ -4,6 +4,35 @@ title: InSight SQL Commands
 sidebar_label: InSight SQL Commands
 ---
 
+## Check Error Tables
+
+Below is the query that can be used to pull the data out of the error table. important columns are:
+
+**erev_Stamp**: Data when error record was loaded
+
+**sn_module**: name of the table
+
+**sn_code/sn_desc**: Custom error code and error message (these are defined in the package)
+
+```sql
+SELECT TOP 10000 * 
+FROM   [dbo].[sys_fct_errorevent] f 
+       JOIN [dbo].[sys_dim_screen] d 
+         ON d.sn_key = f.erev_screenkey 
+WHERE  sn_module NOT LIKE 'cln_brg_truckdistribpoint' 
+ORDER  BY f.erev_key DESC 
+```
+
+If you are looking for a particular table, just add a filter condition for sn_Module.
+
+Its important to understand what these tables stores so I will provide a quick summary.
+
+Data from source files (\*.ASC) is loaded into fil\_\* tables. 
+
+Data then gets massaged (all different joins and transformations) and a clean copy of the data (that can be straight loaded into dim or fact tables) is loaded into cln\_\* tables. But before loading some rules are applied to check the consistency and accuracy of data. And any failed records are loaded into the **sys_fct_errorevent** table.
+
+For some sources we always receive full data and all those failed records will be logged everyday. So size of these table keeps on going up.
+
 ## Check When Backup was Restored
 
 ```sql
