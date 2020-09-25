@@ -277,6 +277,22 @@ If the passed field is not an array, zero will be returned.
 
 If the any of the values are not numeric they will be ignored, but all numeric values will be summed and a total returned.
 
+**Function Syntax**
+
+```javascript
+sumMultiValuedField(field)
+```
+
+**Sample Input and Output**
+
+| Input     | Output |
+| --------- | ------ |
+| [1,2,3,4] | 10     |
+| [a, b, c] | 0      |
+| [1, b, 3] | 4      |
+| 15        | 15     |
+| Test      | 0      |
+
 
 
 ---
@@ -304,24 +320,63 @@ delimiter = delimiter || ','
 makeDistinct = makeDistinct || false
 
 // If passed mvField is NOT an array, then return mvField
-  if (!Array.isArray(mvField)) {
-    return mvField;
-  }
-  // If makeDistinct flag set, make distinct using Set
-  if (makeDistinct) {
-    // Use the JS Set to make sure we have a unique array of values
-    mvField = [...new Set(mvField)];
-  }
+if (!Array.isArray(mvField)) {
+  return mvField;
+}
 
-  // reduce to a single line of text
-  const finalString = mvField.reduce((final, val) => {
-    if (final) {
-      return final + delimiter + val;
-    } else {
-      return val;
-    }
-  }, undefined);
+//Need to convert elements to string because I found
+//some text value are represented as an object type
+//so the distinct options wouldn't work.
+mvField = mvField.map((el) => el.toString());
 
-return finalString
+// If makeDistinct flag set, make distinct using Set
+if (makeDistinct) {
+  // Use the JS Set to make sure we have a unique array of values
+  mvField = [...new Set(mvField)];
+}
+
+// reduce to a single line of text
+const finalString = mvField.reduce((final, val) => {
+  if (final) {
+    return `${final}${delimiter}${val}`;
+  } else {
+    return val;
+  }
+}, undefined);
+
+return finalString;
 ```
 
+## multiValuedToString - Usage
+
+This function will take a multi valued field (array) and return a concatenated string of the contents of the passed field.
+
+For example if you have a multi valued field **$record.mvField**, that is populated with these values:
+
+`['Rep1', 'Rep2', 'Rep3']`
+
+And you call the function as follows:
+
+`naviga.multiValuedToString($record.mvField)`
+
+You will the following returned:
+
+Rep1,Rep2,Rep3
+
+**Function Syntax**
+
+```javascript
+// There are three parameters that can be passed, but the first is the only required parameter:
+multiValuedToString(field [, delimiter=',', distinct=false])
+```
+
+Along with the field, you can pass the delimiter that you want as well as a flag to have the returned string only include unique values.
+
+**Sample Input and Output**
+
+| field                | delimiter | distinct | Output    |
+| -------------------- | --------- | -------- | --------- |
+| [1,2,2,4]            | '-'       | false    | '1-2-2-4' |
+| [1,2,2,4]            | '-'       | true     | '1-2-4'   |
+| ['a', 'b', 'b', 'c'] | ';'       | true     | 'a;b;c'   |
+| ['a', 'b', 'b', 'c'] | ';'       | false    | 'a;b;b;c' |
