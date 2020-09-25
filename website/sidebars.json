@@ -63,7 +63,7 @@
     "Informer Docs": [
       "informer/informer-basics",
       "informer/informer-javascript",
-      "informer-saved-functions",
+      "informer/informer-saved-functions",
       "informer/informer-system"
     ]
   }

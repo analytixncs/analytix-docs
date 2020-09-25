@@ -361,7 +361,7 @@ And you call the function as follows:
 
 You will the following returned:
 
-Rep1,Rep2,Rep3
+``'Rep1,Rep2,Rep3'`
 
 **Function Syntax**
 
