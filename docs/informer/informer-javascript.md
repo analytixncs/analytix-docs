@@ -1019,3 +1019,39 @@ Here are the Keys and their shorthands that you can use in the above functions.
 | seconds      | s         |
 | milliseconds | ms        |
 
+### Days Between, Months Between (Date Difference)
+
+Moment.js makes it easy to get the time difference between two dates. [Moment Diff Docs](https://momentjs.com/docs/#/displaying/difference/)
+
+Moment.js has the **diff** function that allows you to get Years, Months, Days, etc differences between two dates.  When using the diff function, it helps to think of it as "minus".  So you if you want the difference between two dates, it would be `endDate minus startDate` or `endDate.diff(startDate, 'months')`
+
+Here are some common options.
+
+```javascript
+startDate = '01/01/2020'
+endDate = '05/19/2020'
+// Before we do anything, we need to covert the dates to Moment objects:
+startDate = moment(startDate)
+endDate = moment(endDate)
+
+//Get the months between these dates (think of it like endDate - startDate in months)
+$record.sampleMonthsBetween = endDate.diff(startDate, 'months')
+// result = 4.00 
+// you can see this will round the result down, in essence doing a floor on the result
+// If you want a decimal result, pass true as a final parameter
+$record.sampleMonthsBetween = endDate.diff(startDate, 'months', true)
+// result = 4.58
+
+// Years between will return zero until a full year between
+$record.sampleMonthsBetween = endDate.diff(startDate, 'years')
+// return decimal value
+$record.sampleMonthsBetween = endDate.diff(startDate, 'years', true) 
+
+// Days between
+$record.sampleMonthsBetween = endDate.diff(startDate, 'days')
+```
+
+
+
+
+
