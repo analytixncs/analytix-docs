@@ -43,7 +43,7 @@ groupKeys.forEach((groupKeyObj) => {
   groupInit = {
     GroupSet: false,
     ...groupAggr.reduce(
-      (init, obj) => ({ ...init, [obj.name]: obj.initValue }),
+      (init, obj) => ({ ...init, [obj.name]: returnANumber(obj.initValue) }),
       {}
     ),
   };
@@ -56,12 +56,27 @@ groupKeys.forEach((groupKeyObj) => {
   // Loop through groupAggr Array and perform the aggregation
   groupAggr.forEach((aggrObj) => {
     localHold[groupKey][aggrObj.name] =
-      localHold[groupKey][aggrObj.name] + aggrObj.value;
+      localHold[groupKey][aggrObj.name] + returnANumber(aggrObj.value);
   });
   //---------------------------
 });
 //---------------------------------------------------
 return localHold;
+
+//-------------------------------------------------------
+//- HELPER FUNCTION
+//-------------------------------------------------------
+function returnANumber(numberIn) {
+  // If a date is passed return 0 otherwise dates get converted to unix time value
+  numberIn =
+    Object.prototype.toString.call(numberIn) === "[object Date]" ? 0 : numberIn;
+  const parsedNumber = Number(numberIn);
+  if (isNaN(parsedNumber)) {
+    return 0;
+  }
+  return parsedNumber;
+}
+
 ```
 
 
@@ -380,3 +395,300 @@ Along with the field, you can pass the delimiter that you want as well as a flag
 | [1,2,2,4]            | '-'       | true     | '1-2-4'   |
 | ['a', 'b', 'b', 'c'] | ';'       | true     | 'a;b;c'   |
 | ['a', 'b', 'b', 'c'] | ';'       | false    | 'a;b;b;c' |
+
+---
+
+## returnANumber- Create Function
+
+- **Function name:** returnANumber
+
+- **Namespace:** naviga
+
+- **Description:** Accepts a value and returns a number.  Returns 0 for anything that is not a number
+
+- **Parameters:**
+
+  | Data Type | Variable name | Label    | Sample |
+  | --------- | ------------- | -------- | ------ |
+  | Any       | numberIn      | numberIn |        |
+
+**Function Body**
+
+```javascript
+// If a date is passed return 0 otherwise dates get converted to unix time value
+numberIn = Object.prototype.toString.call(numberIn) === "[object Date]" ? 0 : numberIn;
+const parsedNumber = Number(numberIn);
+if (isNaN(parsedNumber)) {
+  return 0;
+}
+return parsedNumber;
+```
+
+## returnANumber- Usage
+
+This function will take any value and return a number.  This is useful if you are performing a calculation on a field which may contain null or blank values.
+
+By passing the value into the *returnANumber* function, you will be guaranteed to get back a number.
+
+If you pass in anything that cannot be converted to a number, you will get back a zero.
+
+**Function Syntax**
+
+```javascript
+// There are three parameters that can be passed, but the first is the only required parameter:
+returnANumber($record.someField)
+```
+
+Along with the field, you can pass the delimiter that you want as well as a flag to have the returned string only include unique values.
+
+**Sample Input and Output**
+
+| field | Output |
+| ----- | ------ |
+| 5     | 5.00   |
+| "5"   | 5.00   |
+| ""    | 0      |
+| null  | 0      |
+| date  | 0      |
+
+## yoyCreateFields - Create Function
+
+- **Function name:** yoyCreateFields 
+
+- **Namespace:** naviga
+
+- **Description:** Will create a separate field on the $record object for the year in the passed yoyDate field.  
+
+- **Parameters:** configObj
+
+  | Data Type | Variable name | Label     | Sample                                  |
+  | --------- | ------------- | --------- | --------------------------------------- |
+  | Any       | configObj     | configObj | { $record, yoyDate, label, fieldValue } |
+
+**Function Body**
+
+```javascript
+// This is Informer's $record object.  We need it to create the new YOY fields
+const $record = configObj.$record || {};
+const yoyDate = configObj.yoyDate || new Date();
+const label = configObj.label || '';
+const fieldValue = configObj.fieldValue || 0;
+
+const year = yoyDate.getFullYear();
+
+const fieldName = `${label}${year}`;
+$record[fieldName] = fieldValue;
+$record.yoyAggrFieldName = `sum${fieldName}`
+
+// The return is optional.
+return {
+  debugFieldName: fieldName,
+};
+```
+
+## yoyCreateFields - Usage
+
+Creating a Year over Year report consist of either one or two parts.
+
+If you only need to separate the revenue into years and will **not** be doing any calculation between years, then just do step one.  Otherwise, you will need to do both steps.
+
+1. **yoyCreateFields function** - this function will create a field for each year's revenue.  
+2. **Aggregate creation** - If you need to perform **any** calculations between years, then you will need to aggregate your data.  This would be a calculation like the difference between Current and Previous Year.
+
+> NOTE: if you are creating aggregate fields, you cannot use the Year field in your charts.  This should be fine, since the year field is "baked" into each revenue column.
+
+To create a field for each year's revenue or any other yearly amount, simply run the **yoyCreateFields** function.  You will need to first setup a configuration object to pass to the function.
+
+**yoyCreateField Configuration format**
+
+- **$record** - You can simply type this as you see it the example below.  It is a system object.
+- **label** - pass a string that will define your YOY field names.  They be in the format of 'labelYYYY'
+- **yoyDate** - This must be a date field.  This field will determine which year the amounts go into.  For example, if you passed the CreateDate, then your revenue would be in Create Year buckets.  If you passed the IssueDate, then your revenue would be Issue Year buckets.
+- **fieldValue** - this is the value.  It could be revenue or copies.  I can be any number field.
+
+
+Here is a sample.
+
+```javascript
+yoyConfig = {
+  $record,
+  label: 'revenue',
+  yoyDate: $record.issuedate,
+  fieldValue: $record.orderNetAmt,
+};
+```
+
+**yoyCreateFields**
+
+```javascript
+yoyConfig = { $record, label: 'revenue', yoyDate: $record.issuedate, fieldValue: $record.orderNetAmt }
+naviga.TestYOY({ $record, label: 'revenue', yoyDate: $record.issuedate, fieldValue: $record.orderNetAmt })
+```
+
+### Output from yoyCreateFields
+
+The only thing that is returned from the yoyCreateFields function is a debug object.   You will only need to use it if you have any issues, it return `{ debugFieldName }`
+
+The main job the function performs, however, is to create new fields on the $record object.  It will create a field for every year in the passed **yoyDate** property on the config object.
+
+For example, if your config object passed to the yoyCreateFields function looked like this:
+
+```javascript
+yoyConfig = {
+  $record,
+  label: 'revenue',
+  yoyDate: $record.issuedate,
+  fieldValue: $record.orderNetAmt,
+};
+```
+
+And the data in your dataset had dates from 01/01/2018 through 01/01/2021, the yoyCreateFields function would create the following fields:
+
+- **$record.revenue2018** - Would contain amount from $record.orderNetAmt if issueDate in year 2018, otherwise 0.
+- **$record.revenue2019** - Would contain amount from $record.orderNetAmt if issueDate in year 2019, otherwise 0.
+- **$record.revenue2020** - Would contain amount from $record.orderNetAmt if issueDate in year 2020, otherwise 0.
+- **$record.revenue2021** - Would contain amount from $record.orderNetAmt if issueDate in year 2021, otherwise 0.
+- **$record.yoyAggrFieldName** - Contains the field to use for Aggregations
+
+### Performing Calculations on YOY Fields
+
+Many times you will also want to perform calculations on your YOY fields.  This example will look at creating a current year versus previous year or `CurrentYear Revenue - PreviousYear Revenue`
+
+To get started you will need to run the **naviga.calculateAggregations**.  
+
+**Aggregation Levels** 
+
+How will your report be aggregated and reported on.  Since we are performing calculations on fields that exist on different rows (because they are in different years), we need to know at what level to aggregate them. 
+
+You will want to choose the lowest level of aggregation and obviously, leave out Year.
+
+You will usually always want the Month of year from the SAME date that you passed as your **yoyDate** field in the **yoyCreateField** function's configuration.
+
+Then you may also want to be able to see YOY by Rep and Customer. 
+
+This would mean your aggregation would be **Month-Rep-Customer**
+
+You can refer to the **calculateAggregations** documentation for details on running it, but here is an example:
+
+```javascript
+// Get the year and month of the date we created YOY fields for
+vYOYYear = moment($record.issuedate).format('YYYY');
+vYOYMonth = moment($record.issuedate).format('MM');
+
+// Create a column for month and year
+$record.YOYYear = vYOYYear;
+$record.YOYMonth = vYOYMonth;
+
+//*****************************************************
+// Start the aggregation process
+//*****************************************************
+// Define the groupKey to be used across aggregates
+// By creating a group key with all the values we want to use in our report,
+// we will be able to report on any or all of these
+groupKey1 = `${vYOYMonth}-${$record.salesrep_id_assoc_id}-${$record.advCode}`;
+
+//-- Define the objects that need to passed to the calculateAggregations function
+//- Define the keys object
+groupKeys = [
+  {
+    name: 'issueMonth_Rep',
+    groupKey: groupKey1,
+  },
+];
+
+//- define the aggregation value.  Here we just want to aggregate over any of the YOY Fields 
+//- that we created when running the naviga.yoyCreateField function
+groupAggr = [
+  {
+    name: $record.yoyAggrFieldName, // will look like -> `sum${label}${vYOYYear}`,
+    initValue: 0,
+    value: $record.orderNetAmt,
+  },
+];
+
+naviga.calculateAggregations({ $local, groupKeys, groupAggr });
+```
+
+**Current Year Value and Post Flush Powerscript** .  
+
+Now that we have our YOY Revenue fields aggregated, we can perform some calculations on them.
+
+But first, you will need to know what you want the current year to be considered as.  You can do this in a number of ways.
+
+1. **JavaScript** - use JavaScript to look at the systems date and get the year from that.  This is useful for reports that you want scheduled and that you always want looking at the true current and previous year.
+2. **Input field** - have the user enter it via an Input field.  This is more versatile if a user is going to be running the report manually.
+3. **Hard Code** - Hard code into your scripts.
+
+For this example, we will be using the option1 and use the system to generate our current year field.
+
+```javascript
+// Get the year of the issue date
+vYOYYear = $record.YOYYear;
+vYOYMonth = $record.YOYMonth;
+
+// Generate the current and previous years from JavaScript
+// Using the moment() library will return todays date and then
+// we extract year and previous year
+$record.previousYear = moment().subtract(1, 'year').format('YYYY');
+$record.currentYear = moment().format('YYYY');
+
+// local vars for easier use
+vPreviousYear = $record.previousYear;
+vCurrentYear = $record.currentYear;
+
+// Define our group !!MUST!! be same as groupKey created when aggregating. 
+// Look at your "groupKeys" that you passed to the naviga.calculateAggregates function
+groupKey1 = `${vYOYMonth}-${$record.salesrep_id_assoc_id}-${$record.advCode}`;
+sumRevenueCurrYearField = `sumrevenue${vCurrentYear}`;
+sumRevenuePrevYearField = `sumrevenue${vPreviousYear}`;
+
+// groupKey1 calculations
+// We only want to perform the calculations once for each groupKey value
+if (!$local[groupKey1].GroupSet) {
+  $record.groupKey1 = groupKey1;
+
+  //Current Year Data
+  $record[`${vCurrentYear}RepNetByYearRep_Total`] = naviga.returnANumber($local[groupKey1][sumRevenueCurrYearField]);
+
+  //Previous Year Data
+  $record[`${vPreviousYear}RepNetByYearRep_Total`] = naviga.returnANumber($local[groupKey1][sumRevenuePrevYearField]);
+
+  // Calculation
+  $record.currentVsPreviousYearRevenue =
+    naviga.returnANumber($local[groupKey1][sumRevenueCurrYearField]) - 
+    naviga.returnANumber($local[groupKey1][sumRevenuePrevYearField]);
+
+  $local[groupKey1].GroupSet = 'true';
+}
+```
+
+**Inputs**
+
+If you want to have your user input a Year, you can setup an input as usual and then add this code in a separate Powerscript or in the Post Aggregation script above.
+
+We are setting a variable in the local object so that we only do this check once.  You would then need to copy the current and previous year values into the variables being used in your post flush script.
+
+```javascript
+// Check if our currentYear is not set.  if not, then set it and previous year
+if (!$local.currentYear) {
+  if ($inputs['currentYear']) {
+    $local.currentYear = $inputs['currentYear'];
+    $local.previousYear = $local.currentYear - 1;
+  } else {
+    $local.currentYear = moment().format('YYYY');
+    $local.previousYear = moment().subtract(1, 'year').format('YYYY');
+  }
+}
+```
+
+### Reports
+
+You can now build your reports.  Just remember that if you ended up creating a calculation from the YOY fields, you will need to only use fields in your report that were used in your aggregation.
+
+Here is an example of a report by month, showing Year over Year data with a calculated difference field:
+
+![image-20201020152950134](..\assets\informer-saved-functions-yoy-001.png)
+
+However, if you do not need the calculated field, you will not be constrained by the fields you aggregated by.
+
+![image-20201020153313776](..\assets\informer-saved-functions-yoy-002.png)

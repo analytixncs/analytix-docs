@@ -561,6 +561,8 @@ Here is a sample of JSON output from a sample Dataset:
 
 If you develop a Dataset in one Datasource and want to move or copy it to a new Datasource, you will need to follow these steps.
 
+> NOTE: There is currently a "bug" in Informer which causes you any saved **Visuals** and **Filters** on the dataset to be lost when performing the copy.  Unfortunately, this is the only way to point a Dataset to a different Datasource.
+
 **Step 1**
 
 Make a copy of the Dataset in question.  This is very important, you must have a COPY of the dataset.
