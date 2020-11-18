@@ -451,6 +451,68 @@ Along with the field, you can pass the delimiter that you want as well as a flag
 | null  | 0      |
 | date  | 0      |
 
+---
+
+## getMonthsBetween - Create Function
+
+- **Function name:** getMonthsBetween
+
+- **Namespace:** naviga
+
+- **Description:** Get the absolute months between two dates.  If only one value provided or if either values are not dates, then 1 will be returned.
+
+- **Parameters:**
+
+  | Data Type | Variable name | Label      | Sample |
+  | --------- | ------------- | ---------- | ------ |
+  | Date      | startDate     | Start Date |        |
+  | Date      | endDate       | End Date   |        |
+
+**Function Body**
+
+```javascript
+// Make sure both values were sent and are dates, otherwise return 1
+if (!startDate || !endDate || !startDate.getMonth || !endDate.getMonth) {
+  return 1
+}
+
+// Calculate a Start and End Date format that be used
+startMonth = Number(startDate.getMonth()) + (Number(startDate.getFullYear()) * 12)
+endMonth = Number(endDate.getMonth()) + (Number(endDate.getFullYear()) * 12)
+
+// Need to add 1 to get the number of months including the first and the last 
+return endMonth - startMonth + 1
+```
+
+## getMonthsBetween - Usage
+
+This function will accept two dates and return the number of months between them inclusively.
+
+If only a single month is passed or if any passed value is not a JavaScript date, then 1 will be returned.
+
+> Be aware that if you cannot pass a Moment converted date directly.  You will have to use the `momentDate.toDate()` function.  BUT, also be aware that if you pass a null to moment it WILL create a date for you.  It will be the beginning of the UNIX epoch (01/01/1969)
+
+**Function Syntax**
+
+```javascript
+// There are three parameters that can be passed, but the first is the only required parameter:
+naviga.getMonthsBetween($record.startDate, $record.endDate)
+```
+
+Along with the field, you can pass the delimiter that you want as well as a flag to have the returned string only include unique values.
+
+**Sample Input and Output**
+
+| startDate  | EndDate    | Output |
+| ---------- | ---------- | ------ |
+| 10/31/2020 | 01/01/2021 | 4      |
+| 12/01/2020 | null       | 1      |
+| null       | null       | 1      |
+| null       | 12/15/2020 | 1      |
+| 05/01/2021 | 03/01/2020 | -13    |
+
+---
+
 ## yoyCreateFields - Create Function
 
 - **Function name:** yoyCreateFields 
