@@ -1051,7 +1051,17 @@ $record.sampleMonthsBetween = endDate.diff(startDate, 'years', true)
 $record.sampleMonthsBetween = endDate.diff(startDate, 'days')
 ```
 
+## Miscellaneous 
 
+### Base 64 Decode.
+
+The only way to do this in Informer 5 is to use a calculated column or Powerscript with the below, replacing the 'valueHere' with the value to be decoded.
+
+```javascript
+let decode = new java.lang.String(java.util.Base64.getDecoder().decode('valueHere'),'utf-8');
+
+return decode
+```
 
 
 
