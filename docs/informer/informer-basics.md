@@ -343,7 +343,7 @@ In our example, filter by Nov and Dec of 2019 and 2020, you would need to add tw
 
 ![1578949720984](../assets/informer_tips_date-filters-006.png)
 
-## Filters - Reports
+## Filters - Reports 
 
 When you filter any type of report, there are two places where you can filter the report.  
 
@@ -366,6 +366,22 @@ After you have created your filter, you can click on the **Apply** button.
 This will "bake in" the filter to your report.  The other option would be to Save the filter by clicking on the save icon.  However, the user who created and saved the filter and other super users will be the only one who will be able to see and apply the filter. 
 
 Saving the filter is useful if you have a complex filter that you want saved on your report.  Sometimes, to create a complex filter, you need saved portions of it.
+
+### Saving Report Filters
+
+**Ad Hoc Reports**
+
+If you save a filter on an Ad Hoc report, it will be saved for your user.  I have found no way to share this with any other users.
+
+**Other Reports based on Datasets**
+
+If you need to be able to share filters, you will want to make sure your data is coming from a Dataset versus an Ad Hoc Report.
+
+> **Important**: The Reports AND the Datasets feeding the reports must BOTH be shared with the Team or Users who you want to be able to interact with it.
+
+Whenever a user (or the creator) of the report creates a filter in the report, it will be saved as a **private** filter on the underlying dataset.  If you want other users to see the filter, you will need to open the Dataset and mark the filter as **public**.
+
+
 
 ## Datasets
 
