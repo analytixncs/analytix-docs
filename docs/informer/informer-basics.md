@@ -9,7 +9,14 @@ sidebar_label: Informer Basics
 ## Informer Support Links
 
 - [Advanced Filters](https://informer5.zendesk.com/hc/en-us/articles/360001162923-6-7-Advanced-Filters)
+
 - [Why Datasets vs AdHoc Report](https://informer5.zendesk.com/hc/en-us/articles/360001210986-Why-Use-Datasets-vs-Ad-Hoc-Queries-)
+
+- [Informer Mapping Document (csv)](../assets/downloads/informer/Elan%20Mapping%20Documentation.csv)
+
+- [Informer Mapping Document (pdf)](../assets/downloads/informer/Elan%20Mapping%20Documentation.pdf)
+
+  
 
 ## Datasets vs Ad Hoc Reports
 
