@@ -64,6 +64,7 @@
       "informer/informer-basics",
       "informer/informer-javascript",
       "informer/informer-saved-functions",
+      "informer/informer-mappings",
       "informer/informer-system"
     ]
   }
