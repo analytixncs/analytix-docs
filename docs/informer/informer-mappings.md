@@ -6,6 +6,16 @@ sidebar_label: Informer Mappings
 
 ## User Reports vs User Reports Original Rep
 
+The `User Reports` mapping does not have the original rep but they can go to the source record in AD ORDERS or INET.CAMPAIGNS and get the original rep.
+
+When the USER REPORTS trigger was first created it was two files USER_REPORTS_DETAIL (current) and USER_REPORTS_DETAIL_O (original). Then most of our clients complained that they needed something to represent the “Brand Rep” and keep the “current rep” so as of now here is how it looks:
+
+USER_REPORTS_DETAIL à BRAND REP (the rep with the current assignment on the brand regardless of what is on the order)
+
+USER_REPORTS_DETAIL_O à CURRENT REP (the current rep assigned on the order which would be the brand rep at the time of order entry and/or if orders were updated because users are given a choice.)
+
+That leaves no place for the actual Original rep on the order on any User Reports files, it can only be found on the source order files.
+
 It depends on their process.
 
  

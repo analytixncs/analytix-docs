@@ -4,6 +4,32 @@ title: InSight SQL Commands
 sidebar_label: InSight SQL Commands
 ---
 
+## Reseed Identity Field
+
+This scenario doesn’t happen very often and once we reseed the identity it will be fine for around 2 yrs.
+
+If you run the `sp_whoisactive ` and it shows its hung on the **fct_DeliverySubscriptionload** then you can run 
+
+`DBCC CHECKIDENT(‘stg_fct_DeliverySubscription’)`
+
+ to confirm ifs its identity has reached to the max limit.
+
+If it has, then you can run the following to reseed the table:
+
+```sql
+SELECT *
+INTO   stg_fct_deliverysubscription_bk_20210208
+FROM   stg_fct_deliverysubscription;
+
+TRUNCATE TABLE stg_fct_deliverysubscription;
+
+TRUNCATE TABLE est_fct_deliverysubscription
+
+DBCC checkident ('stg_fct_DeliverySubscription', reseed, 1); 
+```
+
+
+
 ## Check Error Tables
 
 Below is the query that can be used to pull the data out of the error table. important columns are:
