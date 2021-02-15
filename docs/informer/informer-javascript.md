@@ -964,6 +964,53 @@ $fields.NetInv_VarianceByYearRep_Total.dataType = 'number'
 | 2020       | SW     | 25          | 20              |
 | 2020       | TE     | 75          | 75              |
 
+### Remove Duplicate Values in Aggregation
+
+This is similar to the [Proper Aggregations in Normalized data](#proper-aggregations-in-normalized-data), except that in this case we are not normalizing and thus will not need a counter, but will instead use another field to use as our indicator that a field value should not be propogated.
+
+The example will be from the User Reports mapping and the Order Net Amt field.  This field holds the total net value for a campaign Id, however, it is duplicated across all lines.  You will see data as below:
+
+| Campaign Id | Order Net Revenue |
+| ----------- | ----------------- |
+| 1055        | 1500              |
+| 1055        | 1500              |
+| 1055        | 1500              |
+| 2545        | 5400              |
+| 2545        | 5400              |
+
+But what you really need to see, so that you can aggregate properly is:
+
+| Campaign Id | Order Net Revenue |
+| ----------- | ----------------- |
+| 1055        | 1500              |
+| 10550       | 0                 |
+| 1055        | 0                 |
+| 2545        | 5400              |
+| 2545        | 0                 |
+
+To do this, you will need to add a Powerscript flow step AND very importantly, you will need to make sure the data coming through the flow step is ordered by the Campaign Id.
+
+First to make sure the data is in the correct order, you will need to add an **Order By** step when building your dataset:
+
+![image-20210215123153997](C:\Users\mark.mccoid\Documents\AnalytixDevelopment\analytix-docs\docs\assets\informer_javascript-powerscript-dedup001.png)
+
+Then you will need to add a Powerscript Flow step to update the Order Net Amt.
+
+```javascript
+// Initialize $local.currCampId
+$local.currCampId = $local.currCampId === undefined ? 0 : $local.currCampId
+
+// New OrderNetAmount field will be 0 if we have already populated for a previous row for this campaignId
+$record.OrderNetAmount = $local.currCampId === $record.campaignId ? 0 : $record.orderNetCost
+
+// Update the local campaign Id with the current campaign Id
+$local.currCampId = $record.campaignId
+```
+
+The above Powerscript creates a new field, so I usually will choose to remove the field that the above is Powerscript is "Deduping".
+
+Simply add a Remove Fields flow step to accomplish this.
+
 ## Using the momentjs Date Library
 
 I will try to show you the most common uses of **momentjs** within Informer, however, you can get more information from the **momentjs** website.
