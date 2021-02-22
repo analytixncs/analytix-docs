@@ -18,15 +18,15 @@ When the USER REPORTS trigger was first created it was two files USER_REPORTS_DE
 When the order is created, the Brand rep becomes the "Original Rep", however, the critical question is, when they update the brand rep, they are prompted, **“Do you want to update future orders?”**.  If they answer YES, then the **Current Rep** will become the Brand Rep and will have the same info as the User Reports mapping. Up to that point the Current rep on the order is the same as the original rep and will stay the same unless they say “Yes, update future orders”.  In that case the current rep on future orders changes to the brand rep and the original rep on the order never changes but we have no User Reports that points to the Original rep on the order.
 If they change the Brand Rep and **do not say yes to update future orders** then User Reports Original Rep (Current Rep on the order) would then be the same as the Original Rep on the order.
 
-> History on Naming: The way it is at the moment, User Reports will pull the Brand Rep (from the brand record itself), and User Reports Original will pull the current Rep on the order. I know the label is confusing, that is because years ago we had it as the actual current rep and original rep on the order but the demand was to change this instead to Brand rep for User Reports and Current Rep on the order for User Reports Original Rep 
+> **History on Naming**: The way it is at the moment, User Reports will pull the Brand Rep (from the brand record itself), and User Reports Original will pull the current Rep on the order. I know the label is confusing, that is because years ago we had it as the actual current rep and original rep on the order but the demand was to change this instead to Brand rep for User Reports and Current Rep on the order for User Reports Original Rep 
 
 ----
 
 ### User Reports Revenue Fields
 
-While there are over 80 "AMT" fields in the User Reports mapping.  You most likely will only need one, but I will explain the three that will jump out as being usable.
+While there are over 80 "Amt" fields in the User Reports mapping.  You most likely will only need one, but I will explain the three that will jump out as being usable.
 
-- **Order Net Amt** - This is the total net amount for the campaign.  The problem with this field is that it will be duplicated for every line item in User Reports for an order.  It can only be used if you add a flow step to remove the duplicates.  [Remove Duplicates Code](./informer-javascript/#remove-duplicate-values-in-aggregation)
+- **Order Net Amt** - This is the total net amount for the campaign.  The problem with this field is that it will be duplicated for every line item in User Reports for an order.  If you are going to do any aggregation on the field, you will need to add a flow step to remove the duplicates.  [Remove Duplicates Code](./informer-javascript/#remove-duplicate-values-in-aggregation)
 
 - **Rep Net Amt** - This field can be aggregated to get total net revenue for a campaign **ONLY when the Rep Indicator is filtered to 1.**
   To expand on this, there is a field in User Reports called **Rep Indicator**.  This indicator is used to indicate the number of reps on the order.   If you do not filter by the Rep Indicator, your revenue will be overstated for some ads.
@@ -38,7 +38,7 @@ While there are over 80 "AMT" fields in the User Reports mapping.  You most like
   $record.RepNetAmount = $record.repMv === 1 ? $record.repNetCost : 0
   ```
 
-  I would also suggest removing the original RepNetAmt field from your dataset.
+  I would also suggest removing the original RepNetAmt field from your dataset after the above Powerscript has been run.
 
 - **Rep Split Net Amt** - This field is the **Rep Net Amt * Salesrep Percentage**.  Note that the aggregation of this at the campaign level is not always the Net amount of the order.  This is because multiple reps may be getting commission or a percentage of the campaign.
 
