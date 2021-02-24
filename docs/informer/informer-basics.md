@@ -523,6 +523,28 @@ If you set up a job, it is as simple as putting the Dataset in a job and then se
 
 
 
+### Exporting To File System/FTP
+
+When creating actions for a job, you may want to send your data to an FTP site and you will see an option "Send to FTP".  However, this option does NOT work because of security restrictions.
+
+What you can do is instead choose to "Send to file system".  This option will send to an FTP site that you will have access to.
+
+In the image below, you will see that you need to the directory where you want the file to be located.  You will replace the "XXX"'s with your company's three character company code.
+
+`\\XXXprod01\repository\XXX`
+
+![img](G:\MarkNCS2019\analytix-docs\docs\assets\informer-basics-FTP-001.png)
+
+To access the FTP site where these files will be stored, you will need to use a program like Filezilla or other FTP software using the following details:
+
+**Host**: `ftp_useeast.navigahub.com` or `ftp_uswest.navigahub.com` or `http://ftp_euwest.navigahub.com/`
+
+**Port**: 22
+
+**Encryption**: "Require explicit FTP over TLS"
+
+**Username/Password**: Ask your support rep for this information.
+
 ## Data Access Tokens
 
 Data Access Tokens allow you to access your Dataset from a command line interface using cURL or HTTPie.
@@ -652,7 +674,11 @@ If you have two mappings that are not linked, but do have a field in common, you
 
 ![image-20200521130400969](..\assets\informer_tips_dslink-002.png)
 
-This new link
+
+
+# E
+
+
 
 # Questions When Converting from v4 to v5
 
