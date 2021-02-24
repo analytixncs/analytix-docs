@@ -191,28 +191,15 @@ Lol… Exactly! Well both are in User Reports but there is a flag on the product
 
 - Where is the Product     name field? Looks to be the Website
 
-AD Publications mapping, field 4 Pub Desc or Website Name
-
-- When looking for a     field, what are the highlighted numbers below? I’m assuming these     are field numbers, so in the instance of IN Campaign ID and IN Campaign     Line Id, both being 52, does that mean they are the same field but named     differently?
-
-Correct in Unidata we have “Files” which are like a SQL Table/Entity and “dictionaries” which are the “fields/columns”.
-
-Each attribute represents a position in the file which can’t be changed but you could have different dictionaries which interpret the data differently.
-
-For example we could store the date on AR Invoices in attribute 2 but we could create a dictionary showing the raw data and we can show it using a date format with a different dictionary.
-
-![img](C:\Users\mark.mccoid\Documents\AnalytixDevelopment\analytix-docs\docs\assets\informerMapping_temporary003.jpg)
-
-You can see it when we list the data using the dictionary:
-
-![img](C:\Users\mark.mccoid\Documents\AnalytixDevelopment\analytix-docs\docs\assets\informerMapping_temporary002.jpg)
 
 
- ![img](C:\Users\mark.mccoid\Documents\AnalytixDevelopment\analytix-docs\docs\assets\informerMapping_temporary.jpg)
+Questions:
 
-- Lastly, Sales     reps. I seem to come across Brand, Current and Original. Greg     has tried to explain how these are represented in User Reports, but I think     I need a better understanding of what exactly each is referring to and how     it is used in the system.
+- **Digital vs Print** - What is the Flag Name? -> User Reports but there is a flag on the product which can indicate if it is print only or not.
 
-Since I already explained it maybe Wayne can describe it better than I can. 😊
+- **Product** - Is in the AD Publications mapping, field 4 Pub Desc or Website Name.  Does the field 
+
+
 
  
 
