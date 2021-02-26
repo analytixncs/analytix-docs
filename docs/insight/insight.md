@@ -389,3 +389,17 @@ Check the event log to find out if the server was restarted.  To do this, filter
 Check the task manager to log the resources consumed by insightd service & SQL Server.  That will help to figure out the culprit. 
 
 Run `sp_whoisactive` to check the queries running at that time and the resource consumption and save to csv.****
+
+## Cognos - Corrupted Reports
+
+We found an issue where if a user opens a Report Studio report in Microsoft Edge and modifies the report, it will corrupt the report so that it cannot be opened in IE11.
+
+The solution is to:
+
+1. Open the Report to edit in Chrome.  This will open the report in Report Studio, but you will not see anything.  However you will have access to the Menu.  Choose `Tools/Show Specification`
+   ![image-20210226133446087](..\assets\insight-corruptreportstudio_001.png)
+2. Copy the Specification to the Clipboard
+   ![image-20210226133619417](..\assets\insight-corruptreportstudio_002.png)
+3. Now open Report Studio in **IE11**.  Create a blank report and choose
+   ![image-20210226133732402](..\assets\insight-corruptreportstudio_003.png)
+4. You should now see the report.  **Save** the report.
