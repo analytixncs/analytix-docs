@@ -31,18 +31,17 @@ While there are over 80 "Amt" fields in the User Reports mapping.  You most like
 - **Rep Split Net Amt** - This field can be aggregated to get total net revenue for a campaign **ONLY when the Rep Indicator is filtered to 1.**
   To expand on this, there is a field in User Reports called **Rep Indicator(REP_MV)**.  This indicator is used to indicate the number of reps on the order.   If you do not filter by the Rep Indicator, your revenue will be overstated for some ads.
   
-The **Rep Split Net Amt** field is the total net amount for a line within a campaign
+  The **Rep Split Net Amt** field is the total net amount for a line within a campaign
   
   To keep from having to filter on the Rep Indicator, you could also set the Rep Net Amt field to zero for those that have a Rep Indicator not equal to zero.
-  
   ```javascript
   //-----------------------
 // Rep Net Amt Fix
   $record.LineNetAmount = $record.repMv === 1 ? $record.netCost : 0
-```
-  
-  I would also suggest removing the original RepSplitNetAmt field from your dataset after the above Powerscript has been run.
-  
+  ```
+
+​	I would also suggest removing the original RepSplitNetAmt field from your dataset after the above Powerscript has been run.
+
 - **Rep Net Amt** - This field is the **Rep Split Net Amt * Salesrep Percentage**.  Note that the aggregation of this at the campaign level is not always the Net amount of the order.  This is because multiple reps may be getting commission or a percentage of the campaign.
 
 ### User Report Other Fields
@@ -72,7 +71,11 @@ When pulling back records from AD Internet Campaigns, you need to most likely fi
 
 ## AD Internet Orders mapping
 
-The AD Internet Orders mapping is 
+The AD Internet Orders mapping is the detail level of a campaign.  It will hold the individual line items.
+
+Be aware of the difference between the Actual Amt and the Estimated Amt.
+
+
 
 Questions:
 

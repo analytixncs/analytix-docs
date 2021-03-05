@@ -316,6 +316,40 @@ That function will run once for every item in the **wildMatchCodes** array.  We 
 
 
 
+### Lookup Table Style Find/Replace
+
+If you have field that you want to do a number of lookups on and replace the found values with a new value, you can use the standard `if/else` syntax.
+
+However, if you have many conversions that you want to do, the `if/else` syntax gets difficult to maintain.  Here is an easier and cleaner method of implementing this.
+
+The simple example we will use is converting a field that hold a country code (countryID) and convert it to the full country name (countryName).  If no conversion is found, then we will just use the value in the countryID field.
+
+```javascript
+countryObj = {
+    USA: 'UnitedStates',
+    GRB: 'Great Britain',
+}
+ 
+!countryObj[countryID] ? countryID : countryObj[countryID]
+```
+
+Step one is to create our conversion object.  In the above code, it is called `countryObj`.  This is a standard JavaScript object with the key (USA, GRB) being our lookup field and the values assigned to the keys will be the returned information when a key is matched.
+
+The next line of code is a [ternary operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator) and is used to handle the fact that we want any lookups that fail to return the `countryID`.
+
+If your requirements were such that if a match wasn't found on the lookup you wanted the same default to be returned, you can change the second line of code to use the logical OR (||) operator to short circuit to your default value when nothing is found in the lookup.
+
+```javascript
+countryObj = {
+    USA: 'UnitedStates',
+    GRB: 'Great Britain',
+}
+ 
+countryObj[countryID] || 'My DEFAULT'
+```
+
+
+
 ### Building a Complex Example
 
 You can combine all of the above techniques to get the final result that you need.  In this example we will be working with the `campaignCode` and `billNameId` fields.
@@ -538,6 +572,9 @@ $local.count = ($local.count) ? $local.count : 0
 
 // Last way to do the same thing
 $local.count = ($local.hasOwnProperty('count')) ? $local.count : 0
+
+// Wait, one other way!
+// This way is good if you have multiple items you need to initialize on the $local 
 ```
 
 If you wanted to create a row count variable, you would pick one of the above methods to perform the initialization and then increment the count and store in a `$record` variable.
