@@ -35,9 +35,8 @@ While there are over 80 "Amt" fields in the User Reports mapping.  You most like
   
   To keep from having to filter on the Rep Indicator, you could also set the Rep Net Amt field to zero for those that have a Rep Indicator not equal to zero.
   ```javascript
-  //-----------------------
-// Rep Net Amt Fix
-  $record.LineNetAmount = $record.repMv === 1 ? $record.netCost : 0
+  //- Rep Split Net Amt Fix
+$record.LineNetAmount = $record.repMv === 1 ? $record.netCost : 0
   ```
 
 ​	I would also suggest removing the original RepSplitNetAmt field from your dataset after the above Powerscript has been run.
