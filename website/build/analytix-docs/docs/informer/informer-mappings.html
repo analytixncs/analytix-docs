@@ -1,0 +1,128 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Informer Mappings · Naviga Analytics</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="## User Reports Mappings"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Informer Mappings · Naviga Analytics"/><meta property="og:type" content="website"/><meta property="og:url" content=".//index.html"/><meta property="og:description" content="## User Reports Mappings"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/Naviga_Logo_Dark_Icon.png" alt="Naviga Analytics"/><h2 class="headerTitleWithLogo">Naviga Analytics</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/docs/analytix/analytix-bi-overview.html" target="_self">Analytix</a></li><li class=""><a href="/docs/bi/bi-resources.html" target="_self">BI</a></li><li class=""><a href="/docs/insight/insight.html" target="_self">InSight</a></li><li class="siteNavGroupActive"><a href="/docs/informer/informer-basics.html" target="_self">Informer</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Informer Docs</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Informer Docs</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/informer/informer-basics.html">Informer Basics</a></li><li class="navListItem"><a class="navItem" href="/docs/informer/informer-javascript.html">Informer JavaScript Use</a></li><li class="navListItem"><a class="navItem" href="/docs/informer/informer-saved-functions.html">Informer Saved Functions</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/docs/informer/informer-mappings.html">Informer Mappings</a></li><li class="navListItem"><a class="navItem" href="/docs/informer/informer-system.html">Informer System Stuff</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Informer Mappings</h1></header><article><div><span><h2><a class="anchor" aria-hidden="true" id="user-reports-mappings"></a><a href="#user-reports-mappings" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>User Reports Mappings</h2>
+<h3><a class="anchor" aria-hidden="true" id="user-reports-vs-user-reports-original-rep"></a><a href="#user-reports-vs-user-reports-original-rep" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>User Reports vs User Reports Original Rep</h3>
+<p>The <code>User Reports</code> mapping does not have the original rep but they can go to the source record in AD ORDERS or INET.CAMPAIGNS and get the original rep.</p>
+<p>When the USER REPORTS trigger was first created it was two files USER_REPORTS_DETAIL (current) and USER_REPORTS_DETAIL_O (original). Then most of our clients complained that they needed something to represent the “Brand Rep” and keep the “current rep” so as of now here is how it looks:</p>
+<p><strong>User Reports</strong> - BRAND REP (the rep with the current assignment on the brand regardless of what is on the order)</p>
+<p><strong>User Reports Original Rep</strong> - CURRENT REP (the current rep assigned on the order which would be the brand rep at the time of order entry and/or if orders were updated because users are given a choice.)<br>
+When the order is created, the Brand rep becomes the &quot;Original Rep&quot;, however, the critical question is, when they update the brand rep, they are prompted, <strong>“Do you want to update future orders?”</strong>.  If they answer YES, then the <strong>Current Rep</strong> will become the Brand Rep and will have the same info as the User Reports mapping. Up to that point the Current rep on the order is the same as the original rep and will stay the same unless they say “Yes, update future orders”.  In that case the current rep on future orders changes to the brand rep and the original rep on the order never changes but we have no User Reports that points to the Original rep on the order.
+If they change the Brand Rep and <strong>do not say yes to update future orders</strong> then User Reports Original Rep (Current Rep on the order) would then be the same as the Original Rep on the order.</p>
+<blockquote>
+<p><strong>History on Naming</strong>: The way it is at the moment, User Reports will pull the Brand Rep (from the brand record itself), and User Reports Original will pull the current Rep on the order. I know the label is confusing, that is because years ago we had it as the actual current rep and original rep on the order but the demand was to change this instead to Brand rep for User Reports and Current Rep on the order for User Reports Original Rep</p>
+</blockquote>
+<hr>
+<h3><a class="anchor" aria-hidden="true" id="user-reports-revenue-fields"></a><a href="#user-reports-revenue-fields" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>User Reports Revenue Fields</h3>
+<p>While there are over 80 &quot;Amt&quot; fields in the User Reports mapping.  You most likely will only need one, but I will explain the three that will jump out as being usable.</p>
+<ul>
+<li><p><strong>Order Net Amt</strong> - This is the total net amount for the campaign.  The problem with this field is that it will be duplicated for every line item in User Reports for an order.  If you are going to do any aggregation on the field, you will need to add a flow step to remove the duplicates.  <a href="./informer-javascript/#remove-duplicate-values-in-aggregation">Remove Duplicates Code</a></p></li>
+<li><p><strong>Rep Split Net Amt</strong> - This field can be aggregated to get total net revenue for a campaign <strong>ONLY when the Rep Indicator is filtered to 1.</strong>
+To expand on this, there is a field in User Reports called <strong>Rep Indicator(REP_MV)</strong>.  This indicator is used to indicate the number of reps on the order.   If you do not filter by the Rep Indicator, your revenue will be overstated for some ads.</p>
+<p>The <strong>Rep Split Net Amt</strong> field is the total net amount for a line within a campaign</p>
+<p>To keep from having to filter on the Rep Indicator, you could also set the Rep Net Amt field to zero for those that have a Rep Indicator not equal to zero.
+I would also suggest removing the original RepSplitNetAmt field from your dataset after the above Powerscript has been run.</p></li>
+</ul>
+<pre><code class="hljs css language-javascript">  <span class="hljs-comment">// Rep Split Net Amt Fix</span>
+  $record.LineNetAmount = $record.repMv === <span class="hljs-number">1</span> ? $record.netCost : <span class="hljs-number">0</span>;
+</code></pre>
+<ul>
+<li><strong>Rep Net Amt</strong> - This field is the <strong>Rep Split Net Amt * Salesrep Percentage</strong>.  Note that the aggregation of this at the campaign level is not always the Net amount of the order.  This is because multiple reps may be getting commission or a percentage of the campaign.</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="user-report-other-fields"></a><a href="#user-report-other-fields" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>User Report Other Fields</h3>
+<p><strong>Product or Website Field</strong></p>
+<p>The product and website are stored in the same field.  In the User Reports mapping you can get at the Product/Website ID and Product/Website name from a couple of different places.</p>
+<p>In the User Reports mapping you can use:</p>
+<ul>
+<li><strong>Pub Id</strong> - This will be the Product/Website Id</li>
+<li><strong>Pub Desc</strong> - This will be the Product/Website Description</li>
+</ul>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="ad-internet-campaigns-mapping"></a><a href="#ad-internet-campaigns-mapping" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>AD Internet Campaigns mapping</h2>
+<p>The AD Internet Campaigns mapping is the at the campaign level.  If you need line item detail, you will need to get that from the AD Internet Orders mapping.</p>
+<p>When pulling back records from AD Internet Campaigns, you need to most likely filter on the Status Code (STATUS.CODE, #7).</p>
+<blockquote>
+<p>NOTE: This is the status at the <strong>Campaign</strong> level.  So, it will be filtering on campaign level status's.  If you are pulling data in from AD Internet Orders also, you will need to also filter on the <strong>Line Cancel Status ID (LINE.CANCEL.STATUS.ID #26)</strong></p>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="ad-internet-orders-mapping"></a><a href="#ad-internet-orders-mapping" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>AD Internet Orders mapping</h2>
+<p>The AD Internet Orders mapping is the detail level of a campaign.  It will hold the individual line items.</p>
+<p>Be aware of the difference between the Actual Amt and the Estimated Amt.</p>
+<p>Questions:</p>
+<ul>
+<li><strong>Digital vs Print</strong> - What is the Flag Name? -&gt; User Reports but there is a flag on the product which can indicate if it is print only or not.</li>
+<li><strong>Product</strong> - Is in the AD Publications mapping, field 4 Pub Desc or Website Name.  How does the Pub Group relate to the Pub/Website?  Is there a default Pub Group that can be assigned?  How do you deal with reporting within Naviga Ad on Pub Group since a single product can exist in multiple Pub Groups?</li>
+<li>Anything to filter like DELETED, etc so revenue is correct</li>
+</ul>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/informer/informer-saved-functions.html"><span class="arrow-prev">← </span><span>Informer Saved Functions</span></a><a class="docs-next button" href="/docs/informer/informer-system.html"><span>Informer System Stuff</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#user-reports-mappings">User Reports Mappings</a><ul class="toc-headings"><li><a href="#user-reports-vs-user-reports-original-rep">User Reports vs User Reports Original Rep</a></li><li><a href="#user-reports-revenue-fields">User Reports Revenue Fields</a></li><li><a href="#user-report-other-fields">User Report Other Fields</a></li></ul></li><li><a href="#ad-internet-campaigns-mapping">AD Internet Campaigns mapping</a></li><li><a href="#ad-internet-orders-mapping">AD Internet Orders mapping</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/Naviga_Logo_Dark_Icon.png" alt="Naviga Analytics" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/analytix/analytix-setup.html">Getting Started With Analytix</a><a href="/docs/bi/bi-auditors.html">BI Docs</a></div><div><h5>naviga</h5><a href="http://navigaglobal.com/" target="_blank">Website</a><a href="http://navigaglobal.com/blog/" target="_blank">naviga Blog</a><a href="https://twitter.com/navigaglobal" target="_blank">Twitter</a><a href="https://www.facebook.com/navigaglobal" target="_blank">Facebook</a><a href="https://www.linkedin.com/company/navigaglobal" target="_blank">LinkedIn</a></div><div><h5>More</h5><a href="/docs/analytix/analytix-bi-overview.html">Analytix Docs</a><a href="/docs/bi/bi-resources.html">BI Docs</a></div></section><a href="https://navigaglobal.com" target="_blank"><img src="/img/Naviga_Logo_Dark_Verticle.png" alt="naviga - Venture Forward" width="226" height="42" style="margin:1em auto;display:block;width:226px"/></a><section class="copyright">Copyright © 2021 naviga</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: 'ccd2672198948e3c79646332385b98fb',
+                indexName: 'analytix',
+                inputSelector: '#search_input_react',
+                algoliaOptions: {}
+              });
+            </script></body></html>

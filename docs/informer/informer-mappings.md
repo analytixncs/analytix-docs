@@ -34,18 +34,18 @@ While there are over 80 "Amt" fields in the User Reports mapping.  You most like
   The **Rep Split Net Amt** field is the total net amount for a line within a campaign
   
   To keep from having to filter on the Rep Indicator, you could also set the Rep Net Amt field to zero for those that have a Rep Indicator not equal to zero.
-  ```javascript
-  // Rep Split Net Amt Fix
-$record.LineNetAmount = $record.repMv === 1 ? $record.netCost : 0;
-  ```
-  
   I would also suggest removing the original RepSplitNetAmt field from your dataset after the above Powerscript has been run.
+  
+```javascript
+  // Rep Split Net Amt Fix
+  $record.LineNetAmount = $record.repMv === 1 ? $record.netCost : 0;
+  ```
   
 - **Rep Net Amt** - This field is the **Rep Split Net Amt * Salesrep Percentage**.  Note that the aggregation of this at the campaign level is not always the Net amount of the order.  This is because multiple reps may be getting commission or a percentage of the campaign.
 
 ### User Report Other Fields
 
-**Product or Website**
+**Product or Website Field**
 
 The product and website are stored in the same field.  In the User Reports mapping you can get at the Product/Website ID and Product/Website name from a couple of different places.
 

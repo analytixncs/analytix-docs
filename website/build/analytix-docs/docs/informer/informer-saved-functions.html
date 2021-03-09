@@ -1,0 +1,719 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Informer Saved Functions · Naviga Analytics</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="Saved Functions are functions that are added to an Informer site via the Administration/Saved Functions area."/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Informer Saved Functions · Naviga Analytics"/><meta property="og:type" content="website"/><meta property="og:url" content=".//index.html"/><meta property="og:description" content="Saved Functions are functions that are added to an Informer site via the Administration/Saved Functions area."/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="/img/favicon.png"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/Naviga_Logo_Dark_Icon.png" alt="Naviga Analytics"/><h2 class="headerTitleWithLogo">Naviga Analytics</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/docs/analytix/analytix-bi-overview.html" target="_self">Analytix</a></li><li class=""><a href="/docs/bi/bi-resources.html" target="_self">BI</a></li><li class=""><a href="/docs/insight/insight.html" target="_self">InSight</a></li><li class="siteNavGroupActive"><a href="/docs/informer/informer-basics.html" target="_self">Informer</a></li><li class="navSearchWrapper reactNavSearchWrapper"><input type="text" id="search_input_react" placeholder="Search" title="Search"/></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>Informer Docs</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Informer Docs</h3><ul class=""><li class="navListItem"><a class="navItem" href="/docs/informer/informer-basics.html">Informer Basics</a></li><li class="navListItem"><a class="navItem" href="/docs/informer/informer-javascript.html">Informer JavaScript Use</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/docs/informer/informer-saved-functions.html">Informer Saved Functions</a></li><li class="navListItem"><a class="navItem" href="/docs/informer/informer-mappings.html">Informer Mappings</a></li><li class="navListItem"><a class="navItem" href="/docs/informer/informer-system.html">Informer System Stuff</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Informer Saved Functions</h1></header><article><div><span><p>Saved Functions are functions that are added to an Informer site via the Administration/Saved Functions area.</p>
+<p>Users can then call these function in their Datasets to perform whatever action they were designed to do.</p>
+<p>All functions created by Naviga staff will be located in the <strong>naviga</strong> namespace.</p>
+<p>If a function in this list doesn't exist in your Informer system, you can create it by logging into Informer and going to the Administration page, then clicking on the Saved Functions icon.</p>
+<p>When you are in the <strong>Saved Functions</strong> area, you will see a <strong>New Function</strong> button in the left sidebar.</p>
+<p>After clicking on this button you will be presented with a dialog to fill out.  Simply fill it out with the details give in the <strong>Create Function</strong> section for each of the below functions.</p>
+<h2><a class="anchor" aria-hidden="true" id="calculateaggregates---create-function"></a><a href="#calculateaggregates---create-function" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>calculateAggregates - Create Function</h2>
+<ul>
+<li><p><strong>Function name:</strong> calculateAggregates</p></li>
+<li><p><strong>Namespace:</strong> naviga</p></li>
+<li><p><strong>Description:</strong> Create keys on the local object to aggregate fields</p></li>
+<li><p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr><th>Data Type</th><th>Variable name</th><th>Label</th><th>Sample</th></tr>
+</thead>
+<tbody>
+<tr><td>Any</td><td>aggrConfigObject</td><td>AggrConfigObject</td><td>{ $local, groupKeys, groupAggr }</td></tr>
+</tbody>
+</table>
+</li>
+</ul>
+<p><strong>Function Body</strong></p>
+<pre><code class="hljs css language-javascript"><span class="hljs-keyword">const</span> groupKeys = aggrConfigObject.groupKeys || [];
+<span class="hljs-keyword">const</span> groupAggr = aggrConfigObject.groupAggr || [];
+<span class="hljs-keyword">const</span> localHold = aggrConfigObject.$local;
+<span class="hljs-comment">//---------------------------------------------------</span>
+<span class="hljs-comment">//Loop through the groupKeys Array</span>
+groupKeys.forEach(<span class="hljs-function">(<span class="hljs-params">groupKeyObj</span>) =&gt;</span> {
+  <span class="hljs-comment">//Create the groupInit object</span>
+  groupInit = {
+    <span class="hljs-attr">GroupSet</span>: <span class="hljs-literal">false</span>,
+    ...groupAggr.reduce(
+      <span class="hljs-function">(<span class="hljs-params">init, obj</span>) =&gt;</span> ({ ...init, [obj.name]: returnANumber(obj.initValue) }),
+      {}
+    ),
+  };
+
+  groupKey = groupKeyObj.groupKey;
+  <span class="hljs-comment">// Initialize the groupKey on the $local object</span>
+  <span class="hljs-comment">// To accomodate dynamic groupAggr values, spreading new groupInit first, then any existing value in local for given groupKey</span>
+  localHold[groupKey] = { ...groupInit, ...localHold[groupKey] };
+  <span class="hljs-comment">//---------------------------</span>
+  <span class="hljs-comment">// Loop through groupAggr Array and perform the aggregation</span>
+  groupAggr.forEach(<span class="hljs-function">(<span class="hljs-params">aggrObj</span>) =&gt;</span> {
+    localHold[groupKey][aggrObj.name] =
+      localHold[groupKey][aggrObj.name] + returnANumber(aggrObj.value);
+  });
+  <span class="hljs-comment">//---------------------------</span>
+});
+<span class="hljs-comment">//---------------------------------------------------</span>
+<span class="hljs-keyword">return</span> localHold;
+
+<span class="hljs-comment">//-------------------------------------------------------</span>
+<span class="hljs-comment">//- HELPER FUNCTION</span>
+<span class="hljs-comment">//-------------------------------------------------------</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">returnANumber</span>(<span class="hljs-params">numberIn</span>) </span>{
+  <span class="hljs-comment">// If a date is passed return 0 otherwise dates get converted to unix time value</span>
+  numberIn =
+    <span class="hljs-built_in">Object</span>.prototype.toString.call(numberIn) === <span class="hljs-string">"[object Date]"</span> ? <span class="hljs-number">0</span> : numberIn;
+  <span class="hljs-keyword">const</span> parsedNumber = <span class="hljs-built_in">Number</span>(numberIn);
+  <span class="hljs-keyword">if</span> (<span class="hljs-built_in">isNaN</span>(parsedNumber)) {
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+  }
+  <span class="hljs-keyword">return</span> parsedNumber;
+}
+
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="calculateaggregates---usage"></a><a href="#calculateaggregates---usage" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>calculateAggregates - Usage</h2>
+<p>This function is called with a configuration object that will define fields to aggregate and the groupings to aggregate those fields by.</p>
+<p>For example, if you had the following data, but wanted a field that aggregated by Year-Month and Rep.</p>
+<p>This is the starting dataset</p>
+<table>
+<thead>
+<tr><th>Year-Month</th><th>Rep</th><th>Amount</th></tr>
+</thead>
+<tbody>
+<tr><td>2020-01</td><td>ABA</td><td>50</td></tr>
+<tr><td>2020-01</td><td>ABA</td><td>100</td></tr>
+<tr><td>2020-01</td><td>MRM</td><td>200</td></tr>
+<tr><td>2020-02</td><td>MRM</td><td>100</td></tr>
+<tr><td>2020-02</td><td>ABA</td><td>50</td></tr>
+<tr><td>2020-02</td><td>ABA</td><td>10</td></tr>
+<tr><td>2020-03</td><td>MRM</td><td>100</td></tr>
+</tbody>
+</table>
+<p>After you follow the instructions below, because the function call is just the first step.</p>
+<p>Your result could be:</p>
+<table>
+<thead>
+<tr><th>Year-Month</th><th>Rep</th><th>Amount</th><th>AggAmount</th></tr>
+</thead>
+<tbody>
+<tr><td>2020-01</td><td>ABA</td><td>50</td><td>150</td></tr>
+<tr><td>2020-01</td><td>ABA</td><td>100</td><td></td></tr>
+<tr><td>2020-01</td><td>MRM</td><td>200</td><td>300</td></tr>
+<tr><td>2020-02</td><td>MRM</td><td>100</td><td></td></tr>
+<tr><td>2020-02</td><td>ABA</td><td>50</td><td>60</td></tr>
+<tr><td>2020-02</td><td>ABA</td><td>10</td><td></td></tr>
+<tr><td>2020-03</td><td>MRM</td><td>100</td><td>100</td></tr>
+</tbody>
+</table>
+<p>This is useful in reports requiring calculations to be done on aggregated amounts like percentages, etc.</p>
+<h3><a class="anchor" aria-hidden="true" id="calling-the-function"></a><a href="#calling-the-function" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Calling the function</h3>
+<p>The function accepts a single object as a parameter. That object has the following shape:</p>
+<pre><code class="hljs css language-javascript">{
+  $local, <span class="hljs-comment">//This is the local object</span>
+  groupKeys,
+  groupAggr,
+}
+</code></pre>
+<p><strong>groupKeys</strong> defines the aggregation groups that you are trying to define. It is an <strong>array</strong> of objects, with each object defining an aggregation key</p>
+<p>For example, if you wanted to aggregate on Year and Rep, you have to define two keys, one for <strong>Year</strong>, the other for <strong>Year-Rep</strong>. Usually your aggregation groups are hierarchical.</p>
+<p>Here is the <strong>groupKeys</strong> array you would create:</p>
+<pre><code class="hljs css language-javascript">groupKeys = [
+  {
+    <span class="hljs-attr">name</span>: <span class="hljs-string">"Year"</span>,
+    <span class="hljs-attr">groupKey</span>: $record.Year,
+  },
+  {
+    <span class="hljs-attr">name</span>: <span class="hljs-string">"Year_Rep"</span>,
+    <span class="hljs-attr">groupKey</span>: <span class="hljs-string">`<span class="hljs-subst">${$record.Year}</span>-<span class="hljs-subst">${$record.salesrepId}</span>`</span>,
+  },
+];
+</code></pre>
+<p>The second key of the parameter is the <strong>groupAggr</strong> array of objects. Each object in this array defines one of the aggregations that you want to perform.</p>
+<p>In the example below, we have defined two aggregations by assigning the following keys to each object in the array:</p>
+<ul>
+<li>name - A name that will be used to store the aggregation on the $local object.</li>
+<li>initValue - The initial value of the aggregation. This is usually zero.</li>
+<li>value - This is the value that you are aggregating.</li>
+</ul>
+<pre><code class="hljs css language-javascript">groupAggr = [
+  {
+    <span class="hljs-attr">name</span>: <span class="hljs-string">"sumNet"</span>,
+    <span class="hljs-attr">initValue</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">value</span>: $record.orderNetAmt,
+  },
+  {
+    <span class="hljs-attr">name</span>: <span class="hljs-string">"sumInvoice"</span>,
+    <span class="hljs-attr">initValue</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">value</span>: $record.invoiceID_assoc_invamount,
+  },
+];
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="post-aggregate-powerscript"></a><a href="#post-aggregate-powerscript" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Post Aggregate Powerscript</h3>
+<p>This is where you will perform the calculations that you needed the aggregates for.</p>
+<blockquote>
+<p>This Powerscript must run AFTER a Flush flow step</p>
+</blockquote>
+<p>To do this, you will use the values that were stored on the $local object in the preAggregation function.</p>
+<p><strong>$local Object Fields:</strong></p>
+<p>Let's look at an example. You are calculating aggregates for <strong>IssueYear</strong> and <strong>IssueYear-RepId</strong>.</p>
+<p>This means you have two groupKeys for every record. If we have data that looks like this:</p>
+<table>
+<thead>
+<tr><th>Issue Year</th><th>Rep Id</th><th>Net Revenue</th><th>Invoice Revenue</th></tr>
+</thead>
+<tbody>
+<tr><td>2019</td><td>MM</td><td>100</td><td>75</td></tr>
+<tr><td>2019</td><td>SW</td><td>50</td><td>50</td></tr>
+<tr><td>2020</td><td>MM</td><td>125</td><td>100</td></tr>
+<tr><td>2020</td><td>SW</td><td>25</td><td>20</td></tr>
+<tr><td>2020</td><td>TE</td><td>75</td><td>75</td></tr>
+</tbody>
+</table>
+<p>Your groupKeys for <strong>IssueYear</strong> will be &quot;2019&quot;, &quot;2020&quot;
+Your groupKeys for <strong>IssueYear-RepId</strong> will be &quot;2019-MM&quot;, &quot;2019-SW&quot;, &quot;2020-MM&quot;, &quot;2020-SW&quot;, &quot;2020-TE&quot;</p>
+<p>The preAggregation function creates a key on the $local object for each one of these groups that you can then access in your post aggregation Powerscript.</p>
+<p>Here is an example of the $local object would hold for the 2019 IssueYear groupkey</p>
+<pre><code class="hljs css language-javascript">$local = {
+  <span class="hljs-number">2019</span>: {
+    <span class="hljs-attr">sumNet</span>: <span class="hljs-number">125322</span>,
+    <span class="hljs-attr">sumInvoice</span>: <span class="hljs-number">105423</span>,
+    <span class="hljs-attr">GroupSet</span>: <span class="hljs-literal">false</span>,
+  },
+};
+</code></pre>
+<p>The GroupSet can be used if you only want the total to show up once in your dataset for each groupKey. This allows you to use the Total aggregation function when building pivot tables, etc.</p>
+<p>Here is example code of how you could implement the Post Aggregate code:</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">// Get the year of the issue date</span>
+vIssueYear = $record.issueYear;
+
+<span class="hljs-comment">// Define the groupKey to be used across aggregates</span>
+<span class="hljs-comment">// !!!!Must be the same as those defined in the first Powerscript</span>
+groupKey1 = <span class="hljs-string">`<span class="hljs-subst">${vIssueYear}</span>`</span>;
+groupKey2 = <span class="hljs-string">`<span class="hljs-subst">${vIssueYear}</span>-<span class="hljs-subst">${$record.salesrep_id_assoc_id}</span>`</span>;
+
+<span class="hljs-comment">// GROUP KEY 1</span>
+$record.groupKey1 = groupKey1; <span class="hljs-comment">// If you want a record in your data showing the groupKey for the record</span>
+<span class="hljs-keyword">if</span> (!$local[groupKey1].GroupSet) {
+  $record.RepNetByYear_Total = $local[groupKey1].sumNet;
+  $record.RepInvTotalForYear_Total = $local[groupKey1].sumInvoice;
+  $record.NetInv_VarianceByYear_Total =
+    $local[groupKey1].sumNet - $local[groupKey1].sumInvoice;
+  $local[groupKey1].GroupSet = <span class="hljs-literal">true</span>; <span class="hljs-comment">//Setting to true means we will not excute this code again during the load.</span>
+}
+<span class="hljs-comment">// GROUP KEY 2</span>
+$record.groupKey2 = groupKey2;
+<span class="hljs-keyword">if</span> (!$local[groupKey2].GroupSet) {
+  $record.RepNetByYearRep_Total = $local[groupKey2].sumNet;
+  $record.RepInvTotalForRepYear_Total = $local[groupKey2].sumInvoice;
+  $record.NetInv_VarianceByYearRep_Total =
+    $local[groupKey2].sumNet - $local[groupKey2].sumInvoice;
+  $local[groupKey2].GroupSet = <span class="hljs-literal">true</span>;
+}
+</code></pre>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="summultivaluedfield---create-function"></a><a href="#summultivaluedfield---create-function" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>sumMultiValuedField - Create Function</h2>
+<ul>
+<li><p><strong>Function name:</strong> sumMultiValuedField</p></li>
+<li><p><strong>Namespace:</strong> naviga</p></li>
+<li><p><strong>Description:</strong> Accepts an array (multivalued field) and returns the sum of the elements.  Non numeric values will be assumed to be zero.</p></li>
+<li><p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr><th>Data Type</th><th>Variable name</th><th>Label</th><th>Sample</th></tr>
+</thead>
+<tbody>
+<tr><td>Any</td><td>mvField</td><td>Multi Valued Field</td><td></td></tr>
+</tbody>
+</table>
+</li>
+</ul>
+<p><strong>Function Body</strong></p>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">// Check if item passed is an array, if not return zero or a number if a number was passed</span>
+<span class="hljs-keyword">if</span> (!<span class="hljs-built_in">Array</span>.isArray(mvField)) {
+  <span class="hljs-keyword">return</span> returnANumber(mvField);
+}
+
+<span class="hljs-comment">// field is an array</span>
+total = mvField.reduce(<span class="hljs-function">(<span class="hljs-params">tot, val</span>) =&gt;</span> tot + returnANumber(val), <span class="hljs-number">0</span>);
+
+<span class="hljs-keyword">return</span> total;
+<span class="hljs-comment">//---------------------------</span>
+<span class="hljs-comment">//--Helper Function ---------</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">returnANumber</span>(<span class="hljs-params">numberIn</span>) </span>{
+  <span class="hljs-comment">// If a date is passed return 0 otherwise dates get converted to unix time value</span>
+  numberIn = <span class="hljs-built_in">Object</span>.prototype.toString.call(numberIn) === <span class="hljs-string">'[object Date]'</span> ? <span class="hljs-number">0</span> : numberIn
+  <span class="hljs-keyword">const</span> parsedNumber = <span class="hljs-built_in">Number</span>(numberIn);
+  <span class="hljs-keyword">if</span> (<span class="hljs-built_in">isNaN</span>(parsedNumber)) {
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+  }
+  <span class="hljs-keyword">return</span> parsedNumber;
+}
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="summultivaluedfield---usage"></a><a href="#summultivaluedfield---usage" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>sumMultiValuedField - Usage</h2>
+<p>Accepts an array (multivalued field) and returns the sum of the values.</p>
+<p>If the passed field is not an array, zero will be returned.</p>
+<p>If the any of the values are not numeric they will be ignored, but all numeric values will be summed and a total returned.</p>
+<p><strong>Function Syntax</strong></p>
+<pre><code class="hljs css language-javascript">sumMultiValuedField(field)
+</code></pre>
+<p><strong>Sample Input and Output</strong></p>
+<table>
+<thead>
+<tr><th>Input</th><th>Output</th></tr>
+</thead>
+<tbody>
+<tr><td>[1,2,3,4]</td><td>10</td></tr>
+<tr><td>[a, b, c]</td><td>0</td></tr>
+<tr><td>[1, b, 3]</td><td>4</td></tr>
+<tr><td>15</td><td>15</td></tr>
+<tr><td>Test</td><td>0</td></tr>
+</tbody>
+</table>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="multivaluedtostring---create-function"></a><a href="#multivaluedtostring---create-function" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>multiValuedToString - Create Function</h2>
+<ul>
+<li><p><strong>Function name:</strong> multiValuedToString</p></li>
+<li><p><strong>Namespace:</strong> naviga</p></li>
+<li><p><strong>Description:</strong> Accepts an array (multivalued field) and returns a string, delimited by comma (default) or a delimiter passed in by user.  Can also be made unique.</p></li>
+<li><p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr><th>Data Type</th><th>Variable name</th><th>Label</th><th>Sample</th></tr>
+</thead>
+<tbody>
+<tr><td>Any</td><td>mvField</td><td>Multi Valued Field</td><td></td></tr>
+<tr><td>String</td><td>delimiter</td><td>delimiter</td><td>',' (default)</td></tr>
+<tr><td>Any</td><td>makeDistinct</td><td>Make Distinct</td><td>false (default)</td></tr>
+</tbody>
+</table>
+</li>
+</ul>
+<p><strong>Function Body</strong></p>
+<pre><code class="hljs css language-javascript">delimiter = delimiter || <span class="hljs-string">','</span>
+makeDistinct = makeDistinct || <span class="hljs-literal">false</span>
+
+<span class="hljs-comment">// If passed mvField is NOT an array, then return mvField</span>
+<span class="hljs-keyword">if</span> (!<span class="hljs-built_in">Array</span>.isArray(mvField)) {
+  <span class="hljs-keyword">return</span> mvField;
+}
+
+<span class="hljs-comment">//Need to convert elements to string because I found</span>
+<span class="hljs-comment">//some text value are represented as an object type</span>
+<span class="hljs-comment">//so the distinct options wouldn't work.</span>
+mvField = mvField.map(<span class="hljs-function">(<span class="hljs-params">el</span>) =&gt;</span> el.toString());
+
+<span class="hljs-comment">// If makeDistinct flag set, make distinct using Set</span>
+<span class="hljs-keyword">if</span> (makeDistinct) {
+  <span class="hljs-comment">// Use the JS Set to make sure we have a unique array of values</span>
+  mvField = [...new <span class="hljs-built_in">Set</span>(mvField)];
+}
+
+<span class="hljs-comment">// reduce to a single line of text</span>
+<span class="hljs-keyword">const</span> finalString = mvField.reduce(<span class="hljs-function">(<span class="hljs-params">final, val</span>) =&gt;</span> {
+  <span class="hljs-keyword">if</span> (final) {
+    <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${final}</span><span class="hljs-subst">${delimiter}</span><span class="hljs-subst">${val}</span>`</span>;
+  } <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">return</span> val;
+  }
+}, <span class="hljs-literal">undefined</span>);
+
+<span class="hljs-keyword">return</span> finalString;
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="multivaluedtostring---usage"></a><a href="#multivaluedtostring---usage" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>multiValuedToString - Usage</h2>
+<p>This function will take a multi valued field (array) and return a concatenated string of the contents of the passed field.</p>
+<p>For example if you have a multi valued field <strong>$record.mvField</strong>, that is populated with these values:</p>
+<p><code>['Rep1', 'Rep2', 'Rep3']</code></p>
+<p>And you call the function as follows:</p>
+<p><code>naviga.multiValuedToString($record.mvField)</code></p>
+<p>You will the following returned:</p>
+<p>``'Rep1,Rep2,Rep3'`</p>
+<p><strong>Function Syntax</strong></p>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">// There are three parameters that can be passed, but the first is the only required parameter:</span>
+multiValuedToString(field [, delimiter=<span class="hljs-string">','</span>, distinct=<span class="hljs-literal">false</span>])
+</code></pre>
+<p>Along with the field, you can pass the delimiter that you want as well as a flag to have the returned string only include unique values.</p>
+<p><strong>Sample Input and Output</strong></p>
+<table>
+<thead>
+<tr><th>field</th><th>delimiter</th><th>distinct</th><th>Output</th></tr>
+</thead>
+<tbody>
+<tr><td>[1,2,2,4]</td><td>'-'</td><td>false</td><td>'1-2-2-4'</td></tr>
+<tr><td>[1,2,2,4]</td><td>'-'</td><td>true</td><td>'1-2-4'</td></tr>
+<tr><td>['a', 'b', 'b', 'c']</td><td>';'</td><td>true</td><td>'a;b;c'</td></tr>
+<tr><td>['a', 'b', 'b', 'c']</td><td>';'</td><td>false</td><td>'a;b;b;c'</td></tr>
+</tbody>
+</table>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="returnanumber--create-function"></a><a href="#returnanumber--create-function" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>returnANumber- Create Function</h2>
+<ul>
+<li><p><strong>Function name:</strong> returnANumber</p></li>
+<li><p><strong>Namespace:</strong> naviga</p></li>
+<li><p><strong>Description:</strong> Accepts a value and returns a number.  Returns 0 for anything that is not a number</p></li>
+<li><p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr><th>Data Type</th><th>Variable name</th><th>Label</th><th>Sample</th></tr>
+</thead>
+<tbody>
+<tr><td>Any</td><td>numberIn</td><td>numberIn</td><td></td></tr>
+</tbody>
+</table>
+</li>
+</ul>
+<p><strong>Function Body</strong></p>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">// If a date is passed return 0 otherwise dates get converted to unix time value</span>
+numberIn = <span class="hljs-built_in">Object</span>.prototype.toString.call(numberIn) === <span class="hljs-string">"[object Date]"</span> ? <span class="hljs-number">0</span> : numberIn;
+<span class="hljs-keyword">const</span> parsedNumber = <span class="hljs-built_in">Number</span>(numberIn);
+<span class="hljs-keyword">if</span> (<span class="hljs-built_in">isNaN</span>(parsedNumber)) {
+  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+<span class="hljs-keyword">return</span> parsedNumber;
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="returnanumber--usage"></a><a href="#returnanumber--usage" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>returnANumber- Usage</h2>
+<p>This function will take any value and return a number.  This is useful if you are performing a calculation on a field which may contain null or blank values.</p>
+<p>By passing the value into the <em>returnANumber</em> function, you will be guaranteed to get back a number.</p>
+<p>If you pass in anything that cannot be converted to a number, you will get back a zero.</p>
+<p><strong>Function Syntax</strong></p>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">// There are three parameters that can be passed, but the first is the only required parameter:</span>
+returnANumber($record.someField)
+</code></pre>
+<p>Along with the field, you can pass the delimiter that you want as well as a flag to have the returned string only include unique values.</p>
+<p><strong>Sample Input and Output</strong></p>
+<table>
+<thead>
+<tr><th>field</th><th>Output</th></tr>
+</thead>
+<tbody>
+<tr><td>5</td><td>5.00</td></tr>
+<tr><td>&quot;5&quot;</td><td>5.00</td></tr>
+<tr><td>&quot;&quot;</td><td>0</td></tr>
+<tr><td>null</td><td>0</td></tr>
+<tr><td>date</td><td>0</td></tr>
+</tbody>
+</table>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="getmonthsbetween---create-function"></a><a href="#getmonthsbetween---create-function" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>getMonthsBetween - Create Function</h2>
+<ul>
+<li><p><strong>Function name:</strong> getMonthsBetween</p></li>
+<li><p><strong>Namespace:</strong> naviga</p></li>
+<li><p><strong>Description:</strong> Get the absolute months between two dates.  If only one value provided or if either values are not dates, then 1 will be returned.</p></li>
+<li><p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr><th>Data Type</th><th>Variable name</th><th>Label</th><th>Sample</th></tr>
+</thead>
+<tbody>
+<tr><td>Date</td><td>startDate</td><td>Start Date</td><td></td></tr>
+<tr><td>Date</td><td>endDate</td><td>End Date</td><td></td></tr>
+</tbody>
+</table>
+</li>
+</ul>
+<p><strong>Function Body</strong></p>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">// Make sure both values were sent and are dates, otherwise return 1</span>
+<span class="hljs-keyword">if</span> (!startDate || !endDate || !startDate.getMonth || !endDate.getMonth) {
+  <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>
+}
+
+<span class="hljs-comment">// Calculate a Start and End Date format that be used</span>
+startMonth = <span class="hljs-built_in">Number</span>(startDate.getMonth()) + (<span class="hljs-built_in">Number</span>(startDate.getFullYear()) * <span class="hljs-number">12</span>)
+endMonth = <span class="hljs-built_in">Number</span>(endDate.getMonth()) + (<span class="hljs-built_in">Number</span>(endDate.getFullYear()) * <span class="hljs-number">12</span>)
+
+<span class="hljs-comment">// Need to add 1 to get the number of months including the first and the last </span>
+<span class="hljs-keyword">return</span> endMonth - startMonth + <span class="hljs-number">1</span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="getmonthsbetween---usage"></a><a href="#getmonthsbetween---usage" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>getMonthsBetween - Usage</h2>
+<p>This function will accept two dates and return the number of months between them inclusively.</p>
+<p>If only a single month is passed or if any passed value is not a JavaScript date, then 1 will be returned.</p>
+<blockquote>
+<p>Be aware that if you cannot pass a Moment converted date directly.  You will have to use the <code>momentDate.toDate()</code> function.  BUT, also be aware that if you pass a null to moment it WILL create a date for you.  It will be the beginning of the UNIX epoch (01/01/1969)</p>
+</blockquote>
+<p><strong>Function Syntax</strong></p>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">// There are three parameters that can be passed, but the first is the only required parameter:</span>
+naviga.getMonthsBetween($record.startDate, $record.endDate)
+</code></pre>
+<p>Along with the field, you can pass the delimiter that you want as well as a flag to have the returned string only include unique values.</p>
+<p><strong>Sample Input and Output</strong></p>
+<table>
+<thead>
+<tr><th>startDate</th><th>EndDate</th><th>Output</th></tr>
+</thead>
+<tbody>
+<tr><td>10/31/2020</td><td>01/01/2021</td><td>4</td></tr>
+<tr><td>12/01/2020</td><td>null</td><td>1</td></tr>
+<tr><td>null</td><td>null</td><td>1</td></tr>
+<tr><td>null</td><td>12/15/2020</td><td>1</td></tr>
+<tr><td>05/01/2021</td><td>03/01/2020</td><td>-13</td></tr>
+</tbody>
+</table>
+<hr>
+<h2><a class="anchor" aria-hidden="true" id="yoycreatefields---create-function"></a><a href="#yoycreatefields---create-function" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>yoyCreateFields - Create Function</h2>
+<ul>
+<li><p><strong>Function name:</strong> yoyCreateFields</p></li>
+<li><p><strong>Namespace:</strong> naviga</p></li>
+<li><p><strong>Description:</strong> Will create a separate field on the $record object for the year in the passed yoyDate field.</p></li>
+<li><p><strong>Parameters:</strong> configObj</p>
+<table>
+<thead>
+<tr><th>Data Type</th><th>Variable name</th><th>Label</th><th>Sample</th></tr>
+</thead>
+<tbody>
+<tr><td>Any</td><td>configObj</td><td>configObj</td><td>{ $record, yoyDate, label, fieldValue }</td></tr>
+</tbody>
+</table>
+</li>
+</ul>
+<p><strong>Function Body</strong></p>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">// This is Informer's $record object.  We need it to create the new YOY fields</span>
+<span class="hljs-keyword">const</span> $record = configObj.$record || {};
+<span class="hljs-keyword">const</span> yoyDate = configObj.yoyDate || <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
+<span class="hljs-keyword">const</span> label = configObj.label || <span class="hljs-string">''</span>;
+<span class="hljs-keyword">const</span> fieldValue = configObj.fieldValue || <span class="hljs-number">0</span>;
+
+<span class="hljs-keyword">const</span> year = yoyDate.getFullYear();
+
+<span class="hljs-keyword">const</span> fieldName = <span class="hljs-string">`<span class="hljs-subst">${label}</span><span class="hljs-subst">${year}</span>`</span>;
+$record[fieldName] = fieldValue;
+$record.yoyAggrFieldName = <span class="hljs-string">`sum<span class="hljs-subst">${fieldName}</span>`</span>
+
+<span class="hljs-comment">// The return is optional.</span>
+<span class="hljs-keyword">return</span> {
+  <span class="hljs-attr">debugFieldName</span>: fieldName,
+};
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="yoycreatefields---usage"></a><a href="#yoycreatefields---usage" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>yoyCreateFields - Usage</h2>
+<p>Creating a Year over Year report consist of either one or two parts.</p>
+<p>If you only need to separate the revenue into years and will <strong>not</strong> be doing any calculation between years, then just do step one.  Otherwise, you will need to do both steps.</p>
+<ol>
+<li><strong>yoyCreateFields function</strong> - this function will create a field for each year's revenue.</li>
+<li><strong>Aggregate creation</strong> - If you need to perform <strong>any</strong> calculations between years, then you will need to aggregate your data.  This would be a calculation like the difference between Current and Previous Year.</li>
+</ol>
+<blockquote>
+<p>NOTE: if you are creating aggregate fields, you cannot use the Year field in your charts.  This should be fine, since the year field is &quot;baked&quot; into each revenue column.</p>
+</blockquote>
+<p>To create a field for each year's revenue or any other yearly amount, simply run the <strong>yoyCreateFields</strong> function.  You will need to first setup a configuration object to pass to the function.</p>
+<p><strong>yoyCreateField Configuration format</strong></p>
+<ul>
+<li><strong>$record</strong> - You can simply type this as you see it the example below.  It is a system object.</li>
+<li><strong>label</strong> - pass a string that will define your YOY field names.  They be in the format of 'labelYYYY'</li>
+<li><strong>yoyDate</strong> - This must be a date field.  This field will determine which year the amounts go into.  For example, if you passed the CreateDate, then your revenue would be in Create Year buckets.  If you passed the IssueDate, then your revenue would be Issue Year buckets.</li>
+<li><strong>fieldValue</strong> - this is the value.  It could be revenue or copies.  I can be any number field.</li>
+</ul>
+<p>Here is a sample.</p>
+<pre><code class="hljs css language-javascript">yoyConfig = {
+  $record,
+  <span class="hljs-attr">label</span>: <span class="hljs-string">'revenue'</span>,
+  <span class="hljs-attr">yoyDate</span>: $record.issuedate,
+  <span class="hljs-attr">fieldValue</span>: $record.orderNetAmt,
+};
+</code></pre>
+<p><strong>yoyCreateFields</strong></p>
+<pre><code class="hljs css language-javascript">yoyConfig = { $record, <span class="hljs-attr">label</span>: <span class="hljs-string">'revenue'</span>, <span class="hljs-attr">yoyDate</span>: $record.issuedate, <span class="hljs-attr">fieldValue</span>: $record.orderNetAmt }
+naviga.TestYOY({ $record, <span class="hljs-attr">label</span>: <span class="hljs-string">'revenue'</span>, <span class="hljs-attr">yoyDate</span>: $record.issuedate, <span class="hljs-attr">fieldValue</span>: $record.orderNetAmt })
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="output-from-yoycreatefields"></a><a href="#output-from-yoycreatefields" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Output from yoyCreateFields</h3>
+<p>The only thing that is returned from the yoyCreateFields function is a debug object.   You will only need to use it if you have any issues, it return <code>{ debugFieldName }</code></p>
+<p>The main job the function performs, however, is to create new fields on the $record object.  It will create a field for every year in the passed <strong>yoyDate</strong> property on the config object.</p>
+<p>For example, if your config object passed to the yoyCreateFields function looked like this:</p>
+<pre><code class="hljs css language-javascript">yoyConfig = {
+  $record,
+  <span class="hljs-attr">label</span>: <span class="hljs-string">'revenue'</span>,
+  <span class="hljs-attr">yoyDate</span>: $record.issuedate,
+  <span class="hljs-attr">fieldValue</span>: $record.orderNetAmt,
+};
+</code></pre>
+<p>And the data in your dataset had dates from 01/01/2018 through 01/01/2021, the yoyCreateFields function would create the following fields:</p>
+<ul>
+<li><strong>$record.revenue2018</strong> - Would contain amount from $record.orderNetAmt if issueDate in year 2018, otherwise 0.</li>
+<li><strong>$record.revenue2019</strong> - Would contain amount from $record.orderNetAmt if issueDate in year 2019, otherwise 0.</li>
+<li><strong>$record.revenue2020</strong> - Would contain amount from $record.orderNetAmt if issueDate in year 2020, otherwise 0.</li>
+<li><strong>$record.revenue2021</strong> - Would contain amount from $record.orderNetAmt if issueDate in year 2021, otherwise 0.</li>
+<li><strong>$record.yoyAggrFieldName</strong> - Contains the field to use for Aggregations</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="performing-calculations-on-yoy-fields"></a><a href="#performing-calculations-on-yoy-fields" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Performing Calculations on YOY Fields</h3>
+<p>Many times you will also want to perform calculations on your YOY fields.  This example will look at creating a current year versus previous year or <code>CurrentYear Revenue - PreviousYear Revenue</code></p>
+<p>To get started you will need to run the <strong>naviga.calculateAggregations</strong>.</p>
+<p><strong>Aggregation Levels</strong></p>
+<p>How will your report be aggregated and reported on.  Since we are performing calculations on fields that exist on different rows (because they are in different years), we need to know at what level to aggregate them.</p>
+<p>You will want to choose the lowest level of aggregation and obviously, leave out Year.</p>
+<p>You will usually always want the Month of year from the SAME date that you passed as your <strong>yoyDate</strong> field in the <strong>yoyCreateField</strong> function's configuration.</p>
+<p>Then you may also want to be able to see YOY by Rep and Customer.</p>
+<p>This would mean your aggregation would be <strong>Month-Rep-Customer</strong></p>
+<p>You can refer to the <strong>calculateAggregations</strong> documentation for details on running it, but here is an example:</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">// Get the year and month of the date we created YOY fields for</span>
+vYOYYear = moment($record.issuedate).format(<span class="hljs-string">'YYYY'</span>);
+vYOYMonth = moment($record.issuedate).format(<span class="hljs-string">'MM'</span>);
+
+<span class="hljs-comment">// Create a column for month and year</span>
+$record.YOYYear = vYOYYear;
+$record.YOYMonth = vYOYMonth;
+
+<span class="hljs-comment">//*****************************************************</span>
+<span class="hljs-comment">// Start the aggregation process</span>
+<span class="hljs-comment">//*****************************************************</span>
+<span class="hljs-comment">// Define the groupKey to be used across aggregates</span>
+<span class="hljs-comment">// By creating a group key with all the values we want to use in our report,</span>
+<span class="hljs-comment">// we will be able to report on any or all of these</span>
+groupKey1 = <span class="hljs-string">`<span class="hljs-subst">${vYOYMonth}</span>-<span class="hljs-subst">${$record.salesrep_id_assoc_id}</span>-<span class="hljs-subst">${$record.advCode}</span>`</span>;
+
+<span class="hljs-comment">//-- Define the objects that need to passed to the calculateAggregations function</span>
+<span class="hljs-comment">//- Define the keys object</span>
+groupKeys = [
+  {
+    <span class="hljs-attr">name</span>: <span class="hljs-string">'issueMonth_Rep'</span>,
+    <span class="hljs-attr">groupKey</span>: groupKey1,
+  },
+];
+
+<span class="hljs-comment">//- define the aggregation value.  Here we just want to aggregate over any of the YOY Fields </span>
+<span class="hljs-comment">//- that we created when running the naviga.yoyCreateField function</span>
+groupAggr = [
+  {
+    <span class="hljs-attr">name</span>: $record.yoyAggrFieldName, <span class="hljs-comment">// will look like -&gt; `sum${label}${vYOYYear}`,</span>
+    <span class="hljs-attr">initValue</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">value</span>: $record.orderNetAmt,
+  },
+];
+
+naviga.calculateAggregations({ $local, groupKeys, groupAggr });
+</code></pre>
+<p><strong>Current Year Value and Post Flush Powerscript</strong> .</p>
+<p>Now that we have our YOY Revenue fields aggregated, we can perform some calculations on them.</p>
+<p>But first, you will need to know what you want the current year to be considered as.  You can do this in a number of ways.</p>
+<ol>
+<li><strong>JavaScript</strong> - use JavaScript to look at the systems date and get the year from that.  This is useful for reports that you want scheduled and that you always want looking at the true current and previous year.</li>
+<li><strong>Input field</strong> - have the user enter it via an Input field.  This is more versatile if a user is going to be running the report manually.</li>
+<li><strong>Hard Code</strong> - Hard code into your scripts.</li>
+</ol>
+<p>For this example, we will be using the option1 and use the system to generate our current year field.</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">// Get the year of the issue date</span>
+vYOYYear = $record.YOYYear;
+vYOYMonth = $record.YOYMonth;
+
+<span class="hljs-comment">// Generate the current and previous years from JavaScript</span>
+<span class="hljs-comment">// Using the moment() library will return todays date and then</span>
+<span class="hljs-comment">// we extract year and previous year</span>
+$record.previousYear = moment().subtract(<span class="hljs-number">1</span>, <span class="hljs-string">'year'</span>).format(<span class="hljs-string">'YYYY'</span>);
+$record.currentYear = moment().format(<span class="hljs-string">'YYYY'</span>);
+
+<span class="hljs-comment">// local vars for easier use</span>
+vPreviousYear = $record.previousYear;
+vCurrentYear = $record.currentYear;
+
+<span class="hljs-comment">// Define our group !!MUST!! be same as groupKey created when aggregating. </span>
+<span class="hljs-comment">// Look at your "groupKeys" that you passed to the naviga.calculateAggregates function</span>
+groupKey1 = <span class="hljs-string">`<span class="hljs-subst">${vYOYMonth}</span>-<span class="hljs-subst">${$record.salesrep_id_assoc_id}</span>-<span class="hljs-subst">${$record.advCode}</span>`</span>;
+sumRevenueCurrYearField = <span class="hljs-string">`sumrevenue<span class="hljs-subst">${vCurrentYear}</span>`</span>;
+sumRevenuePrevYearField = <span class="hljs-string">`sumrevenue<span class="hljs-subst">${vPreviousYear}</span>`</span>;
+
+<span class="hljs-comment">// groupKey1 calculations</span>
+<span class="hljs-comment">// We only want to perform the calculations once for each groupKey value</span>
+<span class="hljs-keyword">if</span> (!$local[groupKey1].GroupSet) {
+  $record.groupKey1 = groupKey1;
+
+  <span class="hljs-comment">//Current Year Data</span>
+  $record[<span class="hljs-string">`<span class="hljs-subst">${vCurrentYear}</span>RepNetByYearRep_Total`</span>] = naviga.returnANumber($local[groupKey1][sumRevenueCurrYearField]);
+
+  <span class="hljs-comment">//Previous Year Data</span>
+  $record[<span class="hljs-string">`<span class="hljs-subst">${vPreviousYear}</span>RepNetByYearRep_Total`</span>] = naviga.returnANumber($local[groupKey1][sumRevenuePrevYearField]);
+
+  <span class="hljs-comment">// Calculation</span>
+  $record.currentVsPreviousYearRevenue =
+    naviga.returnANumber($local[groupKey1][sumRevenueCurrYearField]) - 
+    naviga.returnANumber($local[groupKey1][sumRevenuePrevYearField]);
+
+  $local[groupKey1].GroupSet = <span class="hljs-string">'true'</span>;
+}
+</code></pre>
+<p><strong>Inputs</strong></p>
+<p>If you want to have your user input a Year, you can setup an input as usual and then add this code in a separate Powerscript or in the Post Aggregation script above.</p>
+<p>We are setting a variable in the local object so that we only do this check once.  You would then need to copy the current and previous year values into the variables being used in your post flush script.</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">// Check if our currentYear is not set.  if not, then set it and previous year</span>
+<span class="hljs-keyword">if</span> (!$local.currentYear) {
+  <span class="hljs-keyword">if</span> ($inputs[<span class="hljs-string">'currentYear'</span>]) {
+    $local.currentYear = $inputs[<span class="hljs-string">'currentYear'</span>];
+    $local.previousYear = $local.currentYear - <span class="hljs-number">1</span>;
+  } <span class="hljs-keyword">else</span> {
+    $local.currentYear = moment().format(<span class="hljs-string">'YYYY'</span>);
+    $local.previousYear = moment().subtract(<span class="hljs-number">1</span>, <span class="hljs-string">'year'</span>).format(<span class="hljs-string">'YYYY'</span>);
+  }
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="reports"></a><a href="#reports" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Reports</h3>
+<p>You can now build your reports.  Just remember that if you ended up creating a calculation from the YOY fields, you will need to only use fields in your report that were used in your aggregation.</p>
+<p>Here is an example of a report by month, showing Year over Year data with a calculated difference field:</p>
+<p><img src="..\assets\informer-saved-functions-yoy-001.png" alt="image-20201020152950134"></p>
+<p>However, if you do not need the calculated field, you will not be constrained by the fields you aggregated by.</p>
+<p><img src="..\assets\informer-saved-functions-yoy-002.png" alt="image-20201020153313776"></p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/informer/informer-javascript.html"><span class="arrow-prev">← </span><span class="function-name-prevnext">Informer JavaScript Use</span></a><a class="docs-next button" href="/docs/informer/informer-mappings.html"><span>Informer Mappings</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#calculateaggregates---create-function">calculateAggregates - Create Function</a></li><li><a href="#calculateaggregates---usage">calculateAggregates - Usage</a><ul class="toc-headings"><li><a href="#calling-the-function">Calling the function</a></li><li><a href="#post-aggregate-powerscript">Post Aggregate Powerscript</a></li></ul></li><li><a href="#summultivaluedfield---create-function">sumMultiValuedField - Create Function</a></li><li><a href="#summultivaluedfield---usage">sumMultiValuedField - Usage</a></li><li><a href="#multivaluedtostring---create-function">multiValuedToString - Create Function</a></li><li><a href="#multivaluedtostring---usage">multiValuedToString - Usage</a></li><li><a href="#returnanumber--create-function">returnANumber- Create Function</a></li><li><a href="#returnanumber--usage">returnANumber- Usage</a></li><li><a href="#getmonthsbetween---create-function">getMonthsBetween - Create Function</a></li><li><a href="#getmonthsbetween---usage">getMonthsBetween - Usage</a></li><li><a href="#yoycreatefields---create-function">yoyCreateFields - Create Function</a></li><li><a href="#yoycreatefields---usage">yoyCreateFields - Usage</a><ul class="toc-headings"><li><a href="#output-from-yoycreatefields">Output from yoyCreateFields</a></li><li><a href="#performing-calculations-on-yoy-fields">Performing Calculations on YOY Fields</a></li><li><a href="#reports">Reports</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/Naviga_Logo_Dark_Icon.png" alt="Naviga Analytics" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/analytix/analytix-setup.html">Getting Started With Analytix</a><a href="/docs/bi/bi-auditors.html">BI Docs</a></div><div><h5>naviga</h5><a href="http://navigaglobal.com/" target="_blank">Website</a><a href="http://navigaglobal.com/blog/" target="_blank">naviga Blog</a><a href="https://twitter.com/navigaglobal" target="_blank">Twitter</a><a href="https://www.facebook.com/navigaglobal" target="_blank">Facebook</a><a href="https://www.linkedin.com/company/navigaglobal" target="_blank">LinkedIn</a></div><div><h5>More</h5><a href="/docs/analytix/analytix-bi-overview.html">Analytix Docs</a><a href="/docs/bi/bi-resources.html">BI Docs</a></div></section><a href="https://navigaglobal.com" target="_blank"><img src="/img/Naviga_Logo_Dark_Verticle.png" alt="naviga - Venture Forward" width="226" height="42" style="margin:1em auto;display:block;width:226px"/></a><section class="copyright">Copyright © 2021 naviga</section></footer></div><script type="text/javascript" src="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script><script>
+                document.addEventListener('keyup', function(e) {
+                  if (e.target !== document.body) {
+                    return;
+                  }
+                  // keyCode for '/' (slash)
+                  if (e.keyCode === 191) {
+                    const search = document.getElementById('search_input_react');
+                    search && search.focus();
+                  }
+                });
+              </script><script>
+              var search = docsearch({
+                
+                apiKey: 'ccd2672198948e3c79646332385b98fb',
+                indexName: 'analytix',
+                inputSelector: '#search_input_react',
+                algoliaOptions: {}
+              });
+            </script></body></html>
