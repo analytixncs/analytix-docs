@@ -1029,7 +1029,7 @@ To do this, you will need to add a Powerscript flow step AND very importantly, y
 
 First to make sure the data is in the correct order, you will need to add an **Order By** step when building your dataset:
 
-![image-20210215123153997](C:\Users\mark.mccoid\Documents\AnalytixDevelopment\analytix-docs\docs\assets\informer_javascript-powerscript-dedup001.png)
+![image-20210215123153997](..\assets\informer_javascript-powerscript-dedup001.png)
 
 Then you will need to add a Powerscript Flow step to update the Order Net Amt.
 
