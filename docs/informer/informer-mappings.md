@@ -46,7 +46,7 @@ While there are over 80 "Amt" fields in the User Reports mapping.  You most like
   $record.LineNetAmount = $record.repMv === 1 ? $record.netCost : 0;
 ```
 
-- **Rep Net Amt** - This field is the **Rep Split Net Amt * Salesrep Percentage**.  Note that the aggregation of this at the campaign level is not always the Net amount of the order.  This is because multiple reps may be getting commission or a percentage of the campaign.
+- **Rep Net Amt** - This field IS the **Rep Split Net Amt * Salesrep Percentage**.  Note that the aggregation of this at the campaign level is not always the Net amount of the order.  This is because multiple reps may be getting commission or a percentage of the campaign.
 
 ### User Report Other Fields
 
@@ -59,6 +59,24 @@ In the User Reports mapping you can use:
 - **Pub Id** - This will be the Product/Website Id
 - **Pub Desc** - This will be the Product/Website Description
 
+### User Report Print vs Digital
+
+To determine if a campaign is either Print or Digital, you can use the field **Inet Print Pub Ind** in the User Reports mapping.
+
+If this field is Y, then the campaign is Print, if N, then the campaign is Digital.
+
+You can use this piece of code in a Powerscript to convert the Y or N to Print or Digital
+
+```javascript
+PrintDigitalConvert = {
+    Y: 'Print',
+    N: 'Digital'
+}
+$record.PrintOrDigital = PrintDigitalConvert[$record.inetPrintPubInd] || 'Not Defined'
+```
+
+
+
 
 
 ------
@@ -70,8 +88,6 @@ The AD Internet Campaigns mapping is the at the campaign level.  If you need lin
 When pulling back records from AD Internet Campaigns, you need to most likely filter on the Status Code (STATUS.CODE, #7).
 
 > NOTE: This is the status at the **Campaign** level.  So, it will be filtering on campaign level status's.  If you are pulling data in from AD Internet Orders also, you will need to also filter on the **Line Cancel Status ID (LINE.CANCEL.STATUS.ID #26)**
-
-
 
 ## AD Internet Orders mapping
 
