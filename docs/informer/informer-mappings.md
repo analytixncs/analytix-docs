@@ -28,6 +28,11 @@ While there are over 80 "Amt" fields in the User Reports mapping.  You most like
 
 - **Order Net Amt** - This is the total net amount for the campaign.  The problem with this field is that it will be duplicated for every line item in User Reports for an order.  If you are going to do any aggregation on the field, you will need to add a flow step to remove the duplicates.  [Remove Duplicates Code](./informer-javascript/#remove-duplicate-values-in-aggregation)
 
+  > Be aware that to use the above field, you will need to Sort your Dataset using the **Order By** step when building the "query".  This can slow the query down.  I don't feel you really will ever or should ever use the Order Net Amt. 
+  > Instead, if you just need net amount for campaigns, use the Rep Split Net Amt field fix below.
+
+  
+
 - **Rep Split Net Amt** - This field can be aggregated to get total net revenue for a campaign **ONLY when the Rep Indicator is filtered to 1.**
   To expand on this, there is a field in User Reports called **Rep Indicator(REP_MV)**.  This indicator is used to indicate the number of reps on the order.   If you do not filter by the Rep Indicator, your revenue will be overstated for some ads.
   
@@ -39,8 +44,8 @@ While there are over 80 "Amt" fields in the User Reports mapping.  You most like
 ```javascript
   // Rep Split Net Amt Fix
   $record.LineNetAmount = $record.repMv === 1 ? $record.netCost : 0;
-  ```
-  
+```
+
 - **Rep Net Amt** - This field is the **Rep Split Net Amt * Salesrep Percentage**.  Note that the aggregation of this at the campaign level is not always the Net amount of the order.  This is because multiple reps may be getting commission or a percentage of the campaign.
 
 ### User Report Other Fields
