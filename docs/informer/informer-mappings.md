@@ -48,6 +48,22 @@ While there are over 80 "Amt" fields in the User Reports mapping.  You most like
 
 - **Rep Net Amt** - This field IS the **Rep Split Net Amt * Salesrep Percentage**.  Note that the aggregation of this at the campaign level is not always the Net amount of the order.  This is because multiple reps may be getting commission or a percentage of the campaign.
 
+### User Report NEEDED Status Criteria
+
+Most of the time when you are creating a report to get revenue, you **DO NOT** want to include deleted lines.  To ensure this, you will need to add the following criteria to only pull the following **Status** field values
+
+The **Status** field is located in the **User Reports** mapping and you will want to exactly match the following:
+
+- **EX** - Billed
+- **RU** - Confirmed
+- **IS** - Invoicing Started
+
+The filter will look like this:
+
+![image-20210401095638103](G:\MarkNCS2019\analytix-docs\docs\assets\informer-mapping-userreports-001.png)
+
+
+
 ### User Report Other Fields
 
 **Product or Website Field**
