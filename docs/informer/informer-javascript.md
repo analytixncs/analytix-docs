@@ -18,6 +18,8 @@ A **Calculated Field** will allow you to use JavaScript to define a single field
 
 A **Powerscript** is different from a Calculated Field in that it will allow you to create multiple fields with a single script.  
 
+> **Recommendation:** If you have more that 3 or  4 calculated fields, I would recommend just putting them into a Powerscript.  This makes maintenance of the code much easier.  Also make sure to comment your Powerscript and/or Calculated fields well.
+
 ## Calculated Fields
 
 To add a Calculated Field to a Dataset, you will first need to Edit the Dataset that you want to add the field to.
@@ -376,7 +378,7 @@ These values are
 
 Next, define what criteria must be met for each of these to "win" at being the final value for our new field.
 
-I find it make it easier to understand if we define these criteria in a table listing the field the criteria applies to, the Operation and the Detail.
+I find it makes it easier to understand if we define these criteria in a table listing the field the criteria applies to, the Operation and the Detail.
 
 #### Define Requirements
 
@@ -415,9 +417,9 @@ We will start with the **first criteria** requirement.
 var criteria_startWith = campaignCode.startsWith('3') || campaignCode.toLowerCase().startsWith('p') 
 ```
 
-We have created a variable **criteria_startWith** that holds the result of either **true** or **false**.
+We have created a variable **criteria_startWith** that holds the result value of either **true** or **false**.
 
-It will hold true if the current rows campaignCode value starts with either a '3' or 'P'.
+It will hold true if the current row's campaignCode value starts with either a '3' or 'P'.
 
 The **next requirement**:
 
