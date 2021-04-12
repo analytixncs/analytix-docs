@@ -441,8 +441,8 @@ You have five actions that you can perform in a job.  They are:
 
 - **Send an Email** - Sends an email to users that enter.  This is an option where a single email will be generated and you will have to fill out the email addresses that the email is going to.  This is useful for reports that you know who the recipient will be
 - **[Send an email burst](https://informer5.zendesk.com/hc/en-us/articles/360032985372-3-3-Send-an-Email-Burst)** - An email burst uses the data in the dataset to get the email addresses to send emails and data to.  This is what I would call a loop and reduce, since it will not only use an email field in the dataset to determine who to send the email to, but will also reduce the data so that the email recipient only gets the data they are "associated" with.
-- **Send to FTP** - Sends to an FTP site
-- **Send to file system** - Exports to the host boxes files system.
+- **Send to FTP** - This option is NOT available.  If you try to use it, it will not work.
+- **Send to file system** - This option will let you export to a Naviga designated FTP site. See [Exporting To The File System](#exporting-to-file-system-ftp)
 - **Export Saved List** - this will create  list in a Datasource
 
 ### Email Burst Job Action
@@ -523,7 +523,7 @@ If you set up a job, it is as simple as putting the Dataset in a job and then se
 
 
 
-### Exporting To File System/FTP
+### Exporting To File System-FTP
 
 When creating actions for a job, you may want to send your data to an FTP site and you will see an option "Send to FTP".  However, this option does NOT work because of security restrictions.
 
@@ -549,9 +549,13 @@ To access the FTP site where these files will be stored, you will need to use a 
 
 Data Access Tokens allow you to access your Dataset from a command line interface using cURL or HTTPie.
 
+You can create a Data Access Token by clicking on the Action menu in a Dataset and choosing "**Create a data access token**".
+
+![image-20210412104918038](..\assets\informer_basics_DAT_001.PNG)
+
 You can also use the curl output to access the data via a browser or in a program that supports rest APIs.
 
-Here is an example of a cURL Data Access Token:
+Here is an example of using cURL with a Data Access Token:
 
 ```javascript
 curl "https://digital20192.msglcloud.com:8082/api/datasets/cafe1b00-9544-4799-a06a-184ebc4e4bd9/export/json?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOiIyNTk0ZWNjNi1mYmY1LTRlZTgtYmJmNy0zOTEyNDNhMWU4NjkiLCJpYXQiOjE1ODA3NDQ3MzIuMzIzfQ.GPmK56XqmiEww_D6kSWZHh1FNSeqaadePg706u1qkEg"
