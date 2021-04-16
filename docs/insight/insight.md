@@ -136,7 +136,25 @@ ORDER BY ec_db_Desc, ec_ProcessName desc
 
 If it is McClatchy follow the [McClatchy Run Control Settings](#McClatchy-Run-Control-Settings)
 
-## McClatchy 
+## PRTG Alerts for Java (IBM Cognos) CPU Usage
+
+> Per Jeremy Lucas Email
+
+This playbook should be followed if you receive a PRTG alert for Java CPU usage on any Insight server. All Insight servers are set to alert if Java CPU usage is greater than 30%. 
+
+1. If it is after business hours for the customer and the Insight load isn’t running the following steps will resolve the issue:
+   - Log into the Insight server.
+   - Open Task Manager and sort by CPU usage. You should see Java using 30%+ CPU
+   - Open Administrative Tools -> Services
+   - Restart the IBM Cognos service.  This service takes a few minutes to restart. 
+   - Check Task Manager for Java CPU usage after the service restarts. It will most likely be below 5%.
+   - Email the “Insight Support” group confirming you fixed the issue.
+   - If you run into any issues escalate to Jeremy Lucas or Mark McCoid.
+
+2. If it is during business hours for the customer or the Insight load is currently running acknowledge the alert and schedule the fix for after hours before or after the next Insight load.
+   - Email the “Insight Support” group confirming who in the NOC will fix the issue.
+
+## McClatchy
 
 ### Run Control Settings
 
