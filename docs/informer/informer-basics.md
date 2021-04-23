@@ -533,7 +533,7 @@ In the image below, you will see that you need to the directory where you want t
 
 `\\XXXprod01\repository\XXX`
 
-![img](G:\MarkNCS2019\analytix-docs\docs\assets\informer-basics-FTP-001.png)
+![img](..\assets\informer-basics-FTP-001.png)
 
 To access the FTP site where these files will be stored, you will need to use a program like Filezilla or other FTP software using the following details:
 

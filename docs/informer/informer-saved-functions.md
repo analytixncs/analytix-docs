@@ -81,6 +81,27 @@ function returnANumber(numberIn) {
 
 
 
+## calculateAggregates - When To Use
+
+Before you decide to use the `calculateAggregates` function, it is a good idea to ask yourself why you think you need it, just to make sure you actually do need to use the function.
+
+**calculateAggregates Needed**
+
+A common use case that needs something like our `calculateAggregates` function is calculating **percentages** between two values based on certain groups in your data.
+
+Think of it this way, any value that cannot be aggregated needs to use the `calculateAggregates` function or some technique like it.
+
+> **Cannot be Aggregated** - Most **percentages** can't be aggregated.  If I have a field that is the Actual vs Budget percentage, I cannot calculate this on a transaction by transaction basis and then sum all the %'s up at the end.  I need to determine at what level I'm going to calculate the % at (maybe Advertisers or Sales Reps) and use the `calculateAggregates` function or other technique to get me the answer.
+
+**calculateAggregates Maybe NOT Needed**
+
+Once you better understand what they function does, you will find that you can use even in the cases listed below, but your report only needs the use cases listed below, then using the `calculateAggregates` function will add unneeded complexity to your report.
+
+The example that you will see in this usage doc doesn't require the `calculateAggregates` function, however, it is super easy to understand.
+
+- **Scenario 1** - Aggregates you get by summing up a field.  Since Informer lets you create pivot tables which will let you choose Field Values to aggregate, you obviously don't need extra functions for this scenario.
+- **Scenario 2** - You want to create a calculation between two fields and aggregate it.  For example, the difference between Actual and Budget numbers.  Since this will create another value that can be aggregated across any other field, you don't need extra functions for this scenario.
+
 ## calculateAggregates - Usage
 
 This function is called with a configuration object that will define fields to aggregate and the groupings to aggregate those fields by.
