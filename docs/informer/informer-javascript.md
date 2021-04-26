@@ -1112,7 +1112,7 @@ if (!$local[groupKey1].GroupSet) {
 
 
 
-
+> NOTE: The above Year over Year documentation is a work in progress.
 
 ### Remove Duplicate Values in Aggregation
 
