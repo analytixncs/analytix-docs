@@ -117,13 +117,18 @@ This is useful in reports requiring calculations to be done on aggregated amount
 
 ### Calling the function
 
+```javascript
+// Calling the calculate aggregates in a Powerscript
+naviga.calculateAggregates({ $local, groupKeys, groupAggr });
+```
+
 The function accepts a single object as a parameter. That object has the following shape:
 
 ```javascript
 {
-  $local, //This is the local object
-  groupKeys,
-  groupAggr,
+  $local, // This is the local object
+  groupKeys, // How you want to aggregate your data (by what fields)
+  groupAggr, // The actual aggregates you want to calculate (i.e. Total Net Amount, etc)
 }
 ```
 
