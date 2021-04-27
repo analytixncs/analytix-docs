@@ -1022,9 +1022,9 @@ Year over Year views of your data can be created using a Pivot table with a Year
 
 ![image-20210423142428927](..\assets\informer-Javascript-YOY-001.png)
 
-However, if you wanted to actually calculate a difference column for Current and Previous year, you will find that you cannot do this in Informer currently.
+However, if you wanted to actually calculate a difference column for Current and Previous year, you will find that you cannot do this in the Informer Pivot table currently.
 
-To make this possible, we need to write some Flow steps to create a field that holds each year's values and then another script to do the calculations. Our end goal will be to create a chart that looks like this:
+To make this possible, we need to write some Flow steps to create fields that will hold each year's values and then another script to do the calculations. Our end goal will be to create a chart that looks like this:
 
 ![image-20210423142809485](..\assets\informer_javascript-YOY-002.png)
 
@@ -1035,11 +1035,17 @@ To make this possible, we need to write some Flow steps to create a field that h
 - **AggregatationValue** - This is the field that you holds the value that you are examining.  This may be the Rep Revenue, Invoice Revenue, etc.
 - **CurrentYear/PreviousYear** - These could be based on todays date (in the sample PowerScripts they are), but you can use any Year values that you would like for these (I would rename them if you do.)
 
->  **NOTE:** If you need your aggregation to be at multiple levels and the calculation is not a percentage the relies on the hierarchy, you can get by with a single aggregation.  For example, if you just wanted the difference between years for Advertiser by Rep, Advertiser and Rep, you would only need a single groupKey of 'Advertiser-Rep', but if you were calculating percentages that you wanted to view at each level, you would need to create a groupKey for each level.
+>  **NOTE:** If you need your aggregation to be at multiple levels and the calculation is not a percentage that relies on the hierarchy, you can get by with a single aggregation.  For example, if you just wanted the difference between years for Advertiser by Rep, Advertiser (by itself) and Rep(by itself), you would only need a single groupKey of 'Advertiser-Rep', but if you were calculating percentages that you wanted to view at each level, you would need to create a groupKey for each of the three levels.
 
 **PowerScript #1 - Create Year Fields**
 
+This script will create a separate field for each year from the date field you use for `$record.DateField`.  The field name will be the year plus whatever you replace `-FieldName_1` with.  For example, if you want the `NetRevenue` to be broken into each Issue year you would make the following replacements:
 
+- `$record.DateField` **changed to** `$record.IssueDate`
+- `${transactionYearToCompare}-FieldName_1` changed to `${transactionYearToCompare}-NeRevenue`
+- `$record.AggregatationValue` **changed to** `$record.NetRevenue`
+
+The result being fields in the format of `2020-NetRevenue`, `2021-NetRevenue`, etc.
 
 ```javascript
 // Extract Year from transaction date
@@ -1048,32 +1054,33 @@ transactionYearToCompare = moment($record.DateField).format('YYYY')
 
 // this will be used as the fieldname
 // example: '2020-FieldName_1', '2021-FieldName_1', etc
-FieldName_1 = `${transactionYearToCompare}-FieldName_1`
+$record.FieldName_1 = `${transactionYearToCompare}-FieldName_1`
 
 // Store the value in your new field things like $record.repNetCost, etc
-$record[FieldName_1] =$record.AggregatationValue
+$record[$record.FieldName_1] = $record.AggregatationValue
 ```
 
 **PowerScript #2 - Calculate Aggregates**
 
+Review the [Calculate Aggregates Function Docs](informer-saved-functions#calculateaggregates---usage) for details on how this function works in more detail.
 
+In this script you will be aggregating your YOY values.  You will need to define WHICH years you want to perform calculations on and create a specific aggregation object within the **groupAggr** array for that year.  In the below example, I am using the `moment()` library to get the current year and the previous year.
+
+Then in the groupAggr array, I'm creating an object for the Current Year (sumCurrNet) and Previous Year (summPrevNet).  The `value` key must match the field name that you used in script #1, but substituting the `transactionYearToCompare` with your `currentYear` & `previousYear` variables.
 
 ```javascript
-// Extract Year from transaction date
-// this will become part of the identifying field name
-transactionYearToCompare = moment($record.DateField).format('YYYY')
-
-FieldName_1 = `${transactionYearToCompare}-FieldName_1`
-
 // Year Variables - Year buckets you want to create
 currentYear = moment().format('YYYY')
 previousYear = moment().subtract(1, 'years').format('YYYY')
+
+// Create the grouping levels that you will need in your aggregations
+$record.groupKey1 = `${$record.advName}-${$record.repName}`
 
 // Levels that you want to see your calculation over
 groupKeys = [
   {
     name: "Advertiser-Rep",
-    groupKey: `${$record.advName}-${$record.repName}`,
+    groupKey: $record.groupKey1,
   }
 ];
 
@@ -1081,38 +1088,33 @@ groupAggr = [
   {
     name: "sumCurrNet",
     initValue: 0,
-    value: naviga.returnANumber($record[FieldName_1]),
+    value: naviga.returnANumber($record[`${currentYear}-FieldName_1`]),
   },
   {
     name: "sumPrevNet",
     initValue: 0,
-    value: naviga.returnANumber($record[FieldName_1]),
+    value: naviga.returnANumber($record[`${previousYear}-FieldName_1`]),
   },    
 ];
-
+// Call the calculateAggregtes saved function
 naviga.calculateAggregates({$local, groupKeys, groupAggr})
 ```
 
+**Perform a Flush Flow Step**
+
 **PowerScript #3 - Post Aggregation Calculations**
 
-
+This last script is where you will actually perform the calculations for the fields you need.
 
 ```javascript
-// Define the groupKey to be used across aggregates
-// !!!!Must be the same as those defined in the first Powerscript
-groupKey1 = `${$record.advName}-${$record.repName}`;
-
 // GROUP KEY 1
-$record.groupKey1 = groupKey1; // If you want a record in your data showing the groupKey for the record
-if (!$local[groupKey1].GroupSet) {
-  $record.CurrPreviousDifference = $local[groupKey1].sumCurrNet - $local[groupKey1].sumPrevNet;
-  $local[groupKey1].GroupSet = true; //Setting to true means we will not excute this code again during the load.
+if (!$local[$record.groupKey1].GroupSet) {
+  $record.CurrPreviousDifference = $local[$record.groupKey1].sumCurrNet - $local[$record.groupKey1].sumPrevNet;
+  $local[$record.groupKey1].GroupSet = true; //Setting to true means we will not excute this code again during the load.
 }
 ```
 
 
-
-> NOTE: The above Year over Year documentation is a work in progress.
 
 ### Remove Duplicate Values in Aggregation
 
