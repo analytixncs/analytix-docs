@@ -1,5 +1,5 @@
 ---
-id: informer-mappings
+☺id: informer-mappings
 title: Informer Mappings
 sidebar_label: Informer Mappings
 ---
@@ -108,6 +108,68 @@ When pulling back records from AD Internet Campaigns, you need to most likely fi
 ## AD Internet Orders mapping
 
 The AD Internet Orders mapping is the detail level of a campaign.  It will hold the individual line items.
+
+**AD Internet Campaigns** hold the summary data and then links to the **AD Internet Orders** mapping for the detail about the lines and reps.
+
+Given that most of the reports that you write that pull data for Orders will want the detail level information found in **Ad Internet Orders**, it is recommended that you start with the AD Internet Orders mapping. 
+
+### Filtering 
+
+When pulling data from the **AD Internet Orders** mapping, realize that Deleted Lines and potentially unwanted Campaign Status's will be included in your results.  Since most reports do not want this information, you will want to add criteria to filter this information out.
+
+Here is a common set of Criteria for a report from the **AD Internet Orders** mapping:
+
+![image-20210511150211401](..\assets\informer-mapping-adinternetorders-001.png)
+
+The first is the Status Code on the Campaign.  It is found in the **AD Internet Campaigns** mapping and is called **Status Code**
+
+![image-20210511150424446](..\assets\informer-mapping-adinternetorders-002.png)
+
+The second field, **Line Cancel Status ID**, makes sure that no Deleted Lines are included in your results.  It is located on the **AD Internet Orders** mapping.
+
+![image-20210511150826980](..\assets\informer-mapping-adinternetorders-003.png)
+
+### Multivalued Fields
+
+You will notice in this mapping that there are a number of Multivalued fields.  Even though we are at the Line level in the **AD Internet Orders** mappings, you will still see multivalued fields.  One of these fields that we will use for Revenue is the **Month Period** field.  Why would a single line within a Campaign have multiple Month Period fields?  
+
+First, the Month Period field is the Month/Period and Year (MM-YYYY) that this line is to be recognized as revenue in.
+
+When you view a line in Naviga Ad, you see that a single line can extend across multiple months.  If you want to see this information by month, then you will have to deal with the multivalued fields for this breakout.  In particular the fields are:
+
+- Month Period
+- Month Start
+- Month End
+- Month Est Amt
+- Month Act Amt
+
+This is what a Line in a Campaign looks like in Naviga Ad. Notice that it has further detail showing the billing amount for each month.  The values above correspond to each of these value in Naviga Ad.
+
+![img](..\assets\informer-mapping-adinternetorders-004.png)
+
+The bit of difficulty is that these fields are stored in a Multivalued field.  A weird concept if you are coming from a relational background, however, all it means is that, in the example above, there will be three values stored in each of the MV fields mentioned.  
+
+A multivalued field in Informer usually is not in a format that is usable and thus you will need to run a flow step in your report to "Normalize" it.
+
+This is what a report pulling these multivalued fields would look like without Normalization:
+
+![image-20210511153122760](..\assets\informer-mapping-adinternetorders-005.png)
+
+The problem with the above format is two fold, first it is hard to reason about, since we are used to seeing a full row of data.  Secondly, you cannot filter on the MV fields.
+
+Given this, the normal course of action when we have MV fields in our report is to normalize the MV fields.  This can be done with the **Normalize** flow step.  
+
+After Normalizing, the above data will now look like this:
+
+![image-20210511161333417](..\assets\informer-mapping-adinternetorders-006.png)
+
+### Amount Fields
+
+There are a lot of Amount fields in the **AD Internet Orders** mapping.  We will focus on the Month Actual/Est Amt fields and the **Line Price Amt** fields in this document. 
+
+**Line Price Amt**
+
+
 
 Be aware of the difference between the Actual Amt and the Estimated Amt.
 
