@@ -40,7 +40,6 @@ While there are over 80 "Amt" fields in the User Reports mapping.  You most like
   
   To keep from having to filter on the Rep Indicator, you could also set the Rep Net Amt field to zero for those that have a Rep Indicator not equal to zero.
   I would also suggest removing the original RepSplitNetAmt field from your dataset after the above Powerscript has been run.
-  
 ```javascript
   // Rep Split Net Amt Fix
   $record.LineNetAmount = $record.repMv === 1 ? $record.netCost : 0;
@@ -147,7 +146,7 @@ This is what a Line in a Campaign looks like in Naviga Ad. Notice that it has fu
 
 ![img](..\assets\informer-mapping-adinternetorders-004.png)
 
-The bit of difficulty is that these fields are stored in a Multivalued field.  A weird concept if you are coming from a relational background, however, all it means is that, in the example above, there will be three values stored in each of the MV fields mentioned.  
+The bit of difficulty is that these fields are stored in a Multivalued field.  A weird concept if you are coming from a relational background, however, all it means, is that, in the example above, there will be three values stored in each of the MV fields mentioned.  
 
 A multivalued field in Informer usually is not in a format that is usable and thus you will need to run a flow step in your report to "Normalize" it.
 
@@ -169,9 +168,39 @@ There are a lot of Amount fields in the **AD Internet Orders** mapping.  We will
 
 **Line Price Amt**
 
+If you do not need to know the Line Item monthly breakout of revenue, then you can simply use the **Line Price Amt**.  Just be aware that if you include any multivalued fields and normalize on them, the **Line Price Amt** field will be duplicated over those normalized items.
+
+### Month Actual / Est Amt
+
+The **Month Actual and Est Amt** multivalued fields have some special rules that need to be followed to get the correct information from a report written using them.
+
+These rules can only be applied via a PowerScript Flow step.
+
+Here are the rules:
+
+- **Flexible Campaigns** - If the line is part of a flexible campaign, then you will **only** use the **Month Est Amt**
+- **Other Types of Campaigns** - If the line is not part of a flexible campaign, then we need to determine whether to use the Actual or Estimated amount field.  You will simply choose the Estimated amount if the Actual amount field is zero or empty.
+
+Here is a Powerscript excerpt that embodies the above rules and creates a single revenue field called **NetAmount**:
+
+```javascript
+// Calculated the Net Revenue Amount field
+if ($record.a_d_internet_campaigns_assoc_campaignType === 'F') {
+	$record.NetAmount = $record.monthEstAmt
+} else {
+	$record.NetAmount = ($record.monthActualAmt === 0 || !$record.monthActualAmt) ? $record.monthEstAmt : $record.monthActualAmt;    
+}
+```
+
+> NOTE: The above code references the following fields:
+>
+> - **$record.a_d_internet_campaigns_assoc_campaignType** - This is the Campaign Type from the **AD Internet Campaign** mapping
+> - **$record.monthEstAmt** - This is the Month Est Amt from the **AD Internet Orders** mapping
+> - **$record.monthActualAmt** - This is the Month Actual Amt from the **AD Internet Orders** mapping
+>
+> The above code assumes the base mapping is **AD Internet Orders**.  If not, the field reference name may be different.
 
 
-Be aware of the difference between the Actual Amt and the Estimated Amt.
 
 
 
