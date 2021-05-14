@@ -147,13 +147,30 @@ AND    ((
 
 ## Loading External Attribute Data
 
-If you have external attribute data (Excel, CSV, etc) you can load this into a dataset in Informer and than "add" this data to another dataset via a Flow Step.
+There are two ways to load attribute data (Excel, CSV, etc) for us in Informer:
+
+1. **[Direct Spreadsheet Load into a Dataset](#excel-to-dataset-direct)** - This is a "quick and dirty" way to quickly get data from a spreadsheet into Informer.  This is only recommended for data that you will not be loading often and is generally NOT the  way to get external data into Informer.
+2. __**[Create a Workspace for External Data](#using-workspaces)**__ - This is the recommended way of importing external data.  It is more stable and easier to use than option 1.
+
+Regardless of the method that you use to import the data, you will need to make sure that you know **how** the data that you are going to import will **join** to the existing Informer data.
+
+An example would be period dates if your corporation has periods that don't follow the calendar.  in this case you would create a spreadsheet that might look something like this:
+
+| ext_period_date | ext_period_year | ext_period | ext_period_week |
+| --------------- | --------------- | ---------- | --------------- |
+| 01/01/2021      | 2021            | 1          | 1               |
+| 01/02/2021      | 2021            | 1          | 1               |
+| 01/03/2021      | 2021            | 1          | 1               |
+| ...             | ...             | ...        | ...             |
+| 03/04/2021      | 2021            | 3          | 1               |
+
+In the above case, you would join the **ext_period_date** to whatever date field in your report needed to be expressed in your corporate periods.
+
+### Excel To Dataset Direct
+
+> Just a reminder, this is NOT the recommended way to bring in external data, but is a quick way to test how data might link.
 
 One example of external data that would work would be extra customer attributes that are not in the main database, old account number, other name, etc.
-
-Until I research it more, I'm don't think this would be a way you could bring in Goal or Budget data, however, I could be wrong.  
-
-The easy application is external data with a  1 to 1 mapping to another data point.
 
 Here is an easy example.  I have a dataset in Informer with a bunch of information, one of them being the Agency Name.  I also have an external spreadsheet with the **Agency Name** and an **Agency Alias**.
 
@@ -172,7 +189,7 @@ To do this, you first must create a dataset from your external spreadsheet.  You
 
    Give the dataset a name and choose the sheet (this is an excel file) that the data is located on.
 
-2. Or, Click on the New Dataset button and choose upload a file:
+2. **OR,** Click on the New Dataset button and choose upload a file:
 
    ![1574192719800](../assets/informer_tips_009.png)
 
@@ -185,6 +202,8 @@ To do this, you first must create a dataset from your external spreadsheet.  You
 This will upload the data in the external file and create a new Dataset.  You will see it in your list of Datasets:
 
 ![1574192840659](../assets/informer_tips_010.png)
+
+**Link Data to Another Dataset**
 
 To get the Agency Alias into another Dataset, simply open the Dataset that you want to append the external data to and create a field using the Flow Step, *Add Field/Fields from another Dataset*
 
@@ -199,6 +218,36 @@ The other important setting is choosing the fields you would like to.  Click and
 The *What if more than one value matches?* option can be left as *Only use the first value*.  
 
 The *Prefix field labels* setting allows you to add a prefix to these import fields so that you can better identify them as coming from another dataset.  It is optional.
+
+### Using Workspaces
+
+A workspace is a **Datasource** that holds mappings of any external data that you want to import.  You can think of a Workspace as a *database* or your external spreadsheets.  
+
+First you need to create a Workspace to load your external data into.  Go to the **Datasources** area in Informer, click on **NEW DATASOURCE** and then choose **Workspace**.
+
+![image-20210514150055770](..\assets\informer-basics-workspaces-001.png)
+
+Enter a name for the workspace.  How about **External Data**.  You can house multiple excel files or other external data source within a single datasource.
+
+Once you create  Workspace, you will have an **UPLOAD DATA** button in the middle of the screen.  Press this button and either click on **Choose Files** or drop the file containing your external data into the gray square.
+
+> Recommended File structure: 
+>
+> - **CSV Format** - Instead of Excel, CSV format is preferred.
+> - **Header Names** - Make them **lowercase** and if the header has multiple words, separate each work with an underscore.  
+>   - Period Date becomes **period_date**
+
+Once you drop your file, it will load and analyze it.  If you haven't followed the above rules, you may see this screen:
+
+![image-20210514150811294](..\assets\informer-basics-workspaces-002.png)
+
+If so, click on **Configure** and then on the magic wand next to the Field Name label.  This will simply rename your header names into a form that Informer can use.
+
+![image-20210514151208392](..\assets\informer-basics-workspaces-003.png)
+
+Lastly, click **Import**.  You now have a new mapping in a Datasource named **External Data** that can be used just like any other mapping. 
+
+This means that you could create a Dataset with any mapping in your **External Data** Datasource OR you could join the field to an existing Dataset using the flow step **Fields from another Datasource**.
 
 ## Flow Steps
 
