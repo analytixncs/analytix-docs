@@ -1,5 +1,5 @@
 ---
-☺id: informer-mappings
+id: informer-mappings
 title: Informer Mappings
 sidebar_label: Informer Mappings
 ---

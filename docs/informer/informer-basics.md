@@ -763,3 +763,14 @@ The post filter is located here:
 
 
 
+## Videos
+
+![](https://www.dropbox.com/s/usv56hgdtrrrav1/Informer-Introduction-001.mp4?dl=0)
+
+```js
+<video width="320px" controls>
+  <source src="https://www.dropbox.com/s/usv56hgdtrrrav1/Informer-Introduction-001.mp4?raw=1"/>
+</video>
+```
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/EcmnblX-8QY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
