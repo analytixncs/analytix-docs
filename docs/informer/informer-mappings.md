@@ -4,9 +4,9 @@ title: Informer Mappings
 sidebar_label: Informer Mappings
 ---
 
-## User Reports Mappings
+# User Reports Mappings
 
-### User Reports vs User Reports Original Rep
+## User Reports vs User Reports Original Rep
 
 The `User Reports` mapping does not have the original rep but they can go to the source record in AD ORDERS or INET.CAMPAIGNS and get the original rep.
 
@@ -22,7 +22,7 @@ If they change the Brand Rep and **do not say yes to update future orders** then
 
 ----
 
-### User Reports Revenue Fields
+## User Reports Revenue Fields
 
 While there are over 80 "Amt" fields in the User Reports mapping.  You most likely will only need one, but I will explain the three that will jump out as being usable.
 
@@ -47,7 +47,7 @@ While there are over 80 "Amt" fields in the User Reports mapping.  You most like
 
 - **Rep Net Amt** - This field IS the **Rep Split Net Amt * Salesrep Percentage**.  Note that the aggregation of this at the campaign level is not always the Net amount of the order.  This is because multiple reps may be getting commission or a percentage of the campaign.
 
-### User Report NEEDED Status Criteria
+## User Report NEEDED Status Criteria
 
 Most of the time when you are creating a report to get revenue, you **DO NOT** want to include deleted lines.  To ensure this, you will need to add the following criteria to only pull the following **Status** field values
 
@@ -63,9 +63,9 @@ The filter will look like this:
 
 
 
-### User Report Other Fields
+## User Report Other Fields
 
-**Product or Website Field**
+### Product or Website Field
 
 The product and website are stored in the same field.  In the User Reports mapping you can get at the Product/Website ID and Product/Website name from a couple of different places.
 
@@ -74,7 +74,17 @@ In the User Reports mapping you can use:
 - **Pub Id** - This will be the Product/Website Id
 - **Pub Desc** - This will be the Product/Website Description
 
-### User Report Print vs Digital
+### Classified Category Tree and Classified Category
+
+These fields exist in the **AD Internet Classified** mapping but are NOT linked to anything.  However, the individual fields *Category Tree* and *Category* exist on the **AD Internet Orders** mapping.  You can pull these fields in from this mapping and in from the **User Reports** mapping you would get to it by going to the **Internet Order (newer Elan releases)**, which is just the **AD Internet Orders** mapping renamed for this link.
+
+![image-20210525153827370](..\assets\informer-mapping-userreports-002.png)
+
+The above two fields come from the following on the Line Item Detail:
+
+![image-20210525154031808](..\assets\informer-mapping-userreports-003.png)
+
+## User Report Print vs Digital
 
 To determine if a campaign is either Print or Digital, you can use the field **Inet Print Pub Ind** in the User Reports mapping.
 
@@ -96,7 +106,7 @@ $record.PrintOrDigital = PrintDigitalConvert[$record.inetPrintPubInd] || 'Not De
 
 ------
 
-## AD Internet Campaigns mapping
+# AD Internet Campaigns mapping
 
 The AD Internet Campaigns mapping is the at the campaign level.  If you need line item detail, you will need to get that from the AD Internet Orders mapping.
 
@@ -104,7 +114,7 @@ When pulling back records from AD Internet Campaigns, you need to most likely fi
 
 > NOTE: This is the status at the **Campaign** level.  So, it will be filtering on campaign level status's.  If you are pulling data in from AD Internet Orders also, you will need to also filter on the **Line Cancel Status ID (LINE.CANCEL.STATUS.ID #26)**
 
-## AD Internet Orders mapping
+# AD Internet Orders mapping
 
 The AD Internet Orders mapping is the detail level of a campaign.  It will hold the individual line items.
 
@@ -112,7 +122,7 @@ The AD Internet Orders mapping is the detail level of a campaign.  It will hold 
 
 Given that most of the reports that you write that pull data for Orders will want the detail level information found in **Ad Internet Orders**, it is recommended that you start with the AD Internet Orders mapping. 
 
-### Filtering 
+## Filtering
 
 When pulling data from the **AD Internet Orders** mapping, realize that Deleted Lines and potentially unwanted Campaign Status's will be included in your results.  Since most reports do not want this information, you will want to add criteria to filter this information out.
 
@@ -128,7 +138,7 @@ The second field, **Line Cancel Status ID**, makes sure that no Deleted Lines ar
 
 ![image-20210511150826980](..\assets\informer-mapping-adinternetorders-003.png)
 
-### Multivalued Fields
+## Multivalued Fields
 
 You will notice in this mapping that there are a number of Multivalued fields.  Even though we are at the Line level in the **AD Internet Orders** mappings, you will still see multivalued fields.  One of these fields that we will use for Revenue is the **Month Period** field.  Why would a single line within a Campaign have multiple Month Period fields?  
 
@@ -162,7 +172,7 @@ After Normalizing, the above data will now look like this:
 
 ![image-20210511161333417](..\assets\informer-mapping-adinternetorders-006.png)
 
-### Amount Fields
+## Amount Fields
 
 There are a lot of Amount fields in the **AD Internet Orders** mapping.  We will focus on the Month Actual/Est Amt fields and the **Line Price Amt** fields in this document. 
 
@@ -170,7 +180,7 @@ There are a lot of Amount fields in the **AD Internet Orders** mapping.  We will
 
 If you do not need to know the Line Item monthly breakout of revenue, then you can simply use the **Line Price Amt**.  Just be aware that if you include any multivalued fields and normalize on them, the **Line Price Amt** field will be duplicated over those normalized items.
 
-### Month Actual / Est Amt
+## Month Actual / Est Amt
 
 The **Month Actual and Est Amt** multivalued fields have some special rules that need to be followed to get the correct information from a report written using them.
 
