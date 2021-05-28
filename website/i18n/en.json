@@ -4,106 +4,202 @@
     "next": "Next",
     "previous": "Previous",
     "tagline": "",
-    "analytix/analytix-admin-guide": "Analytix Administrator's Guide",
-    "Analytix Admin Guide": "Analytix Admin Guide",
-    "analytix/analytix-ar-analytix-dev-guide": "analytix/analytix-ar-analytix-dev-guide",
-    "analytix/analytix-auto-export-email": "Analytix Auto Export and Email",
-    "Analytix Auto Export and Email": "Analytix Auto Export and Email",
-    "analytix/analytix-balance-to-gl": "Balancing Analytix to the Core Database",
-    "Balancing Analytix to Core": "Balancing Analytix to Core",
-    "analytix/analytix-bi-overview": "Analytix and BI Overview",
-    "Analytix and BI Overview": "Analytix and BI Overview",
-    "analytix/analytix-custom-scripts": "Analytix Custom Scripts",
-    "Analytix Custom Scripts": "Analytix Custom Scripts",
-    "analytix/analytix-exchange-rate": "Exchange Rate / Foreign Currency in Analytix",
-    "Exchange Rate / Foreign Currency in Analytix": "Exchange Rate / Foreign Currency in Analytix",
-    "analytix/analytix-help-advanced-search": "Qlikview Advanced Search",
-    "Qlikview Advanced Search": "Qlikview Advanced Search",
-    "analytix/analytix-install": "Analytix Installation/Upgrade Guide",
-    "Analytix Install/Upgrade Guide": "Analytix Install/Upgrade Guide",
-    "analytix/analytix-overview": "Analytix Overview",
-    "Overview": "Overview",
-    "analytix/analytix-preinstall-checklist": "Analytix Pre Install Checklist",
-    "Analytix Pre Install Checklist": "Analytix Pre Install Checklist",
-    "analytix/analytix-qlik-dev-cookbook": "Qlikview Developer Cookbook",
-    "Qlikview Developer Cookbook": "Qlikview Developer Cookbook",
-    "analytix/analytix-salesflash-developerguide": "Salesflash Developer Guide",
-    "Salesflash Developer Guide": "Salesflash Developer Guide",
-    "analytix/analytix-salesflash-userguide": "Salesflash User Guide",
-    "Salesflash User Guide": "Salesflash User Guide",
-    "analytix/analytix-salesflash-vs-advertisinganalytix": "SalesFlash versus AdvertisingAnalytix",
-    "SalesFlash versus AdvertisingAnalytix": "SalesFlash versus AdvertisingAnalytix",
-    "analytix/analytix-setup": "Analytix Setup",
-    "Analytix Setup": "Analytix Setup",
-    "analytix/analytix-source-control": "Analytix Source Control",
-    "Analytix Source Control": "Analytix Source Control",
-    "analytix/analytix-training-aggr-function": "AGGR Function Training",
-    "AGGR Function Training": "AGGR Function Training",
-    "analytix/analytix-training-set-analysis": "The Power of Set Analysis",
-    "The Power of Set Analysis": "The Power of Set Analysis",
-    "analytix/analytix-using-accesspoint": "Using AccessPoint / IE Plugin Setup",
-    "Using AccessPoint / IE Plugin Setup": "Using AccessPoint / IE Plugin Setup",
-    "bi/bi-auditors": "Running the BI Auditors",
-    "Running The BI Auditors": "Running The BI Auditors",
-    "bi/bi-database-core-mapping": "BI Database Core Mapping",
-    "BI Database Core Mapping": "BI Database Core Mapping",
-    "bi/bi-faq": "BI FAQ",
-    "BI FAQ": "BI FAQ",
-    "bi/bi-resources": "BI Resources",
-    "BI Resources": "BI Resources",
-    "informer/informer-basics": "Informer Basics",
-    "Informer Basics": "Informer Basics",
-    "informer/informer-javascript": "Informer JavaScript Use",
-    "Informer JavaScript Use": "Informer JavaScript Use",
-    "informer/informer-mappings": "Informer Mappings",
-    "Informer Mappings": "Informer Mappings",
-    "informer/informer-saved-functions": "Informer Saved Functions",
-    "Informer Saved Functions": "Informer Saved Functions",
-    "informer/informer-system": "Informer System Stuff",
-    "Informer System Stuff": "Informer System Stuff",
-    "informer/informer-video-training": "Informer Video Training",
-    "Informer Video Training": "Informer Video Training",
-    "insight/insight-duplicate-issues": "InSight Duplicate Fixes",
-    "InSight Duplicate Fixes": "InSight Duplicate Fixes",
-    "insight/insight-sql-commands": "InSight SQL Commands",
-    "InSight SQL Commands": "InSight SQL Commands",
-    "insight/insight": "InSight Docs",
-    "InSight Docs": "InSight Docs",
-    "support-docs": "Support Docs",
-    "Support Docs Overview": "Support Docs Overview",
-    "support/adbase-core-faqs": "Adbase Core FAQS",
-    "Adbase Core FAQS": "Adbase Core FAQS",
-    "support/bi-chargetypes": "BI ChargeTypes Explained",
-    "BI ChargeTypes Explained": "BI ChargeTypes Explained",
-    "support/qlikview-bookmark-management": "Qlikview Bookmark Management",
-    "Qlikview Bookmark Management": "Qlikview Bookmark Management",
-    "support/qlikview-license-management": "Qlikview License Management",
-    "Qlikview License (CALs) Management": "Qlikview License (CALs) Management",
-    "support/qlikview-miscellaneous-support": "Qlikview Miscellaneous Support",
-    "Qlikview Miscellaneous Support": "Qlikview Miscellaneous Support",
-    "support/qlikview-reduce-data": "Remove Data from Qlikview App",
-    "Remove Data from Qlikview App": "Remove Data from Qlikview App",
-    "support/qlikview-server-management": "Qlikview Server Management",
-    "Qlikview Server Management": "Qlikview Server Management",
-    "support/qlikview-server-objects": "Qlikview Server Objects",
-    "Qlikview Server Objects": "Qlikview Server Objects",
-    "support/sql-bi-common-queries": "Common BI Queries",
-    "Common BI Queries": "Common BI Queries",
-    "support/sql-core-common-queries": "Common Core Queries",
-    "Common Core Queries": "Common Core Queries",
-    "Analytix": "Analytix",
-    "BI": "BI",
-    "InSight": "InSight",
-    "Informer": "Informer",
-    "Analytix Intro": "Analytix Intro",
-    "Analytix Setup/Main": "Analytix Setup/Main",
-    "Analytix User Guides": "Analytix User Guides",
-    "Analytix Developer Guides": "Analytix Developer Guides",
-    "Analytix Support Docs": "Analytix Support Docs",
-    "BI Maintenance": "BI Maintenance",
-    "BI/Core Support Docs": "BI/Core Support Docs",
-    "Common SQL Core/BI": "Common SQL Core/BI",
-    "Informer Docs": "Informer Docs"
+    "docs": {
+      "analytix/analytix-admin-guide": {
+        "title": "Analytix Administrator's Guide",
+        "sidebar_label": "Analytix Admin Guide"
+      },
+      "analytix/analytix-ar-analytix-dev-guide": {
+        "title": "analytix/analytix-ar-analytix-dev-guide"
+      },
+      "analytix/analytix-auto-export-email": {
+        "title": "Analytix Auto Export and Email",
+        "sidebar_label": "Analytix Auto Export and Email"
+      },
+      "analytix/analytix-balance-to-gl": {
+        "title": "Balancing Analytix to the Core Database",
+        "sidebar_label": "Balancing Analytix to Core"
+      },
+      "analytix/analytix-bi-overview": {
+        "title": "Analytix and BI Overview",
+        "sidebar_label": "Analytix and BI Overview"
+      },
+      "analytix/analytix-custom-scripts": {
+        "title": "Analytix Custom Scripts",
+        "sidebar_label": "Analytix Custom Scripts"
+      },
+      "analytix/analytix-exchange-rate": {
+        "title": "Exchange Rate / Foreign Currency in Analytix",
+        "sidebar_label": "Exchange Rate / Foreign Currency in Analytix"
+      },
+      "analytix/analytix-help-advanced-search": {
+        "title": "Qlikview Advanced Search",
+        "sidebar_label": "Qlikview Advanced Search"
+      },
+      "analytix/analytix-install": {
+        "title": "Analytix Installation/Upgrade Guide",
+        "sidebar_label": "Analytix Install/Upgrade Guide"
+      },
+      "analytix/analytix-overview": {
+        "title": "Analytix Overview",
+        "sidebar_label": "Overview"
+      },
+      "analytix/analytix-preinstall-checklist": {
+        "title": "Analytix Pre Install Checklist",
+        "sidebar_label": "Analytix Pre Install Checklist"
+      },
+      "analytix/analytix-qlik-dev-cookbook": {
+        "title": "Qlikview Developer Cookbook",
+        "sidebar_label": "Qlikview Developer Cookbook"
+      },
+      "analytix/analytix-salesflash-developerguide": {
+        "title": "Salesflash Developer Guide",
+        "sidebar_label": "Salesflash Developer Guide"
+      },
+      "analytix/analytix-salesflash-userguide": {
+        "title": "Salesflash User Guide",
+        "sidebar_label": "Salesflash User Guide"
+      },
+      "analytix/analytix-salesflash-vs-advertisinganalytix": {
+        "title": "SalesFlash versus AdvertisingAnalytix",
+        "sidebar_label": "SalesFlash versus AdvertisingAnalytix"
+      },
+      "analytix/analytix-setup": {
+        "title": "Analytix Setup",
+        "sidebar_label": "Analytix Setup"
+      },
+      "analytix/analytix-source-control": {
+        "title": "Analytix Source Control",
+        "sidebar_label": "Analytix Source Control"
+      },
+      "analytix/analytix-training-aggr-function": {
+        "title": "AGGR Function Training",
+        "sidebar_label": "AGGR Function Training"
+      },
+      "analytix/analytix-training-set-analysis": {
+        "title": "The Power of Set Analysis",
+        "sidebar_label": "The Power of Set Analysis"
+      },
+      "analytix/analytix-using-accesspoint": {
+        "title": "Using AccessPoint / IE Plugin Setup",
+        "sidebar_label": "Using AccessPoint / IE Plugin Setup"
+      },
+      "bi/bi-auditors": {
+        "title": "Running the BI Auditors",
+        "sidebar_label": "Running The BI Auditors"
+      },
+      "bi/bi-database-core-mapping": {
+        "title": "BI Database Core Mapping",
+        "sidebar_label": "BI Database Core Mapping"
+      },
+      "bi/bi-faq": {
+        "title": "BI FAQ",
+        "sidebar_label": "BI FAQ"
+      },
+      "bi/bi-resources": {
+        "title": "BI Resources",
+        "sidebar_label": "BI Resources"
+      },
+      "informer/informer-basics": {
+        "title": "Informer Basics",
+        "sidebar_label": "Informer Basics"
+      },
+      "informer/informer-javascript": {
+        "title": "Informer JavaScript Use",
+        "sidebar_label": "Informer JavaScript Use"
+      },
+      "informer/informer-mappings": {
+        "title": "Informer Mappings",
+        "sidebar_label": "Informer Mappings"
+      },
+      "informer/informer-saved-functions": {
+        "title": "Informer Saved Functions",
+        "sidebar_label": "Informer Saved Functions"
+      },
+      "informer/informer-system": {
+        "title": "Informer System Stuff",
+        "sidebar_label": "Informer System Stuff"
+      },
+      "informer/informer-video-training": {
+        "title": "Informer Video Training",
+        "sidebar_label": "Informer Video Training"
+      },
+      "insight/insight-duplicate-issues": {
+        "title": "InSight Duplicate Fixes",
+        "sidebar_label": "InSight Duplicate Fixes"
+      },
+      "insight/insight-sql-commands": {
+        "title": "InSight SQL Commands",
+        "sidebar_label": "InSight SQL Commands"
+      },
+      "insight/insight": {
+        "title": "InSight Docs",
+        "sidebar_label": "InSight Docs"
+      },
+      "support-docs": {
+        "title": "Support Docs",
+        "sidebar_label": "Support Docs Overview"
+      },
+      "support/adbase-core-faqs": {
+        "title": "Adbase Core FAQS",
+        "sidebar_label": "Adbase Core FAQS"
+      },
+      "support/bi-chargetypes": {
+        "title": "BI ChargeTypes Explained",
+        "sidebar_label": "BI ChargeTypes Explained"
+      },
+      "support/qlikview-bookmark-management": {
+        "title": "Qlikview Bookmark Management",
+        "sidebar_label": "Qlikview Bookmark Management"
+      },
+      "support/qlikview-license-management": {
+        "title": "Qlikview License Management",
+        "sidebar_label": "Qlikview License (CALs) Management"
+      },
+      "support/qlikview-miscellaneous-support": {
+        "title": "Qlikview Miscellaneous Support",
+        "sidebar_label": "Qlikview Miscellaneous Support"
+      },
+      "support/qlikview-reduce-data": {
+        "title": "Remove Data from Qlikview App",
+        "sidebar_label": "Remove Data from Qlikview App"
+      },
+      "support/qlikview-server-management": {
+        "title": "Qlikview Server Management",
+        "sidebar_label": "Qlikview Server Management"
+      },
+      "support/qlikview-server-objects": {
+        "title": "Qlikview Server Objects",
+        "sidebar_label": "Qlikview Server Objects"
+      },
+      "support/sql-bi-common-queries": {
+        "title": "Common BI Queries",
+        "sidebar_label": "Common BI Queries"
+      },
+      "support/sql-core-common-queries": {
+        "title": "Common Core Queries",
+        "sidebar_label": "Common Core Queries"
+      }
+    },
+    "links": {
+      "Analytix": "Analytix",
+      "BI": "BI",
+      "InSight": "InSight",
+      "Informer": "Informer"
+    },
+    "categories": {
+      "Analytix Intro": "Analytix Intro",
+      "Analytix Setup/Main": "Analytix Setup/Main",
+      "Analytix User Guides": "Analytix User Guides",
+      "Analytix Developer Guides": "Analytix Developer Guides",
+      "Analytix Support Docs": "Analytix Support Docs",
+      "BI Maintenance": "BI Maintenance",
+      "BI Resources": "BI Resources",
+      "BI/Core Support Docs": "BI/Core Support Docs",
+      "Common SQL Core/BI": "Common SQL Core/BI",
+      "InSight Docs": "InSight Docs",
+      "Informer Docs": "Informer Docs"
+    }
   },
   "pages-strings": {
     "Help Translate|recruit community translators for your project": "Help Translate",

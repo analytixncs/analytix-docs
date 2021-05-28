@@ -8,7 +8,7 @@ sidebar_label: Informer Basics
 
 ## Informer Support Links
 
-- [Advanced Filters](https://informer5.zendesk.com/hc/en-us/articles/360001162923-6-7-Advanced-Filters)
+- [Advanced Filters](https://informer5.zendesk.com/hc/en-us/articles/360047674151-Advanced-Filters)
 
 - [Why Datasets vs AdHoc Report](https://informer5.zendesk.com/hc/en-us/articles/360001210986-Why-Use-Datasets-vs-Ad-Hoc-Queries-)
 
