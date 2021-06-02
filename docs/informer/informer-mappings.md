@@ -59,7 +59,7 @@ The **Status** field is located in the **User Reports** mapping and you will wan
 
 The filter will look like this:
 
-![image-20210401095638103](G:\MarkNCS2019\analytix-docs\docs\assets\informer-mapping-userreports-001.png)
+![image-20210401095638103](..\assets\informer-mapping-userreports-001.png)
 
 
 
