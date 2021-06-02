@@ -100,7 +100,11 @@ PrintDigitalConvert = {
 $record.PrintOrDigital = PrintDigitalConvert[$record.inetPrintPubInd] || 'Not Defined'
 ```
 
+## Linage Values
 
+To get the X/Y values you can use the following 
+
+![image-20210602110334607](..\assets\informer-mapping-userreports-linage01.png)
 
 
 
