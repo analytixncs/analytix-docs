@@ -669,7 +669,7 @@ Make a copy of the Dataset in question.  This is very important, you must have a
 
 Highlight the copied Dataset, click on the Actions menu and choose **Bundle and download**
 
-![image-20200831121453939](..\assets\informer_tips_dscopy-001.png)
+![image-20200831121453939](../assets/informer_tips_dscopy-001.png)
 
 **Step 3**
 
@@ -729,8 +729,6 @@ If you have two mappings that are not linked, but do have a field in common, you
 
 
 
-# E
-
 
 
 # Questions When Converting from v4 to v5
@@ -760,5 +758,4 @@ Many times, your need to only set a select set of data to users can be accomplis
 The post filter is located here:
 
 ![1586191934643](../assets/informer_tips_v4-v5_003.png)
-
 

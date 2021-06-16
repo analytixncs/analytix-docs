@@ -1,17 +1,33 @@
-
 @font-face {
-  font-family: 'Objectivity';
-  font-style: normal; 
-  src: url('./css/Objectivity-Medium.woff2') format('woff2');
+  font-family: "Objectivity";
+  font-style: normal;
+  src: url("./css/Objectivity-Medium.woff2") format("woff2");
 }
 @font-face {
-  font-family: 'Karla';
-  font-style: normal; 
-  src: url('./css/Karla-Regular.ttf');
+  font-family: "Karla";
+  font-style: normal;
+  src: url("./css/Karla-Regular.ttf");
 }
 
+p > a {
+  text-decoration: underline !important;
+  color: #684fe3;
+}
+h2 {
+  font-weight: 500 !important;
+}
+h3 {
+  font-weight: 500 !important;
+  /* text-decoration: underline; */
+}
+
+h4 {
+  font-size: 110% !important;
+  font-weight: 400 !important;
+  text-decoration: underline;
+}
 .objectivity-font {
-  font-family: 'Objectivity';
+  font-family: "Objectivity";
 }
 /* your custom css */
 .resource-container {
@@ -47,12 +63,11 @@
 }
 
 .navItemActive {
-    background: lightyellow;
-    border: 1px dashed lightblue !important;
-    font-weight: bold;
-    padding-left: 10px !important;
+  background: lightyellow;
+  border: 1px dashed lightblue !important;
+  font-weight: bold;
+  padding-left: 10px !important;
 }
-
 
 @media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
 }
@@ -68,4 +83,3 @@
 
 @media only screen and (min-width: 1500px) {
 }
-
