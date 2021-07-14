@@ -699,7 +699,7 @@ Click on Save and then verify that the new Dataset has been created.
 
 I have seen times where if steps are not followed, that the target Datasource may get renamed.  If this ever happens you simply need to rename the Datasource back to its original name.
 
-# Creating a Datasource Link
+## Creating a Datasource Link
 
 If you have two mappings that are not linked, but do have a field in common, you may create your own link in Informer.
 
@@ -729,11 +729,33 @@ If you have two mappings that are not linked, but do have a field in common, you
 
 
 
+## Security in Informer
+
+Security in Informer is handled using **Teams** and **Users**.  
+
+The primary uses of the Team/User security is to be able to control which Reports and Datasets a user has access to and also what they can do with the Reports and Datasets that they have access to.
+
+Teams and Users by themselves are not that useful.  It is when we add users to teams that we start to see the power of the security system in Informer.
+
+To start, let us look at the attributes of **Teams** and **Users** separately.
+
+### Users
+
+Users in Informer are created by the Naviga Ad system.  To make this happen, log in to the Naviga Ad system and click on the Informer tile.  This will open up Informer and if it is your first time in Informer, your user will automatically be created.
 
 
-# Questions When Converting from v4 to v5
 
-##  Informer 4 allows for input parameters to be set on the schedule
+### Teams
+
+A team is simple a container for a group of users.  Many sites set up teams to mimic divisions within their company.  
+
+When Informer is first set up for your site, a single team is created and all users automatically get assigned to this team.
+
+
+
+## Questions When Converting from v4 to v5
+
+###  Informer 4 allows for input parameters to be set on the schedule
 
 I am assuming this means setting some sort of filtering criteria for what will be emailed/exported for a job.
 
