@@ -731,7 +731,7 @@ If you have two mappings that are not linked, but do have a field in common, you
 
 ## Security in Informer
 
-Security in Informer is handled using **Teams** and **Users**.  
+Security in Informer is based on **Teams** and **Users**.  
 
 The primary uses of the Team/User security is to be able to control which Reports and Datasets a user has access to and also what they can do with the Reports and Datasets that they have access to.
 
@@ -743,15 +743,90 @@ To start, let us look at the attributes of **Teams** and **Users** separately.
 
 Users in Informer are created by the Naviga Ad system.  To make this happen, log in to the Naviga Ad system and click on the Informer tile.  This will open up Informer and if it is your first time in Informer, your user will automatically be created.
 
+As part of this automatic creation, your user will be added **as a Data Wizard** to the default team predefined for your site.
+
+So what is a **Data Wizard**?  When you add a User to a Team, you must assign them a **Role** on that team.  The **Role** defines what the user can DO with the items they will have access to by being part of the team.  [See the Roles a User can have on a Team](#user-roles-on-teams).
+
+The Data Wizard role is able to do many things, so you may want to adjust this role for some users.  Here are the main "power" features of a Data Wizard:
+
+- Create their own Datasets.
+- Edit any Dataset or Report owned/shared to the Team.
+
+When a user is created, it is given the **Normal User** permission.  This is what most users should be.  The other additional attributes that you can add the the Normal User permission are:
+
+- **Job Creation** - The ability to create Jobs.
+- **Painless Script Creation** - You can ignore this option.
+
+For system administrator users, you will change their permission from **Normal User** to **Super User**.
+
+**Super Users** have full access rights to the entire system, superseding any Team-based Role assignment. A Super User can view **all** content within the system, including all fields within a Datasource, and can modify any Datasource, Dataset, Report, or Job.
+
+Very few users should have **Super User** access.
+
 
 
 ### Teams
 
-A team is simple a container for a group of users.  Many sites set up teams to mimic divisions within their company.  
+A team is simply a container for a group of users.  Many sites set up teams to mimic divisions within their company.  
 
-When Informer is first set up for your site, a single team is created and all users automatically get assigned to this team.
+When Informer is first set up for your site, a single team is created and all users automatically get assigned to this team with the Role of **Data Wizard**.
 
 
+
+### User Roles on Teams
+
+As stated before, the flexibility in the security structure is made possible by assigning roles to users as you add them to different teams.
+
+Here are the different roles that you can assign a user when adding them to a team.
+
+| **Role Name**   | **Rights**                                                   |
+| --------------- | ------------------------------------------------------------ |
+| **Member**      | View anything Owned by the Team                              |
+| **Designer**    | All **Member** rights<br />Create content from Datasets available to the Team<br />Upload spreadsheets into new Datasets<br />Create Reports from Datasources available to the Team<br />Create and manage Tags |
+| **Data Wizard** | All **Designer** rights<br />Create Datasets from Datasources available to the Team<br />Create Workspaces<br />Edit Team-owned Datasets<br />Promote their private Dataset filters to public. |
+| **Publisher**   | All **Data Wizard** rights<br />Share Team-owned Datasets and Reports to other Teams.<br />Generate external links to Visuals and Reports<br />Create access tokens<br />Create one-off Bundles of Team-owned Datasets and Reports |
+| **Admin**       | All **Publisher** rights<br />Manage members<br />Create any type of Datasource<br />Share a Team-owned Datasource to other Teams<br />Create one-off Bundles of Team-owned Datasources |
+
+It is good to understand that if a resource (Dataset, report, etc) is shared with multiple teams and a user is a member of each of those teams, the most advanced user role that the user has will take precedence.
+
+For example, if you have **TeamRep** and **TeamAdministrator** teams with a user named **User_One** that has the following user role assignments for each team:
+
+- **TeamRep**
+  - User_One - Member Role
+- **TeamAdministrator**
+  - User_One - Publisher Role
+
+Consider that we have a Dataset shared with both of the above teams.  When **User_One** goes to view that dataset, they will view it with the **Publisher Role** because that is the greatest role for them on that Dataset.
+
+This is an important consideration when setting up complex security scenarios with users existing in multiple teams, giving you great flexibility, but also requiring you to spend some time fully mapping out what you want to get out of the security.
+
+### Limiting Data by Team Assignment
+
+You can also use Team assignment to limit data in datasets.
+
+For example, if you had two teams, **Team Division 1** and **Team Division 2**. Each team will have users assigned to them and we want to be able to use these teams to limit data seen by users of the teams.
+
+This is done at the level of **Sharing a Dataset**.
+
+When you create a dataset, you have the options to share that dataset with teams or users.  When you share the dataset, you have an additional option of being able to share it to a team, but only certain data.
+
+The way you specify which data is through a filter.
+
+First, you create the filters that will be used to limit the data when sharing.  Here I have created two filters, one that limits data for each team that I am working with:
+
+![image-20210719140718010](..\assets\informer_basics-security-001.png)
+
+Next, you will need to  **Share** the dataset with the appropriate teams.
+
+![image-20210719140957124](..\assets\informer_basics-security-002.png)
+
+The dialog that you see when you press **ADD USER OR TEAM** is where the magic happens.
+
+![image-20210719150142787](..\assets\informer_basics-security-003.png)
+
+You can, and will, add multiple teams.  They important part is that for each team, you select **Fitered access** and choose the filters that you want to be applied when any user of the team view the dataset OR a report that uses the dataset.
+
+This becomes a very powerful tool, but again, though needs to be put into the team structure and how the filters are to be constructed to make sure the proper outcome is achieved.
 
 ## Questions When Converting from v4 to v5
 
