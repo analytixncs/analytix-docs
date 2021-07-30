@@ -4,6 +4,57 @@ title: Informer Mappings
 sidebar_label: Informer Mappings
 ---
 
+## Templates
+
+### User Reports
+
+This dataset template uses the User Reports Mapping as its starting point.
+
+> Download the Dataset:
+> **[[TEMPLATE]-User Reports](..\assets\downloads\informer\template-user-reports.tgz)**
+
+The User Reports mapping is a table in the Naviga Database that brings together commonly used reporting items into a single table.
+
+With that said, the User Reports mapping also has useful relationships to other mappings that can be utilized to access information that is not contained in the User Reports mapping itself.
+
+**Base Mapping** - User Reports
+
+| Field Name                 | Mapping - User Reports                                       | Description                                                  |
+| -------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Campaign  ID               |                                                              | ID Identifying the Campaign                                  |
+| Line ID                    | Internet Orders (newer Elan Releases)                        | Every campaign has Lines (Orders). This ID identifies the line within a campaign. |
+| Advertiser  Name           |                                                              |                                                              |
+| Brand  Name                |                                                              |                                                              |
+| Product Id                 |                                                              | Product or Website ID                                        |
+| Product Name               |                                                              | Product or Website Name                                      |
+| Start  Date                |                                                              | Month Start Date for the Line ID (Note: Line IDs can have multiple rows with different start dates.) |
+| End Date                   |                                                              | Month End Date for the Line ID                               |
+| Rep Name                   |                                                              |                                                              |
+| Line Net  Amount           |                                                              | Calculated Net amount for the Line ID.  This field can be aggregated |
+| Rep Net  Amt               |                                                              | If you have Rep Name in your report, you will want to use this amount field.  It takes into account when multiple reps are on a Line and their Rep Percentage. |
+| Salesrep  Percent          |                                                              | Percentage of Line attributed to the Rep (already taken into account in the Rep Net Amt field.) |
+| Confirmed  Date            |                                                              |                                                              |
+| Period                     |                                                              | Date Order was recognized in the format of "YYYY-MM"         |
+| Revenue  Date              |                                                              | Same as Period except in a Date format MM-DD-YYYY.  The day will always be the first day of the month. |
+| Status                     |                                                              | EX - Billed, RU - Confirmed, IS - Invoicing Started, DE - Line Deleted |
+| Campaign  Type             | Internet Orders (newer Elan Releases) -><br />AD Internet Campaigns | F - Flexible Campaign<br />M - Performance Campaign          |
+| Campaign  Description      | Internet Orders (newer Elan Releases) -><br />AD Internet Campaigns |                                                              |
+| Line  Desc                 | Internet Orders (newer Elan Releases)                        |                                                              |
+| Ad Size                    |                                                              |                                                              |
+| GL Type  ID                |                                                              |                                                              |
+| GL Types  Description      | AD Internet GL Types                                         |                                                              |
+| Position  Description      | Internet Orders (newer Elan Releases) -><br />AD Internet Positions |                                                              |
+| Ad Types  Description      | Internet Orders (newer Elan Releases) -><br />AD Internet AD Types |                                                              |
+| Rep  Indicator             |                                                              | Used in Line Net Amt Calculation see [User Reports Revenue Fields]((https://analytix-docs.netlify.app/docs/informer/informer-mappings.html#user-reports-revenue-fields)) |
+| Advertiser  Client Type    | Advertiser                                                   |                                                              |
+| Advertiser  Client Type ID | Advertiser                                                   |                                                              |
+| IN Size                    |                                                              |                                                              |
+| Size                       |                                                              |                                                              |
+| Mo Est  Impression Qty     |                                                              |                                                              |
+| Mo Act  Impression Qty     |                                                              |                                                              |
+| Division                   |                                                              |                                                              |
+| Division  Name             |                                                              |                                                              |
+
 ## User Reports Mappings
 
 ### User Reports vs User Reports Original Rep
