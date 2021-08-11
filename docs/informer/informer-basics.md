@@ -504,9 +504,31 @@ You can choose to attach the data associated with the user email and/or include 
 
 ![image-20200210094850978](../assets/informer_tips_jobs-002.png)
 
+### Creating Dynamic Export File Names
+
+When attaching a CSV or Excel file to an email or when sending to the File System or FTP, it is sometimes useful to be able to make the name unique based on the run.
+
+The option that you have in an Informer Job is to introduce date information into the file name.  You will be able to do this when you add an attachment to a Job Action.
+
+![image-20210811130332384](..\assets\informer-basics-jobs-dynamicnames_001.png)
+
+As noted in the screenshot above, you can use the following syntax to add a date component to your file name:
+
+`${date('YYYY-MM-DD')}`
+
+The format string above `('YYYY-MM-DD')`, is a Moment JS formatting string.  You can read more about it:
+
+[Formatting Date with Moment](.\informer-javascript#using-the-momentjs-date-library)
+
+[Official Moment JS Docs on Formatting](https://momentjs.com/docs/#/parsing/string-format/)
+
+
+
 ### Alerts for Failed Jobs
 
-There is no direct way to get an email or other notification that a job has failed, however, you can load up informer as a Datasource and create a report from the metadata stored within.
+There is no direct way to get an email or other notification that a job has failed, however, you can create a new Datasource in Informer that points to the *metadata* database that informer maintains.  
+
+This database contains tables that hold information about the Informer system, including jobs.
 
 [Setup Informer Metadata Datasource](informer-system)
 
@@ -540,7 +562,7 @@ This will not save the pivot anywhere in the report, but instead will save it to
 
 You can then view the saved visual by opening the Dataset and clicking on the "Visuals" icon:
 
-![image-20200508114425051](G:\MarkNCS2019\analytix-docs\docs\assets\informer_tips_pivotjob-002.png)
+![image-20200508114425051](..\assets\informer_tips_pivotjob-002.png)
 
 You can also create new visuals from this area also.
 
@@ -558,7 +580,7 @@ From the Visuals page, select the visual you want to export by simply clicking o
 
 This will bring up the following dialog:
 
-![image-20200508115650990](G:\MarkNCS2019\analytix-docs\docs\assets\informer_tips_pivotjob-005.png)
+![image-20200508115650990](..\assets\informer_tips_pivotjob-005.png)
 
 Click on **Copy** and store this link in notepad for later use.
 
