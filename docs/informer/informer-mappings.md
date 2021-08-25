@@ -30,7 +30,7 @@ With that said, the User Reports mapping also has useful relationships to other 
 | Start  Date                |                                                              | Month Start Date for the Line ID (Note: Line IDs can have multiple rows with different start dates.) |
 | End Date                   |                                                              | Month End Date for the Line ID                               |
 | Rep Name                   |                                                              |                                                              |
-| Line Net  Amount           |                                                              | Calculated Net amount for the Line ID.  This field can be aggregated |
+| Line Net  Amount           |                                                              | Calculated Net amount for the Line ID.  This field can be aggregated [More Info](#user-reports-revenue-fields) |
 | Rep Net  Amt               |                                                              | If you have Rep Name in your report, you will want to use this amount field.  It takes into account when multiple reps are on a Line and their Rep Percentage. |
 | Salesrep  Percent          |                                                              | Percentage of Line attributed to the Rep (already taken into account in the Rep Net Amt field.) |
 | Confirmed  Date            |                                                              |                                                              |
@@ -167,6 +167,10 @@ If they change the Brand Rep and **do not say yes to update future orders** then
 ### User Reports Revenue Fields
 
 While there are over 80 "Amt" fields in the User Reports mapping.  You most likely will only need one, but I will explain the three that will jump out as being usable.
+
+> NOTE: All of the fields described below will show NET revenue:
+>
+> ![image-20210825100739241](..\assets\informer-mapping-userreports-revenue001.png)
 
 - **Order Net Amt** - This is the total net amount for the campaign.  The problem with this field is that it will be duplicated for every line item in User Reports for an order.  If you are going to do any aggregation on the field, you will need to add a flow step to remove the duplicates.  [Remove Duplicates Code](./informer-javascript/#remove-duplicate-values-in-aggregation)
 
