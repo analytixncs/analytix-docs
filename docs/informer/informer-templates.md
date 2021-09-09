@@ -139,3 +139,42 @@ The Templating engine being used is  [Nunjucks](https://mozilla.github.io/nunjuc
 </html>
 ```
 
+## Inject Data into JavaScript Assets
+
+The scenario is that you want to access the data that is stored in Context within your own JavaScript scripts in the Assets section.
+
+You will find that if you try to send and Object or Array from within a `script` tag, you will just get the string `[object, object]`.
+
+The workaround is to create a couple of filter functions in the **helpers.js** file that will stringify the array or object:
+
+**helpers.js**
+
+```Javascript
+function stringifyData(data) {
+    return JSON.stringify(data)
+}
+```
+
+Then when you pass your data to your function use the following syntax:
+
+**template.njk**
+
+```html
+<html>    
+  <script>
+    createChart('{{ mrmAdSalesreps.records | stringifyData | safe }}')
+  </script>
+</html>  
+```
+
+Lastly, within the function that you call with this data, you must parse the stringified data back into a JavaScript "Object".
+
+**Assets/chart.js**
+
+```javascript
+function createChart(dataIn) {
+    chartData = JSON.parse(dataIn)
+    ....
+}
+```
+
