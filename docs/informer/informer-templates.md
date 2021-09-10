@@ -145,6 +145,8 @@ The scenario is that you want to access the data that is stored in Context withi
 
 You will find that if you try to send and Object or Array from within a `script` tag, you will just get the string `[object, object]`.
 
+### Option 1
+
 The workaround is to create a couple of filter functions in the **helpers.js** file that will stringify the array or object:
 
 **helpers.js**
@@ -177,4 +179,26 @@ function createChart(dataIn) {
     ....
 }
 ```
+
+### Option 2
+
+The other option is to stringify the data via a Powerscript and store in the context.  Then you can skip the `stringify` filter step.
+
+This will create a new context entry called myRecords.
+
+```javascript
+$ctx.myRecords = JSON.stringify($ctx.mrmAdSalesreps.records)
+```
+
+You will still need to run the `safe` filter and parse the data:
+
+```html
+<html>    
+  <script>
+    createChart(JSON.parse()'{{ myRecords | safe }}'))
+  </script>
+</html>  
+```
+
+
 
