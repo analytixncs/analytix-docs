@@ -9,6 +9,11 @@
   src: url("./css/Karla-Regular.ttf");
 }
 
+a {
+  text-decoration: underline !important;
+  color: #684fe3;
+}
+
 p > a {
   text-decoration: underline !important;
   color: #684fe3;

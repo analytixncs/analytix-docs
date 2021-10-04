@@ -63,6 +63,7 @@
     "Informer Docs": [
       "informer/informer-video-training",
       "informer/informer-basics",
+      "informer/informer-rest-api",
       "informer/informer-javascript",
       "informer/informer-saved-functions",
       "informer/informer-mappings",
