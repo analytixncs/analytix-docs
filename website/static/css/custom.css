@@ -10,8 +10,12 @@
 }
 
 a {
-  text-decoration: underline !important;
+  text-decoration: underline;
   color: #684fe3;
+}
+
+li > a {
+  text-decoration: none;
 }
 
 p > a {
